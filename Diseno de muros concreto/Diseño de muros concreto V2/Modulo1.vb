@@ -89,8 +89,11 @@
         End If
 
     End Sub
+
     Sub validar_info2(ByVal Nombre_Muro As String, ByVal Story As String, ByVal i As Integer, ByVal C As Integer, ByVal Data_alzado As DataGridView) ''Actualiza los datos de la informacion del alzado del muro de concreto
 
+        Dim Muro_i As Muros_Consolidados
+        Dim Muros_hijos As List(Of Muros_Consolidados) = New List(Of Muros_Consolidados)
         Dim Indice As Integer
         Dim Alzado_i As alzado_muro
 
@@ -108,6 +111,45 @@
 
         End If
 
+        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Nombre_Muro)
+
+        If Muro_i.isMuroMaestro = True Then
+
+            Find_Muros_Hijos(Muro_i, Muros_hijos)
+
+            If Muros_hijos.Count > 0 Then
+
+                For j = 0 To Muros_hijos.Count - 1
+
+                    If alzado_lista.Exists(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story) = False Then
+                        Alzado_i = New alzado_muro
+                        Alzado_i.pier = Muros_hijos(j).Pier_name
+                        Alzado_i.story = Story
+                        Agregar_Columnas(i, C, Data_alzado, Alzado_i)
+                        alzado_lista.Add(Alzado_i)
+                    Else
+                        Indice = alzado_lista.FindIndex(Function(x) x.pier = Muros_hijos(i).Pier_name And x.story = Story)
+                        Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
+                    End If
+
+                Next
+
+            End If
+
+        End If
+
+    End Sub
+
+    Public Sub Find_Muros_Hijos(Muro_i As Muros_Consolidados, Muros_hijos As List(Of Muros_Consolidados))
+
+        For j = 0 To Muros_lista_2.Count - 1
+
+            If Muros_lista_2(j).MuroSimilar IsNot Nothing = True Then
+                If Muros_lista_2(j).MuroSimilar.Pier_name = Muro_i.Pier_name Then
+                    Muros_hijos.Add(Muros_lista_2(j))
+                End If
+            End If
+        Next
     End Sub
 
     Private Sub Agregar_Columnas(ByVal i As Integer, ByVal C As Integer, ByVal Data_alzado As DataGridView, ByVal Alzado_i As alzado_muro)

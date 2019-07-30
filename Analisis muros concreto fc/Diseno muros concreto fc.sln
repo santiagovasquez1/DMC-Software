@@ -1,26 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diseno muros concreto fc", "Diseno muros concreto fc\Diseno muros concreto fc.csproj", "{8410EE88-4D11-4EAA-9C8B-CDE1F16470B2}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Prueba2", "..\DibujoSecciones\Prueba2\Prueba2.vbproj", "{128E1624-2C72-4810-9C20-FE8FAE69FC33}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V2", "..\Diseño de muros concreto V2\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj", "{6939A936-5C65-4160-B74F-2681EC5D14A8}"
-EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "setup", "..\Diseño de muros concreto V2\Instalador Muros Concreto V2\Debug\setup.exe", "{06BF099C-A817-438D-BB8F-328878F64BB9}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = D:\Visual Studio\Proyectos Visual Studio\Diseño de muros concreto V2\Instalador Muros Concreto V2\Debug\setup.exe
-		RemoteMachine = FC-SVASQUEZ1
-		StartingDirectory = D:\Visual Studio\Proyectos Visual Studio\Diseño de muros concreto V2\Instalador Muros Concreto V2\Debug
-		Environment = Predeterminado
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-	EndProjectSection
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V2", "..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj", "{6939A936-5C65-4160-B74F-2681EC5D14A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,10 +41,6 @@ Global
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.Build.0 = Release|Any CPU
-		{06BF099C-A817-438D-BB8F-328878F64BB9}.Debug|Any CPU.ActiveCfg = Release
-		{06BF099C-A817-438D-BB8F-328878F64BB9}.Debug|x86.ActiveCfg = Release
-		{06BF099C-A817-438D-BB8F-328878F64BB9}.Release|Any CPU.ActiveCfg = Release
-		{06BF099C-A817-438D-BB8F-328878F64BB9}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

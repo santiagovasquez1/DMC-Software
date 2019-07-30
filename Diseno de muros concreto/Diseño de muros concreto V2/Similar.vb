@@ -198,18 +198,9 @@ Public Class Similar
                                 alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = Nothing
                             End If
                         End If
-
                     Next
-
-
-
-
                 End If
-
-
             End With
-
-
         Next
 
 
@@ -276,37 +267,11 @@ Public Class Similar
 
         ConfirmarMaestrosSimilares(DataGrid_Muros)
         ' AsignarSimilitudDeMuros(DataGrid_Muros)
-
         Me.Close()
     End Sub
 
 
     Sub AsignarSimilitudDeMuros(DataGrid As DataGridView)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         For i = 0 To DataGrid.Rows.Count - 1
             With DataGrid.Rows(i)
@@ -341,9 +306,6 @@ Public Class Similar
                     Muros_lista_2(MuroSimilarIndice).sep_htal = MuroMaestro.sep_htal
                     Muros_lista_2(MuroSimilarIndice).As_Htal_Total = MuroMaestro.As_Htal_Total
 
-
-
-
                     For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
 
                         MuroSimilarIndice = alzado_lista.FindIndex(Function(x1) x1.pier = NombreMuroSimilar And x1.story = "Story" & j + 1)
@@ -371,8 +333,6 @@ Public Class Similar
                         End If
                     Next
 
-
-
                     For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
 
                         MuroSimilarIndice = refuerzo_lista.FindIndex(Function(x1) x1.piername = NombreMuroSimilar And x1.pierstory = "Story" & j + 1)
@@ -380,7 +340,6 @@ Public Class Similar
 
                         Dim MuroMaestro3 As New Refuerzo_muros
                         MuroMaestro3 = refuerzo_lista.Find(Function(x1) x1.piername = NombreMuroMaestro)
-
 
                         If MuroSimilarIndice <> -1 And MuroMaestro3 IsNot Nothing Then
                             refuerzo_lista(MuroSimilarIndice).piername = NombreMuroSimilar
@@ -410,23 +369,10 @@ Public Class Similar
                             NuevoMuro.total = MuroMaestro3.total
                             refuerzo_lista.Add(NuevoMuro)
                         End If
-
-
-
                     Next
-
-
-
-
                 End If
-
-
             End With
-
-
         Next
-
-
     End Sub
 
 

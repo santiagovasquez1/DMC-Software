@@ -5,9 +5,11 @@ Public Class Guardar_Archivo
     Dim Ruta As String
     Dim Lista_Texto As List(Of String)
 
-    Public Sub New(ByVal Ruta_archivo As String)
+    Public Sub New(ByVal Ruta_archivo As String, ByVal Data_alzado As DataGridView)
 
         Ruta = Ruta_archivo
+
+
 
         If Muros_lista_2 IsNot Nothing Then
             Actualizar_Resumen()

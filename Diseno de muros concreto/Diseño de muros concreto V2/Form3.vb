@@ -608,10 +608,13 @@ Public Class f_alzado
     End Sub
 
     Private Sub Data_info_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Data_info.CellEndEdit
+
         Dim indice, Indice2 As Integer
         Dim datos_refuerzo As New Refuerzo_muros
         Dim prueba As String = Mid(Data_info.Columns(5).HeaderText, 2)
         Dim suma As Single
+        Dim Muro_i As Muros_Consolidados
+        Dim Muros_Hijos As List(Of Muros_Consolidados) = New List(Of Muros_Consolidados)
 
         indice = e.RowIndex
         datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
@@ -655,12 +658,25 @@ Public Class f_alzado
             refuerzo_lista.Add(datos_refuerzo)
         End If
 
+        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = datos_refuerzo.piername)
+        Find_Muros_Hijos(Muro_i, Muros_Hijos)
+
+        If Muros_Hijos.Count > 0 Then
+            For j = 0 To Muros_Hijos.Count - 1
+
+                datos_refuerzo.piername = Muros_Hijos(j).Pier_name
+                Indice2 = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo.piername And x.pierstory = datos_refuerzo.pierstory)
+
+                If Indice2 >= 0 Then
+                    refuerzo_lista(Indice2) = datos_refuerzo
+                Else
+                    refuerzo_lista.Add(datos_refuerzo)
+                End If
+            Next
+        End If
+
         Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
 
-
-    End Sub
-
-    Private Sub Panel11_Paint(sender As Object, e As PaintEventArgs) Handles Panel11.Paint
 
     End Sub
 
@@ -677,9 +693,5 @@ Public Class f_alzado
             End If
 
         End If
-    End Sub
-
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-
     End Sub
 End Class
