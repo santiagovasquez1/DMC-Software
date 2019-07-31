@@ -110,6 +110,7 @@ Partial Class f_alzado
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -127,6 +128,7 @@ Partial Class f_alzado
         Me.Panel8.SuspendLayout()
         CType(Me.pb_Alzado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel9.SuspendLayout()
+        Me.Panel11.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -961,10 +963,20 @@ Partial Class f_alzado
         'Panel11
         '
         Me.Panel11.BackColor = System.Drawing.Color.Gray
+        Me.Panel11.Controls.Add(Me.Button1)
         Me.Panel11.Location = New System.Drawing.Point(0, 25)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(1611, 800)
         Me.Panel11.TabIndex = 26
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(586, 3)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(49, 24)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'f_alzado
         '
@@ -1007,6 +1019,7 @@ Partial Class f_alzado
         CType(Me.pb_Alzado, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        Me.Panel11.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1097,4 +1110,5 @@ Partial Class f_alzado
     Friend WithEvents cb_cuantiavol As Button
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Label9 As Label
+    Friend WithEvents Button1 As Button
 End Class

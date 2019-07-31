@@ -669,4 +669,8 @@ Public Class f_alzado
         'Next
 
     End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        GenerarCantidades(alzado_lista, Muros_lista_2)
+    End Sub
 End Class

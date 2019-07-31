@@ -136,6 +136,8 @@
   <ItemGroup>
     <Compile Include="alzado_muro.vb" />
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Cantidades1.vb" />
+    <Compile Include="Organizar_alzados.vb" />
     <Compile Include="Similar.Designer.vb">
       <DependentUpon>Similar.vb</DependentUpon>
     </Compile>
