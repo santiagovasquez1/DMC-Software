@@ -409,9 +409,6 @@ namespace Diseno_muros_concreto_fc
             this.Width = 1553 + 200;
             this.Height = 760 + 35;
 
-
-
-
             // this.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
 
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario3);

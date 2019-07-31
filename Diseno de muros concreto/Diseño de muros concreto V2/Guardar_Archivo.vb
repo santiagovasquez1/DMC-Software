@@ -5,10 +5,17 @@ Public Class Guardar_Archivo
     Dim Ruta As String
     Dim Lista_Texto As List(Of String)
 
-    Public Sub New(ByVal Ruta_archivo As String, ByVal Data_alzado As DataGridView)
+    Public Sub New(ByVal Ruta_archivo As String)
+
+        'Dim Data_Alzado As DataGridView
 
         Ruta = Ruta_archivo
 
+        'If Data_alzado IsNot Nothing Then
+        '    For i = 0 To datos_alzado.Count - 1
+
+        '    Next
+        'End If
 
 
         If Muros_lista_2 IsNot Nothing Then

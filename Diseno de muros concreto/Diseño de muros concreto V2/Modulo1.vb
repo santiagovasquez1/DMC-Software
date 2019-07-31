@@ -101,43 +101,101 @@
             Alzado_i = New alzado_muro
             Alzado_i.pier = Nombre_Muro
             Alzado_i.story = Story
-
             Agregar_Columnas(i, C, Data_alzado, Alzado_i)
             alzado_lista.Add(Alzado_i)
         Else
-
             Indice = alzado_lista.FindIndex(Function(x) x.pier = Nombre_Muro And x.story = Story)
             Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
-
         End If
 
-        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Nombre_Muro)
+        'Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Nombre_Muro)
 
-        If Muro_i.isMuroMaestro = True Then
+        'If Muro_i.isMuroMaestro = True Then
 
-            Find_Muros_Hijos(Muro_i, Muros_hijos)
+        '    Find_Muros_Hijos(Muro_i, Muros_hijos)
 
-            If Muros_hijos.Count > 0 Then
+        '    If Muros_hijos.Count > 0 Then
 
-                For j = 0 To Muros_hijos.Count - 1
+        '        For j = 0 To Muros_hijos.Count - 1
 
-                    If alzado_lista.Exists(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story) = False Then
-                        Alzado_i = New alzado_muro
-                        Alzado_i.pier = Muros_hijos(j).Pier_name
-                        Alzado_i.story = Story
-                        Agregar_Columnas(i, C, Data_alzado, Alzado_i)
-                        alzado_lista.Add(Alzado_i)
-                    Else
-                        Indice = alzado_lista.FindIndex(Function(x) x.pier = Muros_hijos(i).Pier_name And x.story = Story)
-                        Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
-                    End If
+        '            If alzado_lista.Exists(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story) = False Then
+        '                Alzado_i = New alzado_muro
+        '                Alzado_i.pier = Muros_hijos(j).Pier_name
+        '                Alzado_i.story = Story
+        '                Agregar_Columnas(i, C, Data_alzado, Alzado_i)
+        '                alzado_lista.Add(Alzado_i)
+        '            Else
+        '                Indice = alzado_lista.FindIndex(Function(x) x.pier = Muros_hijos(i).Pier_name And x.story = Story)
+        '                Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
+        '            End If
 
-                Next
+        '        Next
 
-            End If
+        '    End If
 
+        'End If
+
+    End Sub
+
+    Public Sub Validar_info_3(indice As Integer, ByRef Indice2 As Integer, datos_refuerzo As Refuerzo_muros, ByRef suma As Single, ByRef Muro_i As Muros_Consolidados, Muros_Hijos As List(Of Muros_Consolidados), ByVal Data_info As DataGridView)
+
+        datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
+        datos_refuerzo.pierstory = Data_info.Rows(indice).Cells(1).Value
+        datos_refuerzo.bw = Data_info.Rows(indice).Cells(2).Value
+
+        datos_refuerzo.as_req = Data_info.Rows(indice).Cells(6).Value
+
+        For i = 9 To Data_info.ColumnCount - 1
+            datos_refuerzo.diametro.Add(Int(Mid(Data_info.Columns(i).HeaderText, 2)))
+            datos_refuerzo.cantidad.Add(Data_info.Rows(indice).Cells(i).Value)
+        Next
+
+        suma = 0
+        For i = 0 To datos_refuerzo.diametro.Count - 1
+            suma = suma + areas_refuerzo(datos_refuerzo.diametro(i)) * datos_refuerzo.cantidad(i)
+        Next
+
+        datos_refuerzo.total = suma
+        datos_refuerzo.porcentaje = datos_refuerzo.total / datos_refuerzo.as_req
+
+        If datos_refuerzo.total > 0 Then
+            Data_info.Rows(indice).Cells(7).Value = Format(datos_refuerzo.total, "##,0.00")
+            Data_info.Rows(indice).Cells(8).Value = Math.Round(datos_refuerzo.porcentaje * 100, 1) & "%"
+        Else
+            Data_info.Rows(indice).Cells(7).Value = Format(0.00, "##,0.00")
+            Data_info.Rows(indice).Cells(8).Value = Math.Round(0.00, 1) & "%"
         End If
 
+        If datos_refuerzo.porcentaje < 0.95 Or datos_refuerzo.porcentaje > 1.05 Then
+            Data_info.Rows(indice).Cells(8).Style.ForeColor = Color.Red
+        Else
+            Data_info.Rows(indice).Cells(8).Style.ForeColor = Color.Black
+        End If
+
+        Indice2 = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo.piername And x.pierstory = datos_refuerzo.pierstory)
+
+        If Indice2 >= 0 Then
+            refuerzo_lista(Indice2) = datos_refuerzo
+        Else
+            refuerzo_lista.Add(datos_refuerzo)
+        End If
+
+        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = datos_refuerzo.piername)
+        Find_Muros_Hijos(Muro_i, Muros_Hijos)
+
+        If Muros_Hijos.Count > 0 Then
+            For j = 0 To Muros_Hijos.Count - 1
+
+                datos_refuerzo.piername = Muros_Hijos(j).Pier_name
+                Indice2 = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo.piername And x.pierstory = datos_refuerzo.pierstory)
+
+                If Indice2 >= 0 Then
+                    refuerzo_lista(Indice2) = datos_refuerzo
+                Else
+                    refuerzo_lista.Add(datos_refuerzo)
+                End If
+            Next
+        End If
     End Sub
 
     Public Sub Find_Muros_Hijos(Muro_i As Muros_Consolidados, Muros_hijos As List(Of Muros_Consolidados))
