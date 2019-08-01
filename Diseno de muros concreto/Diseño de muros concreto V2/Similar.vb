@@ -131,10 +131,6 @@ Public Class Similar
                                 If refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
                                     Dim NuevoMuroRefuerzo As New Refuerzo_muros
 
-                                    'NuevoMuroRefuerzo = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
-                                    'NuevoMuroRefuerzo.piername = .Cells(0).Value
-                                    'NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
-
                                     NuevoMuroRefuerzo.MuroCreadoDespues = True
                                     NuevoMuroRefuerzo.piername = .Cells(0).Value
                                     NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))

@@ -1045,6 +1045,9 @@ Module Module1
         Dim Estribos As New Crear_Estribos
         Estribos.Determinar_Estribos(Formulario)
 
+        Dim Estribos_Totales As New Estribos_Totales
+        Estribos_Totales.Estribos_Pisos(0)
+
         Muros_V.Clear()
         ListaOrdenada.Clear()
         Selecccionar.Clear()

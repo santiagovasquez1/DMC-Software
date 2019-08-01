@@ -35,7 +35,7 @@ Public Class Crear_Estribos
                 End If
 
                 If ListaOrdenada(i).MurosVecinosDerecha.Count > 0 Then
-                    Punto_final = {ListaOrdenada(i).MurosVecinosIzquierda(0).Xmax - 0.038, ListaOrdenada(i).Ymin + (ListaOrdenada(i).Ymax - ListaOrdenada(i).Ymin) / 2, 0}
+                    Punto_final = {ListaOrdenada(i).MurosVecinosDerecha(0).Xmax - 0.038, ListaOrdenada(i).Ymin + (ListaOrdenada(i).Ymax - ListaOrdenada(i).Ymin) / 2, 0}
                 Else
                     Punto_final = {ListaOrdenada(i).Xmax - 0.038, ListaOrdenada(i).Ymin + (ListaOrdenada(i).Ymax - ListaOrdenada(i).Ymin) / 2, 0}
                 End If

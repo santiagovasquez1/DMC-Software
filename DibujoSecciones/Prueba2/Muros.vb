@@ -43,8 +43,6 @@ Public Class Muros
     Public Property YmaxE As Double
 
 
-
-
     Public LEB_Iz As Double
     Public LEB_Dr As Double
 
@@ -53,15 +51,10 @@ Public Class Muros
     Public YminM As Double
     Public YmaxM As Double
 
-
-
     Public Hatch_pattern_Izq As String
     Public Hatch_pattern_Der As String
     Public Hatch_Layer_Izq As String
     Public Hatch_Layer_Der As String
-
-
-
 
 
     Public Longitud As Double
@@ -257,6 +250,8 @@ Public Class Muros_Consolidados
 
     Public Pier_name As String
     Public Stories As List(Of String) = New List(Of String)
+    Public Reduccion As String = "Sin Reducc"
+
     Public Bw As List(Of Single) = New List(Of Single)
     Public lw As List(Of Single) = New List(Of Single)
     Public Hw As List(Of Single) = New List(Of Single)
