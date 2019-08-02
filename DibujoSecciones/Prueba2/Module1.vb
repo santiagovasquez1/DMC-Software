@@ -127,13 +127,12 @@ Module Module1
             X_max = Muros_V(i).CoordenadasX.Max
             Y_max = Muros_V(i).CoordenadasY.Max
 
-
             Muros_V(i).EspesorReal = EspesorMuro(X_max, X_min, Y_max, Y_min)(2)
             Muros_V(i).DireccionMuro = EspesorMuro(X_max, X_min, Y_max, Y_min)(3)
             Muros_V(i).Longitud = EspesorMuro(X_max, X_min, Y_max, Y_min)(4)
 
             If Muros_V(i).EspesorReal > 0.2 Then
-                Muros_V(i).EspesorEscalado = 0.4
+                Muros_V(i).EspesorEscalado = 0.45
             Else
 
                 Muros_V(i).EspesorEscalado = Muros_V(i).EspesorReal * 2
@@ -241,18 +240,11 @@ Module Module1
             Next
         Next
 
-
-
-
-
         ListaOrdenada = Muros_V.OrderBy((Function(x) x.Xmin)).ToList()
-
-
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP.Clear()
         Next
-
 
         For i = 0 To ListaOrdenada.Count - 1
             For k = 0 To ListaOrdenada(i).MurosVecinos.Count - 1
@@ -268,12 +260,6 @@ Module Module1
 
             Next
         Next
-
-
-
-
-
-
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP = ListaOrdenada(i).MurosVecinosP.OrderBy(Function(x) x).ToList
@@ -327,9 +313,6 @@ Module Module1
         Dim PosicionY As Double
 
         Dim AuxY As Integer
-
-
-
 
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -530,9 +513,6 @@ Module Module1
                 End If
             Next
         Next
-
-
-
 
         For i = 0 To Lista_CirculoRefuerzos.Count - 1
 
@@ -1046,7 +1026,11 @@ Module Module1
         Estribos.Determinar_Estribos(Formulario)
 
         Dim Estribos_Totales As New Estribos_Totales
-        Estribos_Totales.Estribos_Pisos(0)
+        Dim Delta_X, Delta_Y As Double
+
+        Delta_X = A(0)
+        Delta_Y = A(1) + 1
+        Estribos_Totales.Estribos_Pisos(Delta_X, Delta_Y)
 
         Muros_V.Clear()
         ListaOrdenada.Clear()
@@ -1569,7 +1553,6 @@ Module Module1
 
     'Translacion de Coordenadas
     Function Traslacion_Coordenas(ByVal X As Double, ByVal Y As Double, Xmin As Double, Xmax As Double, Ymin As Double, Ymax As Double) As List(Of Double)
-
 
         Dim O As Matrix(Of Double)
         Dim P As Matrix(Of Double)

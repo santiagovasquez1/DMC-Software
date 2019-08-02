@@ -10,7 +10,6 @@ Public Class Muros
     Public CoordenadasY As List(Of Double)
     Public MurosVecinos As New List(Of String)
 
-
     Public Lista_Refuerzos As New List(Of RefuerzoCirculo)
 
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
