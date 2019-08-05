@@ -79,6 +79,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
+            this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.Panel6.SuspendLayout();
@@ -225,7 +226,8 @@
             this.alzadoRefuerzoToolStripMenuItem,
             this.dibujoSeccionToolStripMenuItem,
             this.variablesDeDibujoToolStripMenuItem,
-            this.murosSimilaresToolStripMenuItem});
+            this.murosSimilaresToolStripMenuItem,
+            this.direcciónDeCambioDeEspesorToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -731,6 +733,14 @@
             this.button10.MouseLeave += new System.EventHandler(this.Button10_MouseLeave);
             this.button10.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Button10_MouseMove);
             // 
+            // direcciónDeCambioDeEspesorToolStripMenuItem
+            // 
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Name = "direcciónDeCambioDeEspesorToolStripMenuItem";
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Text = "D. Cambio Espesor";
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Click += new System.EventHandler(this.DirecciónDeCambioDeEspesorToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -817,6 +827,7 @@
         internal System.Windows.Forms.Button cb_cuantiavol;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem direcciónDeCambioDeEspesorToolStripMenuItem;
     }
 }
 

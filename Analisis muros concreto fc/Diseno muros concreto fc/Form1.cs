@@ -333,6 +333,8 @@ namespace Diseno_muros_concreto_fc
             Diseño_de_muros_concreto_V2.Form1 Formulario1 = new Diseño_de_muros_concreto_V2.Form1();
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1);
             murosSimilaresToolStripMenuItem.Enabled = true;
+            direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
+            direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
         }
 
         private void analisisEstructuralToolStripMenuItem_Click(object sender, EventArgs e)
@@ -344,7 +346,7 @@ namespace Diseno_muros_concreto_fc
             Formulario1.Cargar_Lista();
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1);
             murosSimilaresToolStripMenuItem.Enabled = false;
-
+            direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
         }
 
         private void B_Flexural_Click(object sender, EventArgs e)
@@ -409,11 +411,15 @@ namespace Diseno_muros_concreto_fc
             this.Width = 1553 + 200;
             this.Height = 760 + 35;
 
+
+
+
             // this.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
 
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario3);
 
             murosSimilaresToolStripMenuItem.Enabled = true;
+            direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
         }
 
 
@@ -482,7 +488,11 @@ namespace Diseno_muros_concreto_fc
         private void MurosSimilaresToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Diseño_de_muros_concreto_V2.Similar VentanaSimilares = new Diseño_de_muros_concreto_V2.Similar();
-            VentanaSimilares.Show();
+
+          
+                VentanaSimilares.Show();
+       
+            
 
         }
 
@@ -548,53 +558,14 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-
-
-      
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        private void DirecciónDeCambioDeEspesorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Diseño_de_muros_concreto_V2.Form_DireccionCambiodeEspesor Formulario = new Diseño_de_muros_concreto_V2.Form_DireccionCambiodeEspesor();
+            Formulario.Show();
 
 
         }
+    }
 }
 
 
