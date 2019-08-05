@@ -111,7 +111,7 @@ Public Class Estribos_Totales
 
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
 
-                Ordenar_Refuerzo(ListaOrdenada(i))
+                Ordenar_Refuerzo(ListaOrdenada(i), DeltaY)
 
                 Determinacion_Vecinos(Vecino_Abajo, Vecino_Arriba, i, Muro_Vecino_Abajo, Muro_Vecino_Arriba, ListaOrdenada(i).DireccionMuro)
                 DeltaY = 0
@@ -136,7 +136,7 @@ Public Class Estribos_Totales
                         End If
 
                         Diametro_Estribo = Muro_i.Est_ebe(j)
-                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 1, DeltaY, Diametro_Estribo)
+                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
 
                     Else
                         If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
@@ -152,7 +152,7 @@ Public Class Estribos_Totales
                             End If
 
                             Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
-                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 1, DeltaY, Diametro_Estribo)
+                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
 
                         End If
 
@@ -169,7 +169,7 @@ Public Class Estribos_Totales
                             End If
 
                             Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
-                            Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 1, DeltaY, Diametro_Estribo)
+                            Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
 
                         End If
 
@@ -518,7 +518,7 @@ Public Class Estribos_Totales
         Return Longitud
     End Function
 
-    Private Sub Ordenar_Refuerzo(ByVal Muro_D As Muros)
+    Private Sub Ordenar_Refuerzo(ByRef Muro_D As Muros, ByVal Delta_y As Double)
 
         Dim Dix, Diy As Double
         Dim Rotacion As Double()
@@ -535,9 +535,6 @@ Public Class Estribos_Totales
             Dix = Muro_D.Lista_Refuerzos(i).CoordenadasXyY(0)
             Diy = Muro_D.Lista_Refuerzos(i).CoordenadasXyY(1)
 
-            'Vector_Traslacion = Traslacion(0, 0, Dix, Diy)
-            'Rotacion = Rotar_Refuerzo(Vector_Traslacion(0), Vector_Traslacion(1), Math.PI / 2).ToArray
-            'Vector_Traslacion = Traslacion(Muro_D.Xmin, Muro_D.Ymin, Rotacion(0), Rotacion(1))
             Rotacion = Rotar_Refuerzo(Muro_D.Lista_Refuerzos(i).CoordenadasXyY(0), Muro_D.Lista_Refuerzos(i).CoordenadasXyY(1), Math.PI / 2).ToArray
 
             Refuerzo_Auxiliar = New RefuerzoCirculo With {
@@ -549,7 +546,7 @@ Public Class Estribos_Totales
             }
 
             Lista_aux.Add(Refuerzo_Auxiliar)
-            AcadDoc.ModelSpace.AddCircle(Refuerzo_Auxiliar.CoordenadasXyY, 0.02)
+            'AcadDoc.ModelSpace.AddCircle(Refuerzo_Auxiliar.CoordenadasXyY, 0.02)
         Next
 
         Xmin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(0)).Min
@@ -561,10 +558,12 @@ Public Class Estribos_Totales
         Dix = Xmin - Xmin1
 
         For i = 0 To Lista_aux.Count - 1
-            Vector_Traslacion = Traslacion(Dix, 2.5, Lista_aux(i).CoordenadasXyY(0), Lista_aux(i).CoordenadasXyY(1))
+            Vector_Traslacion = Traslacion(Dix, Delta_y, Lista_aux(i).CoordenadasXyY(0), Lista_aux(i).CoordenadasXyY(1))
             Lista_aux(i).CoordenadasXyY = Vector_Traslacion.ToArray
-            AcadDoc.ModelSpace.AddCircle(Lista_aux(i).CoordenadasXyY, 0.02)
+            'AcadDoc.ModelSpace.AddCircle(Lista_aux(i).CoordenadasXyY, 0.02)
         Next
+
+        Muro_D.Lista_Refuerzos_Fila_Min = Lista_aux
 
     End Sub
 
