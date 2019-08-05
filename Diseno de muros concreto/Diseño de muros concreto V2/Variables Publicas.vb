@@ -19,6 +19,7 @@ Module Variables_Publicas
     Public traslapo_210 As New Dictionary(Of Integer, Single)
     Public ganchos_90 As New Dictionary(Of Integer, Single)
     Public ganchos_180 As New Dictionary(Of String, Single)
+    Public NoBarraADiametro As New Dictionary(Of Integer, String)
     Public As_malla As New Dictionary(Of String, Single)
     Public refuerzo_lista As New List(Of Refuerzo_muros)
     Public contador As Integer = 1

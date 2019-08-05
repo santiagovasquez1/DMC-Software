@@ -137,6 +137,12 @@
     <Compile Include="alzado_muro.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Cantidades1.vb" />
+    <Compile Include="Form_DireccionCambiodeEspesor.Designer.vb">
+      <DependentUpon>Form_DireccionCambiodeEspesor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form_DireccionCambiodeEspesor.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Organizar_alzados.vb" />
     <Compile Include="Similar.Designer.vb">
       <DependentUpon>Similar.vb</DependentUpon>

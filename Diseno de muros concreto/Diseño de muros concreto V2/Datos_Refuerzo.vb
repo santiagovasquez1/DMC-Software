@@ -16,8 +16,6 @@
     Public Lista_Barras As List(Of List(Of String))
 
 
-
-
     Public Lista_Longitudes As New List(Of List(Of Single))
     Public Lista_Figura As New List(Of List(Of String))
     Public ListaDiametros As New List(Of List(Of String))
@@ -673,8 +671,6 @@
 
 
     Sub RefuerzoDllNet()
-
-
 
         For i = 0 To ListaTotalRefuerzo_EspecificadoConCantidad.Count - 1
 

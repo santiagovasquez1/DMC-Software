@@ -19,10 +19,7 @@ namespace Diseno_muros_concreto_fc
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
 
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-
-
-
-
+                     
         private bool Drag;
         private int MouseX;
         private int MouseY;
@@ -562,8 +559,6 @@ namespace Diseno_muros_concreto_fc
         {
             Diseño_de_muros_concreto_V2.Form_DireccionCambiodeEspesor Formulario = new Diseño_de_muros_concreto_V2.Form_DireccionCambiodeEspesor();
             Formulario.Show();
-
-
         }
     }
 }
