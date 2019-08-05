@@ -1,7 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 Public Class Form_DireccionCambiodeEspesor
 
-
     Private Sub Form_DireccionCambiodeEspesor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CrearDataGrid(DataGrid_Muros, Muros_lista_2)
     End Sub

@@ -149,7 +149,13 @@
             ganchos_180.Add("3", 0.169)
             ganchos_180.Add("4", 0.151)
 
-
+            NoBarraADiametro.Add(2, "1/4¨")
+            NoBarraADiametro.Add(3, "3/8¨")
+            NoBarraADiametro.Add(4, "1/2¨")
+            NoBarraADiametro.Add(5, "5/8¨")
+            NoBarraADiametro.Add(6, "3/4¨")
+            NoBarraADiametro.Add(7, "7/8¨")
+            NoBarraADiametro.Add(8, "1¨")
 
         End If
     End Sub

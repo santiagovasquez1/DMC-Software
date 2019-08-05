@@ -137,6 +137,7 @@
     <Compile Include="alzado_muro.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Cantidades1.vb" />
+    <Compile Include="DireccionCambioMuro.vb" />
     <Compile Include="Form_DireccionCambiodeEspesor.Designer.vb">
       <DependentUpon>Form_DireccionCambiodeEspesor.vb</DependentUpon>
     </Compile>

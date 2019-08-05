@@ -233,16 +233,16 @@ Public Class CircunferenciaBloque
 
     Public Nombre As String
     Public Radio As Double
-    Dim mCoordenadasXyY(2) As Double
+    Public CoordenadasXyY(2) As Double
 
-    Public Property CoordenadasXyY() As Double
-        Get
+    'Public Property CoordenadasXyY() As Double
+    '    Get
 
-        End Get
-        Set(value As Double)
+    '    End Get
+    '    Set(value As Double)
 
-        End Set
-    End Property
+    '    End Set
+    'End Property
 
 End Class
 
