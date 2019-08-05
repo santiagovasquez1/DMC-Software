@@ -11,6 +11,7 @@ Public Class Muros
     Public MurosVecinos As New List(Of String)
 
     Public Lista_Refuerzos As New List(Of RefuerzoCirculo)
+    Public Lista_Refuerzos_Original As New List(Of RefuerzoCirculo)
 
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
     Public Lista_Refuerzos_Fila_Max As New List(Of RefuerzoCirculo)

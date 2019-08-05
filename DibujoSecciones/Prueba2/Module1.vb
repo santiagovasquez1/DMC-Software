@@ -420,6 +420,26 @@ Module Module1
         Formulario.BarraPersonalizada2.Visible = False
         Formulario.Label_BarraProgreso.Visible = False
 
+        ''Almacenar coordenadas inicialesl del refuerzo antes de escalar el dibujo
+
+        For i = 0 To ListaOrdenada.Count - 1
+
+            For j = 0 To Lista_CirculoRefuerzos.Count - 1
+
+                If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
+                    ListaOrdenada(i).Lista_Refuerzos_Original.Add(Lista_CirculoRefuerzos(j))
+                End If
+
+            Next
+
+            If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
+                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x.CoordenadasXyY(0)).ToList()
+            Else
+                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList()
+            End If
+
+        Next
+
         Dim A As Object
         Try
             A = AcadDoc.Utility.GetPoint(, "Posicionar")
@@ -454,7 +474,9 @@ Module Module1
 
         Next
         'Actualizar Coordenadas 
+
         For i = 0 To ListaOrdenada.Count - 1
+
             ListaOrdenada(i).Xmin = ListaOrdenada(i).CoordenadasaGraficas(0)
             ListaOrdenada(i).Xmax = ListaOrdenada(i).CoordenadasaGraficas(2)
             ListaOrdenada(i).Ymin = ListaOrdenada(i).CoordenadasaGraficas(1)
@@ -476,8 +498,6 @@ Module Module1
             End If
 
         Next
-
-
 
         'Asignar cada Circulo Refuerzo con Su Respectivo Label
         For s = 0 To ListaOrdenada.Count - 1
@@ -532,7 +552,6 @@ Module Module1
 
             Lista_CirculoRefuerzos(i).CoordenadasXyY(0) = ListaOrdenada(Lista_CirculoRefuerzos(i).IndiceMuroPerteneciente).Xmin + XBarraE
 
-
         Next
 
         '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO 
@@ -540,8 +559,7 @@ Module Module1
         For i = 0 To ListaOrdenada.Count - 1
             Dim MenorRecubrimiento As Double = 9999999
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
-
-
+                
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos.Count - 1
 
                     If MenorRecubrimiento > ListaOrdenada(i).Lista_Refuerzos(j).CoordenadasXyY(0) Then
@@ -594,9 +612,9 @@ Module Module1
         For i = 0 To ListaOrdenada.Count - 1
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
                 Dim ListaNuevaOrdenar As List(Of RefuerzoCirculo)
+
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min = ListaNuevaOrdenar
-
 
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Max.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Max = ListaNuevaOrdenar
@@ -613,8 +631,6 @@ Module Module1
             End If
 
         Next
-
-
 
         'Cambio de Recubrimiento a 0.038
 
@@ -658,19 +674,13 @@ Module Module1
             End With
         Next
 
-
-
-
         '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO -------------- FIN
 
         For i = 0 To ListaOrdenada.Count - 1
-
             ListaOrdenada(i).PutosHatchFuc()
-
         Next
 
         For i = 0 To ListaOrdenada.Count - 1
-
 
             If ListaOrdenada(i).LEB_Iz <> 0 Then
 
@@ -927,10 +937,6 @@ Module Module1
 
         End With
         Next
-
-
-
-
 
         'MALLA
         For i = 0 To ListaOrdenada.Count - 1
