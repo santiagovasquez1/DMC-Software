@@ -18,6 +18,7 @@ Module Module1
     Public Lista_CirculoRefuerzos As New List(Of RefuerzoCirculo)
     Public Cota As AcadDimRotated
     Public Texto As AcadText
+    Public TablaAutocad As AcadTable
     Public NombreMuro As AcadBlockReference
 
     Public Linea As AcadLine
@@ -63,6 +64,8 @@ Module Module1
 
         MsgBox("Seleccionar un Conjunto de Muros", vbInformation, "efe Prima Ce")
         Selecccionar.SelectOnScreen()   'Todos los objectos seleccionaes estan en la variable Seleccionar
+
+
 
         Formulario.BarraPersonalizada.Visible = True
         Dim ProgresoBarra As Integer
@@ -127,12 +130,13 @@ Module Module1
             X_max = Muros_V(i).CoordenadasX.Max
             Y_max = Muros_V(i).CoordenadasY.Max
 
+
             Muros_V(i).EspesorReal = EspesorMuro(X_max, X_min, Y_max, Y_min)(2)
             Muros_V(i).DireccionMuro = EspesorMuro(X_max, X_min, Y_max, Y_min)(3)
             Muros_V(i).Longitud = EspesorMuro(X_max, X_min, Y_max, Y_min)(4)
 
             If Muros_V(i).EspesorReal > 0.2 Then
-                Muros_V(i).EspesorEscalado = 0.45
+                Muros_V(i).EspesorEscalado = 0.4
             Else
 
                 Muros_V(i).EspesorEscalado = Muros_V(i).EspesorReal * 2
@@ -240,11 +244,18 @@ Module Module1
             Next
         Next
 
+
+
+
+
         ListaOrdenada = Muros_V.OrderBy((Function(x) x.Xmin)).ToList()
+
+
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP.Clear()
         Next
+
 
         For i = 0 To ListaOrdenada.Count - 1
             For k = 0 To ListaOrdenada(i).MurosVecinos.Count - 1
@@ -260,6 +271,12 @@ Module Module1
 
             Next
         Next
+
+
+
+
+
+
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP = ListaOrdenada(i).MurosVecinosP.OrderBy(Function(x) x).ToList
@@ -313,6 +330,9 @@ Module Module1
         Dim PosicionY As Double
 
         Dim AuxY As Integer
+
+
+
 
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -420,26 +440,6 @@ Module Module1
         Formulario.BarraPersonalizada2.Visible = False
         Formulario.Label_BarraProgreso.Visible = False
 
-        ''Almacenar coordenadas inicialesl del refuerzo antes de escalar el dibujo
-
-        For i = 0 To ListaOrdenada.Count - 1
-
-            For j = 0 To Lista_CirculoRefuerzos.Count - 1
-
-                If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
-                    ListaOrdenada(i).Lista_Refuerzos_Original.Add(Lista_CirculoRefuerzos(j))
-                End If
-
-            Next
-
-            If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
-                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x.CoordenadasXyY(0)).ToList()
-            Else
-                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList()
-            End If
-
-        Next
-
         Dim A As Object
         Try
             A = AcadDoc.Utility.GetPoint(, "Posicionar")
@@ -474,9 +474,7 @@ Module Module1
 
         Next
         'Actualizar Coordenadas 
-
         For i = 0 To ListaOrdenada.Count - 1
-
             ListaOrdenada(i).Xmin = ListaOrdenada(i).CoordenadasaGraficas(0)
             ListaOrdenada(i).Xmax = ListaOrdenada(i).CoordenadasaGraficas(2)
             ListaOrdenada(i).Ymin = ListaOrdenada(i).CoordenadasaGraficas(1)
@@ -498,6 +496,8 @@ Module Module1
             End If
 
         Next
+
+
 
         'Asignar cada Circulo Refuerzo con Su Respectivo Label
         For s = 0 To ListaOrdenada.Count - 1
@@ -534,6 +534,9 @@ Module Module1
             Next
         Next
 
+
+
+
         For i = 0 To Lista_CirculoRefuerzos.Count - 1
 
             Dim YBarra = (Lista_CirculoRefuerzos(i).CoordenadasXyY(1)) - ListaOrdenada(Lista_CirculoRefuerzos(i).IndiceMuroPerteneciente).YminE
@@ -552,6 +555,7 @@ Module Module1
 
             Lista_CirculoRefuerzos(i).CoordenadasXyY(0) = ListaOrdenada(Lista_CirculoRefuerzos(i).IndiceMuroPerteneciente).Xmin + XBarraE
 
+
         Next
 
         '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO 
@@ -559,7 +563,8 @@ Module Module1
         For i = 0 To ListaOrdenada.Count - 1
             Dim MenorRecubrimiento As Double = 9999999
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
-                
+
+
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos.Count - 1
 
                     If MenorRecubrimiento > ListaOrdenada(i).Lista_Refuerzos(j).CoordenadasXyY(0) Then
@@ -612,9 +617,9 @@ Module Module1
         For i = 0 To ListaOrdenada.Count - 1
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
                 Dim ListaNuevaOrdenar As List(Of RefuerzoCirculo)
-
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min = ListaNuevaOrdenar
+
 
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Max.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Max = ListaNuevaOrdenar
@@ -631,6 +636,8 @@ Module Module1
             End If
 
         Next
+
+
 
         'Cambio de Recubrimiento a 0.038
 
@@ -674,13 +681,19 @@ Module Module1
             End With
         Next
 
+
+
+
         '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO -------------- FIN
 
         For i = 0 To ListaOrdenada.Count - 1
+
             ListaOrdenada(i).PutosHatchFuc()
+
         Next
 
         For i = 0 To ListaOrdenada.Count - 1
+
 
             If ListaOrdenada(i).LEB_Iz <> 0 Then
 
@@ -705,25 +718,16 @@ Module Module1
         Next
 
 
-        Dim Contador As Integer = 0
-        'REFUERZO
+        'DIBUJO DE REFUERZO
         For i = 0 To ListaOrdenada.Count - 1
+            Dim LabelAux As Integer
+            LabelAux = Str(1 + i)
             With ListaOrdenada(i)
                 For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                    Dim LabelAux = .Lista_Refuerzos_Fila_Min(j).Label
-                    If Val(LabelAux) > 33 Then
-                        LabelAux = Str(1 + Contador)
-                        Contador = Contador + 1
-                    End If
-
                     AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                 Next
                 For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
-                    Dim LabelAux = .Lista_Refuerzos_Fila_Max(j).Label
-                    If Val(LabelAux) > 33 Then
-                        LabelAux = Str(1 + Contador)
-                        Contador = Contador + 1
-                    End If
+
 
                     AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                 Next
@@ -731,67 +735,124 @@ Module Module1
             End With
         Next
 
-        'COTAS DE REFUERZO
+        'COTAS Y NUMERO DE REFUERZO
         For i = 0 To ListaOrdenada.Count - 1
-
-            If ListaOrdenada(i).DireccionMuro = "Vertical" Then
-                For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                    Dim Alto = 0.0375
-                    If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 Then
-                        AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 90, "", False, 0.2, 0.15)
-                    End If
-
-
-                    Try
-                        Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
-                        Dim FactorDesplazado = If(Len(TextoString) = 1, 0.12, 0.15)
-                        Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) - FactorDesplazado, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) - 1.35 * Alto, 0}
-                        AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
-                    Catch ex As Exception
-
-                    End Try
-                    Try
-                        Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
-                        Dim FactorDesplazado2 = If(Len(TextoString2) = 1, 0.1, 0.08)
-                        Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + FactorDesplazado2, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) - 1.35 * Alto, 0}
-                        AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
-                    Catch ex As Exception
-
-                    End Try
+            With ListaOrdenada(i)
+                If .DireccionMuro = "Vertical" Then
+                    For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
+                        Dim Alto = 0.0375
+                        Dim DesplazaCotaDerecha As Double = 0.2
+                        Dim FactoAdicionalTexto As Double = 1
+                        Dim FactorAdicionalTextoIzquierda1 As Double = 1
+                        Dim FactorAdicionalTextoIzquierda2 As Double = 1
 
 
-                Next
-            Else
-                For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1
-                    Dim Alto = 0.0375
-                    If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
-                        AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, 0.15)
-                    End If
-                    Dim FactorDesplazado = 0.12
-                    Try
-                        Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
+                        If .MurosVecinosIzquierda.Count <> 0 Then
 
-                        Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) + 0.02, ListaOrdenada(i).Ymin - FactorDesplazado / 2, 0}
+                            Dim RangoEspesorLista As New List(Of Double())
 
-                        AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
-                    Catch ex As Exception
+                            For m = 0 To .MurosVecinosIzquierda.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosIzquierda(m).Ymax + 0.45
+                                RangoEspesor(1) = .MurosVecinosIzquierda(m).Ymin - 0.3
+                                RangoEspesorLista.Add(RangoEspesor)
+                            Next
 
-                    End Try
-                    Try
-                        Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
-                        Dim FactorDesplazado2 = 0.12
-                        Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + 0.02, ListaOrdenada(i).Ymax + FactorDesplazado / 3, 0}
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                    DesplazaCotaDerecha = -0.1
+                                    FactoAdicionalTexto = -0.1
+                                End If
+                            Next
 
-                        AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
-                    Catch ex As Exception
+                        End If
 
-                    End Try
+
+                        If .MurosVecinosDerecha.Count <> 0 Then
+                            Dim RangoEspesorLista As New List(Of Double())
+
+                            For m = 0 To .MurosVecinosDerecha.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosDerecha(m).Ymax + 0.45
+                                RangoEspesor(1) = .MurosVecinosDerecha(m).Ymin - 0.3
+                                RangoEspesorLista.Add(RangoEspesor)
+                            Next
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                    FactorAdicionalTextoIzquierda1 = -1.03
+                                    FactorAdicionalTextoIzquierda2 = -1.01
+                                End If
+                            Next
+
+                        End If
 
 
 
-                Next
 
-            End If
+
+                        'COTAS
+                        If j < .Lista_Refuerzos_Fila_Min.Count - 1 Then
+
+
+                            AddCota(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, .Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 90, "", False, DesplazaCotaDerecha, 0.15)
+
+                        End If
+
+                            'TEXTOS DE BARRAS
+                            Try
+                            Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
+                            Dim FactorDesplazado = If(Len(TextoString) = 1, 0.12 * FactoAdicionalTexto, 0.15 * FactoAdicionalTexto)
+                            Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) - FactorDesplazado, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) - 1.35 * Alto, 0}
+                            AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
+                        Catch ex As Exception
+
+                        End Try
+                        Try
+                            Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
+                            Dim FactorDesplazado2 = If(Len(TextoString2) = 1, 0.1 * FactorAdicionalTextoIzquierda2, 0.08 * FactorAdicionalTextoIzquierda1)
+                            Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + FactorDesplazado2, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) - 1.35 * Alto, 0}
+                            AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
+                        Catch ex As Exception
+
+                        End Try
+
+
+                    Next
+                Else
+                    For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1
+                        Dim Alto = 0.0375
+                        If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
+                            AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, 0.15)
+                        End If
+                        Dim FactorDesplazado = 0.12
+                        Try
+                            Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
+
+                            Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) + 0.02, ListaOrdenada(i).Ymin - FactorDesplazado / 2, 0}
+
+                            AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
+                        Catch ex As Exception
+
+                        End Try
+                        Try
+                            Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
+                            Dim FactorDesplazado2 = 0.12
+                            Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + 0.02, ListaOrdenada(i).Ymax + FactorDesplazado / 3, 0}
+
+                            AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
+                        Catch ex As Exception
+
+                        End Try
+
+
+
+                    Next
+
+                End If
+            End With
         Next
 
 
@@ -811,33 +872,45 @@ Module Module1
             Next
         Next
 
-        'LABEL ----> BARRAS Y LONGITUDES 
-
-        For i = 0 To ListaOrdenada.Count - 1
-            Dim Alto = 0.05
-            Dim Ubicacion1 As Double()
 
 
-            For j = 0 To ListaOrdenada(i).Lista_NoBarras.Count - 1
-                Dim TextoString = ListaOrdenada(i).Lista_NoBarras(j) & " L=" & ListaOrdenada(i).Lista_LongitudBarras(j) & " (" & j + 1 & ")"
-                Dim Ubicacion = {Xmax + 2 + i * 2, Ymax - j * 0.09, 0}
+        Dim CoordTabla(2) As Double
+        Dim NombresMuros As New List(Of String)
+        NombresMuros = ListaOrdenada.Select(Function(x) x.NombreMuro).ToList()
+        CoordTabla(0) = Xmax + 2 : CoordTabla(1) = Ymax
 
-                AddTexto(TextoString, Ubicacion, Alto, "FC_R-80", "FC_TEXT1")
-                Dim NumeroBloque = j + 1
-                If NumeroBloque > 33 Then
-                    NumeroBloque = j - 32
-                End If
-                Ubicacion(0) = Xmax + 1.9 + i * 2
-                Ubicacion(1) = Ymax - j * 0.09 + Alto / 2
-                AddRefuerzo(Ubicacion, NumeroBloque, 1, "FC_REFUERZO 2")
-            Next
 
-            If ListaOrdenada(i).Lista_NoBarras.Count <> 0 Then
-                Ubicacion1 = {Xmax + 2 + i * 2 + (Len("X#X L=X.XX (XX)") * Alto) / 3, Ymax + 0.12, 0}
-                AddNombreMuro(Ubicacion1, "Muro " & ListaOrdenada(i).NombreMuro)
-                'UbicacionAuxiliar = UbicacionAuxiliar + 1
-            End If
-        Next
+        CrearTabla(CoordTabla, NombresMuros)
+
+
+
+        ''LABEL ----> BARRAS Y LONGITUDES 
+
+        'For i = 0 To ListaOrdenada.Count - 1
+        '    Dim Alto = 0.05
+        '    Dim Ubicacion1 As Double()
+
+
+        '    For j = 0 To ListaOrdenada(i).Lista_NoBarras.Count - 1
+        '        Dim TextoString = ListaOrdenada(i).Lista_NoBarras(j) & " L=" & ListaOrdenada(i).Lista_LongitudBarras(j) & " (" & j + 1 & ")"
+        '        Dim Ubicacion = {Xmax + 2 + i * 2, Ymax - j * 0.09, 0}
+
+        '        AddTexto(TextoString, Ubicacion, Alto, "FC_R-80", "FC_TEXT1")
+        '        Dim NumeroBloque = j + 1
+        '        If NumeroBloque > 33 Then
+        '            NumeroBloque = j - 32
+        '        End If
+        '        Ubicacion(0) = Xmax + 1.9 + i * 2
+        '        Ubicacion(1) = Ymax - j * 0.09 + Alto / 2
+        '        AddRefuerzo(Ubicacion, NumeroBloque, 1, "FC_REFUERZO 2")
+        '    Next
+
+        '    If ListaOrdenada(i).Lista_NoBarras.Count <> 0 Then
+        '        Ubicacion1 = {Xmax + 2 + i * 2 + (Len("X#X L=X.XX (XX)") * Alto) / 3, Ymax + 0.12, 0}
+        '        AddNombreMuro(Ubicacion1, "Muro " & ListaOrdenada(i).NombreMuro)
+        '        'UbicacionAuxiliar = UbicacionAuxiliar + 1
+        '    End If
+        'Next
 
         ' COTAS------------------------------------------------------------->
         For i = 0 To ListaOrdenada.Count - 1
@@ -845,59 +918,147 @@ Module Module1
             Dim TextoAdicional As String = Format(.EspesorReal, "##,0.00")
             Dim PTO1(2) As Double
             Dim PTO2(2) As Double
-            If .DireccionMuro = "Vertical" Then
+                If .DireccionMuro = "Vertical" Then
 
-                'Cotas de Espesores
-                PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
-                PTO2(0) = .Xmax : PTO2(1) = .Ymax : PTO2(2) = 0
-                AddCota(PTO1, PTO2, 0, TextoAdicional, True, 0.2, 0.15)
-
-
-                PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
-                PTO2(0) = .Xmax : PTO2(1) = .Ymin : PTO2(2) = 0
-                AddCota(PTO1, PTO2, 0, TextoAdicional, True, 0.2, -0.15)
-
-                'Cotas de Elementos de Borde y Longitud del Elemento
-                If .LEB_Dr < .Longitud And .LEB_Iz < .Longitud And .LEB_Dr <> 0 And .LEB_Iz <> 0 Then
-                    If .LEB_Dr <> 0 Then
+                    'Cotas de Espesores
+                    If .MurosVecinosArriba.Count = 0 Then
 
                         PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
-                        PTO2(0) = .Xmin : PTO2(1) = .Ymax - .LEB_Dr
-                        AddCota(PTO1, PTO2, 90, "", False, 0.35, 0.15)
-
-                        PTO1(0) = .Xmin : PTO1(1) = .Ymax - .LEB_Dr : PTO1(2) = 0
-                        PTO2(0) = .Xmin : PTO2(1) = .Ymin + .LEB_Iz
-                        AddCota(PTO1, PTO2, 90, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.35, 0.15)
+                        PTO2(0) = .Xmax : PTO2(1) = .Ymax : PTO2(2) = 0
+                        AddCota(PTO1, PTO2, 0, TextoAdicional, True, 0.2, 0.15)
 
                     End If
 
 
-                    If .LEB_Iz <> 0 Then
+                    If .MurosVecinosAbajo.Count = 0 Then
                         PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
-                        PTO2(0) = .Xmin : PTO2(1) = .Ymin + .LEB_Iz
-                        AddCota(PTO1, PTO2, 90, "", False, 0.35, 0.15)
+                        PTO2(0) = .Xmax : PTO2(1) = .Ymin : PTO2(2) = 0
+                        AddCota(PTO1, PTO2, 0, TextoAdicional, True, 0.2, -0.15)
+                    End If
+
+
+
+
+                    'Cotas de Elementos de Borde y Longitud del Elemento
+                    If .LEB_Dr < .Longitud And .LEB_Iz < .Longitud And .LEB_Dr <> 0 And .LEB_Iz <> 0 Then
+                        If .LEB_Dr <> 0 Then
+
+                            PTO1(0) = .Xmin : PTO1(1) = .Ymax
+                            PTO2(0) = .Xmin : PTO2(1) = .Ymax - .LEB_Dr
+                            AddCota(PTO1, PTO2, 90, "", False, 0.35, 0.15)
+
+
+                        End If
+
+
+                        If .LEB_Iz <> 0 Then
+                            PTO1(0) = .Xmin : PTO1(1) = .Ymin
+                            PTO2(0) = .Xmin : PTO2(1) = .Ymin + .LEB_Iz
+                            AddCota(PTO1, PTO2, 90, "", False, 0.35, 0.15)
+
+                        End If
+
+                        PTO1(0) = .Xmin : PTO1(1) = .Ymin + .LEB_Iz
+
+                        If .MurosVecinosIzquierda.Count = 0 Then
+                            PTO1(0) = .Xmin : PTO1(1) = .Ymax - .LEB_Dr : PTO1(2) = 0
+                            PTO2(0) = .Xmin : PTO2(1) = .Ymin + .LEB_Iz
+                            AddCota(PTO1, PTO2, 90, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.35, 0.15)
+
+                        Else
+
+
+                            Dim ListaDeMurosVecinosIzquierdaOrdenados As New List(Of Muros)
+
+                            ListaDeMurosVecinosIzquierdaOrdenados = .MurosVecinosIzquierda.OrderBy(Function(x) x.Ymin).ToList()
+
+                            PTO2(0) = .Xmin
+                            PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(0).Ymin
+
+                            Dim LongitudReal As Double = ListaDeMurosVecinosIzquierdaOrdenados(0).YminE - (.YminE + .LEB_Iz)
+
+                            AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+
+
+                            For V = 0 To ListaDeMurosVecinosIzquierdaOrdenados.Count - 1
+                                PTO1(1) = ListaDeMurosVecinosIzquierdaOrdenados(V).Ymax
+                                Try
+                                    PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).Ymin
+                                    LongitudReal = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).YminE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
+                                    AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+
+                                Catch
+                                    PTO2(1) = .Ymax - .LEB_Dr
+                                    LongitudReal = (.YmaxE - .LEB_Dr) - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
+                                    AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+                                    Exit For
+                                End Try
+                            Next
+
+
+                        End If
+
+
+                    ElseIf .LEB_Dr > .Longitud Or .LEB_Iz > .Longitud OrElse .LEB_Dr = 0 And .LEB_Iz = 0 Then
+                        PTO1(0) = .Xmin : PTO1(1) = .Ymin
+
+                        If .MurosVecinosIzquierda.Count = 0 Then
+                            PTO2(0) = .Xmin : PTO2(1) = .Ymax
+
+                            AddCota(PTO1, PTO2, 90, Format(.Longitud, "##,0.00"), True, 0.35, 0.15)
+                        Else
+                            Dim ListaDeMurosVecinosIzquierdaOrdenados As New List(Of Muros)
+
+                            ListaDeMurosVecinosIzquierdaOrdenados = .MurosVecinosIzquierda.OrderBy(Function(x) x.Ymin).ToList()
+
+                            PTO2(0) = .Xmin
+                            PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(0).Ymin
+
+                            Dim LongitudReal As Double = ListaDeMurosVecinosIzquierdaOrdenados(0).YminE - .YminE
+
+                            AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+
+
+                            For V = 0 To ListaDeMurosVecinosIzquierdaOrdenados.Count - 1
+                                PTO1(1) = ListaDeMurosVecinosIzquierdaOrdenados(V).Ymax
+                                Try
+                                    PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).Ymin
+                                    LongitudReal = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).YminE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
+                                    AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+
+                                Catch
+                                    PTO2(1) = .Ymax
+                                    LongitudReal = .YmaxE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
+                                    AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
+                                    Exit For
+                                End Try
+                            Next
+
+
+                        End If
+
+
 
                     End If
-                ElseIf .LEB_Dr > .Longitud Or .LEB_Iz > .Longitud OrElse .LEB_Dr = 0 And .LEB_Iz = 0 Then
 
-                    PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
-                    PTO2(0) = .Xmin : PTO2(1) = .Ymax
-
-                    AddCota(PTO1, PTO2, 90, Format(.Longitud, "##,0.00"), True, 0.35, 0.15)
-
-                End If
-                                                                          
-            Else
-
-                'Cotas de Espesores
-                PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
-                PTO2(0) = .Xmin : PTO2(1) = .Ymax : PTO2(2) = 0
-                AddCota(PTO1, PTO2, 90, TextoAdicional, True, 0.2, 0.15)
+                Else
 
 
-                PTO1(0) = .Xmax : PTO1(1) = .Ymin : PTO1(2) = 0
-                PTO2(0) = .Xmax : PTO2(1) = .Ymax : PTO2(2) = 0
-                AddCota(PTO1, PTO2, 90, TextoAdicional, True, -0.2, 0.15)
+
+                    'Cotas de Espesores
+
+
+                    If .MurosVecinosIzquierda.Count = 0 Then
+                        PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
+                        PTO2(0) = .Xmin : PTO2(1) = .Ymax : PTO2(2) = 0
+                        AddCota(PTO1, PTO2, 90, TextoAdicional, True, 0.2, 0.15)
+                    End If
+
+                    If .MurosVecinosDerecha.Count = 0 Then
+                        PTO1(0) = .Xmax : PTO1(1) = .Ymin : PTO1(2) = 0
+                        PTO2(0) = .Xmax : PTO2(1) = .Ymax : PTO2(2) = 0
+                        AddCota(PTO1, PTO2, 90, TextoAdicional, True, -0.2, 0.15)
+                    End If
 
 
                     'Cotas de Elementos de Borde y Longitud del Elemento
@@ -910,13 +1071,6 @@ Module Module1
                         AddCota(PTO1, PTO2, 0, "", False, 0.2, 0.25)
 
 
-                        'Cota Medio
-
-                        PTO1(0) = .Xmin + .LEB_Iz : PTO1(1) = .Ymax : PTO1(2) = 0
-                        PTO2(0) = .Xmax - .LEB_Dr : PTO2(1) = .Ymax
-                        AddCota(PTO1, PTO2, 0, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.2, 0.25)
-
-
                         'Cota Izquierda
 
                         PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
@@ -924,19 +1078,99 @@ Module Module1
                         AddCota(PTO1, PTO2, 0, "", False, 0.2, 0.25)
 
 
+                        PTO1(0) = .Xmin + .LEB_Iz
+                        PTO1(1) = .Ymax
+                        'Cota Medio
+
+                        If .MurosVecinosArriba.Count = 0 Then
+
+                            PTO1(0) = .Xmin + .LEB_Iz : PTO1(1) = .Ymax : PTO1(2) = 0
+                            PTO2(0) = .Xmax - .LEB_Dr : PTO2(1) = .Ymax
+                            AddCota(PTO1, PTO2, 0, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.2, 0.25)
+
+                        Else
+
+
+                            Dim ListaDeMurosVecinosArribaOrdenados As New List(Of Muros)
+
+                            ListaDeMurosVecinosArribaOrdenados = .MurosVecinosArriba.OrderBy(Function(x) x.Xmin).ToList()
+
+                            PTO2(0) = ListaDeMurosVecinosArribaOrdenados(0).Xmin
+
+                            Dim LongitudReal As Double = ListaDeMurosVecinosArribaOrdenados(0).XminE - (.XminE + .LEB_Iz)
+
+                            AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+
+
+                            For H = 0 To ListaDeMurosVecinosArribaOrdenados.Count - 1
+                                PTO1(0) = ListaDeMurosVecinosArribaOrdenados(H).Xmax
+                                Try
+                                    PTO2(0) = ListaDeMurosVecinosArribaOrdenados(H + 1).Xmin
+                                    LongitudReal = ListaDeMurosVecinosArribaOrdenados(H + 1).XminE - ListaDeMurosVecinosArribaOrdenados(H).XmaxE
+                                    AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+                                Catch
+                                    PTO2(0) = .Xmax - .LEB_Dr
+                                    LongitudReal = (.XmaxE - .LEB_Dr) - ListaDeMurosVecinosArribaOrdenados(H).XmaxE
+                                    AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+                                    Exit For
+                                End Try
+                            Next
+
+
+                        End If
+
+
                     ElseIf .LEB_Dr > .Longitud Or .LEB_Iz > .Longitud OrElse .LEB_Dr = 0 And .LEB_Iz = 0 Then
+
+
 
                         PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
                         PTO2(0) = .Xmax : PTO2(1) = .Ymax
 
-                        AddCota(PTO1, PTO2, 0, Format(.Longitud, "##,0.00"), True, 0.2, 0.25)
+                        If .MurosVecinosArriba.Count = 0 Then
+                            AddCota(PTO1, PTO2, 0, Format(.Longitud, "##,0.00"), True, 0.2, 0.25)
+                        Else
+
+                            Dim ListaDeMurosVecinosArribaOrdenados As New List(Of Muros)
+
+                            ListaDeMurosVecinosArribaOrdenados = .MurosVecinosArriba.OrderBy(Function(x) x.Xmin).ToList()
+
+                            PTO2(0) = ListaDeMurosVecinosArribaOrdenados(0).Xmin
+
+                            Dim LongitudReal As Double = ListaDeMurosVecinosArribaOrdenados(0).XminE - (.XminE + .LEB_Iz)
+
+                            AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+
+
+                            For H = 0 To ListaDeMurosVecinosArribaOrdenados.Count - 1
+                                PTO1(0) = ListaDeMurosVecinosArribaOrdenados(H).Xmax
+                                Try
+                                    PTO2(0) = ListaDeMurosVecinosArribaOrdenados(H + 1).Xmin
+                                    LongitudReal = ListaDeMurosVecinosArribaOrdenados(H + 1).XminE - ListaDeMurosVecinosArribaOrdenados(H).XmaxE
+                                    AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+                                Catch
+                                    PTO2(0) = .Xmax
+                                    LongitudReal = (.XmaxE) - ListaDeMurosVecinosArribaOrdenados(H).XmaxE
+                                    AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
+                                    Exit For
+                                End Try
+                            Next
+
+
+                        End If
+
+
 
                     End If
 
-                End If
+                    End If
 
-        End With
+            End With
         Next
+
+
+
+
 
         'MALLA
         For i = 0 To ListaOrdenada.Count - 1
@@ -998,8 +1232,8 @@ Module Module1
                         End If
 
                         If .LEB_Dr <> 0 And .LEB_Iz <> 0 Then
-                            Dim FilasSinRedon = (Math.Abs(.Xmax - .Xmin) - (.LEB_Dr + .LEB_Iz) - (2 * 0.04)) / 0.1
-                            NumeroFilas = Math.Ceiling(FilasSinRedon)
+                            Dim ColumnasRedon = (Math.Abs(.Xmax - .Xmin) - (.LEB_Dr + .LEB_Iz) - (2 * 0.04)) / 0.1
+                            NumeroColumnas = Math.Ceiling(ColumnasRedon)
                             If NoMallas = 2 Then
                                 Coord1(0) = .Xmin + .LEB_Iz + 0.04 : Coord1(1) = .Ymax - 0.04
                                 AddMalla(Coord1, NumeroFilas, -0.1, 0.1, NumeroColumnas)
@@ -1028,15 +1262,8 @@ Module Module1
             End If
         Next
 
-        Dim Estribos As New Crear_Estribos
-        Estribos.Determinar_Estribos(Formulario)
-
-        Dim Estribos_Totales As New Estribos_Totales
-        Dim Delta_X, Delta_Y As Double
-
-        Delta_X = A(0)
-        Delta_Y = A(1) + 1
-        Estribos_Totales.Estribos_Pisos(Delta_X, Delta_Y)
+        ' Dim Estribos As New Crear_Estribos
+        ' Estribos.Determinar_Estribos(Formulario)
 
         Muros_V.Clear()
         ListaOrdenada.Clear()
@@ -1410,6 +1637,63 @@ Module Module1
 
 
 
+    Sub CrearTabla(ByVal Coord() As Double, ByVal NombresMuros As List(Of String))
+
+        Dim No_Rows As Integer = NombresMuros.Count
+
+
+
+
+
+        TablaAutocad = AcadDoc.ModelSpace.AddTable(Coord, No_Rows + 2, 2, 1, 1)
+        TablaAutocad.Width = 29
+        ' TablaAutocad.Height = 20.2739
+
+        TablaAutocad.StyleName = "FC_TABLA"
+        'TablaAutocad.MinimumTableHeight = (0.5 + 0.1786 + 0.15 * NombresMuros.Count)
+        TablaAutocad.VertCellMargin = 0.15
+        TablaAutocad.HorzCellMargin = 0.15
+
+        TablaAutocad.SetCellValue(0, 0, "CONVECIÓN DE COLOCACIÓN DE REFUERZO")
+        TablaAutocad.SetCellTextStyle(0, 0, "FC_TEXT1")
+        TablaAutocad.SetCellTextHeight(0, 0, 1.604)
+        TablaAutocad.SetRowHeight(0, 11.7427)
+        TablaAutocad.SetCellValue(1, 0, "CONVECIÓN") : TablaAutocad.SetCellValue(1, 1, "MURO") : TablaAutocad.SetCellTextStyle(1, 0, "FC_TEXT1")
+        TablaAutocad.SetCellTextStyle(1, 1, "FC_TEXT1") : TablaAutocad.SetCellTextHeight(1, 0, 1.3366) : TablaAutocad.SetCellTextHeight(1, 1, 1.3366)
+        TablaAutocad.SetRowHeight(1, 5.5015)
+        TablaAutocad.Layer = "FC_BORDES"
+
+        For i = 0 To NombresMuros.Count - 1
+
+            TablaAutocad.SetCellValue(2 + i, 1, "Muro " & NombresMuros(i))
+            TablaAutocad.SetCellTextStyle(2 + i, 1, "FC_TEXT1")
+            TablaAutocad.SetCellTextHeight(2 + i, 1, 1.0693)
+            TablaAutocad.SetRowHeight(2 + i, 3.0297)
+            TablaAutocad.SetCellAlignment(2 + i, 1, AcCellAlignment.acMiddleCenter)
+
+        Next
+
+
+        TablaAutocad.ScaleEntity(Coord, 0.04)
+        For i = 0 To NombresMuros.Count - 1
+            Dim Coord2 = {Coord(0) + 0.315, Coord(1) - 0.75 - i * 0.12, 0}
+            AddRefuerzo(Coord2, i + 1, 1, "FC_REFUERZO 2")
+
+        Next
+
+        TablaAutocad.Update()
+
+
+
+    End Sub
+
+
+
+
+
+
+
+
 
 
     Public Function ClasificarObjectos(Objeto As AcadObject, Numero As Integer) As String
@@ -1559,6 +1843,7 @@ Module Module1
 
     'Translacion de Coordenadas
     Function Traslacion_Coordenas(ByVal X As Double, ByVal Y As Double, Xmin As Double, Xmax As Double, Ymin As Double, Ymax As Double) As List(Of Double)
+
 
         Dim O As Matrix(Of Double)
         Dim P As Matrix(Of Double)

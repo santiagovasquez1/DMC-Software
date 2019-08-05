@@ -15,6 +15,20 @@
     Public Barra As List(Of String)
     Public Lista_Barras As List(Of List(Of String))
 
+
+
+
+    Public Lista_Longitudes As New List(Of List(Of Single))
+    Public Lista_Figura As New List(Of List(Of String))
+    Public ListaDiametros As New List(Of List(Of String))
+    Public ListaCantidadBarras As New List(Of List(Of Integer))
+    Public ListaBarrasConcatenadas As New List(Of List(Of String))
+    Public ListaTotalRefuerzo_PorMuro As New List(Of String)
+    Public ListaTotalRefuerzo_PorMuro_Cantidad As New List(Of Integer)
+    Public ListaTotalRefuerzo_EspecificadoConCantidad As New List(Of String)
+    Public ListaRefuerzo_DllNet As New List(Of String)
+
+
     Public Sub Load_Coordinates(ByVal Muro_i As String, ByRef pos_x As Double)
 
         Dim Lista_i As List(Of alzado_muro)
@@ -641,6 +655,257 @@
         End If
 
     End Sub
+
+
+
+    '*******NUEVAS FUNCIONES *******
+
+
+    Sub ActivarNuevasFunciones()
+        CalcularLongitudesBarras()
+        Barra_Recta_L_C()
+        DiametroBarras_CantidadBarras()
+        ConcatenarBarras()
+        RefuerzoTotal()
+        RefuerzoFinal()
+        RefuerzoDllNet()
+    End Sub
+
+
+    Sub RefuerzoDllNet()
+
+
+
+        For i = 0 To ListaTotalRefuerzo_EspecificadoConCantidad.Count - 1
+
+            Dim Nomenclatura As String = ListaTotalRefuerzo_EspecificadoConCantidad(i)
+            Dim NomenclaturaFinal As String = ""
+
+            Dim FiguraBarras As String = Nomenclatura.Chars(Len(Nomenclatura) - 1)
+            Dim PosicionFinalCantidad As Integer : Dim CantidadBarras As Integer
+            Dim PosicionDiametro, DiametroA As Integer
+            Dim PosicionInicalLongitud As Integer : Dim Longitud As Single
+            Dim Gancho As Single
+
+            For n = 0 To Len(Nomenclatura) - 1
+                If Nomenclatura.Chars(n) = "#" Then
+                    PosicionFinalCantidad = n
+                    PosicionDiametro = n + 1
+                End If
+                If Nomenclatura.Chars(n) = "=" Then
+                    PosicionInicalLongitud = n + 2
+                End If
+            Next
+            CantidadBarras = Val(Nomenclatura.Substring(0, PosicionFinalCantidad))
+            Longitud = Val(Nomenclatura.Substring(PosicionInicalLongitud, 3))
+
+
+            Try
+                If Nomenclatura.Chars(PosicionDiametro + 1) = "-" Then
+                    DiametroA = Val(Nomenclatura.Chars(PosicionDiametro))
+                Else
+                    DiametroA = Val(Nomenclatura.Chars(PosicionDiametro) & Nomenclatura.Chars(PosicionDiametro + 1))
+                End If
+            Catch
+                DiametroA = Val(Nomenclatura.Chars(PosicionDiametro))
+            End Try
+
+            Gancho = ganchos_90(DiametroA)
+
+
+            If FiguraBarras = "R" Then
+                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00")
+            End If
+
+            If FiguraBarras = "L" Then
+                Longitud = Longitud - Gancho
+                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000")
+            End If
+            If FiguraBarras = "C" Then
+                Longitud = Longitud - 2 * Gancho
+                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000") & " " & "L" & Format(Gancho, "0.000")
+            End If
+            ListaRefuerzo_DllNet.Add(NomenclaturaFinal)
+
+
+        Next
+
+
+
+
+    End Sub
+
+
+
+    Sub RefuerzoFinal()
+
+        Dim VectoIndices As New List(Of Integer)
+
+
+        For i = 0 To ListaTotalRefuerzo_PorMuro.Count - 1
+            Dim Cantidad As Integer = ListaTotalRefuerzo_PorMuro_Cantidad(i)
+
+
+            If VectoIndices.Exists(Function(x) x = i) = False Then
+
+                For j = i + 1 To ListaTotalRefuerzo_PorMuro.Count - 1
+
+                    If ListaTotalRefuerzo_PorMuro(i) = ListaTotalRefuerzo_PorMuro(j) Then
+                        Cantidad = Cantidad + ListaTotalRefuerzo_PorMuro_Cantidad(j)
+                        VectoIndices.Add(j)
+                    End If
+                Next
+                ListaTotalRefuerzo_EspecificadoConCantidad.Add(Cantidad & ListaTotalRefuerzo_PorMuro(i))
+            End If
+
+        Next
+
+
+
+
+
+
+    End Sub
+
+
+
+
+    Sub RefuerzoTotal()
+
+        For i = 0 To ListaBarrasConcatenadas.Count - 1
+            For j = 0 To ListaBarrasConcatenadas(i).Count - 1
+                ListaTotalRefuerzo_PorMuro.Add(ListaBarrasConcatenadas(i)(j))
+                ListaTotalRefuerzo_PorMuro_Cantidad.Add(ListaCantidadBarras(i)(j))
+            Next
+        Next
+
+
+    End Sub
+
+
+    Sub ConcatenarBarras()
+        For i = 0 To ListaDiametros.Count - 1
+            Dim ListaConcate As New List(Of String)
+            For j = 0 To ListaDiametros(i).Count - 1
+                Dim TextConca As String
+                TextConca = "#" & ListaDiametros(i)(j) & "-" & "L=" & Str(Lista_Longitudes(i)(j)) & "-" & Lista_Figura(i)(j)
+                ListaConcate.Add(TextConca)
+            Next
+            ListaBarrasConcatenadas.Add(ListaConcate)
+        Next
+
+
+    End Sub
+
+
+
+    Sub DiametroBarras_CantidadBarras()
+
+        For j = 0 To Lista_Barras.Count - 1
+            Dim ListaDiametros1 As New List(Of String)
+            Dim ListaCantidadBarras1 As New List(Of Integer)
+            For s = 0 To Lista_Barras(j).Count - 1
+                Dim PosicionDiametro, PosicionFinalCantidad As Integer
+                Dim DiametroAux As String : Dim CantidadBarras As Integer
+                For n = 0 To Len(Lista_Barras(j)(s)) - 1
+
+                    If Lista_Barras(j)(s).Chars(n) = "#" Then
+                        PosicionFinalCantidad = n
+                        PosicionDiametro = n + 1
+                    End If
+                Next
+                CantidadBarras = Val(Lista_Barras(j)(s).Substring(0, PosicionFinalCantidad))
+
+                Try
+                    If Lista_Barras(j)(s).Chars(PosicionDiametro + 1) = "T" Then
+                        DiametroAux = Lista_Barras(j)(s).Chars(PosicionDiametro)
+                    Else
+                        DiametroAux = Lista_Barras(j)(s).Chars(PosicionDiametro) & Lista_Barras(j)(s).Chars(PosicionDiametro + 1)
+                    End If
+                Catch
+                    DiametroAux = Lista_Barras(j)(s).Chars(PosicionDiametro)
+                End Try
+                ListaCantidadBarras1.Add(CantidadBarras)
+                ListaDiametros1.Add(DiametroAux)
+            Next
+            ListaDiametros.Add(ListaDiametros1)
+            ListaCantidadBarras.Add(ListaCantidadBarras1)
+        Next
+
+    End Sub
+
+
+
+
+
+    Sub Barra_Recta_L_C()
+
+
+        For j = 0 To Lista_Coordenadas.Count - 1
+            Dim ListaBarras As New List(Of String)
+            For s = 0 To Lista_Coordenadas(j).Count - 1
+
+                If Lista_Coordenadas(j)(s).Count = 4 Then
+                    ListaBarras.Add("R")
+                End If
+                If Lista_Coordenadas(j)(s).Count = 6 Then
+                    ListaBarras.Add("L")
+                End If
+                If Lista_Coordenadas(j)(s).Count = 8 Then
+                    ListaBarras.Add("C")
+                End If
+            Next
+            Lista_Figura.Add(ListaBarras)
+        Next
+
+    End Sub
+
+
+
+
+
+
+    Sub CalcularLongitudesBarras()
+        For i = 0 To Lista_Coordenadas.Count - 1
+            Dim ListaLong As New List(Of Single)
+            For j = 0 To Lista_Coordenadas(i).Count - 1
+                Dim Longitu = Calcular_Longitud(Lista_Coordenadas(i)(j))
+                ListaLong.Add(Longitu)
+            Next
+            Lista_Longitudes.Add(ListaLong)
+        Next
+
+
+    End Sub
+
+    Private Function Calcular_Longitud(ByVal Coordenadas As Double()) As Single
+
+        Dim Longitud As Single
+        Dim Distancia_i As Single
+        Dim X_barra, Y_barra As Single
+
+        For i = 0 To Coordenadas.Count - 3 Step 2
+
+            X_barra = Math.Abs(Coordenadas(i) - Coordenadas(i + 2))
+            Y_barra = Math.Abs(Coordenadas(i + 1) - Coordenadas(i + 3))
+            Distancia_i = X_barra + Y_barra
+            Longitud += Distancia_i
+
+        Next
+        Return Longitud
+    End Function
+
+
+    '*******FIN - NUEVAS FUNCIONES *******
+
+
+
+
+
+
+
+
+
 
     Private Sub Find_Pos_3(ByVal col As Integer, ByVal fila As Integer, ByRef Pos1 As Double, ByRef Pos2 As Double, ByVal Fin As Integer, ByVal Paso As Integer, ByVal Posx As Double)
 

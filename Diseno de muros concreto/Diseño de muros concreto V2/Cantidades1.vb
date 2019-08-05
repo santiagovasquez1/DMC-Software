@@ -4,6 +4,7 @@ Module Cantidades1
 
     Sub GenerarCantidades(ByVal Lista_Alzado As List(Of alzado_muro), ByVal Lista_Muros As List(Of Muros_Consolidados))
 
+        Dim ArchivoTexto As New List(Of String)
         Dim Lista_Muros_Refuerzo As New List(Of Datos_Refuerzo)
         organizar_Alzados_1()
 
@@ -19,12 +20,71 @@ Module Cantidades1
         Next
 
 
+
+
+
+        For i = 0 To Lista_Muros_Refuerzo.Count - 1
+            Lista_Muros_Refuerzo(i).ActivarNuevasFunciones()
+        Next
+
+        For i = 0 To Lista_Muros.Count - 1
+            Lista_Muros(i).CantidadMallas_()
+        Next
+
+
+
+        For i = 0 To Lista_Muros_Refuerzo.Count - 1
+            If i <> 0 Then
+                ArchivoTexto.Add("")
+            End If
+            ArchivoTexto.Add("Muro " & Lista_Muros_Refuerzo(i).Nombre_muro)
+            ArchivoTexto.Add("")
+
+
+            With Lista_Muros_Refuerzo(i)
+                For j = 0 To .ListaRefuerzo_DllNet.Count - 1
+                    ArchivoTexto.Add(.ListaRefuerzo_DllNet(j))
+                Next
+                Dim ListaAuxiliarMuro = Lista_Muros.Find(Function(x) x.Pier_name = Lista_Muros_Refuerzo(i).Nombre_muro)
+
+                For j = 0 To ListaAuxiliarMuro.CantidadMallasDllNet.Count - 1
+                    ArchivoTexto.Add(ListaAuxiliarMuro.CantidadMallasDllNet(j))
+                Next
+
+            End With
+
+        Next
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        EscrbirTexto(ArchivoTexto)
+
+
+
     End Sub
 
 
 
 
-    Sub ArchivoTexto(ByVal TextoAEscribir As List(Of String))
+    Sub EscrbirTexto(ByVal TextoAEscribir As List(Of String))
         Dim RutaTxt As String
         Dim GuardarTxt As New SaveFileDialog
         With GuardarTxt
