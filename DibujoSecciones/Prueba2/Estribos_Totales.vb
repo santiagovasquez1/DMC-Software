@@ -42,7 +42,7 @@ Public Class Estribos_Totales
                 Determinacion_Vecinos(Vecino_izquierda, Vecino_Derecha, i, Muro_vecino_izquierda, Muro_Vecino_derecha, ListaOrdenada(i).DireccionMuro)
                 DeltaY = 0
 
-                Ordenar_Refuerzo_H(ListaOrdenada(i), Delta_X)
+                Ordenar_Refuerzo_H(ListaOrdenada(i), Delta_X, DeltaY)
 
                 For j = Muro_i.Stories.Count - 1 To 0 Step -1
 
@@ -538,19 +538,29 @@ Public Class Estribos_Totales
         Return Longitud
     End Function
 
-    Private Sub Ordenar_Refuerzo_H(ByRef Muro_D As Muros, ByVal Delta_X As Double)
+    Private Sub Ordenar_Refuerzo_H(ByRef Muro_D As Muros, ByVal Delta_X As Double, ByVal Delta_Y As Double)
 
         Dim Dix, Diy As Double
         Dim Vector_Origen As Double()
         Dim Vector_Traslacion As List(Of Double)
-        Dim Lista_aux As New List(Of RefuerzoCirculo)
         Dim Xmin, Ymin, Xmin1, Ymin1 As Double
 
-        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
+        Xmin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(0)).Min
+        Ymin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(1)).Min
 
+        Xmin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(0)).Min
+        Ymin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(1)).Min
+
+        Dix = Xmin - Xmin1
+        Diy = Delta_Y - Ymin1
+
+        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1 Step 2
+
+            Vector_Traslacion = Traslacion(Dix, Diy, Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1))
+            Muro_D.Lista_Refuerzos_Fila_Min(i).CoordenadasXyY = Vector_Traslacion.ToArray
+            'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos(i).CoordenadasXyY, 0.02)
 
         Next
-
 
     End Sub
 

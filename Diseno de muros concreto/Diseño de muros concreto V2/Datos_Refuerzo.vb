@@ -654,10 +654,7 @@
 
     End Sub
 
-
-
     '*******NUEVAS FUNCIONES *******
-
 
     Sub ActivarNuevasFunciones()
         CalcularLongitudesBarras()
@@ -668,7 +665,6 @@
         RefuerzoFinal()
         RefuerzoDllNet()
     End Sub
-
 
     Sub RefuerzoDllNet()
 
@@ -726,12 +722,7 @@
 
         Next
 
-
-
-
     End Sub
-
-
 
     Sub RefuerzoFinal()
 

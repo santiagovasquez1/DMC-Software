@@ -11,7 +11,7 @@ Public Class Muros
     Public MurosVecinos As New List(Of String)
 
     Public Lista_Refuerzos As New List(Of RefuerzoCirculo)
-    Public Lista_Refuerzos_Original As New List(Of RefuerzoCirculo)
+    Public Lista_Refuerzos_Original As New List(Of Double())
 
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
     Public Lista_Refuerzos_Fila_Max As New List(Of RefuerzoCirculo)
@@ -195,29 +195,27 @@ Public Class Muros
             End If
         End If
 
-
-
-
     End Sub
 
-
-
-
-
-
-
-
-
 End Class
-
 
 Public Class RefuerzoCirculo
 
     Public Label As String
     Public MuroPerteneciente As String
-    Public CoordenadasXyY(2) As Double
+    Dim mCoordenadasXyY(2) As Double
     Public IndiceMuroPerteneciente As Integer
     Public Gancho As Boolean
+
+    Public Property CoordenadasXyY() As Double()
+        Get
+            CoordenadasXyY = mCoordenadasXyY
+        End Get
+        Set(value As Double())
+            mCoordenadasXyY = value
+        End Set
+    End Property
+
 End Class
 
 
@@ -233,16 +231,16 @@ Public Class CircunferenciaBloque
 
     Public Nombre As String
     Public Radio As Double
-    Public CoordenadasXyY(2) As Double
+    Dim mCoordenadasXyY(2) As Double
 
-    'Public Property CoordenadasXyY() As Double
-    '    Get
-
-    '    End Get
-    '    Set(value As Double)
-
-    '    End Set
-    'End Property
+    Public Property CoordenadasXyY() As Double()
+        Get
+            CoordenadasXyY = mCoordenadasXyY
+        End Get
+        Set(value As Double())
+            mCoordenadasXyY = value
+        End Set
+    End Property
 
 End Class
 

@@ -117,11 +117,6 @@ Module Module1
             Formulario.BarraPersonalizada2.Width = Formulario.BarraPersonalizada2.Width + ProgresoBarra
         Next
 
-
-
-
-
-
         'GUARDAR DATOS
         For i = 0 To Muros_V.Count - 1
             Dim X_min, X_max, Y_min, Y_max As Double
@@ -184,8 +179,6 @@ Module Module1
         Next
 
 
-
-
         'Muros Vecinos
 
         For i = 0 To Muros_V.Count - 1
@@ -244,18 +237,11 @@ Module Module1
             Next
         Next
 
-
-
-
-
         ListaOrdenada = Muros_V.OrderBy((Function(x) x.Xmin)).ToList()
-
-
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP.Clear()
         Next
-
 
         For i = 0 To ListaOrdenada.Count - 1
             For k = 0 To ListaOrdenada(i).MurosVecinos.Count - 1
@@ -271,12 +257,6 @@ Module Module1
 
             Next
         Next
-
-
-
-
-
-
 
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP = ListaOrdenada(i).MurosVecinosP.OrderBy(Function(x) x).ToList
@@ -331,10 +311,6 @@ Module Module1
 
         Dim AuxY As Integer
 
-
-
-
-
         For i = 0 To ListaOrdenada.Count - 1
 
             For j = 0 To ListaOrdenada(i).MurosVeciosYmin.Count - 1
@@ -356,9 +332,6 @@ Module Module1
             Next
 
         Next
-
-
-
 
         '-------------------------------INICIO ESCALA
 
@@ -439,6 +412,24 @@ Module Module1
         Formulario.BarraPersonalizada.Visible = False
         Formulario.BarraPersonalizada2.Visible = False
         Formulario.Label_BarraProgreso.Visible = False
+
+        For i = 0 To ListaOrdenada.Count - 1
+
+            For j = 0 To Lista_CirculoRefuerzos.Count - 1
+
+                If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
+                    ListaOrdenada(i).Lista_Refuerzos_Original.Add(Lista_CirculoRefuerzos(j).CoordenadasXyY.ToArray)
+                End If
+
+            Next
+
+            If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
+                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x(0)).ToList
+            Else
+                ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x(1)).ToList
+            End If
+
+        Next
 
         Dim A As Object
         Try
@@ -1262,8 +1253,14 @@ Module Module1
             End If
         Next
 
-        ' Dim Estribos As New Crear_Estribos
-        ' Estribos.Determinar_Estribos(Formulario)
+        Dim Estribos As New Crear_Estribos
+        Estribos.Determinar_Estribos(Formulario)
+
+        Dim Aux As New Estribos_Totales
+        Dim Delta_X, Delta_Y As Double
+        Delta_X = A(0)
+        Delta_Y = A(1) + 1
+        Aux.Estribos_Pisos(Delta_X, Delta_Y)
 
         Muros_V.Clear()
         ListaOrdenada.Clear()
