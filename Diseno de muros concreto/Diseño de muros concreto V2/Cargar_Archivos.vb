@@ -152,34 +152,39 @@ Module Cargar_Archivos
         Dim Muro_Alzado_i As alzado_muro
         Dim Vector_auxliar As List(Of String)
 
-        Inicio = Lista_texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal")) + 2
-        Fin = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) - 1
+        Try
+            Inicio = Lista_texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal")) + 2
+            Fin = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) - 1
 
-        Dim prueba As Double = Fin - Inicio
+            Dim prueba As Double = Fin - Inicio
 
-        If prueba > 0 Then
-            Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
+            If prueba > 0 Then
+                Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
 
-            For i = 0 To Vector_auxliar.Count - 1
+                For i = 0 To Vector_auxliar.Count - 1
 
-                Vector_Texto = Vector_auxliar(i).Split(vbTab)
-                Muro_Alzado_i = New alzado_muro
-                With Muro_Alzado_i
-                    .pier = Vector_Texto(0)
-                    .story = Vector_Texto(1)
-                    For j = 2 To Vector_Texto.Count - 1
-                        .alzado.Add(Vector_Texto(j))
-                    Next
-                End With
+                    Vector_Texto = Vector_auxliar(i).Split(vbTab)
+                    Muro_Alzado_i = New alzado_muro
+                    With Muro_Alzado_i
+                        .pier = Vector_Texto(0)
+                        .story = Vector_Texto(1)
+                        For j = 2 To Vector_Texto.Count - 1
+                            .alzado.Add(Vector_Texto(j))
+                        Next
+                    End With
 
-                If alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
-                    alzado_lista.Add(Muro_Alzado_i)
-                Else
-                    alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story)) = Muro_Alzado_i
-                End If
+                    If alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
+                        alzado_lista.Add(Muro_Alzado_i)
+                    Else
+                        alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story)) = Muro_Alzado_i
+                    End If
 
-            Next
-        End If
+                Next
+            End If
+        Catch ex As Exception
+
+        End Try
+
 
 
     End Sub
@@ -191,25 +196,30 @@ Module Cargar_Archivos
         Dim Auxiliar As List(Of List(Of String)) = New List(Of List(Of String))
         Dim Vector_auxliar As List(Of String)
 
-        Inicio = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) + 2
-        Fin = Lista_texto.FindIndex(Function(x) x.Contains("Fin")) - 1
+        Try
+            Inicio = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) + 2
+            Fin = Lista_texto.FindIndex(Function(x) x.Contains("Fin")) - 1
 
-        Dim prueba As Double = Fin - Inicio
+            Dim prueba As Double = Fin - Inicio
 
-        If prueba > 0 Then
+            If prueba > 0 Then
 
-            Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
-            For i = 0 To Vector_auxliar.Count - 1
+                Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
+                For i = 0 To Vector_auxliar.Count - 1
 
-                Vector_Texto = Vector_auxliar(i).Split(vbTab)
-                With alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Vector_Texto(0) And x.story = Vector_Texto(1)))
-                    For j = 2 To Vector_Texto.Count - 1
-                        .Alzado_Longitud.Add(Vector_Texto(j))
-                    Next
-                End With
-            Next
+                    Vector_Texto = Vector_auxliar(i).Split(vbTab)
+                    With alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Vector_Texto(0) And x.story = Vector_Texto(1)))
+                        For j = 2 To Vector_Texto.Count - 1
+                            .Alzado_Longitud.Add(Vector_Texto(j))
+                        Next
+                    End With
+                Next
 
-        End If
+            End If
+        Catch ex As Exception
+
+        End Try
+
 
     End Sub
 
