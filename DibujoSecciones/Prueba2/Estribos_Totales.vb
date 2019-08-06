@@ -7,6 +7,7 @@ Public Class Estribos_Totales
     Public Bloque_Estribo As AcadBlockReference
     Public Bloque_Gancho As AcadBlockReference
     Public Diametro_Estribo As Integer
+    Public Separacion_Estribo As Single
 
     Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single)
 
@@ -19,7 +20,8 @@ Public Class Estribos_Totales
         Dim Distancia_Confinada As Double
         Dim Delta_reduccion As Double
         Dim Pos, Num_Estribos As Integer
-
+        Dim Texto_Estribos As String
+        Dim Pc As Double()
         Distancia_Maxima = 2
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -68,7 +70,13 @@ Public Class Estribos_Totales
                             End If
 
                             Diametro_Estribo = Muro_i.Est_ebe(j)
+                            Separacion_Estribo = Muro_i.Sep_ebe(j) / 100
                             Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+
+                            ''Agregar texto
+                            Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                            Pc = {Delta_X, Punto_inicial(1) - 0.3, 0}
+                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0)
 
                         Else
 
@@ -79,7 +87,7 @@ Public Class Estribos_Totales
                                 Suma_Long = 0
 
                                 Determinacion_Punto_Arranque_Horizontal(Punto_inicial, Muro_i, Vecino_izquierda, Delta_reduccion, i, Muro_vecino_izquierda, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_izquierda, Muro_vecino_izquierda, j, Diametro_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_izquierda, Muro_vecino_izquierda, j, Diametro_Estribo, Separacion_Estribo)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -91,6 +99,11 @@ Public Class Estribos_Totales
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
                                 Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
 
+                                ''Agregar texto
+                                Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                                Pc = {Delta_X, Punto_inicial(1) - 0.2, 0}
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
+
                             End If
 
                             If Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
@@ -100,7 +113,7 @@ Public Class Estribos_Totales
                                 Suma_Long = 0
 
                                 Determinacion_Punto_Final_Horizontal(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Derecha, Delta_reduccion, i, Muro_Vecino_derecha, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Derecha, Muro_Vecino_derecha, j, Diametro_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Derecha, Muro_Vecino_derecha, j, Diametro_Estribo, Separacion_Estribo)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -111,6 +124,11 @@ Public Class Estribos_Totales
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
                                 Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+
+                                ''Agregar texto
+                                Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                                Pc = {Punto_inicial(0), Punto_inicial(1) - 0.2, 0}
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
 
                             End If
 
@@ -147,13 +165,19 @@ Public Class Estribos_Totales
                             End If
 
                             Diametro_Estribo = Muro_i.Est_ebe(j)
+                            Separacion_Estribo = Muro_i.Sep_ebe(j)
                             Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+
+                            ''Agregar texto
+                            Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                            Pc = {Delta_X, Punto_inicial(1) - 0.3, 0}
+                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0)
 
                         Else
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
 
                                 Determinacion_Punto_Arranque_Vertical(Punto_inicial, Muro_i, Vecino_Abajo, Delta_reduccion, i, Muro_Vecino_Abajo, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_Abajo, Muro_Vecino_Abajo, j, Diametro_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_Abajo, Muro_Vecino_Abajo, j, Diametro_Estribo, Separacion_Estribo)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -165,12 +189,16 @@ Public Class Estribos_Totales
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
                                 Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
 
+                                ''Agregar texto
+                                Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                                Pc = {Delta_X, Punto_inicial(1) - 0.2, 0}
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
                             End If
 
                             If Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
 
                                 Determinacion_Punto_Final_Vertical(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Arriba, Delta_reduccion, i, Muro_Vecino_Arriba, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Arriba, Muro_Vecino_Arriba, j, Diametro_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Arriba, Muro_Vecino_Arriba, j, Diametro_Estribo, Separacion_Estribo)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -181,8 +209,12 @@ Public Class Estribos_Totales
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
                                 Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-
                                 Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+
+                                ''Agregar texto
+                                Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+                                Pc = {Punto_inicial(0), Punto_inicial(1) - 0.2, 0}
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
 
                             End If
 
@@ -193,7 +225,7 @@ Public Class Estribos_Totales
 
                 End If
 
-                Delta_X += Punto_final(0) - Delta_X + 1
+                Delta_X += Punto_final(0) - Delta_X + 2
             End If
 
 
@@ -201,7 +233,7 @@ Public Class Estribos_Totales
         AcadDoc.Regen(AcRegenType.acActiveViewport)
     End Sub
 
-    Private Shared Function Determinacion_Confinamiento_Ld(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer) As Double
+    Private Shared Function Determinacion_Confinamiento_Ld(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single) As Double
         Dim Distancia_Confinada As Double
 
         If Muro_i.Lebe_Der(j) > 0 Then
@@ -211,6 +243,7 @@ Public Class Estribos_Totales
                 Distancia_Confinada = Muro_i.Lebe_Der(j) / 100
             End If
             Diametro_Estribo = Muro_i.Est_ebe(j)
+            Sep = Muro_i.Sep_ebe(j) / 100
         Else
             If Vecino_dir = True Then
                 Distancia_Confinada = (Muro_Vecino_dir.Bw(j) + Muro_i.Zc_Der(j)) / 100
@@ -218,12 +251,13 @@ Public Class Estribos_Totales
                 Distancia_Confinada = Muro_i.Zc_Der(j) / 100
             End If
             Diametro_Estribo = Muro_i.Est_Zc(j)
+            Sep = Muro_i.Sep_Zc(j) / 100
         End If
 
         Return Distancia_Confinada
     End Function
 
-    Private Shared Function Determinacion_Confinamiento_LI(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer) As Double
+    Private Shared Function Determinacion_Confinamiento_LI(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single) As Double
 
         Dim Distancia_Confinada As Double
 
@@ -236,6 +270,7 @@ Public Class Estribos_Totales
             End If
 
             Diametro_Estribo = Muro_i.Est_ebe(j)
+            Sep = Muro_i.Sep_ebe(j) / 100
         Else
             If Vecino_dir = True Then
                 Distancia_Confinada = (Muro_Vecino_dir.Bw(j) + Muro_i.Zc_Izq(j)) / 100
@@ -243,6 +278,7 @@ Public Class Estribos_Totales
                 Distancia_Confinada = Muro_i.Zc_Izq(j) / 100
             End If
             Diametro_Estribo = Muro_i.Est_Zc(j)
+            Sep = Muro_i.Sep_Zc(j) / 100
         End If
 
         Return Distancia_Confinada
@@ -651,5 +687,20 @@ Public Class Estribos_Totales
         Return M_aux
 
     End Function
+
+    Private Shared Sub Add_Texto(ByVal Texto_1 As String, ByVal P_texto As Double(), ByVal Layer As String, ByVal Style As String, ByVal Angulo As Double, ByVal Ancho As Single)
+
+        Dim texto_Estribo As AcadMText
+        texto_Estribo = AcadDoc.ModelSpace.AddMText(P_texto, 0.75, Texto_1)
+
+        With texto_Estribo
+            .Layer = Layer
+            .StyleName = Style
+            .Height = 0.05
+            .Rotation = Angulo
+            .Width = Ancho
+        End With
+
+    End Sub
 
 End Class
