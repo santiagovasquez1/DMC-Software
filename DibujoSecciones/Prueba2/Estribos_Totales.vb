@@ -392,11 +392,11 @@ Public Class Estribos_Totales
 
     Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer)
 
-        For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 2
+        For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 2
 
-            If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(Direccion) <= Punto_final(0) Then
+            If ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion) <= Punto_final(0) Then
 
-                delta = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(Direccion)
+                delta = ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Original(j)(Direccion)
                 Suma_Long += delta
 
                 'Determinar si la barra lleva gancho o no
@@ -414,14 +414,14 @@ Public Class Estribos_Totales
                     Pos = j
                     j = Pos - 1
 
-                    Punto_inicial = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).CoordenadasXyY(Direccion), DeltaY, 0}
+                    Punto_inicial = {ListaOrdenada(i).Lista_Refuerzos_Original(Pos)(Direccion), DeltaY, 0}
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos + 1).Gancho = False
                     Suma_Long = 0
 
                 End If
 
-                If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
+                If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
 
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no
@@ -443,9 +443,9 @@ Public Class Estribos_Totales
 
         For j = Pos To 1 Step -1
 
-            If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).CoordenadasXyY(Direccion) >= Punto_inicial(Direccion) Then
+            If ListaOrdenada(i).Lista_Refuerzos_Original(j - 1)(Direccion) >= Punto_inicial(Direccion) Then
 
-                delta = Math.Abs(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).CoordenadasXyY(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(Direccion))
+                delta = Math.Abs(ListaOrdenada(i).Lista_Refuerzos_Original(j - 1)(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Original(j)(Direccion))
                 Suma_Long += delta
 
                 'Determinar si la barra lleva gancho o no
@@ -465,14 +465,14 @@ Public Class Estribos_Totales
                     Pos = j
                     j = Pos + 1
 
-                    Punto_final = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).CoordenadasXyY(Direccion), DeltaY, 0}
+                    Punto_final = {ListaOrdenada(i).Lista_Refuerzos_Original(Pos)(Direccion), DeltaY, 0}
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos - 1).Gancho = False
                     Suma_Long = 0
 
                 End If
 
-                If j - 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
+                If j - 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
 
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = False 'Determina si la barra lleva gancho o no
@@ -541,7 +541,6 @@ Public Class Estribos_Totales
     Private Sub Ordenar_Refuerzo_H(ByRef Muro_D As Muros, ByVal Delta_X As Double, ByVal Delta_Y As Double)
 
         Dim Dix, Diy As Double
-        Dim Vector_Origen As Double()
         Dim Vector_Traslacion As List(Of Double)
         Dim Xmin, Ymin, Xmin1, Ymin1 As Double
 
@@ -554,10 +553,10 @@ Public Class Estribos_Totales
         Dix = Xmin - Xmin1
         Diy = Delta_Y - Ymin1
 
-        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1 Step 2
+        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
 
             Vector_Traslacion = Traslacion(Dix, Diy, Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1))
-            Muro_D.Lista_Refuerzos_Fila_Min(i).CoordenadasXyY = Vector_Traslacion.ToArray
+            Muro_D.Lista_Refuerzos_Original(i) = Vector_Traslacion.ToArray
             'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos(i).CoordenadasXyY, 0.02)
 
         Next
@@ -568,7 +567,6 @@ Public Class Estribos_Totales
 
         Dim Dix, Diy As Double
         Dim Rotacion As Double()
-        Dim Refuerzo_Auxiliar As RefuerzoCirculo
         Dim Vector_Origen As Double()
         Dim Vector_Traslacion As List(Of Double)
         Dim Lista_aux As New List(Of RefuerzoCirculo)
@@ -579,40 +577,40 @@ Public Class Estribos_Totales
         Xmin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(0)).Min
         Ymin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(1)).Min
 
-        For i = 0 To Muro_D.Lista_Refuerzos.Count - 1
+        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
 
-            Dix = Muro_D.Lista_Refuerzos(i).CoordenadasXyY(0)
-            Diy = Muro_D.Lista_Refuerzos(i).CoordenadasXyY(1)
 
-            Rotacion = Rotar_Refuerzo(Muro_D.Lista_Refuerzos(i).CoordenadasXyY(0), Muro_D.Lista_Refuerzos(i).CoordenadasXyY(1), Math.PI / 2).ToArray
+            Rotacion = Rotar_Refuerzo(Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1), Math.PI / 2).ToArray
+            Muro_D.Lista_Refuerzos_Original(i) = Rotacion
 
-            Refuerzo_Auxiliar = New RefuerzoCirculo With {
-                .Label = Muro_D.Lista_Refuerzos(i).Label,
-                .MuroPerteneciente = Muro_D.Lista_Refuerzos(i).MuroPerteneciente,
-                .IndiceMuroPerteneciente = Muro_D.Lista_Refuerzos(i).IndiceMuroPerteneciente,
-                .Gancho = Muro_D.Lista_Refuerzos(i).Gancho,
-                .CoordenadasXyY = Rotacion
-            }
+            'Refuerzo_Auxiliar = New RefuerzoCirculo With {
+            '    .Label = Muro_D.Lista_Refuerzos(i).Label,
+            '    .MuroPerteneciente = Muro_D.Lista_Refuerzos(i).MuroPerteneciente,
+            '    .IndiceMuroPerteneciente = Muro_D.Lista_Refuerzos(i).IndiceMuroPerteneciente,
+            '    .Gancho = Muro_D.Lista_Refuerzos(i).Gancho,
+            '    .CoordenadasXyY = Rotacion
+            '}
 
-            Lista_aux.Add(Refuerzo_Auxiliar)
-            'AcadDoc.ModelSpace.AddCircle(Refuerzo_Auxiliar.CoordenadasXyY, 0.02)
+            'Lista_aux.Add(Refuerzo_Auxiliar)
+            ''AcadDoc.ModelSpace.AddCircle(Refuerzo_Auxiliar.CoordenadasXyY, 0.02)
         Next
 
         Xmin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(0)).Min
         Ymin = Muro_D.Lista_Refuerzos_Fila_Min.Select(Function(x) x.CoordenadasXyY(1)).Min
 
-        Xmin1 = Lista_aux.Select(Function(x) x.CoordenadasXyY(0)).Min
-        Ymin1 = Lista_aux.Select(Function(x) x.CoordenadasXyY(1)).Min
+        Xmin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(0)).Min
+        Ymin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(1)).Min
 
         Dix = Xmin - Xmin1
+        Diy = Delta_y - Ymin1
 
-        For i = 0 To Lista_aux.Count - 1
-            Vector_Traslacion = Traslacion(Dix, Delta_y, Lista_aux(i).CoordenadasXyY(0), Lista_aux(i).CoordenadasXyY(1))
-            Lista_aux(i).CoordenadasXyY = Vector_Traslacion.ToArray
-            'AcadDoc.ModelSpace.AddCircle(Lista_aux(i).CoordenadasXyY, 0.02)
+        For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
+
+            Vector_Traslacion = Traslacion(Dix, Diy, Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1))
+            Muro_D.Lista_Refuerzos_Original(i) = Vector_Traslacion.ToArray
+            'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos(i).CoordenadasXyY, 0.02)
+
         Next
-
-        Muro_D.Lista_Refuerzos_Fila_Min = Lista_aux
 
     End Sub
 

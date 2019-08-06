@@ -415,7 +415,7 @@ Module Module1
 
         For i = 0 To ListaOrdenada.Count - 1
 
-            For j = 0 To Lista_CirculoRefuerzos.Count - 1
+            For j = 0 To Lista_CirculoRefuerzos.Count - 1 Step 2
 
                 If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
                     ListaOrdenada(i).Lista_Refuerzos_Original.Add(Lista_CirculoRefuerzos(j).CoordenadasXyY.ToArray)
