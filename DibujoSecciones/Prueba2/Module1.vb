@@ -1258,9 +1258,11 @@ Module Module1
 
         Dim Aux As New Estribos_Totales
         Dim Delta_X, Delta_Y As Double
-        Delta_X = A(0)
+
+        Delta_X = Xmax + 4.6
         Delta_Y = A(1) + 1
-        Aux.Estribos_Pisos(Delta_X, Delta_Y)
+
+        Aux.Estribos_Pisos(Delta_X, 0, A(1))
 
         Muros_V.Clear()
         ListaOrdenada.Clear()

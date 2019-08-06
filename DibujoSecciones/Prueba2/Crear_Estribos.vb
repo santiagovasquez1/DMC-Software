@@ -411,7 +411,7 @@ Public Class Crear_Estribos
 
         For j = Pos To 1 Step -1
 
-            If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).CoordenadasXyY(Direccion) >= Punto_inicial(Direccion) Then
+            If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).CoordenadasXyY(Direccion), 2) >= Math.Round(Punto_inicial(Direccion), 2) Then
 
                 delta = Math.Abs(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).CoordenadasXyY(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(Direccion))
                 Suma_Long += delta
@@ -470,7 +470,7 @@ Public Class Crear_Estribos
 
         For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 2
 
-            If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(Direccion) <= Punto_final(Direccion) Then
+            If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(Direccion), 2) <= Math.Round(Punto_final(Direccion), 2) Then
 
                 delta = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(Direccion)
                 Suma_Long += delta
