@@ -116,7 +116,7 @@ Partial Class Form1
         Me.Data_muros.BackgroundColor = System.Drawing.Color.White
         Me.Data_muros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Data_muros.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Pier_name, Me.Piso, Me.bwall, Me.Lwall, Me.Hwall, Me.EfeCe, Me.Column1, Me.Column2, Me.DMalla, Me.DAs_long, Me.EBE_Izq, Me.EBE_Der, Me.Column3, Me.Est_Ebe, Me.Sep_EBE, Me.Column4, Me.Column5, Me.Column6, Me.Zc_Izq, Me.Zc_der, Me.Est_ZC, Me.Sep_Zc, Me.Column7, Me.Column8, Me.Column9, Me.Column10, Me.Column11})
-        Me.Data_muros.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
+        Me.Data_muros.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
         Me.Data_muros.Location = New System.Drawing.Point(12, 35)
         Me.Data_muros.Name = "Data_muros"
         Me.Data_muros.Size = New System.Drawing.Size(1503, 664)

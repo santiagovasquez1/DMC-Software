@@ -590,15 +590,14 @@ Public Class Estribos_Totales
         Xmin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(0)).Min
         Ymin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(1)).Min
 
-        Dix = Delta_X - Xmin1
+        Dix = (Delta_X + 0.038) - Xmin1
         Diy = Delta_Y - Ymin1
 
         For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
 
             Vector_Traslacion = Traslacion(Dix, Diy, Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1))
             Muro_D.Lista_Refuerzos_Original(i) = Vector_Traslacion.ToArray
-            'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos(i).CoordenadasXyY, 0.02)
-
+            'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos_Original(i), 0.01)
         Next
 
     End Sub
@@ -619,30 +618,18 @@ Public Class Estribos_Totales
 
             Rotacion = Rotar_Refuerzo(Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1), Math.PI / 2).ToArray
             Muro_D.Lista_Refuerzos_Original(i) = Rotacion
-
-            'Refuerzo_Auxiliar = New RefuerzoCirculo With {
-            '    .Label = Muro_D.Lista_Refuerzos(i).Label,
-            '    .MuroPerteneciente = Muro_D.Lista_Refuerzos(i).MuroPerteneciente,
-            '    .IndiceMuroPerteneciente = Muro_D.Lista_Refuerzos(i).IndiceMuroPerteneciente,
-            '    .Gancho = Muro_D.Lista_Refuerzos(i).Gancho,
-            '    .CoordenadasXyY = Rotacion
-            '}
-
-            'Lista_aux.Add(Refuerzo_Auxiliar)
-            ''AcadDoc.ModelSpace.AddCircle(Refuerzo_Auxiliar.CoordenadasXyY, 0.02)
         Next
 
         Xmin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(0)).Min
         Ymin1 = Muro_D.Lista_Refuerzos_Original.Select(Function(x) x(1)).Min
 
-        Dix = Delta_X - Xmin1
+        Dix = (Delta_X + 0.038) - Xmin1
         Diy = Delta_y - Ymin1
 
         For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
 
             Vector_Traslacion = Traslacion(Dix, Diy, Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1))
             Muro_D.Lista_Refuerzos_Original(i) = Vector_Traslacion.ToArray
-            'AcadDoc.ModelSpace.AddCircle(Muro_D.Lista_Refuerzos(i).CoordenadasXyY, 0.02)
 
         Next
 
