@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Prueba2", "..\DibujoSeccion
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V2", "..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj", "{6939A936-5C65-4160-B74F-2681EC5D14A8}"
 EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.vbproj", "{2F4FED74-210D-4AB3-8484-5442743D897B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.Build.0 = Release|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Debug|x86.Build.0 = Debug|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F4FED74-210D-4AB3-8484-5442743D897B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,8 +6,13 @@ Public Class Estribos_Totales
 
     Public Bloque_Estribo As AcadBlockReference
     Public Bloque_Gancho As AcadBlockReference
+    Public Tabla_Autocad As AcadTable
+    Public Pisos_Estribos As List(Of String)
     Public Diametro_Estribo As Integer
     Public Separacion_Estribo As Single
+    Public Coord_Tabla As Double()
+    Public Rectangulo As AcadLWPolyline
+    Public Lista_Rect As New List(Of AcadLWPolyline)
 
     Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single)
 
@@ -21,7 +26,9 @@ Public Class Estribos_Totales
         Dim Delta_reduccion As Double
         Dim Pos, Num_Estribos As Integer
         Dim Texto_Estribos As String
+        Dim Pattern_name, Layer_Hatch As String
         Dim Pc As Double()
+        Dim Coordenadas_Texto As Double()
         Distancia_Maxima = 2
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -36,19 +43,28 @@ Public Class Estribos_Totales
                 Dim Muro_Vecino_derecha As Muros_Consolidados = New Muros_Consolidados
                 Dim Muro_Vecino_Arriba As Muros_Consolidados = New Muros_Consolidados
                 Dim Muro_Vecino_Abajo As Muros_Consolidados = New Muros_Consolidados
+                Dim Longitud_Real As Double
 
                 Vecino_Derecha = False
                 Vecino_izquierda = False
                 Vecino_Arriba = False
                 Vecino_Abajo = False
 
+                Pisos_Estribos = New List(Of String)
+                Lista_Rect = New List(Of AcadLWPolyline)
+
                 If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
 
                     ''Primer paso para el inicio del dibujo 
                     Determinacion_Vecinos(Vecino_izquierda, Vecino_Derecha, i, Muro_vecino_izquierda, Muro_Vecino_derecha, ListaOrdenada(i).DireccionMuro)
                     Ordenar_Refuerzo_H(ListaOrdenada(i), Delta_X, DeltaY)
+                    Longitud_Real = ListaOrdenada(i).XmaxE - ListaOrdenada(i).XminE
 
                     For j = Muro_i.Stories.Count - 1 To 0 Step -1
+
+                        If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
+                            Pisos_Estribos.Add(Muro_i.Stories(j))
+                        End If
 
                         ''Caso en el cual el muro va totalmente confinado
                         If Muro_i.Rho_l(j) >= 0.01 Then
@@ -75,8 +91,24 @@ Public Class Estribos_Totales
 
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+
                             Pc = {Delta_X, Punto_inicial(1) - 0.3, 0}
-                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0)
+                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointTopLeft)
+                            Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                            ''Agregar Hatch
+                            Pattern_name = "SOLID"
+                            Layer_Hatch = "FC_HATCH MUROS"
+                            Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                            ''Agregrar Cuadro piso y texto
+
+                            Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(7), Lista_Rect.First.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(7)}
+                            Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                            Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                            Texto_Estribos = Muro_i.Stories(j)
+                            Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
 
                         Else
 
@@ -87,7 +119,7 @@ Public Class Estribos_Totales
                                 Suma_Long = 0
 
                                 Determinacion_Punto_Arranque_Horizontal(Punto_inicial, Muro_i, Vecino_izquierda, Delta_reduccion, i, Muro_vecino_izquierda, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_izquierda, Muro_vecino_izquierda, j, Diametro_Estribo, Separacion_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_izquierda, Muro_vecino_izquierda, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -102,7 +134,19 @@ Public Class Estribos_Totales
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                                 Pc = {Delta_X, Punto_inicial(1) - 0.2, 0}
-                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.2, AcAttachmentPoint.acAttachmentPointTopLeft)
+                                Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Distancia_Confinada + 0.25, Punto_inicial(1) - 0.4, Delta_X + Distancia_Confinada + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                                ''Agregar Hatch
+                                Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                                ''Agregrar Cuadro piso y texto
+                                Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(7), Lista_Rect.First.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(7)}
+                                Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                                Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                                Texto_Estribos = Muro_i.Stories(j)
+                                Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
 
                             End If
 
@@ -113,7 +157,7 @@ Public Class Estribos_Totales
                                 Suma_Long = 0
 
                                 Determinacion_Punto_Final_Horizontal(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Derecha, Delta_reduccion, i, Muro_Vecino_derecha, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Derecha, Muro_Vecino_derecha, j, Diametro_Estribo, Separacion_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Derecha, Muro_Vecino_derecha, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -128,7 +172,22 @@ Public Class Estribos_Totales
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                                 Pc = {Punto_inicial(0), Punto_inicial(1) - 0.2, 0}
-                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.2, AcAttachmentPoint.acAttachmentPointTopLeft)
+                                Add_Rectangulo(Rectangulo, {Punto_inicial(0) - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Punto_inicial(0) - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                                ''Agregar Hatch
+                                Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                                If Muro_i.Lebe_Izq(j) = 0 And Muro_i.Zc_Izq(j) = 0 Then
+
+                                    ''Agregrar Cuadro piso y texto
+                                    Coordenadas_Texto = {Delta_X - 0.95, Lista_Rect.Last.Coordinates(1), Delta_X - 0.2, Lista_Rect.Last.Coordinates(1), Delta_X - 0.2, Lista_Rect.Last.Coordinates(7), Delta_X - 0.95, Lista_Rect.Last.Coordinates(7)}
+                                    Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                                    Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                                    Texto_Estribos = Muro_i.Stories(j)
+                                    Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
+                                End If
 
                             End If
 
@@ -142,7 +201,7 @@ Public Class Estribos_Totales
                 If ListaOrdenada(i).DireccionMuro = "Vertical" Then
 
                     Ordenar_Refuerzo(ListaOrdenada(i), DeltaY, Delta_X)
-
+                    Longitud_Real = ListaOrdenada(i).YmaxE - ListaOrdenada(i).YminE
                     Determinacion_Vecinos(Vecino_Abajo, Vecino_Arriba, i, Muro_Vecino_Abajo, Muro_Vecino_Arriba, ListaOrdenada(i).DireccionMuro)
 
                     For j = Muro_i.Stories.Count - 1 To 0 Step -1
@@ -150,6 +209,10 @@ Public Class Estribos_Totales
                         Delta_reduccion = 0
                         Pos = 0
                         Suma_Long = 0
+
+                        If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
+                            Pisos_Estribos.Add(Muro_i.Stories(j))
+                        End If
 
                         If Muro_i.Rho_l(j) > 0.01 Then
 
@@ -171,13 +234,28 @@ Public Class Estribos_Totales
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                             Pc = {Delta_X, Punto_inicial(1) - 0.3, 0}
-                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0)
+                            Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointTopLeft)
+                            Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                            ''Agregar Hatch
+                            Pattern_name = "SOLID"
+                            Layer_Hatch = "FC_HATCH MUROS"
+                            Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                            ''Agregrar Cuadro piso y texto
+
+                            Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(7), Lista_Rect.First.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(7)}
+                            Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                            Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                            Texto_Estribos = Muro_i.Stories(j)
+                            Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
 
                         Else
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
 
                                 Determinacion_Punto_Arranque_Vertical(Punto_inicial, Muro_i, Vecino_Abajo, Delta_reduccion, i, Muro_Vecino_Abajo, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_Abajo, Muro_Vecino_Abajo, j, Diametro_Estribo, Separacion_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_Abajo, Muro_Vecino_Abajo, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -192,13 +270,27 @@ Public Class Estribos_Totales
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                                 Pc = {Delta_X, Punto_inicial(1) - 0.2, 0}
-                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.2, AcAttachmentPoint.acAttachmentPointTopLeft)
+                                Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Distancia_Confinada + 0.25, Punto_inicial(1) - 0.4, Delta_X + Distancia_Confinada + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                                ''Agregar Hatch
+                                Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                                ''Agregrar Cuadro piso y texto
+
+                                Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(1), Lista_Rect.Last.Coordinates(0), Lista_Rect.Last.Coordinates(7), Lista_Rect.First.Coordinates(0) - 0.75, Lista_Rect.Last.Coordinates(7)}
+                                Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                                Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                                Texto_Estribos = Muro_i.Stories(j)
+                                Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
+
                             End If
 
                             If Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
 
                                 Determinacion_Punto_Final_Vertical(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Arriba, Delta_reduccion, i, Muro_Vecino_Arriba, j, DeltaY, Delta_X)
-                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Arriba, Muro_Vecino_Arriba, j, Diametro_Estribo, Separacion_Estribo)
+                                Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Arriba, Muro_Vecino_Arriba, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
 
                                 If Distancia_Confinada > Distancia_Maxima Then
                                     Num_Estribos = (Distancia_Confinada / Distancia_Maxima) + 1
@@ -214,18 +306,40 @@ Public Class Estribos_Totales
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                                 Pc = {Punto_inicial(0), Punto_inicial(1) - 0.2, 0}
-                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.0)
+                                Add_Texto(Texto_Estribos, Pc, "FC_R-80", "FC_TEXT1", 0, 1.2, AcAttachmentPoint.acAttachmentPointTopLeft)
+                                Add_Rectangulo(Rectangulo, {Punto_inicial(0) - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Punto_inicial(0) - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+
+                                ''Agregar Hatch
+                                Add_Hatch(Lista_Rect.Last, Pattern_name, Layer_Hatch, 0.9)
+
+                                If Muro_i.Lebe_Izq(j) = 0 And Muro_i.Zc_Izq(j) = 0 Then
+
+                                    ''Agregrar Cuadro piso y texto
+                                    Coordenadas_Texto = {Delta_X - 0.95, Lista_Rect.Last.Coordinates(1), Delta_X - 0.2, Lista_Rect.Last.Coordinates(1), Delta_X - 0.2, Lista_Rect.Last.Coordinates(7), Delta_X - 0.95, Lista_Rect.Last.Coordinates(7)}
+                                    Add_Rectangulo(Rectangulo, Coordenadas_Texto, "FC_BORDES", True, Lista_Rect)
+
+                                    Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
+                                    Texto_Estribos = Muro_i.Stories(j)
+                                    Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
+                                End If
 
                             End If
 
                         End If
+
 
                         DeltaY += 0.65
                     Next
 
                 End If
 
-                Delta_X += Punto_final(0) - Delta_X + 2
+                Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) + 0.25, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.45, Delta_X - 0.2, Punto_inicial(1) + 0.45}, "FC_BORDES", True, Lista_Rect)
+
+                Texto_Estribos = "CUADRO DE ESTRIBOS MURO " & Muro_i.Pier_name
+                Coordenadas_Texto = {Lista_Rect.First.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(7) - 0.05, 0}
+                Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointTopCenter)
+
+                Delta_X += Longitud_Real + 2
             End If
 
 
@@ -233,7 +347,7 @@ Public Class Estribos_Totales
         AcadDoc.Regen(AcRegenType.acActiveViewport)
     End Sub
 
-    Private Shared Function Determinacion_Confinamiento_Ld(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single) As Double
+    Private Shared Function Determinacion_Confinamiento_Ld(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single, ByRef Pattern As String, ByRef Layer As String) As Double
         Dim Distancia_Confinada As Double
 
         If Muro_i.Lebe_Der(j) > 0 Then
@@ -244,6 +358,8 @@ Public Class Estribos_Totales
             End If
             Diametro_Estribo = Muro_i.Est_ebe(j)
             Sep = Muro_i.Sep_ebe(j) / 100
+            Pattern = "SOLID"
+            Layer = "FC_HATCH MUROS"
         Else
             If Vecino_dir = True Then
                 Distancia_Confinada = (Muro_Vecino_dir.Bw(j) + Muro_i.Zc_Der(j)) / 100
@@ -252,12 +368,14 @@ Public Class Estribos_Totales
             End If
             Diametro_Estribo = Muro_i.Est_Zc(j)
             Sep = Muro_i.Sep_Zc(j) / 100
+            Pattern = "DOTS"
+            Layer = "FC_HATCH 252"
         End If
 
         Return Distancia_Confinada
     End Function
 
-    Private Shared Function Determinacion_Confinamiento_LI(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single) As Double
+    Private Shared Function Determinacion_Confinamiento_LI(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single, ByRef Pattern As String, ByRef Layer As String) As Double
 
         Dim Distancia_Confinada As Double
 
@@ -271,6 +389,10 @@ Public Class Estribos_Totales
 
             Diametro_Estribo = Muro_i.Est_ebe(j)
             Sep = Muro_i.Sep_ebe(j) / 100
+
+            Pattern = "SOLID"
+            Layer = "FC_HATCH MUROS"
+
         Else
             If Vecino_dir = True Then
                 Distancia_Confinada = (Muro_Vecino_dir.Bw(j) + Muro_i.Zc_Izq(j)) / 100
@@ -279,6 +401,9 @@ Public Class Estribos_Totales
             End If
             Diametro_Estribo = Muro_i.Est_Zc(j)
             Sep = Muro_i.Sep_Zc(j) / 100
+
+            Pattern = "DOTS"
+            Layer = "FC_HATCH 252"
         End If
 
         Return Distancia_Confinada
@@ -675,7 +800,7 @@ Public Class Estribos_Totales
 
     End Function
 
-    Private Shared Sub Add_Texto(ByVal Texto_1 As String, ByVal P_texto As Double(), ByVal Layer As String, ByVal Style As String, ByVal Angulo As Double, ByVal Ancho As Single)
+    Private Shared Sub Add_Texto(ByVal Texto_1 As String, ByVal P_texto As Double(), ByVal Layer As String, ByVal Style As String, ByVal Angulo As Double, ByVal Ancho As Single, ByVal Justificacion As AcAttachmentPoint)
 
         Dim texto_Estribo As AcadMText
         texto_Estribo = AcadDoc.ModelSpace.AddMText(P_texto, 0.75, Texto_1)
@@ -686,6 +811,43 @@ Public Class Estribos_Totales
             .Height = 0.05
             .Rotation = Angulo
             .Width = Ancho
+            .AttachmentPoint = Justificacion
+            .InsertionPoint = P_texto
+            .Update()
+        End With
+
+    End Sub
+
+    Private Shared Sub Add_Rectangulo(ByVal Rectangulo As AcadLWPolyline, ByVal Coord() As Double, ByVal Layer As String, ByVal IsClosed As Boolean, ByRef Lista As List(Of AcadLWPolyline))
+
+        Rectangulo = AcadDoc.ModelSpace.AddLightWeightPolyline(Coord)
+
+        With Rectangulo
+            .Layer = Layer
+            .Closed = IsClosed
+            .Update()
+        End With
+
+        Lista.Add(Rectangulo)
+
+    End Sub
+
+    Private Shared Sub Add_Hatch(ByVal Acad_Ent As AcadEntity, ByVal Pattern As String, ByVal Layer As String, ByVal Escala As Double)
+
+        Dim Hatch As AcadHatch
+        Dim outerLoop(0 To 0) As AcadEntity
+
+        Hatch = AcadDoc.ModelSpace.AddHatch(0, Pattern, True)
+        outerLoop(0) = Acad_Ent
+
+        With Hatch
+            .AppendOuterLoop(outerLoop)
+            .Layer = Layer
+            .LinetypeScale = Escala
+            .PatternAngle = 45
+            .PatternScale = 0.009
+            .PatternSpace = 0.009
+            .Update()
         End With
 
     End Sub

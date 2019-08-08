@@ -25,7 +25,6 @@ Module Module1
     Public ListaOrdenada As List(Of Muros)
 
 
-
     Sub IniciarAplicacion(ByVal Formulario As Form1)
 
 
@@ -61,11 +60,8 @@ Module Module1
         AcadDoc = AcadApp.ActiveDocument
         Selecccionar = AcadDoc.SelectionSets.Add(Seleccion_name)
 
-
         MsgBox("Seleccionar un Conjunto de Muros", vbInformation, "efe Prima Ce")
         Selecccionar.SelectOnScreen()   'Todos los objectos seleccionaes estan en la variable Seleccionar
-
-
 
         Formulario.BarraPersonalizada.Visible = True
         Dim ProgresoBarra As Integer
@@ -430,6 +426,12 @@ Module Module1
             End If
 
         Next
+
+        ''Cambio de escala en el dibujo
+
+        Dim Comando As New Commands_Autocad
+        Comando.add_scale()
+
 
         Dim A As Object
         Try
@@ -1639,10 +1641,6 @@ Module Module1
     Sub CrearTabla(ByVal Coord() As Double, ByVal NombresMuros As List(Of String))
 
         Dim No_Rows As Integer = NombresMuros.Count
-
-
-
-
 
         TablaAutocad = AcadDoc.ModelSpace.AddTable(Coord, No_Rows + 2, 2, 1, 1)
         TablaAutocad.Width = 29

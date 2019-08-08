@@ -4,9 +4,9 @@ Imports Autodesk.AutoCAD.EditorInput
 Imports Autodesk.AutoCAD.Runtime
 
 Public Class Commands_Autocad
+    <CommandMethod("Prueba1")> Sub add_scale()
 
-    Sub add_scale(ByVal Doc As Document)
-
+        Dim Doc = Application.DocumentManager.MdiActiveDocument
         Dim db As Database = Doc.Database
         Dim ed As Editor = Doc.Editor
 
@@ -15,6 +15,7 @@ Public Class Commands_Autocad
             If cm <> Nothing Then
                 Dim occ As ObjectContextCollection = cm.GetContextCollection("ACDB_ANNOTATIONSCALES")
                 If occ <> Nothing Then
+
                     Dim asc As AnnotationScale = New AnnotationScale
                     With asc
                         .Name = "1:25"
@@ -26,7 +27,7 @@ Public Class Commands_Autocad
                 End If
             End If
         Catch ex As Exception
-
+            ed.WriteMessage(ex.ToString())
         End Try
 
     End Sub

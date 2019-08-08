@@ -1314,6 +1314,7 @@ Module DibujoAutocad
         pattername = Pattern
         hatch = AcadDoc.ModelSpace.AddHatch(0, pattername, True)
         outerLoop(0) = Acad_Ent
+
         With hatch
             .AppendOuterLoop(outerLoop)
             .Layer = Layer
@@ -1322,6 +1323,7 @@ Module DibujoAutocad
             .PatternScale = 0.009
             .PatternSpace = 0.009
         End With
+
     End Sub
 
     Private Sub Add_LW_PL(ByVal coord() As Double, ByVal Layer As String, ByVal Line_Scale As Double, ByVal IsClosed As Boolean)
