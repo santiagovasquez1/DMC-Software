@@ -429,9 +429,8 @@ Module Module1
 
         ''Cambio de escala en el dibujo
 
-        Dim Comando As New Commands_Autocad
-        Comando.add_scale()
-
+        'Dim Comando As New Commands_Autocad
+        'Comando.add_scale()
 
         Dim A As Object
         Try
