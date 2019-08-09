@@ -99,7 +99,7 @@ Partial Class f_variables
         Me.T_Hviga.Location = New System.Drawing.Point(210, 156)
         Me.T_Hviga.Name = "T_Hviga"
         Me.T_Hviga.Size = New System.Drawing.Size(66, 23)
-        Me.T_Hviga.TabIndex = 14
+        Me.T_Hviga.TabIndex = 3
         '
         'Label2
         '
@@ -121,7 +121,7 @@ Partial Class f_variables
         Me.T_Vf.Location = New System.Drawing.Point(210, 202)
         Me.T_Vf.Name = "T_Vf"
         Me.T_Vf.Size = New System.Drawing.Size(66, 23)
-        Me.T_Vf.TabIndex = 16
+        Me.T_Vf.TabIndex = 4
         '
         'T_piso
         '
@@ -131,7 +131,7 @@ Partial Class f_variables
         Me.T_piso.Location = New System.Drawing.Point(210, 23)
         Me.T_piso.Name = "T_piso"
         Me.T_piso.Size = New System.Drawing.Size(66, 23)
-        Me.T_piso.TabIndex = 10
+        Me.T_piso.TabIndex = 0
         '
         'cb_Aceptar
         '
@@ -141,7 +141,7 @@ Partial Class f_variables
         Me.cb_Aceptar.Location = New System.Drawing.Point(114, 242)
         Me.cb_Aceptar.Name = "cb_Aceptar"
         Me.cb_Aceptar.Size = New System.Drawing.Size(86, 26)
-        Me.cb_Aceptar.TabIndex = 18
+        Me.cb_Aceptar.TabIndex = 5
         Me.cb_Aceptar.Text = "Aceptar"
         Me.cb_Aceptar.UseVisualStyleBackColor = False
         '
@@ -165,7 +165,7 @@ Partial Class f_variables
         Me.T_prof.Location = New System.Drawing.Point(211, 114)
         Me.T_prof.Name = "T_prof"
         Me.T_prof.Size = New System.Drawing.Size(66, 23)
-        Me.T_prof.TabIndex = 17
+        Me.T_prof.TabIndex = 2
         '
         'T_arranque
         '
@@ -175,7 +175,7 @@ Partial Class f_variables
         Me.T_arranque.Location = New System.Drawing.Point(210, 68)
         Me.T_arranque.Name = "T_arranque"
         Me.T_arranque.Size = New System.Drawing.Size(66, 23)
-        Me.T_arranque.TabIndex = 12
+        Me.T_arranque.TabIndex = 1
         '
         'Label7
         '

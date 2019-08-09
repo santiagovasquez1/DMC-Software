@@ -371,7 +371,10 @@ Module DibujoAutocad
                     .AppendOuterLoop(outerLoop)
                     .Layer = "FC_HATCH MUROS"
                     .LinetypeScale = 0.9
+                    .Update()
                 End With
+
+                Hatch_Back(hatch)
 
                 'Agregar cotas
                 p1c = {coordX, altura - Espesores(i) / 100 - g - Hfunda, 0}
@@ -1322,8 +1325,10 @@ Module DibujoAutocad
             .PatternAngle = 45
             .PatternScale = 0.009
             .PatternSpace = 0.009
+            .Update()
         End With
 
+        Hatch_Back(hatch)
     End Sub
 
     Private Sub Add_LW_PL(ByVal coord() As Double, ByVal Layer As String, ByVal Line_Scale As Double, ByVal IsClosed As Boolean)
@@ -1416,6 +1421,25 @@ Module DibujoAutocad
 
     End Sub
 
+    Private Sub Hatch_Back(ByVal Acad_object As AcadObject)
+
+        Dim Diccionario As AcadDictionary
+        Dim sentityObj As AcadObject
+        Dim arr(0) As AcadObject
+
+        'Mover el hacth hacia atras
+        Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
+
+
+        sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
+        sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
+
+        arr(0) = Acad_object
+        sentityObj.MoveToBottom(arr.ToArray)
+
+    End Sub
+
+
     Private Sub Bloque_Info_alzado(ByRef coordenadas() As Double, ByVal Alto_texto As Double)
 
         Refbloc = AcadDoc.ModelSpace.InsertBlock(coordenadas, Ref_bloc_name, 1, 1, 1, 0)
@@ -1447,47 +1471,4 @@ Module DibujoAutocad
         Refbloc.Update()
     End Sub
 
-    Sub coordenadas_T3(ByVal indice As Integer, ByVal altura As Single, ByVal x As Double, ByVal x0 As Double)
-
-        If datos_alzado(indice).tipo_traslapo = "T3" Then
-            If indice > 0 Then
-                If datos_alzado(indice - 1).tipo_traslapo = "T3" OrElse datos_alzado(indice - 1).tipo_traslapo = Nothing Then
-                    ReDim Preserve p_t3(0 To 11)
-                    p_t3 = {x + ganchos_90(datos_alzado(indice).diametro), altura - Hviga + 0.05, 0, x, altura - Hviga + 0.05, 0, x, altura + datos_alzado(indice).hw / 100 - 0.55, 0, x + ganchos_90(datos_alzado(indice).diametro), altura + datos_alzado(indice).hw / 100 - 0.55, 0}
-                    texto_t3 = {x - 0.2, p_t3(1) + 0.15, 0}
-                ElseIf datos_alzado(indice - 1).tipo_traslapo = "T1" Then
-                    ReDim Preserve p_t3(0 To 8)
-                    If x = x0 Then
-                        x = x0 + 0.05
-                    Else
-                        x = x0
-                    End If
-                    p_t3 = {x, altura, 0, x, altura + datos_alzado(indice).hw / 100 - 0.55, 0, x + ganchos_90(datos_alzado(indice).diametro), altura + datos_alzado(indice).hw / 100 - 0.55, 0}
-                    texto_t3 = {x - 0.2, p_t3(1) + 0.15, 0}
-                ElseIf datos_alzado(indice - 1).tipo_traslapo = "T2" OrElse datos_alzado(indice - 1).tipo_traslapo = "T0" Then
-                    ReDim Preserve p_t3(0 To 8)
-                    If x = x0 Then
-                        x = x0 + 0.05
-                    Else
-                        x = x0
-                    End If
-
-                    If datos_alzado(indice - 1).diametro >= datos_alzado(indice).diametro Then
-                        p_t3(1) = altura - Traslapo(0, 0, datos_alzado(indice - 1).fc, datos_alzado(indice - 1).diametro)
-                    Else
-                        p_t3(1) = altura - Traslapo(0, 0, datos_alzado(indice - 1).fc, datos_alzado(indice).diametro)
-                    End If
-                    p_t3 = {x, p_t3(1), 0, x, altura + datos_alzado(indice).hw / 100 - 0.55, 0, x + ganchos_90(datos_alzado(indice).diametro), altura + datos_alzado(indice).hw / 100 - 0.55, 0}
-                    texto_t3 = {x - 0.2, altura + 0.15, 0}
-                    menc1 = 1
-                End If
-            Else
-                ReDim Preserve p_t3(0 To 11)
-                p_t3 = {x + ganchos_90(datos_alzado(indice).diametro), altura - prof, 0, x, altura - prof, 0, x, altura + datos_alzado(indice).hw / 100 - 0.55, 0, x + ganchos_90(datos_alzado(indice).diametro), altura + datos_alzado(indice).hw / 100 - 0.55, 0}
-                texto_t3 = {x - 0.2, altura + 0.15, 0}
-            End If
-
-        End If
-
-    End Sub
 End Module

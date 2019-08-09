@@ -850,6 +850,26 @@ Public Class Estribos_Totales
             .Update()
         End With
 
+        Hatch_Back(Hatch)
+
+    End Sub
+
+    Private Shared Sub Hatch_Back(ByVal Acad_object As AcadObject)
+
+        Dim Diccionario As AcadDictionary
+        Dim sentityObj As AcadObject
+        Dim arr(0) As AcadObject
+
+        'Mover el hacth hacia atras
+        Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
+
+
+        sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
+        sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
+
+        arr(0) = Acad_object
+        sentityObj.MoveToBottom(arr.ToArray)
+
     End Sub
 
 End Class
