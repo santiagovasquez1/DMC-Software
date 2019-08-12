@@ -212,6 +212,7 @@ Public Class Crear_Estribos
 
 
                 'Agregar ganchos en la seccion
+
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
                     If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Gancho = True Then
                         Dim Ip As Double()

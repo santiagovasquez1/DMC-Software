@@ -618,7 +618,7 @@ Public Class f_alzado
 
         indice = e.RowIndex
         Validar_info_3(indice, Indice2, datos_refuerzo, suma, Muro_i, Muros_Hijos, Data_info)
-        Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
+        Tabla_Data_Ayuda(Muro_i.Pier_name, Data_ayuda, indice, False)
 
 
     End Sub

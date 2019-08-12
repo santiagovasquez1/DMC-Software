@@ -186,5 +186,11 @@
   <ItemGroup>
     <None Include="Resources\close-button.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj">
+      <Project>{6939a936-5c65-4160-b74f-2681ec5d14a8}</Project>
+      <Name>Diseño de muros concreto V2</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

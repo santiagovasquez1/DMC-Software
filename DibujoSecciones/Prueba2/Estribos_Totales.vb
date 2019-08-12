@@ -14,6 +14,7 @@ Public Class Estribos_Totales
     Public Rectangulo As AcadLWPolyline
     Public Lista_Rect As New List(Of AcadLWPolyline)
 
+
     Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single)
 
         Dim Suma_Long, delta As Single
@@ -29,6 +30,7 @@ Public Class Estribos_Totales
         Dim Pattern_name, Layer_Hatch As String
         Dim Pc As Double()
         Dim Coordenadas_Texto As Double()
+        Dim Lista_ganchos As List(Of Boolean)
         Distancia_Maxima = 2
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -62,16 +64,21 @@ Public Class Estribos_Totales
 
                     For j = Muro_i.Stories.Count - 1 To 0 Step -1
 
+                        Delta_reduccion = 0
+                        Pos = 0
+                        Suma_Long = 0
+                        Lista_ganchos = New List(Of Boolean)
+
+                        For k = 0 To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1
+                            Lista_ganchos.Add(False)
+                        Next
+
                         If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
                             Pisos_Estribos.Add(Muro_i.Stories(j))
                         End If
 
                         ''Caso en el cual el muro va totalmente confinado
                         If Muro_i.Rho_l(j) >= 0.01 Then
-
-                            Delta_reduccion = 0
-                            Pos = 0
-                            Suma_Long = 0
 
                             Determinacion_Punto_Arranque_Horizontal(Punto_inicial, Muro_i, Vecino_izquierda, Delta_reduccion, i, Muro_vecino_izquierda, j, DeltaY, Delta_X)
                             Determinacion_Punto_Final_Horizontal(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Derecha, Delta_reduccion, i, Muro_vecino_izquierda, j, DeltaY, Delta_X)
@@ -87,7 +94,7 @@ Public Class Estribos_Totales
 
                             Diametro_Estribo = Muro_i.Est_ebe(j)
                             Separacion_Estribo = Muro_i.Sep_ebe(j) / 100
-                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda)
 
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -114,10 +121,6 @@ Public Class Estribos_Totales
 
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
 
-                                Delta_reduccion = 0
-                                Pos = 0
-                                Suma_Long = 0
-
                                 Determinacion_Punto_Arranque_Horizontal(Punto_inicial, Muro_i, Vecino_izquierda, Delta_reduccion, i, Muro_vecino_izquierda, j, DeltaY, Delta_X)
                                 Distancia_Confinada = Determinacion_Confinamiento_LI(Muro_i, Vecino_izquierda, Muro_vecino_izquierda, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
 
@@ -129,7 +132,7 @@ Public Class Estribos_Totales
                                 End If
 
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -152,9 +155,7 @@ Public Class Estribos_Totales
 
                             If Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
 
-                                Delta_reduccion = 0
                                 Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                                Suma_Long = 0
 
                                 Determinacion_Punto_Final_Horizontal(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Derecha, Delta_reduccion, i, Muro_Vecino_derecha, j, DeltaY, Delta_X)
                                 Distancia_Confinada = Determinacion_Confinamiento_Ld(Muro_i, Vecino_Derecha, Muro_Vecino_derecha, j, Diametro_Estribo, Separacion_Estribo, Pattern_name, Layer_Hatch)
@@ -167,7 +168,7 @@ Public Class Estribos_Totales
                                 End If
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
-                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -193,6 +194,8 @@ Public Class Estribos_Totales
 
                         End If
 
+                        Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+                        Add_Ganchos(Lista_ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25)
                         DeltaY += 0.65
                     Next
 
@@ -206,9 +209,15 @@ Public Class Estribos_Totales
 
                     For j = Muro_i.Stories.Count - 1 To 0 Step -1
 
+
                         Delta_reduccion = 0
                         Pos = 0
                         Suma_Long = 0
+                        Lista_ganchos = New List(Of Boolean)
+
+                        For k = 0 To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1
+                            Lista_ganchos.Add(False)
+                        Next
 
                         If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
                             Pisos_Estribos.Add(Muro_i.Stories(j))
@@ -229,7 +238,7 @@ Public Class Estribos_Totales
 
                             Diametro_Estribo = Muro_i.Est_ebe(j)
                             Separacion_Estribo = Muro_i.Sep_ebe(j)
-                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                            Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo)
 
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -265,7 +274,7 @@ Public Class Estribos_Totales
                                 End If
 
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -301,7 +310,7 @@ Public Class Estribos_Totales
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
                                 Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo)
+                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -327,7 +336,8 @@ Public Class Estribos_Totales
 
                         End If
 
-
+                        Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
+                        Add_Ganchos(Lista_ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25)
                         DeltaY += 0.65
                     Next
 
@@ -339,9 +349,8 @@ Public Class Estribos_Totales
                 Coordenadas_Texto = {Lista_Rect.First.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(7) - 0.05, 0}
                 Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointTopCenter)
 
-                Delta_X += Longitud_Real + 2
+                Delta_X += Longitud_Real + 3
             End If
-
 
         Next
         AcadDoc.Regen(AcRegenType.acActiveViewport)
@@ -558,48 +567,52 @@ Public Class Estribos_Totales
 
     End Sub
 
-    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer)
+    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Izq As Boolean)
 
         For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 2
 
             If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion), 2) <= Math.Round(Punto_final(0), 2) Then
 
-                delta = ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Original(j)(Direccion)
+                If j = 0 And Vecino_Izq = True Then
+                    delta = ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion) - Punto_inicial(0)
+                    Lista_Ganchos(j) = True
+                Else
+                    delta = ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion) - ListaOrdenada(i).Lista_Refuerzos_Original(j)(Direccion)
+                End If
+
                 Suma_Long += delta
 
                 'Determinar si la barra lleva gancho o no
 
                 If j <> Pos Or Pos = 0 Then
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
+                    Lista_Ganchos(j + 1) = True
                 End If
 
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
 
                     Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False)
-
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
+                    Lista_Ganchos(j + 1) = False
+                    Lista_Ganchos(Pos) = False
                     Pos = j
                     j = Pos - 1
 
                     Punto_inicial = {ListaOrdenada(i).Lista_Refuerzos_Original(Pos)(Direccion), DeltaY, 0}
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos + 1).Gancho = False
+                    Lista_Ganchos(Pos) = False
+                    Lista_Ganchos(Pos + 1) = False
                     Suma_Long = 0
 
                 End If
 
                 If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
 
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no
-
+                    Lista_Ganchos(j + 1) = False
+                    Lista_Ganchos(Pos) = False
                     Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False)
                     Suma_Long = 0
                     Exit For
                 End If
             Else
-                'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = True
+                Lista_Ganchos(j - 1) = True
                 Exit For
             End If
 
@@ -607,7 +620,7 @@ Public Class Estribos_Totales
 
     End Sub
 
-    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, ByVal DeltaY As Double, ByVal Diametro As Integer)
+    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, ByVal DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean))
 
         For j = Pos To 1 Step -1
 
@@ -619,7 +632,7 @@ Public Class Estribos_Totales
                 'Determinar si la barra lleva gancho o no
 
                 If j <> Pos Or Pos = 0 Then
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
+                    Lista_Ganchos(j + 1) = True
                 End If
 
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
@@ -627,30 +640,26 @@ Public Class Estribos_Totales
 
                     Add_Estribos("FC_ESTRIBOS", 0, Punto_final, Suma_Long, Muro_i.Bw(k) / 100, Diametro, True)
 
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = False 'Determina si la barra lleva gancho o no
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
+                    Lista_Ganchos(j - 1) = False
+                    Lista_Ganchos(Pos) = False
 
                     Pos = j
                     j = Pos + 1
 
                     Punto_final = {ListaOrdenada(i).Lista_Refuerzos_Original(Pos)(Direccion), DeltaY, 0}
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos - 1).Gancho = False
+                    Lista_Ganchos(Pos) = False
+                    Lista_Ganchos(Pos - 1) = False
                     Suma_Long = 0
 
                 End If
 
                 If j - 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite Then
-
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
-                    'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = False 'Determina si la barra lleva gancho o no
-                    Add_Estribos("FC_ESTRIBOS", 0, Punto_final, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False)
-                    Suma_Long = 0
+                    Lista_Ganchos(j - 2) = True
                     Exit For
                 End If
 
             Else
-                'ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
+                Lista_Ganchos(j + 1) = True
                 Exit For
             End If
 
@@ -739,8 +748,6 @@ Public Class Estribos_Totales
         Vector_Origen = {Muro_D.XminE, Muro_D.YminE}
 
         For i = 0 To Muro_D.Lista_Refuerzos_Original.Count - 1
-
-
             Rotacion = Rotar_Refuerzo(Muro_D.Lista_Refuerzos_Original(i)(0), Muro_D.Lista_Refuerzos_Original(i)(1), Math.PI / 2).ToArray
             Muro_D.Lista_Refuerzos_Original(i) = Rotacion
         Next
@@ -872,4 +879,45 @@ Public Class Estribos_Totales
 
     End Sub
 
+    Private Sub Add_Ganchos(ByVal Lista_Ganchos As List(Of Boolean), ByVal Lista_Coord As List(Of Double()), ByVal Delta_Y As Double, ByVal Delta_X As Double)
+
+        Dim Coord_Gancho As Double()
+        Dim Long_Gancho As Double
+        Dim Nombre_Bloque As String
+        Dim dynamic_property1 As Object
+        Dim editar_property1 As AcadDynamicBlockReferenceProperty
+        Dim Contador As Integer = 0
+        Dim Texto As String = ""
+
+        Nombre_Bloque = "FC_B_Gancho Tipo 5"
+
+        For i = 0 To Lista_Ganchos.Count - 1
+
+            If Lista_Ganchos(i) = True Then
+
+                Coord_Gancho = {Lista_Coord(i)(0), Delta_Y - 0.087, 0}
+                Long_Gancho = 0.174
+                Dibujar_Gancho(Coord_Gancho, Long_Gancho, Nombre_Bloque, dynamic_property1, editar_property1)
+                Contador += 1
+            End If
+
+        Next
+
+        'If Contador > 0 Then
+        '    Add_Rectangulo(Rectangulo, {Delta_X, Delta_Y - 0.4, Delta_X + 1, Delta_Y - 0.4, Delta_X + 1, Delta_Y + 0.25, Delta_X, Delta_Y + 0.25}, "FC_BORDES", True, Lista_Rect)
+        '    Texto = Contador & " Ganchos #" & Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
+        'End If
+
+    End Sub
+
+    Private Sub Dibujar_Gancho(Coord_Gancho() As Double, Long_Gancho As Double, Nombre_Bloque As String, ByRef dynamic_property1 As Object, ByRef editar_property1 As AcadDynamicBlockReferenceProperty)
+        Bloque_Gancho = AcadDoc.ModelSpace.InsertBlock(Coord_Gancho, Nombre_Bloque, 1, 1, 1, Math.PI / 2)
+        dynamic_property1 = Bloque_Gancho.GetDynamicBlockProperties
+
+        editar_property1 = dynamic_property1(0)
+        editar_property1.Value = Long_Gancho
+
+        Bloque_Gancho.Layer = "FC_GANCHOS"
+        Bloque_Gancho.Update()
+    End Sub
 End Class

@@ -196,6 +196,7 @@
                 End If
             Next
         End If
+        datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
     End Sub
 
     Public Sub Find_Muros_Hijos(Muro_i As Muros_Consolidados, Muros_hijos As List(Of Muros_Consolidados))
