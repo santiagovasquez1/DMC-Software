@@ -560,10 +560,12 @@ Public Class f_alzado
                 Auxiliar.Nombre_muro = LMuros.Text
                 Auxiliar.Load_Coordinates(LMuros.Text, coordX)
                 Dibujar_Refuerzo(Auxiliar)
+                Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
             End If
+
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo)
+
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click

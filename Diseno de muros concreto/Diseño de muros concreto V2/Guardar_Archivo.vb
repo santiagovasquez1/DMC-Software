@@ -5,18 +5,10 @@ Public Class Guardar_Archivo
     Dim Ruta As String
     Dim Lista_Texto As List(Of String)
 
-    Public Sub New(ByVal Ruta_archivo As String)
+    Public Sub New(ByVal Ruta_archivo As String, ByVal Borrar As Boolean)
 
-        'Dim Data_Alzado As DataGridView
 
         Ruta = Ruta_archivo
-
-        'If Data_alzado IsNot Nothing Then
-        '    For i = 0 To datos_alzado.Count - 1
-
-        '    Next
-        'End If
-
 
         If Muros_lista_2 IsNot Nothing Then
             Actualizar_Resumen()
@@ -26,12 +18,12 @@ Public Class Guardar_Archivo
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
-                Sobre_Escribir()
+                Sobre_Escribir(Borrar)
             Catch ex As Exception
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
-                Sobre_Escribir()
+                Sobre_Escribir(Borrar)
             End Try
 
         End If
@@ -177,7 +169,7 @@ Public Class Guardar_Archivo
 
     End Sub
 
-    Sub Sobre_Escribir()
+    Sub Sobre_Escribir(ByVal Borrar As Boolean)
 
         Dim Inicio, Fin As Integer
         Dim Vector_Texto_aux As New List(Of String)
@@ -187,15 +179,18 @@ Public Class Guardar_Archivo
         Dim Escritor As StreamWriter
 
         Do
+
             sline = Lector.ReadLine()
             Vector_Texto_aux.Add(sline)
 
         Loop Until sline Is Nothing
+
         Lector.Close()
 
         Inicio = Vector_Texto_aux.FindIndex(Function(x) x.Contains("5.Reporte")) + 2
 
         ''Guardar resumen de diseño
+
         Try
             Fin = Vector_Texto_aux.FindIndex(Function(x) x.Contains("6.Datos de Refuerzo Adicional")) - 2
         Catch ex As Exception
@@ -208,8 +203,20 @@ Public Class Guardar_Archivo
         Next
 
         ''
+
+
         Vector_Texto_aux(Fin + 2) = "6.Datos de Refuerzo Adicional"
+        Vector_Texto_aux(Fin + 3) = ""
         indice = Lista_Texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal"))
+
+        If Borrar = True Then
+            Dim numero_Elementos As Integer
+            numero_Elementos = Vector_Texto_aux.Count - 1 - (Fin + 3)
+            Vector_Texto_aux.RemoveRange(Fin + 4, numero_Elementos)
+            indice = Lista_Texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal"))
+        End If
+
+        'Vector_Texto_aux.RemoveRange()
 
         For i = X1 To indice - 1
             Vector_Texto_aux.Add(Lista_Texto(i))
@@ -223,7 +230,6 @@ Public Class Guardar_Archivo
             Vector_Texto_aux.Add(Lista_Texto(i))
             X1 += 1
         Next
-
 
         Vector_Texto_aux.AddRange({"", "8.Datos de alzado refuerzo longitudinal - Longitud", ""})
 

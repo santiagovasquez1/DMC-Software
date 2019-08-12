@@ -292,7 +292,7 @@ namespace Diseno_muros_concreto_fc
             }
 
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -394,7 +394,7 @@ namespace Diseno_muros_concreto_fc
         {
             Guardar_archivo.Crear_Archivo_Texto();
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
         }
 
         private void AlzadoRefuerzoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -470,7 +470,7 @@ namespace Diseno_muros_concreto_fc
             }
 
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
 
         }
 
@@ -478,7 +478,7 @@ namespace Diseno_muros_concreto_fc
         {
             Guardar_archivo.Crear_Archivo_Texto();
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
 
         }
 
