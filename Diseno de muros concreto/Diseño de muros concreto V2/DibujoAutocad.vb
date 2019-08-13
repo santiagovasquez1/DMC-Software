@@ -785,6 +785,9 @@ Module DibujoAutocad
         Dim Texto As String
         Dim longitud As Single
         Dim Ymin, Ymax As Single
+        Dim Hijos As New List(Of Muros_Consolidados)
+
+        Find_Muros_Hijos(Muros_lista_2.Find(Function(x) x.Pier_name = Muro_i.Nombre_muro), Hijos)
 
         For i = 0 To Muro_i.Stories.Count - 1
 
@@ -814,6 +817,13 @@ Module DibujoAutocad
 
                         longitud = Calcular_Longitud(Muro_i.Lista_Coordenadas(j)(k))
                         alzado_lista(indice3).Alzado_Longitud.Add(Texto & longitud)
+
+                        For q = 0 To Hijos.Count - 1
+                            Dim Indice4 As Integer
+                            Indice4 = alzado_lista.FindIndex(Function(x) x.pier = Hijos(q).Pier_name And x.story = Muro_i.Stories(i))
+                            alzado_lista(Indice4).Alzado_Longitud.Add(Texto & longitud)
+                        Next
+
                         contador += 1
 
                     End If
@@ -1429,7 +1439,6 @@ Module DibujoAutocad
 
         'Mover el hacth hacia atras
         Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
-
 
         sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
         sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")

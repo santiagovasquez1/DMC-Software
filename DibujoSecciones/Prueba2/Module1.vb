@@ -1462,7 +1462,39 @@ Module Module1
             Else
 
 
-                'FALTAN HORZIONTALES
+                Dim Coord(2) As Double
+                Coord(0) = .Xmin + (.Xmax - .Xmin) * 0.2
+                Coord(1) = .Ymin - 0.2249
+
+                BloqueNombreMuro = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Leader nombre de muro en seccion", 25, 25, 25, 0)
+                BloqueNombreMuro.Layer = "FC_COTAS"
+                Dim Propiedades_Dinamicas As Object = BloqueNombreMuro.GetDynamicBlockProperties
+                Dim AtibutosBloque As Object = BloqueNombreMuro.GetAttributes()
+
+
+                Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+                Dim Editar_Atributos As Object = AtibutosBloque(0)
+
+                Editar_Propiedades2 = Propiedades_Dinamicas(0) ''''Arriba-Abajo
+                Editar_Propiedades2.Value = Convert.ToInt16(1)
+
+
+                Editar_Propiedades2 = Propiedades_Dinamicas(4) ''''Visibility1
+                Editar_Propiedades2.Value = "Horizontal"
+
+                Editar_Propiedades2 = Propiedades_Dinamicas(5) ''''Distance1
+                Editar_Propiedades2.Value = 0.1577
+
+                Editar_Propiedades2 = Propiedades_Dinamicas(3) ''''Derecha-Izquierda      
+                Editar_Propiedades2.Value = Convert.ToInt16(0)
+
+                Editar_Propiedades2 = Propiedades_Dinamicas(10) ''''Distance4     
+                Editar_Propiedades2.Value = 0.4774
+
+                Editar_Atributos.TextString = "Muro " & .NombreMuro
+
+
+
 
 
 

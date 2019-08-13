@@ -136,6 +136,7 @@ Public Class Guardar_Archivo
 
         Dim texto, texto2 As String
         Dim indice, pos As Integer
+        Dim Muro_i As Muros_Consolidados
 
         alzado_lista.OrderBy(Function(x) x.pier)
         alzado_lista.OrderBy(Function(x) x.story)
@@ -147,23 +148,51 @@ Public Class Guardar_Archivo
 
         For Each Alzado_i As alzado_muro In alzado_lista
 
+            'If Alzado_i.pier = "K1" Then
+            '    Stop
+            'End If
+
+            Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Alzado_i.pier)
             texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
 
-            For j = 0 To Alzado_i.Alzado_Longitud.Count - 1
-                pos = Alzado_i.Alzado_Longitud(j).IndexOf("L=") + 2
+            If IsNothing(Muro_i.MuroSimilar) = False Then
+                Dim Alzado_madre As alzado_muro
+                Alzado_madre = alzado_lista.Find(Function(x) x.pier = Muro_i.MuroSimilar.Pier_name And x.story = Alzado_i.story)
 
-                If pos > 2 Then
-                    texto2 = Alzado_i.Alzado_Longitud(j).Substring(pos)
-                Else
-                    texto2 = Alzado_i.Alzado_Longitud(j)
-                End If
+                For j = 0 To Alzado_madre.Alzado_Longitud.Count - 1
+                    pos = Alzado_madre.Alzado_Longitud(j).IndexOf("L=") + 2
 
-                If j < Alzado_i.Alzado_Longitud.Count - 1 Then
-                    texto = texto & texto2 & vbTab
-                Else
-                    texto = texto & texto2
-                End If
-            Next
+                    If pos > 2 Then
+                        texto2 = Alzado_madre.Alzado_Longitud(j).Substring(pos)
+                    Else
+                        texto2 = Alzado_madre.Alzado_Longitud(j)
+                    End If
+
+                    If j < Alzado_madre.Alzado_Longitud.Count - 1 Then
+                        texto = texto & texto2 & vbTab
+                    Else
+                        texto = texto & texto2
+                    End If
+                Next
+            Else
+                For j = 0 To Alzado_i.Alzado_Longitud.Count - 1
+                    pos = Alzado_i.Alzado_Longitud(j).IndexOf("L=") + 2
+
+                    If pos > 2 Then
+                        texto2 = Alzado_i.Alzado_Longitud(j).Substring(pos)
+                    Else
+                        texto2 = Alzado_i.Alzado_Longitud(j)
+                    End If
+
+                    If j < Alzado_i.Alzado_Longitud.Count - 1 Then
+                        texto = texto & texto2 & vbTab
+                    Else
+                        texto = texto & texto2
+                    End If
+                Next
+            End If
+
+
             Lista_Texto.Add(texto)
         Next
 
@@ -201,9 +230,6 @@ Public Class Guardar_Archivo
             Vector_Texto_aux(i) = Lista_Texto(X1)
             X1 += 1
         Next
-
-        ''
-
 
         Vector_Texto_aux(Fin + 2) = "6.Datos de Refuerzo Adicional"
         Vector_Texto_aux(Fin + 3) = ""
