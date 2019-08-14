@@ -432,6 +432,7 @@ Public Class Crear_Estribos
         condicion = True
         condicion2 = False
         Suma_Long = 0
+        delta = 0
 
         For j = Pos To 1 Step -1
 
@@ -508,6 +509,7 @@ Public Class Crear_Estribos
         condicion = True
         condicion2 = False
         Suma_Long = 0
+        delta = 0
 
         For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 2
 

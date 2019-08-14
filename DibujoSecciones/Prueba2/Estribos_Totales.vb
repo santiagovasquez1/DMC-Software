@@ -223,7 +223,7 @@ Public Class Estribos_Totales
                             Pisos_Estribos.Add(Muro_i.Stories(j))
                         End If
 
-                        If Muro_i.Rho_l(j) > 0.01 Then
+                        If Muro_i.Rho_l(j) >= 0.01 Then
 
                             Determinacion_Punto_Arranque_Vertical(Punto_inicial, Muro_i, Vecino_Abajo, Delta_reduccion, i, Muro_Vecino_Abajo, j, DeltaY, Delta_X)
                             Determinacion_Punto_Final_Vertical(Punto_final, Muro_i, ListaOrdenada(i), Vecino_Arriba, Delta_reduccion, i, Muro_Vecino_Arriba, j, DeltaY, Delta_X)
@@ -570,6 +570,7 @@ Public Class Estribos_Totales
     Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Izq As Boolean)
 
         Dim Condicion, Condicion2 As Boolean
+        delta = 0
         Condicion = True
         Condicion2 = False
         Suma_Long = 0
@@ -647,7 +648,7 @@ Public Class Estribos_Totales
         condicion = True
         condicion2 = False
         Suma_Long = 0
-
+        delta = 0
         For j = Pos To 1 Step -1
 
             If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Original(j - 1)(Direccion), 2) >= Math.Round(Punto_inicial(Direccion), 2) Then
