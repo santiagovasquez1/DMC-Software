@@ -605,7 +605,6 @@ Public Class Estribos_Totales
                         Condicion2 = False
                     End If
 
-
                     If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 Then
                         Condicion = False
                     End If
