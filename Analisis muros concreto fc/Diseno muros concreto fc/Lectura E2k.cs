@@ -46,118 +46,121 @@ namespace Diseno_muros_concreto_fc
             Myfile.Filter = "Archivo de Etabs |*.$ET";
             Myfile.Title = "Abrir Modelo";
             Myfile.ShowDialog();
-
-
-            try
+            
+            if (Myfile.FileName != "")
             {
-                Lector = new StreamReader(Myfile.FileName);
-
-                do
-                {
-                    sline = Lector.ReadLine();
-                    Lineas_E2k.Add(sline);
-
-                } while (!(sline == null));
-
-                Lector.Close();
-
-                Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ MATERIAL PROPERTIES")) + 1;
-                Fin= Lineas_E2k.FindIndex(x => x.Contains("$ REBAR DEFINITIONS")) -1;
-
-                for (int i =Inicio;i<Fin; i++)
-                {
-                    if (Lineas_E2k[i].Contains("FC") == true)
-                    {
-                        Vector_Texto = Lineas_E2k[i].Split();
-                        if (Vector_Texto.Length == 10)
-                        {
-                            Material_i = new Material
-                            {
-                                Nombre = Texto_sub(Vector_Texto, 4, 34),
-                                Fc = Convert.ToSingle(Vector_Texto[9])
-                            };
-                            Listas_Programa.Lista_Materiales.Add(Material_i);
-                        }
-                    }
-
-                }
-
-                Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
-                Fin = Lineas_E2k.FindIndex(x => x.Contains("$ LINE CONNECTIVITIES")) - 1;
-
-                for (int i = Inicio; i < Fin; i++)
-                {
-                    
-                    Vector_Texto = Lineas_E2k[i].Split();
-                    pos = Vector_Texto[3].LastIndexOf((char)34);
-                    Puntoi = new Puntos_Modelo
-                    {
-                        Label = Vector_Texto[3].Substring(1, pos - 1),
-                        Xc = Convert.ToDouble(Vector_Texto[5]),
-                        Yc = Convert.ToDouble(Vector_Texto[6])
-                    };
-                    Listas_Programa.Lista_Puntos.Add(Puntoi);
-                }
-
-                Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ AREA ASSIGNS")) + 1;
-                Fin = Lineas_E2k.FindIndex(x => x.Contains("$ LOAD PATTERNS")) - 1;
-
-                for (int i=Inicio;i<Fin; i++)
-                {
-                    if (Lineas_E2k[i].Contains("PIER") == true)
-                    {
-                        Vector_Texto= Lineas_E2k[i].Split();
-                        Area_i = new Area_Assigns
-
-                        {
-                            Label=Texto_sub(Vector_Texto,4,34),
-                            Story = Texto_sub(Vector_Texto, 6, 34),
-                            Section = Texto_sub(Vector_Texto, 9, 34),
-                            Pier = Texto_sub(Vector_Texto, 13, 34)
-                        };
-                        Lista_Areas_Aux.Add(Area_i);
-                    }
-                }
-
-                Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ AREA CONNECTIVITIES")) + 1;
                 try
                 {
-                    Fin = Lineas_E2k.FindIndex(x => x.Contains("$ GROUPS")) - 1;                    
-                }
-                catch
-                {
-                    Fin = Lineas_E2k.FindIndex(x => x.Contains("$ POINT ASSIGNS")) - 1;
-                }
+                    Lector = new StreamReader(Myfile.FileName);
+                    do
+                    {
+                        sline = Lector.ReadLine();
+                        Lineas_E2k.Add(sline);
 
-                for (int i = Inicio; i < Fin; i++)
-                {
-                    Vector_Texto = Lineas_E2k[i].Split();
-                    if (Vector_Texto[5].Contains("PANEL") == true)
+                    } while (!(sline == null));
+
+                    Lector.Close();
+
+                    Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ MATERIAL PROPERTIES")) + 1;
+                    Fin = Lineas_E2k.FindIndex(x => x.Contains("$ REBAR DEFINITIONS")) - 1;
+
+                    for (int i = Inicio; i < Fin; i++)
+                    {
+                        if (Lineas_E2k[i].Contains("FC") == true)
+                        {
+                            Vector_Texto = Lineas_E2k[i].Split();
+                            if (Vector_Texto.Length == 10)
+                            {
+                                Material_i = new Material
+                                {
+                                    Nombre = Texto_sub(Vector_Texto, 4, 34),
+                                    Fc = Convert.ToSingle(Vector_Texto[9])
+                                };
+                                Listas_Programa.Lista_Materiales.Add(Material_i);
+                            }
+                        }
+
+                    }
+
+                    Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
+                    Fin = Lineas_E2k.FindIndex(x => x.Contains("$ LINE CONNECTIVITIES")) - 1;
+
+                    for (int i = Inicio; i < Fin; i++)
                     {
 
-                        List<Area_Assigns> Aux = Lista_Areas_Aux.FindAll(x => x.Label == Texto_sub(Vector_Texto, 3, 34));
-
-                        for (int j = 0; j < Aux.Count; j++)
+                        Vector_Texto = Lineas_E2k[i].Split();
+                        pos = Vector_Texto[3].LastIndexOf((char)34);
+                        Puntoi = new Puntos_Modelo
                         {
-                            Shell_i = new Shells_Prop
-                            {
-                                Label = Texto_sub(Vector_Texto, 3, 34),
-                                Puntos = new List<string> { Texto_sub(Vector_Texto, 9, 34), Texto_sub(Vector_Texto, 11, 34), Texto_sub(Vector_Texto, 13, 34), Texto_sub(Vector_Texto, 15, 34) },
-                                Coord = Extraccion_Coord(new List<string> { Texto_sub(Vector_Texto, 9, 34), Texto_sub(Vector_Texto, 11, 34), Texto_sub(Vector_Texto, 13, 34), Texto_sub(Vector_Texto, 15, 34) }),
-                                Pier=Aux[j].Pier,
-                                section=Aux[j].Section,
-                                Story=Aux[j].Story
-                            };
-                            Listas_Programa.Lista_shells.Add(Shell_i);
-                        }
-                                                
+                            Label = Vector_Texto[3].Substring(1, pos - 1),
+                            Xc = Convert.ToDouble(Vector_Texto[5]),
+                            Yc = Convert.ToDouble(Vector_Texto[6])
+                        };
+                        Listas_Programa.Lista_Puntos.Add(Puntoi);
                     }
+
+                    Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ AREA ASSIGNS")) + 1;
+                    Fin = Lineas_E2k.FindIndex(x => x.Contains("$ LOAD PATTERNS")) - 1;
+
+                    for (int i = Inicio; i < Fin; i++)
+                    {
+                        if (Lineas_E2k[i].Contains("PIER") == true)
+                        {
+                            Vector_Texto = Lineas_E2k[i].Split();
+                            Area_i = new Area_Assigns
+
+                            {
+                                Label = Texto_sub(Vector_Texto, 4, 34),
+                                Story = Texto_sub(Vector_Texto, 6, 34),
+                                Section = Texto_sub(Vector_Texto, 9, 34),
+                                Pier = Texto_sub(Vector_Texto, 13, 34)
+                            };
+                            Lista_Areas_Aux.Add(Area_i);
+                        }
+                    }
+
+                    Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ AREA CONNECTIVITIES")) + 1;
+                    try
+                    {
+                        Fin = Lineas_E2k.FindIndex(x => x.Contains("$ GROUPS")) - 1;
+                    }
+                    catch
+                    {
+                        Fin = Lineas_E2k.FindIndex(x => x.Contains("$ POINT ASSIGNS")) - 1;
+                    }
+
+                    for (int i = Inicio; i < Fin; i++)
+                    {
+                        Vector_Texto = Lineas_E2k[i].Split();
+                        if (Vector_Texto[5].Contains("PANEL") == true)
+                        {
+
+                            List<Area_Assigns> Aux = Lista_Areas_Aux.FindAll(x => x.Label == Texto_sub(Vector_Texto, 3, 34));
+
+                            for (int j = 0; j < Aux.Count; j++)
+                            {
+                                Shell_i = new Shells_Prop
+                                {
+                                    Label = Texto_sub(Vector_Texto, 3, 34),
+                                    Puntos = new List<string> { Texto_sub(Vector_Texto, 9, 34), Texto_sub(Vector_Texto, 11, 34), Texto_sub(Vector_Texto, 13, 34), Texto_sub(Vector_Texto, 15, 34) },
+                                    Coord = Extraccion_Coord(new List<string> { Texto_sub(Vector_Texto, 9, 34), Texto_sub(Vector_Texto, 11, 34), Texto_sub(Vector_Texto, 13, 34), Texto_sub(Vector_Texto, 15, 34) }),
+                                    Pier = Aux[j].Pier,
+                                    section = Aux[j].Section,
+                                    Story = Aux[j].Story
+                                };
+                                Listas_Programa.Lista_shells.Add(Shell_i);
+                            }
+
+                        }
+                    }
+
+                }
+                catch (FileNotFoundException e)
+                {
+                    e.Message.ToString();
                 }
 
-            }
-            catch (FileNotFoundException e)
-            {
-                
+
             }
 
 
