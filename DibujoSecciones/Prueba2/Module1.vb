@@ -22,6 +22,8 @@ Module Module1
     Public TablaAutocad As AcadTable
     Public NombreMuro As AcadBlockReference
 
+    Public Ganchos_180 As New Dictionary(Of String, Double)
+
 
     Public Linea As AcadLine
     Public ListaOrdenada As List(Of Muros)
@@ -950,12 +952,6 @@ Module Module1
 
 
 
-
-
-
-
-
-
                         If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
                             AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
                         End If
@@ -1385,7 +1381,7 @@ Module Module1
 
                     End If
 
-                    MALLAOREFUERZOHORIZONTAL("FC_MALLA", ListaOrdenada(i), NoMallas, .Xmin + 0.04, 0.04, 0.04, .Ymin + 0.04)
+                    MALLAOREFUERZOHORIZONTAL("FC_MALLA", ListaOrdenada(i), NoMallas, .Xmin + 0.04, 0.04, 0.04, .Ymin + 0.04, 0.116)
                 End If
             End With
 
@@ -1394,9 +1390,26 @@ Module Module1
         'Refuerzo Horizontal
         For Each Muro In ListaOrdenada
             If Muro.RefuerzoHorizontalLabel <> "" Then
-                MALLAOREFUERZOHORIZONTAL("FC_REFUERZO HORIZONTAL 2", Muro, Muro.Capas_RefuerzoHorizontal, Muro.RecubrimientoRefuerzo, (Muro.RecubrimientoRefuerzo - Muro.Xmin), (Muro.RecubrimientoRefuerzo - Muro.Ymin), Muro.RecubrimientoRefuerzo)
+                MALLAOREFUERZOHORIZONTAL("FC_REFUERZO HORIZONTAL 2", Muro, Muro.Capas_RefuerzoHorizontal, Muro.RecubrimientoRefuerzo, (Muro.RecubrimientoRefuerzo - Muro.Xmin), (Muro.RecubrimientoRefuerzo - Muro.Ymin), Muro.RecubrimientoRefuerzo, Ganchos_180(Muro.RefuerzoHorizontalLabel))
             End If
         Next
+
+
+
+
+        'ColocarLabelsDeMallaORefuerzoHorizontal
+
+        For Each Muro In ListaOrdenada
+            If Muro.RefuerzoHorizontalLabel <> "" Then
+
+
+
+            End If
+        Next
+
+
+
+
 
         Dim Estribos As New Crear_Estribos
         Estribos.Determinar_Estribos(Formulario)
@@ -1409,11 +1422,62 @@ Module Module1
 
         Aux.Estribos_Pisos(Delta_X, 0, A(1))
 
+
         Muros_V.Clear()
         ListaOrdenada.Clear()
         Selecccionar.Clear()
         Lista_CirculoRefuerzos.Clear()
         Lista_TextosRefuerzos.Clear()
+
+
+    End Sub
+
+
+    Sub AddBloqueRefuerzo(ByVal MuroI As Muros, ByVal No_Capas As Integer)
+
+        With MuroI
+
+
+            If .DireccionMuro = "Vertical" Then
+                Dim InicioX = .Xmax + 0.0167
+                Dim InicioY = .Ymax - (.Ymax - .Ymin) * 0.3
+
+                Dim Visibility1 = "Vertical"
+
+                Dim Distance3 = 0.73232
+                Dim Flipstate = Convert.ToInt16(0)
+                Dim Distance1 = 0.0466
+                Dim Distane2
+                If Math.Round(.EspesorReal, 2) = 0.12 Then
+                    Distane2 = 0
+                Else
+
+                End If
+
+
+
+
+
+
+            Else
+
+
+
+
+
+            End If
+
+
+
+
+
+        End With
+
+
+
+
+
+
 
 
     End Sub
@@ -2251,8 +2315,6 @@ Module Module1
 
         With RefuerzoHorizontal
             .Layer = Layer
-
-
         End With
         RefuerzoHorizontal.Update()
 
@@ -2289,7 +2351,7 @@ Module Module1
 
     End Sub
 
-    Public Sub MALLAOREFUERZOHORIZONTAL(ByVal Layer As String, ByVal MuroaAnalizar As Muros, ByVal Capas As Integer, ByVal UbicacionRefuerzoMV As Double, ByVal UbicacionRefuerzoMV2 As Double, ByVal UbicacionRefuerzoMH As Double, ByVal UbicacionRefuerzoMH0 As Double)
+    Public Sub MALLAOREFUERZOHORIZONTAL(ByVal Layer As String, ByVal MuroaAnalizar As Muros, ByVal Capas As Integer, ByVal UbicacionRefuerzoMV As Double, ByVal UbicacionRefuerzoMV2 As Double, ByVal UbicacionRefuerzoMH As Double, ByVal UbicacionRefuerzoMH0 As Double, ByVal LongGancho As Double)
 
 
         With MuroaAnalizar
@@ -2314,13 +2376,14 @@ Module Module1
                     '----------------------MUROS HORIZONTALES ---------------------------------
                     Dim MurosaExtenderMalla As Integer = 0
                     Dim XaExtender1 As Double = 0 : Dim XaExtender2 As Double = 0 : Dim R1 As Double = 0 : Dim R2 As Double = 0
-                    Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0
+                    Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0 : Dim Espesor_M1 As Double : Dim Espesor_M2 As Double
 
                     For j = 0 To .MurosVecinosP.Count - 1
                         If Math.Round(ListaOrdenada(.MurosVecinosP(j)).XmaxE, 2) = Math.Round(.XminE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosP(j)).XminE, 2) = Math.Round(.XminE, 2) Then
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             XaExtender1 = ListaOrdenada(.MurosVecinosP(j)).Xmin
                             R1 = ListaOrdenada(.MurosVecinosP(j)).RecubrimientoRefuerzo - ListaOrdenada(.MurosVecinosP(j)).Xmin
+                            Espesor_M1 = ListaOrdenada(.MurosVecinosP(j)).EspesorReal
                             If Math.Round(ListaOrdenada(.MurosVecinosP(j)).YmaxE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosP(j)).YmaxE, 2) = Math.Round(.YminE, 2) Then
                                 MuroL1 = "MuroLArriba"
                             ElseIf Math.Round(ListaOrdenada(.MurosVecinosP(j)).YminE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosP(j)).YminE, 2) = Math.Round(.YminE, 2) Then
@@ -2334,6 +2397,7 @@ Module Module1
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             XaExtender2 = ListaOrdenada(.MurosVecinosP(j)).Xmax
                             R2 = ListaOrdenada(.MurosVecinosP(j)).RecubrimientoRefuerzo - ListaOrdenada(.MurosVecinosP(j)).Xmin
+                            Espesor_M2 = ListaOrdenada(.MurosVecinosP(j)).EspesorReal
                             If Math.Round(ListaOrdenada(.MurosVecinosP(j)).YmaxE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosP(j)).YmaxE, 2) = Math.Round(.YminE, 2) Then
                                 MuroL2 = "MuroLArriba"
                             ElseIf Math.Round(ListaOrdenada(.MurosVecinosP(j)).YminE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosP(j)).YminE, 2) = Math.Round(.YminE, 2) Then
@@ -2351,11 +2415,15 @@ Module Module1
                     If .LEB_Dr < 0.45 And .LEB_Iz < 0.45 Then
                         'Caso1
                         If MurosaExtenderMalla = 2 Then 'Para dos Capas, con extension en sus dos vecinos
-
+                            .LongMallaHoriz = (.XmaxE - .XminE) + Espesor_M1 + Espesor_M2 - 0.02 * 2 + 0.3 * 2
                             If Capas = 2 Then
+
                                 Coord(0) = XaExtender2 - R2 - 0.42 - 0.01
                                 Coord(1) = (.Ymax - UbicacionRefuerzoMH) + 0.01
                                 LongitudRefuerzo = (Coord(0) + 0.42) - (XaExtender1 + R1 + 0.01)
+
+
+
 
                                 'Refuerzo Arriba
                                 DireccGancho1 = 0 : DireccGancho2 = 0
@@ -2368,6 +2436,7 @@ Module Module1
 
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_4", 270, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
+
 
                                 'Refuerzo Abajo
 
@@ -2409,6 +2478,7 @@ Module Module1
 
                         If MurosaExtenderMalla = 1 And XaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino izquierdo
 
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = XaExtender1 + R1 - 0.01 + 0.42
@@ -2459,7 +2529,7 @@ Module Module1
                         'Caso2.2 ----> LadoIzquierdo
 
                         If MurosaExtenderMalla = 1 And XaExtender2 <> 0 Then 'Para dos Capas, con extension en un vecino derecho
-
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = XaExtender2 - R2 - 0.01 - 0.42
@@ -2509,7 +2579,7 @@ Module Module1
 
 
                         If MurosaExtenderMalla = 0 Then
-
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 * 2 + (2 * LongGancho)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
 
@@ -2546,9 +2616,10 @@ Module Module1
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 And .LEB_Iz <> 0 Then
 
-
                         'Caso 1 ---> Muros Vecinos
                         If MurosaExtenderMalla = 2 OrElse XaExtender1 <> 0 Then
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.15 + Espesor_M1 - 0.02
+
                             If Capas = 2 Then
 
                                 'Refuerzo Arriba
@@ -2594,6 +2665,7 @@ Module Module1
                         'Caso 2
 
                         If MurosaExtenderMalla = 1 And XaExtender2 <> 0 OrElse MurosaExtenderMalla = 0 Then
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 2 * 0.15
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = .Xmax - 0.15 : Coord(1) = .Ymax - UbicacionRefuerzoMH + 0.01
@@ -2637,6 +2709,8 @@ Module Module1
 
                         'Caso 1
                         If MurosaExtenderMalla = 2 OrElse MurosaExtenderMalla = 1 And XaExtender2 <> 0 Then
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.15 + Espesor_M2 - 0.02
+
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = .Xmin + 0.15
@@ -2678,6 +2752,7 @@ Module Module1
                         'Caso 2
 
                         If MurosaExtenderMalla = 1 And XaExtender1 <> 0 OrElse MurosaExtenderMalla = 0 Then
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 2 * 0.15
                             If Capas = 2 Then
                                 'Refuerzo Abajo
                                 Coord(0) = .Xmin + 0.15 : Coord(1) = UbicacionRefuerzoMH0 - 0.01
@@ -2715,6 +2790,7 @@ Module Module1
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz >= 0.45 OrElse .LEB_Dr >= .Longitud And .LEB_Iz = 0 OrElse .LEB_Iz >= .Longitud And .LEB_Dr = 0 Then
 
+                        .LongMallaHoriz = (.XmaxE - .XminE) - 2 * 0.15
 
                         If Capas = 2 Then
 
@@ -2752,7 +2828,7 @@ Module Module1
 
                     Dim MurosaExtenderMalla As Integer = 0
                     Dim YaExtender1 As Double = 0 : Dim YaExtender2 As Double = 0 : Dim R1 As Double = 0 : Dim R2 As Double = 0
-                    Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0
+                    Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0 : Dim Espesor_M1 As Double : Dim Espesor_M2 As Double
 
                     For j = 0 To .MurosVecinosPY.Count - 1
 
@@ -2761,6 +2837,7 @@ Module Module1
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             YaExtender1 = ListaOrdenada(.MurosVecinosPY(j)).Ymin
                             R1 = ListaOrdenada(.MurosVecinosPY(j)).RecubrimientoRefuerzo - ListaOrdenada(.MurosVecinosPY(j)).Ymin
+                            Espesor_M1 = ListaOrdenada(.MurosVecinosPY(j)).EspesorReal
                             If Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XmaxE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XmaxE, 2) = Math.Round(.XminE, 2) Then
                                 MuroL1 = "MuroLIzquierda"
                             ElseIf Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XminE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XminE, 2) = Math.Round(.XminE, 2) Then
@@ -2776,6 +2853,7 @@ Module Module1
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             YaExtender2 = ListaOrdenada(.MurosVecinosPY(j)).Ymax
                             R2 = ListaOrdenada(.MurosVecinosPY(j)).RecubrimientoRefuerzo - ListaOrdenada(.MurosVecinosPY(j)).Ymin
+                            Espesor_M2 = ListaOrdenada(.MurosVecinosPY(j)).EspesorReal
                             If Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XmaxE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XmaxE, 2) = Math.Round(.XminE, 2) Then
                                 MuroL2 = "MuroLIzquierda"
                             ElseIf Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XminE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosPY(j)).XminE, 2) = Math.Round(.XminE, 2) Then
@@ -2798,6 +2876,7 @@ Module Module1
                     If .LEB_Dr < 0.45 And .LEB_Iz < 0.45 Then
                         'Caso1
                         If MurosaExtenderMalla = 2 Then 'Para dos Capas, con extension en sus dos vecinos
+                            .LongMallaHoriz = (.YmaxE - .YminE) + Espesor_M1 + Espesor_M2 - 0.02 * 2 + 0.3 * 2
                             If Capas = 2 Then
                                 Coord(0) = (.Xmax - UbicacionRefuerzoMV2) + 0.01
                                 Coord(1) = YaExtender2 - R2 - 0.42 - 0.01
@@ -2858,6 +2937,9 @@ Module Module1
 
 
                         If MurosaExtenderMalla = 1 And YaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino abajo
+
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
+
                             If Capas = 2 Then
                                 'Refuerzo Derecha
                                 Coord(0) = (.Xmax - UbicacionRefuerzoMV2) + 0.01
@@ -2903,7 +2985,9 @@ Module Module1
 
 
                         If MurosaExtenderMalla = 1 And YaExtender2 <> 0 Then 'Para dos Capas, con extension en un vecino arriba
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
                             If Capas = 2 Then
+
                                 'Refuerzo Derecha
                                 Coord(0) = (.Xmax - UbicacionRefuerzoMV2) + 0.01
                                 Coord(1) = YaExtender2 - R2 - 0.01 - 0.42
@@ -2947,7 +3031,7 @@ Module Module1
 
                         'Caso 3 ---> Sin Vecinos
                         If MurosaExtenderMalla = 0 Then
-
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 * 2 + (2 * LongGancho)
                             If Capas = 2 Then
 
                                 'Refuerzo Derecha
@@ -2983,9 +3067,9 @@ Module Module1
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 And .LEB_Iz <> 0 Then
 
-
                         'Caso 1 ---> Muros Vecinos
                         If MurosaExtenderMalla = 2 OrElse YaExtender1 <> 0 Then
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.15 + Espesor_M1 - 0.02
                             If Capas = 2 Then
                                 'Refuerzo Derecha
                                 Coord(0) = .Xmax - UbicacionRefuerzoMV2 + 0.01
@@ -3029,6 +3113,8 @@ Module Module1
                         'Caso 2
 
                         If MurosaExtenderMalla = 1 And YaExtender2 <> 0 OrElse MurosaExtenderMalla = 0 Then
+
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 2 * 0.15
                             If Capas = 2 Then
                                 'Refuerzo Izquierda
                                 Coord(0) = UbicacionRefuerzoMV - 0.01
@@ -3071,6 +3157,7 @@ Module Module1
 
                         'Caso 1
                         If MurosaExtenderMalla = 2 OrElse MurosaExtenderMalla = 1 And YaExtender2 <> 0 Then
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.15 + Espesor_M2 - 0.02
                             If Capas = 2 Then
                                 'Refuerzo Derecha
                                 Coord(0) = .Xmax - UbicacionRefuerzoMV2 + 0.01
@@ -3110,6 +3197,7 @@ Module Module1
                         'Caso 2
 
                         If MurosaExtenderMalla = 1 And YaExtender1 <> 0 OrElse MurosaExtenderMalla = 0 Then
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 2 * 0.15
                             If Capas = 2 Then
                                 'Refuerzo Derecha
                                 Coord(0) = .Xmax - UbicacionRefuerzoMV2 + 0.01
@@ -3146,6 +3234,7 @@ Module Module1
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz >= 0.45 OrElse .LEB_Dr >= .Longitud And .LEB_Iz = 0 OrElse .LEB_Iz >= .Longitud And .LEB_Dr = 0 Then
 
+                        .LongMallaHoriz = (.YmaxE - .YminE) - 2 * 0.15
 
                         If Capas = 2 Then
 

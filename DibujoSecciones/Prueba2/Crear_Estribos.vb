@@ -108,10 +108,11 @@ Public Class Crear_Estribos
                         Num_Estribos = (Confinamiento_Izq / Distancia_Maxima) + 1
                         Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                     Else
+                        Num_Estribos = 1
                         Distancia_Limite = (Confinamiento_Izq + Delta_Escalado) - (2 * 0.02)
                     End If
 
-                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq)
+                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, Num_Estribos, bw_Vecino_der)
 
                 End If
 
@@ -160,10 +161,11 @@ Public Class Crear_Estribos
                         Num_Estribos = ((Punto_final(0) - Punto_inicial(0)) / (Distancia_Maxima)) + 1
                         Distancia_Limite = ((Punto_final(0) - Punto_inicial(0)) / (Num_Estribos)) + 0.2
                     Else
+                        Num_Estribos = 1
                         Distancia_Limite = (Punto_final(0) - Punto_inicial(0) + Delta_Escalado) - (2 * 0.02)
                     End If
 
-                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq)
+                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, bw_Vecino_der, Num_Estribos)
 
                 End If
 
@@ -214,11 +216,12 @@ Public Class Crear_Estribos
                         Num_Estribos = (Confinamiento_Der / Distancia_Maxima) + 1
                         Distancia_Limite = (Confinamiento_Der / Num_Estribos) + 0.2
                     Else
+                        Num_Estribos = 1
                         Distancia_Limite = Confinamiento_Der + Delta_Escalado - 0.04
                     End If
 
                     Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                    Estribos_Derecha(Suma_Long, delta, {(ListaOrdenada(i).Xmax - Confinamiento_Der) - Delta_Escalado, ListaOrdenada(i).Ymin, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 0, Vecino_Der)
+                    Estribos_Derecha(Suma_Long, delta, {(ListaOrdenada(i).Xmax - Confinamiento_Der) - Delta_Escalado, ListaOrdenada(i).Ymin, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 0, Vecino_Der, Num_Estribos)
 
                 End If
 
@@ -300,10 +303,11 @@ Public Class Crear_Estribos
                             Num_Estribos = (Confinamiento_Izq / Distancia_Maxima) + 1
                             Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                         Else
+                            Num_Estribos = 1
                             Distancia_Limite = Confinamiento_Izq + Delta_Escalado - (2 * 0.02)
                         End If
 
-                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo)
+                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
 
                     End If
 
@@ -317,10 +321,11 @@ Public Class Crear_Estribos
                             Num_Estribos = (Confinamiento_Izq / Distancia_Maxima) + 1
                             Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                         Else
+                            Num_Estribos = 1
                             Distancia_Limite = Confinamiento_Izq + Delta_Escalado - (2 * 0.02)
                         End If
 
-                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo)
+                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
 
                     End If
 
@@ -363,7 +368,7 @@ Public Class Crear_Estribos
                     End If
 
                     Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                    Estribos_Derecha(Suma_Long, delta, {Punto_final(0), Punto_final(1) - Confinamiento_Der - Delta_Escalado, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 1, Vecino_Arriba)
+                    Estribos_Derecha(Suma_Long, delta, {Punto_final(0), Punto_final(1) - Confinamiento_Der - Delta_Escalado, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 1, Vecino_Arriba, Num_Estribos)
                 End If
 
                 'Agregar ganchos en la seccion
@@ -426,7 +431,7 @@ Public Class Crear_Estribos
 
     End Sub
 
-    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, indice As Integer, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, ByVal Direccion As Integer, ByVal Vecino_Der As Boolean)
+    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, indice As Integer, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, ByVal Direccion As Integer, ByVal Vecino_Der As Boolean, ByVal Num_estribos As Integer)
 
         Dim condicion, condicion2 As Boolean
         condicion = True
@@ -487,6 +492,13 @@ Public Class Crear_Estribos
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos - 1).Gancho = False
                     Suma_Long = 0
 
+                    If Num_estribos = 1 Then
+                        If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False Then
+                            ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = True
+                        End If
+                        Exit For
+                    End If
+
                 End If
 
                 If j - 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Suma_Long + (0.038 * 2) < Distancia_Limite And condicion = True Then
@@ -503,7 +515,7 @@ Public Class Crear_Estribos
         Next
     End Sub
 
-    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, indice As Integer, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, ByVal delta_escala As Double, ByVal Puntos_Limites As List(Of Double()), ByVal Direccion As Integer, ByVal Vecino_izq As Boolean)
+    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, indice As Integer, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, ByVal delta_escala As Double, ByVal Puntos_Limites As List(Of Double()), ByVal Direccion As Integer, ByVal Vecino_izq As Boolean, ByVal Vecino_Der As Boolean, ByVal Bw_Der As Single, ByVal Num_estribos As Integer)
 
         Dim condicion, condicion2 As Boolean
         condicion = True
@@ -530,17 +542,21 @@ Public Class Crear_Estribos
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
                 End If
 
-                'prueba = Puntos_Limites.Find(Function(x) Math.Round(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(0), 2) >= x(0) And Math.Round(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY(0), 2) <= x(1))
-
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
+
+                    If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 Then
+                        condicion = False
+                        If Vecino_Der = True Then
+                            Suma_Long += Bw_Der
+                        End If
+
+                    End If
 
                     If Direccion = 0 Then
                         Add_Estribos("FC_ESTRIBOS", Math.PI / 2, Punto_inicial, Suma_Long, ListaOrdenada(i).EspesorEscalado, False)
                     Else
                         Add_Estribos("FC_ESTRIBOS", 0, {Punto_inicial(0), Punto_inicial(1) + Suma_Long, 0}, Suma_Long, ListaOrdenada(i).EspesorEscalado, False)
                     End If
-
-                    ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no
 
                     If condicion2 = False Then
                         ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
@@ -549,10 +565,7 @@ Public Class Crear_Estribos
                         condicion2 = False
                     End If
 
-                    If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 Then
-                        condicion = False
-                    End If
-
+                    ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no
                     Pos = j
                     j = Pos - 1
 
@@ -568,12 +581,24 @@ Public Class Crear_Estribos
                         ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     End If
 
-                    ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos + 1).Gancho = False
+                    If Pos + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Vecino_Der = True Then
+                        ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos + 1).Gancho = True
+                    Else
+                        ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos + 1).Gancho = False
+                    End If
+
                     Suma_Long = 0
+
+                    If Num_estribos = 1 Then
+                        If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False Then
+                            ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = True
+                        End If
+                        Exit For
+                    End If
 
                 End If
 
-                If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite And condicion = True Then
+                If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 And Suma_Long + (0.038 * 2) < Distancia_Limite And condicion = True Then
 
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                     ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = False 'Determina si la barra lleva gancho o no

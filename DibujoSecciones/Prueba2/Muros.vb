@@ -70,6 +70,10 @@ Public Class Muros
     Public PuntosHatchDer As New List(Of Double)
 
 
+    Public Recubrimiento_Malla As Double = 0.02
+    Public LongMallaHoriz As Double = 0
+
+
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -205,7 +209,7 @@ Public Class RefuerzoCirculo
     Public MuroPerteneciente As String
     Dim mCoordenadasXyY(2) As Double
     Public IndiceMuroPerteneciente As Integer
-    Public Gancho As Boolean
+    Public Gancho As Boolean = False
 
     Public Property CoordenadasXyY() As Double()
         Get

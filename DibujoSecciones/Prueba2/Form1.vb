@@ -10,7 +10,14 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Ganchos_180.Add("2", 0.116)
+        Ganchos_180.Add("3", 0.14)
+        Ganchos_180.Add("4", 0.167)
+        Ganchos_180.Add("5", 0.192)
+        Ganchos_180.Add("6", 0.228)
+        Ganchos_180.Add("7", 0.266)
+        Ganchos_180.Add("8", 0.305)
+        Ganchos_180.Add("10", 0.457)
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs)
