@@ -563,7 +563,7 @@ Public Class f_alzado
             End If
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo)
+        Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -680,7 +680,7 @@ Public Class f_alzado
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs)
-        Recurso_Excel(alzado_lista)
+        'Recurso_Excel(alzado_lista)
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click

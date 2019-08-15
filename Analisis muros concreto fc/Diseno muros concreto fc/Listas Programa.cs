@@ -17,6 +17,7 @@ namespace Diseno_muros_concreto_fc
         public static string Texto_combo;
         public static string Capacidad;
         public static string Ruta_archivo;
+        public static string Ruta_Carpeta;
         public static List<Muros_Consolidados> Muros_Consolidados_Listos;
 
     }
