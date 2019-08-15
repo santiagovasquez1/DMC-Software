@@ -112,7 +112,7 @@ Public Class Crear_Estribos
                         Distancia_Limite = (Confinamiento_Izq + Delta_Escalado) - (2 * 0.02)
                     End If
 
-                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, Num_Estribos, bw_Vecino_der)
+                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, bw_Vecino_der, Num_Estribos)
 
                 End If
 

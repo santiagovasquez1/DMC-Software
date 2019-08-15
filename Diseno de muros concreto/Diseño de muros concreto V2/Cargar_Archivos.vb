@@ -8,8 +8,8 @@ Module Cargar_Archivos
         Dim sline As String
         Lista_texto = New List(Of String)
 
-        'Try
-        Dim Lector As New StreamReader(Ruta_1)
+        Try
+            Dim Lector As New StreamReader(Ruta_1)
 
             Do
                 sline = Lector.ReadLine()
@@ -21,11 +21,11 @@ Module Cargar_Archivos
             Cargar_Resumen()
             Cargar_Alzado()
             Cargar_Long_Alzado()
-        'Catch ex As Exception
+        Catch ex As Exception
 
-        'MsgBox("Error" & ex.ToString)
+            MsgBox("Error" & ex.ToString)
 
-        'End Try
+        End Try
 
     End Sub
 
