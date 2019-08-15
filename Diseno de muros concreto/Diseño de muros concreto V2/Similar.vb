@@ -135,12 +135,6 @@ Public Class Similar
                                     NuevoMuroRefuerzo.piername = .Cells(0).Value
                                     NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
                                     NuevoMuroRefuerzo.pierstory = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).pierstory
-                                    NuevoMuroRefuerzo.bw = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).bw
-
-                                    NuevoMuroRefuerzo.cantidad = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).cantidad
-                                    NuevoMuroRefuerzo.diametro = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).diametro
-                                    NuevoMuroRefuerzo.total = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).total
-
                                     refuerzo_lista.Add(NuevoMuroRefuerzo)
 
                                 End If
@@ -161,15 +155,10 @@ Public Class Similar
 
                                     Dim NuevoMuroAlzado As New alzado_muro
                                     Dim MuroSimilar As New alzado_muro
-
                                     MuroSimilar = alzado_lista.Find(Function(x) x.pier = .Cells(2).Value And x.story = Muros_lista_2(IndiceMuro).Stories(m))
                                     NuevoMuroAlzado.MuroCreadoDespues = True
                                     NuevoMuroAlzado.pier = .Cells(0).Value
-                                    NuevoMuroAlzado.story = Muros_lista_2(IndiceMuro).Stories(m)
-
-                                    ''MuroSimilar.story = Muros_lista_2(IndiceMuro).Stories(m)                                   ''
-
-                                    NuevoMuroAlzado.alzado = alzado_lista.Find(Function(x) x.pier = MuroSimilar.pier And x.story = MuroSimilar.story).alzado
+                                    MuroSimilar.story = Muros_lista_2(IndiceMuro).Stories(m)
                                     NuevoMuroAlzado.MuroSimilar = MuroSimilar
                                     alzado_lista.Add(NuevoMuroAlzado)
 
@@ -201,6 +190,7 @@ Public Class Similar
                         End If
 
 
+
                         If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
                                 alzado_lista.Remove(alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)))
@@ -208,14 +198,24 @@ Public Class Similar
                                 alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = Nothing
                             End If
                         End If
+
                     Next
+
+
+
+
                 End If
+
+
             End With
+
+
         Next
 
 
 
     End Sub
+
 
 
     Private Sub DataGrid_Muros_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles DataGrid_Muros.CellValueChanged
@@ -277,11 +277,37 @@ Public Class Similar
 
         ConfirmarMaestrosSimilares(DataGrid_Muros)
         ' AsignarSimilitudDeMuros(DataGrid_Muros)
+
         Me.Close()
     End Sub
 
 
     Sub AsignarSimilitudDeMuros(DataGrid As DataGridView)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         For i = 0 To DataGrid.Rows.Count - 1
             With DataGrid.Rows(i)
@@ -316,6 +342,9 @@ Public Class Similar
                     Muros_lista_2(MuroSimilarIndice).sep_htal = MuroMaestro.sep_htal
                     Muros_lista_2(MuroSimilarIndice).As_Htal_Total = MuroMaestro.As_Htal_Total
 
+
+
+
                     For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
 
                         MuroSimilarIndice = alzado_lista.FindIndex(Function(x1) x1.pier = NombreMuroSimilar And x1.story = "Story" & j + 1)
@@ -343,6 +372,8 @@ Public Class Similar
                         End If
                     Next
 
+
+
                     For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
 
                         MuroSimilarIndice = refuerzo_lista.FindIndex(Function(x1) x1.piername = NombreMuroSimilar And x1.pierstory = "Story" & j + 1)
@@ -350,6 +381,7 @@ Public Class Similar
 
                         Dim MuroMaestro3 As New Refuerzo_muros
                         MuroMaestro3 = refuerzo_lista.Find(Function(x1) x1.piername = NombreMuroMaestro)
+
 
                         If MuroSimilarIndice <> -1 And MuroMaestro3 IsNot Nothing Then
                             refuerzo_lista(MuroSimilarIndice).piername = NombreMuroSimilar
@@ -379,10 +411,23 @@ Public Class Similar
                             NuevoMuro.total = MuroMaestro3.total
                             refuerzo_lista.Add(NuevoMuro)
                         End If
+
+
+
                     Next
+
+
+
+
                 End If
+
+
             End With
+
+
         Next
+
+
     End Sub
 
 
@@ -454,9 +499,6 @@ Public Class Similar
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Me.Close()
     End Sub
-
-
-
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs)
         Me.WindowState = FormWindowState.Minimized

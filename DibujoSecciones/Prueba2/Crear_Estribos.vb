@@ -227,15 +227,22 @@ Public Class Crear_Estribos
 
 
                 'Agregar ganchos en la seccion
-
+                Dim flip_State As Short = 0
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
+
                     If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Gancho = True Then
                         Dim Ip As Double()
                         Dim Long_Gancho As Double
 
                         Ip = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY
                         Long_Gancho = Math.Abs(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1))
-                        Add_Gancho("FC_GANCHOS", Math.PI / 2, Ip, Long_Gancho)
+                        Add_Gancho("FC_GANCHOS", Math.PI / 2, Ip, Long_Gancho, flip_State)
+
+                        If flip_State = 0 Then
+                            flip_State = 1
+                        Else
+                            flip_State = 0
+                        End If
 
                     End If
                 Next
@@ -372,6 +379,8 @@ Public Class Crear_Estribos
                 End If
 
                 'Agregar ganchos en la seccion
+
+                Dim Flip_State As Short = 0
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
                     If ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Gancho = True Then
                         Dim Ip As Double()
@@ -379,7 +388,13 @@ Public Class Crear_Estribos
 
                         Ip = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY
                         Long_Gancho = Math.Abs(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) - ListaOrdenada(i).Lista_Refuerzos_Fila_Min(0).CoordenadasXyY(0))
-                        Add_Gancho("FC_GANCHOS", 0, Ip, Long_Gancho)
+                        Add_Gancho("FC_GANCHOS", 0, Ip, Long_Gancho, Flip_State)
+
+                        If Flip_State = 0 Then
+                            Flip_State = 1
+                        Else
+                            Flip_State = 0
+                        End If
 
                     End If
                 Next
@@ -649,7 +664,7 @@ Public Class Crear_Estribos
         Bloque_Estribo.Update()
     End Sub
 
-    Private Sub Add_Gancho(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double)
+    Private Sub Add_Gancho(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Flip_State As Short)
 
         Dim Nombre_Bloque As String
         Dim dynamic_property1 As Object
@@ -662,6 +677,9 @@ Public Class Crear_Estribos
 
         editar_property1 = dynamic_property1(0)
         editar_property1.Value = Distancia
+
+        editar_property1 = dynamic_property1(2)
+        editar_property1.Value = Flip_State
 
         Bloque_Gancho.Layer = Layer
         Bloque_Gancho.Update()

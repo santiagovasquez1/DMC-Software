@@ -47,6 +47,9 @@
             this.dibujoSeccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variablesDeDibujoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.murosSimilaresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeDiseñoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -79,7 +82,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
-            this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.Panel6.SuspendLayout();
@@ -147,10 +149,11 @@
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.editarToolStripMenuItem});
+            this.editarToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(237, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -236,35 +239,35 @@
             // analisisEstructuralToolStripMenuItem
             // 
             this.analisisEstructuralToolStripMenuItem.Name = "analisisEstructuralToolStripMenuItem";
-            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.analisisEstructuralToolStripMenuItem.Text = "Analisis Estructural";
             this.analisisEstructuralToolStripMenuItem.Click += new System.EventHandler(this.analisisEstructuralToolStripMenuItem_Click);
             // 
             // infoGeneralToolStripMenuItem
             // 
             this.infoGeneralToolStripMenuItem.Name = "infoGeneralToolStripMenuItem";
-            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.infoGeneralToolStripMenuItem.Text = "Info General";
             this.infoGeneralToolStripMenuItem.Click += new System.EventHandler(this.InfoGeneralToolStripMenuItem_Click);
             // 
             // alzadoRefuerzoToolStripMenuItem
             // 
             this.alzadoRefuerzoToolStripMenuItem.Name = "alzadoRefuerzoToolStripMenuItem";
-            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.alzadoRefuerzoToolStripMenuItem.Text = "Alzado refuerzo";
             this.alzadoRefuerzoToolStripMenuItem.Click += new System.EventHandler(this.AlzadoRefuerzoToolStripMenuItem_Click);
             // 
             // dibujoSeccionToolStripMenuItem
             // 
             this.dibujoSeccionToolStripMenuItem.Name = "dibujoSeccionToolStripMenuItem";
-            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.dibujoSeccionToolStripMenuItem.Text = "Dibujo Seccion";
             this.dibujoSeccionToolStripMenuItem.Click += new System.EventHandler(this.DibujoSeccionToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
             // 
             this.variablesDeDibujoToolStripMenuItem.Name = "variablesDeDibujoToolStripMenuItem";
-            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.variablesDeDibujoToolStripMenuItem.Text = "Variables de Dibujo";
             this.variablesDeDibujoToolStripMenuItem.Click += new System.EventHandler(this.VariablesDeDibujoToolStripMenuItem_Click);
             // 
@@ -272,9 +275,33 @@
             // 
             this.murosSimilaresToolStripMenuItem.Enabled = false;
             this.murosSimilaresToolStripMenuItem.Name = "murosSimilaresToolStripMenuItem";
-            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.murosSimilaresToolStripMenuItem.Text = "Muros Similares";
+            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.murosSimilaresToolStripMenuItem.Text = "Muros Iguales";
             this.murosSimilaresToolStripMenuItem.Click += new System.EventHandler(this.MurosSimilaresToolStripMenuItem_Click);
+            // 
+            // direcciónDeCambioDeEspesorToolStripMenuItem
+            // 
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Name = "direcciónDeCambioDeEspesorToolStripMenuItem";
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Text = "D. Cambio Espesor";
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Click += new System.EventHandler(this.DirecciónDeCambioDeEspesorToolStripMenuItem_Click);
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.acercaDeDiseñoToolStripMenuItem});
+            this.ayudaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
+            // 
+            // acercaDeDiseñoToolStripMenuItem
+            // 
+            this.acercaDeDiseñoToolStripMenuItem.Name = "acercaDeDiseñoToolStripMenuItem";
+            this.acercaDeDiseñoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.acercaDeDiseñoToolStripMenuItem.Text = "Acerca de Diseño de Muros";
+            this.acercaDeDiseñoToolStripMenuItem.Click += new System.EventHandler(this.AcercaDeDiseñoToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -649,6 +676,7 @@
             this.button9.Size = new System.Drawing.Size(24, 22);
             this.button9.TabIndex = 12;
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
             // button7
             // 
@@ -733,14 +761,6 @@
             this.button10.MouseLeave += new System.EventHandler(this.Button10_MouseLeave);
             this.button10.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Button10_MouseMove);
             // 
-            // direcciónDeCambioDeEspesorToolStripMenuItem
-            // 
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Name = "direcciónDeCambioDeEspesorToolStripMenuItem";
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Text = "D. Cambio Espesor";
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Click += new System.EventHandler(this.DirecciónDeCambioDeEspesorToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -820,7 +840,6 @@
         private System.Windows.Forms.RadioButton Radio_Dmo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label3;
@@ -828,6 +847,9 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem direcciónDeCambioDeEspesorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeDiseñoToolStripMenuItem;
+        private System.Windows.Forms.Button button10;
     }
 }
 

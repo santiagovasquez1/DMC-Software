@@ -23,6 +23,25 @@ namespace Diseno_muros_concreto_fc
             };
             Myfile.ShowDialog();
             Listas_Programa.Ruta_archivo = Myfile.FileName;
+            try {
+
+                int FinPunto = 0;
+                int FinSla = 0;
+                string Ruta_Carpeta = "";
+
+                for (int n = 0; n < (Myfile.FileName.Length); n++) { if (Myfile.FileName.Substring(n, 1) == ".") { FinPunto = n; } }
+                for (int n = FinPunto; n >= 0; n--) { if (Myfile.FileName.Substring(n, 1) == @"\") { FinSla = n; break; } }
+                for (int n = 0; n < FinSla; n++) { Ruta_Carpeta = Ruta_Carpeta + (Myfile.FileName.Substring(n, 1)); }
+
+                Listas_Programa.Ruta_Carpeta = Ruta_Carpeta;
+            }
+            catch {
+
+
+            }
+         
+
+
 
             try
             {

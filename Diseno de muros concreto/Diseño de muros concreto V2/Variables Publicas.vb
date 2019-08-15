@@ -37,6 +37,9 @@ Module Variables_Publicas
     Public Lista_Auxiliar As Object
     Public data_info_f3 As DataGridView
 
+
+    Public Ruta_Carpeta As String
+
     Public Function cuantia_volumetrica(ByVal sep As Single, ByVal fc As Single, ByVal fy As Single, lebe As Single, bw As Single, ByVal Capacidad As String) As Single()
 
         Dim r As Single = 2 'cm²

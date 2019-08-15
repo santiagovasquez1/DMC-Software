@@ -34,18 +34,22 @@ Module Cantidades1
 
 
         For i = 0 To Lista_Muros_Refuerzo.Count - 1
-            If i <> 0 Then
-                ArchivoTexto.Add("")
+            If i = 0 Then
+                ArchivoTexto.Add(Lista_Muros_Refuerzo.Count)
             End If
             ArchivoTexto.Add("Muro " & Lista_Muros_Refuerzo(i).Nombre_muro)
-            ArchivoTexto.Add("")
+            Dim CantidadMuros As Integer = 1
+            ArchivoTexto.Add(CantidadMuros)
 
 
             With Lista_Muros_Refuerzo(i)
+                Dim ListaAuxiliarMuro = Lista_Muros.Find(Function(x) x.Pier_name = Lista_Muros_Refuerzo(i).Nombre_muro)
+                ArchivoTexto.Add(.ListaRefuerzo_DllNet.Count + ListaAuxiliarMuro.CantidadMallasDllNet.Count)
+
                 For j = 0 To .ListaRefuerzo_DllNet.Count - 1
                     ArchivoTexto.Add(.ListaRefuerzo_DllNet(j))
                 Next
-                Dim ListaAuxiliarMuro = Lista_Muros.Find(Function(x) x.Pier_name = Lista_Muros_Refuerzo(i).Nombre_muro)
+
 
                 For j = 0 To ListaAuxiliarMuro.CantidadMallasDllNet.Count - 1
                     ArchivoTexto.Add(ListaAuxiliarMuro.CantidadMallasDllNet(j))
@@ -54,23 +58,6 @@ Module Cantidades1
             End With
 
         Next
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

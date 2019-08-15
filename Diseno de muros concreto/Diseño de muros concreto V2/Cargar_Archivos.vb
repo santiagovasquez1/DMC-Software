@@ -2,14 +2,50 @@
 Module Cargar_Archivos
 
     Private Lista_texto As List(Of String)
+    Private Lista_Similares As New List(Of String)
 
     Sub Cargar_Lista_Texto()
 
-        Dim sline As String
-        Lista_texto = New List(Of String)
+        '   Try
 
-        Try
+        Dim Carpeta As DirectoryInfo
+            Dim sline, sline2 As String
+            Lista_texto = New List(Of String)
+
             Dim Lector As New StreamReader(Ruta_1)
+            Dim Ruta_Similares As String = ""
+
+            Carpeta = New DirectoryInfo(Ruta_Carpeta)
+
+
+
+            For Each Archivo In Carpeta.GetFiles()
+                If Archivo.Name = "thesames.SDMC" Then
+                    Ruta_Similares = Archivo.FullName
+                End If
+            Next
+
+
+            If Ruta_Similares <> "" Then
+                Dim Lector2 As New StreamReader(Ruta_Similares)
+                Do
+                    sline2 = Lector2.ReadLine()
+                    Lista_Similares.Add(sline2)
+                Loop Until sline2 Is Nothing
+
+                Lector2.Close()
+            Else
+                MsgBox("El archivo 'thesames.SDMC' no fue encontrado.", MsgBoxStyle.Exclamation, "efe Prima Ce")
+            End If
+
+
+
+
+
+
+
+
+
 
             Do
                 sline = Lector.ReadLine()
@@ -21,13 +57,38 @@ Module Cargar_Archivos
             Cargar_Resumen()
             Cargar_Alzado()
             Cargar_Long_Alzado()
-        Catch ex As Exception
+            Cargar_Similares()
+            '  Catch
 
-            MsgBox("Error" & ex.ToString)
+        '   MsgBox("MSG1", MsgBoxStyle.Exclamation, "efe Prima Ce")
 
-        End Try
+        '  End Try
+
 
     End Sub
+
+
+    Sub Cargar_Similares()
+        Dim ListaMuros As New List(Of String())
+
+        For i = 0 To Lista_Similares.Count - 1
+            Try
+                ListaMuros.Add(Lista_Similares(i).Split(vbTab))
+
+            Catch
+
+            End Try
+        Next
+
+        ConfirmarMaestrosSimilares2(ListaMuros)
+    End Sub
+
+
+
+
+
+
+
 
     Sub Cargar_Resumen()
 
@@ -152,39 +213,34 @@ Module Cargar_Archivos
         Dim Muro_Alzado_i As alzado_muro
         Dim Vector_auxliar As List(Of String)
 
-        Try
-            Inicio = Lista_texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal")) + 2
-            Fin = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) - 1
+        Inicio = Lista_texto.FindIndex(Function(x) x.Contains("7.Datos de alzado refuerzo longitudinal")) + 2
+        Fin = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) - 1
 
-            Dim prueba As Double = Fin - Inicio
+        Dim prueba As Double = Fin - Inicio
 
-            If prueba > 0 Then
-                Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
+        If prueba > 0 Then
+            Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
 
-                For i = 0 To Vector_auxliar.Count - 1
+            For i = 0 To Vector_auxliar.Count - 1
 
-                    Vector_Texto = Vector_auxliar(i).Split(vbTab)
-                    Muro_Alzado_i = New alzado_muro
-                    With Muro_Alzado_i
-                        .pier = Vector_Texto(0)
-                        .story = Vector_Texto(1)
-                        For j = 2 To Vector_Texto.Count - 1
-                            .alzado.Add(Vector_Texto(j))
-                        Next
-                    End With
+                Vector_Texto = Vector_auxliar(i).Split(vbTab)
+                Muro_Alzado_i = New alzado_muro
+                With Muro_Alzado_i
+                    .pier = Vector_Texto(0)
+                    .story = Vector_Texto(1)
+                    For j = 2 To Vector_Texto.Count - 1
+                        .alzado.Add(Vector_Texto(j))
+                    Next
+                End With
 
-                    If alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
-                        alzado_lista.Add(Muro_Alzado_i)
-                    Else
-                        alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story)) = Muro_Alzado_i
-                    End If
+                If alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
+                    alzado_lista.Add(Muro_Alzado_i)
+                Else
+                    alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story)) = Muro_Alzado_i
+                End If
 
-                Next
-            End If
-        Catch ex As Exception
-
-        End Try
-
+            Next
+        End If
 
 
     End Sub
@@ -196,31 +252,192 @@ Module Cargar_Archivos
         Dim Auxiliar As List(Of List(Of String)) = New List(Of List(Of String))
         Dim Vector_auxliar As List(Of String)
 
-        Try
-            Inicio = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) + 2
-            Fin = Lista_texto.FindIndex(Function(x) x.Contains("Fin")) - 1
+        Inicio = Lista_texto.FindIndex(Function(x) x.Contains("8.Datos de alzado refuerzo longitudinal - Longitud")) + 2
+        Fin = Lista_texto.FindIndex(Function(x) x.Contains("Fin")) - 1
 
-            Dim prueba As Double = Fin - Inicio
+        Dim prueba As Double = Fin - Inicio
 
-            If prueba > 0 Then
+        If prueba > 0 Then
 
-                Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
-                For i = 0 To Vector_auxliar.Count - 1
+            Vector_auxliar = Lista_texto.GetRange(Inicio, Fin - Inicio)
+            For i = 0 To Vector_auxliar.Count - 1
 
-                    Vector_Texto = Vector_auxliar(i).Split(vbTab)
-                    With alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Vector_Texto(0) And x.story = Vector_Texto(1)))
-                        For j = 2 To Vector_Texto.Count - 1
-                            .Alzado_Longitud.Add(Vector_Texto(j))
-                        Next
-                    End With
+                Vector_Texto = Vector_auxliar(i).Split(vbTab)
+                With alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Vector_Texto(0) And x.story = Vector_Texto(1)))
+                    For j = 2 To Vector_Texto.Count - 1
+                        .Alzado_Longitud.Add(Vector_Texto(j))
+                    Next
+                End With
+            Next
+
+        End If
+
+    End Sub
+
+    Public Sub ConfirmarMaestrosSimilares2(ByVal ListaMaestroSimilares As List(Of String()))
+
+
+
+
+        For i = 0 To ListaMaestroSimilares.Count - 1
+            If ListaMaestroSimilares(i)(3) = "True" Then
+                If alzado_lista.Exists(Function(x) x.pier = ListaMaestroSimilares(i)(0)) Then
+                    alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0)).MuroCreadoDespues = True
+
+                End If
+            End If
+        Next
+
+
+
+
+
+
+        For i = 0 To ListaMaestroSimilares.Count - 1
+
+
+            'Confirmar Maestros 
+            If ListaMaestroSimilares(i)(1) = "True" Then
+                Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).isMuroMaestro = True
+
+                Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0))
+
+                For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+                    If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).IsMuroMaestro = True
+                    End If
+                    If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).isMuroMaestro = True
+                    End If
                 Next
 
-            End If
-        Catch ex As Exception
+            Else
+                Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).isMuroMaestro = False
 
-        End Try
+                Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0))
+
+                For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+                    If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).IsMuroMaestro = False
+                    End If
+                    If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).isMuroMaestro = False
+                    End If
+
+                Next
+
+
+            End If
+
+            'Confirmar Similares
+
+            If ListaMaestroSimilares(i)(2) <> "SinSimilar" Then
+
+                Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).MuroSimilar = Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(2))
+
+
+                Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0))
+
+                For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+                    If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j))
+
+
+                    ElseIf refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0)) Is Nothing Then
+
+
+                        For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+                            If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
+                                Dim NuevoMuroRefuerzo As New Refuerzo_muros
+
+                                NuevoMuroRefuerzo.MuroCreadoDespues = True
+                                NuevoMuroRefuerzo.piername = ListaMaestroSimilares(i)(0)
+                                NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
+                                NuevoMuroRefuerzo.pierstory = refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).pierstory
+                                refuerzo_lista.Add(NuevoMuroRefuerzo)
+
+                            End If
+                        Next
+
+                    End If
+
+
+                    If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(2) And x.story = Muros_lista_2(IndiceMuro).Stories(j))
+
+
+                    ElseIf alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0)) Is Nothing Then
+
+
+                        For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+                            If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(2) And x.story = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
+
+                                Dim NuevoMuroAlzado As New alzado_muro
+                                Dim MuroSimilar As New alzado_muro
+                                MuroSimilar = alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(2) And x.story = Muros_lista_2(IndiceMuro).Stories(m))
+                                NuevoMuroAlzado.MuroCreadoDespues = True
+                                NuevoMuroAlzado.pier = ListaMaestroSimilares(i)(0)
+                                MuroSimilar.story = Muros_lista_2(IndiceMuro).Stories(m)
+                                NuevoMuroAlzado.MuroSimilar = MuroSimilar
+                                alzado_lista.Add(NuevoMuroAlzado)
+
+                            End If
+                        Next
+
+                    End If
+
+
+
+
+                Next
+
+            Else
+                Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).MuroSimilar = Nothing
+
+                Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0))
+
+                For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
+
+                    If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
+
+                            refuerzo_lista.Remove(refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)))
+                        Else
+                            refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = Nothing
+
+                        End If
+                    End If
+
+
+
+                    If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
+                        If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
+                            alzado_lista.Remove(alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)))
+                        Else
+                            alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = Nothing
+                        End If
+                    End If
+
+                Next
+
+
+
+
+            End If
+
+
+
+
+        Next
+
+
 
 
     End Sub
+
+
+
+
+
 
 End Module

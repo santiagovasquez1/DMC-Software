@@ -16,6 +16,8 @@
     Public Lista_Barras As List(Of List(Of String))
 
 
+
+
     Public Lista_Longitudes As New List(Of List(Of Single))
     Public Lista_Figura As New List(Of List(Of String))
     Public ListaDiametros As New List(Of List(Of String))
@@ -654,7 +656,10 @@
 
     End Sub
 
+
+
     '*******NUEVAS FUNCIONES *******
+
 
     Sub ActivarNuevasFunciones()
         CalcularLongitudesBarras()
@@ -666,7 +671,10 @@
         RefuerzoDllNet()
     End Sub
 
+
     Sub RefuerzoDllNet()
+
+
 
         For i = 0 To ListaTotalRefuerzo_EspecificadoConCantidad.Count - 1
 
@@ -706,23 +714,28 @@
 
 
             If FiguraBarras = "R" Then
-                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00")
+                NomenclaturaFinal = CantidadBarras & " " & "#" & (DiametroA) & " " & Format(Longitud, "0.00")
             End If
 
             If FiguraBarras = "L" Then
                 Longitud = Longitud - Gancho
-                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000")
+                NomenclaturaFinal = CantidadBarras & " " & "#" & (DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000")
             End If
             If FiguraBarras = "C" Then
                 Longitud = Longitud - 2 * Gancho
-                NomenclaturaFinal = CantidadBarras & " " & NoBarraADiametro(DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000") & " " & "L" & Format(Gancho, "0.000")
+                NomenclaturaFinal = CantidadBarras & " " & "#" & (DiametroA) & " " & Format(Longitud, "0.00") & " " & "L" & Format(Gancho, "0.000") & " " & "L" & Format(Gancho, "0.000")
             End If
             ListaRefuerzo_DllNet.Add(NomenclaturaFinal)
 
 
         Next
 
+
+
+
     End Sub
+
+
 
     Sub RefuerzoFinal()
 

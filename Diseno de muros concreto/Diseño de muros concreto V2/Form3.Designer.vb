@@ -971,12 +971,13 @@ Partial Class f_alzado
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(586, 3)
+        Me.Button1.Location = New System.Drawing.Point(626, 3)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(49, 24)
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'f_alzado
         '

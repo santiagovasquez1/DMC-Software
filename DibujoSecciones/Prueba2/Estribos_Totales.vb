@@ -984,6 +984,7 @@ Public Class Estribos_Totales
         Dim editar_property1 As AcadDynamicBlockReferenceProperty
         Dim Contador As Integer = 0
         Dim Texto As String = ""
+        Dim pos_ini As Short = 0
 
         Nombre_Bloque = "FC_B_Gancho Tipo 5"
 
@@ -993,25 +994,30 @@ Public Class Estribos_Totales
 
                 Coord_Gancho = {Lista_Coord(i)(0), Delta_Y - 0.087, 0}
                 Long_Gancho = 0.174
-                Dibujar_Gancho(Coord_Gancho, Long_Gancho, Nombre_Bloque, dynamic_property1, editar_property1)
+                Dibujar_Gancho(Coord_Gancho, Long_Gancho, Nombre_Bloque, dynamic_property1, editar_property1, pos_ini)
+
+                If pos_ini = 0 Then
+                    pos_ini = 1
+                Else
+                    pos_ini = 0
+                End If
+
                 Contador += 1
             End If
 
         Next
 
-        'If Contador > 0 Then
-        '    Add_Rectangulo(Rectangulo, {Delta_X, Delta_Y - 0.4, Delta_X + 1, Delta_Y - 0.4, Delta_X + 1, Delta_Y + 0.25, Delta_X, Delta_Y + 0.25}, "FC_BORDES", True, Lista_Rect)
-        '    Texto = Contador & " Ganchos #" & Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
-        'End If
-
     End Sub
 
-    Private Sub Dibujar_Gancho(Coord_Gancho() As Double, Long_Gancho As Double, Nombre_Bloque As String, ByRef dynamic_property1 As Object, ByRef editar_property1 As AcadDynamicBlockReferenceProperty)
+    Private Sub Dibujar_Gancho(Coord_Gancho() As Double, Long_Gancho As Double, Nombre_Bloque As String, ByRef dynamic_property1 As Object, ByRef editar_property1 As AcadDynamicBlockReferenceProperty, ByVal Flip_State As Short)
         Bloque_Gancho = AcadDoc.ModelSpace.InsertBlock(Coord_Gancho, Nombre_Bloque, 1, 1, 1, Math.PI / 2)
         dynamic_property1 = Bloque_Gancho.GetDynamicBlockProperties
 
         editar_property1 = dynamic_property1(0)
         editar_property1.Value = Long_Gancho
+
+        editar_property1 = dynamic_property1(2)
+        editar_property1.Value = Flip_State
 
         Bloque_Gancho.Layer = "FC_GANCHOS"
         Bloque_Gancho.Update()

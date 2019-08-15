@@ -560,12 +560,10 @@ Public Class f_alzado
                 Auxiliar.Nombre_muro = LMuros.Text
                 Auxiliar.Load_Coordinates(LMuros.Text, coordX)
                 Dibujar_Refuerzo(Auxiliar)
-                Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
             End If
-
         End If
 
-
+        Dim Guardar As New Guardar_Archivo(Ruta_archivo)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -610,22 +608,61 @@ Public Class f_alzado
     End Sub
 
     Private Sub Data_info_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Data_info.CellEndEdit
-
         Dim indice, Indice2 As Integer
         Dim datos_refuerzo As New Refuerzo_muros
         Dim prueba As String = Mid(Data_info.Columns(5).HeaderText, 2)
         Dim suma As Single
-        Dim Muro_i As Muros_Consolidados
-        Dim Muros_Hijos As List(Of Muros_Consolidados) = New List(Of Muros_Consolidados)
 
         indice = e.RowIndex
-        Validar_info_3(indice, Indice2, datos_refuerzo, suma, Muro_i, Muros_Hijos, Data_info)
-        Tabla_Data_Ayuda(Muro_i.Pier_name, Data_ayuda, indice, False)
+        datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
+        datos_refuerzo.pierstory = Data_info.Rows(indice).Cells(1).Value
+        datos_refuerzo.bw = Data_info.Rows(indice).Cells(2).Value
+
+        datos_refuerzo.as_req = Data_info.Rows(indice).Cells(6).Value
+
+        For i = 9 To Data_info.ColumnCount - 1
+            datos_refuerzo.diametro.Add(Int(Mid(Data_info.Columns(i).HeaderText, 2)))
+            datos_refuerzo.cantidad.Add(Data_info.Rows(indice).Cells(i).Value)
+        Next
+
+        suma = 0
+        For i = 0 To datos_refuerzo.diametro.Count - 1
+            suma = suma + areas_refuerzo(datos_refuerzo.diametro(i)) * datos_refuerzo.cantidad(i)
+        Next
+
+        datos_refuerzo.total = suma
+        datos_refuerzo.porcentaje = datos_refuerzo.total / datos_refuerzo.as_req
+
+        If datos_refuerzo.total > 0 Then
+            Data_info.Rows(indice).Cells(7).Value = Format(datos_refuerzo.total, "##,0.00")
+            Data_info.Rows(indice).Cells(8).Value = Math.Round(datos_refuerzo.porcentaje * 100, 1) & "%"
+        Else
+            Data_info.Rows(indice).Cells(7).Value = Format(0.00, "##,0.00")
+            Data_info.Rows(indice).Cells(8).Value = Math.Round(0.00, 1) & "%"
+        End If
+
+        If datos_refuerzo.porcentaje < 0.95 Or datos_refuerzo.porcentaje > 1.05 Then
+            Data_info.Rows(indice).Cells(8).Style.ForeColor = Color.Red
+        Else
+            Data_info.Rows(indice).Cells(8).Style.ForeColor = Color.Black
+        End If
+
+        Indice2 = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo.piername And x.pierstory = datos_refuerzo.pierstory)
+
+        If Indice2 >= 0 Then
+            refuerzo_lista(Indice2) = datos_refuerzo
+        Else
+            refuerzo_lista.Add(datos_refuerzo)
+        End If
+
+        Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
 
 
     End Sub
 
+    Private Sub Panel11_Paint(sender As Object, e As PaintEventArgs) Handles Panel11.Paint
 
+    End Sub
 
     Private Sub Data_Alzado_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Data_Alzado.CellMouseClick
         data_grid = Data_Alzado
@@ -642,37 +679,15 @@ Public Class f_alzado
         End If
     End Sub
 
-    Private Sub LMuros_MouseClick(sender As Object, e As MouseEventArgs) Handles LMuros.MouseClick
-
-        'Dim Nombre_Muro, Story As String
-        'Dim Numero_Columnas As Integer
-
-        'Dim Indice2 As Integer
-        'Dim datos_refuerzo As New Refuerzo_muros
-        'Dim suma As Single
-        'Dim Muro_i As Muros_Consolidados
-        'Dim Muros_Hijos As List(Of Muros_Consolidados) = New List(Of Muros_Consolidados)
-
-        'Nombre_Muro = LMuros.Text
-        'Numero_Columnas = Data_Alzado.ColumnCount
-
-        'For i = 0 To Data_Alzado.Rows.Count - 1
-
-        '    Story = Data_info.Rows(i).Cells(1).Value
-        '    validar_info2(Nombre_Muro, Story, i, Numero_Columnas, Data_Alzado)
-
-        'Next
-
-        'For i = 0 To Data_info.Rows.Count - 1
-
-        '    Story = Data_info.Rows(i).Cells(1).Value
-        '    Validar_info_3(i, Indice2, datos_refuerzo, suma, Muro_i, Muros_Hijos, Data_info)
-
-        'Next
-
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
+        Recurso_Excel(alzado_lista)
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
         GenerarCantidades(alzado_lista, Muros_lista_2)
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs)
+        Form_DireccionCambiodeEspesor.Show()
     End Sub
 End Class
