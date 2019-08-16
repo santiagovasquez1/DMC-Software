@@ -17,7 +17,7 @@ Public Class Guardar_Archivo
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
-                Sobre_Escribir()
+                Sobre_Escribir(Borrar)
                 NuevosArchivo()
             Catch ex As Exception
                 Actualizar_Info_ref()
@@ -250,14 +250,6 @@ Public Class Guardar_Archivo
     Sub NuevosArchivo()
         Dim NombreArchivoIguales As String = "\thesames.SDMC"
         Dim Escritor = New StreamWriter(Ruta_Carpeta & NombreArchivoIguales)
-
-
-        For Each Muro_i In Muros_lista_2
-
-
-        Next
-
-
 
         For Each muro_i As Muros_Consolidados In Muros_lista_2
             Dim NombreMuroSimilar, Maestro, CreadoDespues As String

@@ -470,7 +470,7 @@ Partial Class f_alzado
         Me.Data_info.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Data_info.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Data_info.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn32, Me.DataGridViewTextBoxColumn33, Me.DataGridViewTextBoxColumn34, Me.DataGridViewTextBoxColumn35, Me.DataGridViewTextBoxColumn36, Me.DataGridViewTextBoxColumn37, Me.DataGridViewTextBoxColumn38, Me.DataGridViewTextBoxColumn39, Me.DataGridViewTextBoxColumn40, Me.DataGridViewTextBoxColumn41, Me.DataGridViewTextBoxColumn42, Me.DataGridViewTextBoxColumn43, Me.DataGridViewTextBoxColumn44, Me.DataGridViewTextBoxColumn45, Me.DataGridViewTextBoxColumn46, Me.DataGridViewTextBoxColumn47, Me.DataGridViewTextBoxColumn48})
-        Me.Data_info.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
+        Me.Data_info.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke
         Me.Data_info.Location = New System.Drawing.Point(7, 35)
         Me.Data_info.Name = "Data_info"
         Me.Data_info.Size = New System.Drawing.Size(547, 302)
