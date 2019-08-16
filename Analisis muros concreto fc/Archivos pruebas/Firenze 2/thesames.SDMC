@@ -1,6 +1,6 @@
 10	True	SinSimilar	False
 1A	True	SinSimilar	False
-1B	False	1A	True
+1B	False	1A	False
 5A	False	5B	False
 5B	True	SinSimilar	False
 7A	True	SinSimilar	False
@@ -45,7 +45,7 @@ J1	False	SinSimilar	False
 J2	False	SinSimilar	False
 J3	False	SinSimilar	False
 J4	False	SinSimilar	False
-K1	False	K2	False
+K1	False	K2	True
 K2	True	SinSimilar	False
 L1	False	SinSimilar	False
 L2	False	SinSimilar	False

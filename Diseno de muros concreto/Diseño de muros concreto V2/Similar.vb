@@ -70,9 +70,9 @@ Public Class Similar
         AtivarEvento = True
     End Sub
 
-
-
     Sub ConfirmarMaestrosSimilares(ByVal DataGrid As DataGridView)
+
+        Dim Indice As Integer
 
         For i = 0 To DataGrid.Rows.Count - 1
             With DataGrid.Rows(i)
@@ -104,18 +104,45 @@ Public Class Similar
                         If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).isMuroMaestro = False
                         End If
-
                     Next
-
-
                 End If
 
                 'Confirmar Similares
 
                 If .Cells(2).Value <> "" Then
 
-                    Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).MuroSimilar = Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(2).Value)
+                    '''Asignar propiedades del maestro a reporte
 
+                    'Dim Muro_maestro As New Muros_Consolidados
+                    'Muro_maestro = Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(2).Value)
+
+                    'Dim Muro_hijo As New Muros_Consolidados
+
+                    'Muro_hijo = Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value)
+                    'Muro_hijo.Malla = Muro_maestro.Malla
+                    'Muro_hijo.Lebe_Izq = Muro_maestro.Lebe_Izq
+                    'Muro_hijo.Lebe_Der = Muro_maestro.Lebe_Der
+                    'Muro_hijo.Lebe_Centro = Muro_maestro.Lebe_Centro
+                    'Muro_hijo.Zc_Izq = Muro_maestro.Zc_Izq
+                    'Muro_hijo.Zc_Der = Muro_maestro.Zc_Der
+                    'Muro_hijo.Est_ebe = Muro_maestro.Est_ebe
+                    'Muro_hijo.Sep_ebe = Muro_maestro.Sep_ebe
+                    'Muro_hijo.Est_Zc = Muro_maestro.Est_Zc
+                    'Muro_hijo.Sep_Zc = Muro_maestro.Sep_Zc
+                    'Muro_hijo.As_Long = Muro_maestro.As_Long
+                    'Muro_hijo.ramas_der = Muro_maestro.ramas_der
+                    'Muro_hijo.ramas_izq = Muro_maestro.ramas_izq
+                    'Muro_hijo.ramas_centro = Muro_maestro.ramas_centro
+                    'Muro_hijo.Ref_htal = Muro_maestro.Ref_htal
+                    'Muro_hijo.sep_htal = Muro_maestro.sep_htal
+                    'Muro_hijo.As_Htal_Total = Muro_maestro.As_htal
+                    'Muro_hijo.isMuroMaestro = False
+                    'Muro_hijo.MuroSimilar = Muro_maestro
+
+                    'Indice = Muros_lista_2.FindIndex(Function(x) x.Pier_name = Muro_hijo.Pier_name)
+                    'Muros_lista_2(Indice) = Muro_hijo
+
+                    Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).MuroSimilar = Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(2).Value)
 
                     Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = .Cells(0).Value)
 
@@ -123,18 +150,25 @@ Public Class Similar
                         If refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j))
 
-
                         ElseIf refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value) Is Nothing Then
-
 
                             For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                                 If refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
+
                                     Dim NuevoMuroRefuerzo As New Refuerzo_muros
 
                                     NuevoMuroRefuerzo.MuroCreadoDespues = True
                                     NuevoMuroRefuerzo.piername = .Cells(0).Value
-                                    NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
                                     NuevoMuroRefuerzo.pierstory = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).pierstory
+                                    NuevoMuroRefuerzo.bw = refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).bw
+                                    NuevoMuroRefuerzo.rho = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).rho
+                                    NuevoMuroRefuerzo.as_req = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)).as_req
+
+                                    NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
+
+
+
+
                                     refuerzo_lista.Add(NuevoMuroRefuerzo)
 
                                 End If
@@ -148,7 +182,6 @@ Public Class Similar
 
 
                         ElseIf alzado_lista.Find(Function(x) x.pier = .Cells(0).Value) Is Nothing Then
-
 
                             For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                                 If alzado_lista.Find(Function(x) x.pier = .Cells(2).Value And x.story = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
@@ -281,154 +314,6 @@ Public Class Similar
         Me.Close()
     End Sub
 
-
-    Sub AsignarSimilitudDeMuros(DataGrid As DataGridView)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        For i = 0 To DataGrid.Rows.Count - 1
-            With DataGrid.Rows(i)
-                If .Cells(2).Value <> "" Then
-                    Dim NombreMuroMaestro As String = .Cells(2).Value : Dim NombreMuroSimilar As String = .Cells(0).Value
-
-
-                    Dim MuroMaestro As Muros_Consolidados
-                    Dim MuroSimilarIndice As Integer
-                    MuroSimilarIndice = Muros_lista_2.FindIndex(Function(x1) x1.Pier_name = NombreMuroSimilar)
-                    MuroMaestro = Muros_lista_2.Find(Function(x1) x1.Pier_name = NombreMuroMaestro)
-                    Dim MuroMaestroIndice = Muros_lista_2.FindIndex(Function(x1) x1.Pier_name = NombreMuroMaestro)
-
-
-                    Muros_lista_2(MuroSimilarIndice).Pier_name = NombreMuroSimilar
-                    Muros_lista_2(MuroSimilarIndice).lw = MuroMaestro.lw
-                    Muros_lista_2(MuroSimilarIndice).Malla = MuroMaestro.Malla
-                    Muros_lista_2(MuroSimilarIndice).Lebe_Izq = MuroMaestro.Lebe_Izq
-                    Muros_lista_2(MuroSimilarIndice).Lebe_Der = MuroMaestro.Lebe_Der
-                    Muros_lista_2(MuroSimilarIndice).Lebe_Centro = MuroMaestro.Lebe_Centro
-                    Muros_lista_2(MuroSimilarIndice).Est_ebe = MuroMaestro.Est_ebe
-                    Muros_lista_2(MuroSimilarIndice).Sep_ebe = MuroMaestro.Sep_ebe
-                    Muros_lista_2(MuroSimilarIndice).ramas_izq = MuroMaestro.ramas_izq
-                    Muros_lista_2(MuroSimilarIndice).ramas_der = MuroMaestro.ramas_der
-                    Muros_lista_2(MuroSimilarIndice).ramas_centro = MuroMaestro.ramas_centro
-                    Muros_lista_2(MuroSimilarIndice).Zc_Der = MuroMaestro.Zc_Der
-                    Muros_lista_2(MuroSimilarIndice).Est_Zc = MuroMaestro.Est_Zc
-                    Muros_lista_2(MuroSimilarIndice).Sep_Zc = MuroMaestro.Sep_Zc
-                    Muros_lista_2(MuroSimilarIndice).As_htal = MuroMaestro.As_htal
-                    Muros_lista_2(MuroSimilarIndice).Ref_htal = MuroMaestro.Ref_htal
-                    Muros_lista_2(MuroSimilarIndice).Capas_htal = MuroMaestro.Capas_htal
-                    Muros_lista_2(MuroSimilarIndice).sep_htal = MuroMaestro.sep_htal
-                    Muros_lista_2(MuroSimilarIndice).As_Htal_Total = MuroMaestro.As_Htal_Total
-
-
-
-
-                    For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
-
-                        MuroSimilarIndice = alzado_lista.FindIndex(Function(x1) x1.pier = NombreMuroSimilar And x1.story = "Story" & j + 1)
-
-
-                        Dim MuroMaestro2 As New alzado_muro
-                        MuroMaestro2 = alzado_lista.Find(Function(x1) x1.pier = NombreMuroMaestro And x1.story = "Story" & j + 1)
-                        'If MuroMaestro2 Is Nothing Then
-                        '    'MsgBox("Muro Maestro: " & NombreMuroMaestro & " no encontrado", MsgBoxStyle.Exclamation, "efe Prima Ce")
-                        '    ' Exit For
-                        'End If
-
-                        If MuroSimilarIndice <> -1 And MuroMaestro2 IsNot Nothing Then
-                            alzado_lista(MuroSimilarIndice).pier = NombreMuroSimilar
-                            alzado_lista(MuroSimilarIndice).alzado = MuroMaestro2.alzado
-                            alzado_lista(MuroSimilarIndice).Alzado_Longitud = MuroMaestro2.Alzado_Longitud
-                        ElseIf MuroMaestro2 IsNot Nothing Then
-                            Dim NuevoMuro As New alzado_muro
-                            NuevoMuro.pier = NombreMuroSimilar
-                            NuevoMuro.alzado = MuroMaestro2.alzado
-                            NuevoMuro.Alzado_Longitud = MuroMaestro2.Alzado_Longitud
-                            NuevoMuro.Bw = MuroMaestro2.Bw
-                            NuevoMuro.story = MuroMaestro2.story
-                            alzado_lista.Add(NuevoMuro)
-                        End If
-                    Next
-
-
-
-                    For j = 0 To Muros_lista_2(MuroMaestroIndice).Stories.Count - 1
-
-                        MuroSimilarIndice = refuerzo_lista.FindIndex(Function(x1) x1.piername = NombreMuroSimilar And x1.pierstory = "Story" & j + 1)
-
-
-                        Dim MuroMaestro3 As New Refuerzo_muros
-                        MuroMaestro3 = refuerzo_lista.Find(Function(x1) x1.piername = NombreMuroMaestro)
-
-
-                        If MuroSimilarIndice <> -1 And MuroMaestro3 IsNot Nothing Then
-                            refuerzo_lista(MuroSimilarIndice).piername = NombreMuroSimilar
-                            refuerzo_lista(MuroSimilarIndice).Ebe_Izq = MuroMaestro3.Ebe_Izq
-                            refuerzo_lista(MuroSimilarIndice).Ebe_Der = MuroMaestro3.Ebe_Der
-                            refuerzo_lista(MuroSimilarIndice).as_req = MuroMaestro3.as_req
-                            refuerzo_lista(MuroSimilarIndice).cantidad = MuroMaestro3.cantidad
-                            refuerzo_lista(MuroSimilarIndice).diametro = MuroMaestro3.diametro
-                            refuerzo_lista(MuroSimilarIndice).porcentaje = MuroMaestro3.porcentaje
-                            refuerzo_lista(MuroSimilarIndice).rho = MuroMaestro3.rho
-                            refuerzo_lista(MuroSimilarIndice).Zc_Der = MuroMaestro3.Zc_Der
-                            refuerzo_lista(MuroSimilarIndice).Zc_Izq = MuroMaestro3.Zc_Izq
-                            refuerzo_lista(MuroSimilarIndice).total = MuroMaestro3.total
-                        ElseIf MuroMaestro3 IsNot Nothing Then
-                            Dim NuevoMuro As New Refuerzo_muros
-                            NuevoMuro.piername = NombreMuroSimilar
-                            NuevoMuro.Ebe_Izq = MuroMaestro3.Ebe_Izq
-                            NuevoMuro.pierstory = MuroMaestro3.pierstory
-                            NuevoMuro.Ebe_Der = MuroMaestro3.Ebe_Der
-                            NuevoMuro.as_req = MuroMaestro3.as_req
-                            NuevoMuro.cantidad = MuroMaestro3.cantidad
-                            NuevoMuro.diametro = MuroMaestro3.diametro
-                            NuevoMuro.porcentaje = MuroMaestro3.porcentaje
-                            NuevoMuro.rho = MuroMaestro3.rho
-                            NuevoMuro.Zc_Der = MuroMaestro3.Zc_Der
-                            NuevoMuro.Zc_Izq = MuroMaestro3.Zc_Izq
-                            NuevoMuro.total = MuroMaestro3.total
-                            refuerzo_lista.Add(NuevoMuro)
-                        End If
-
-
-
-                    Next
-
-
-
-
-                End If
-
-
-            End With
-
-
-        Next
-
-
-    End Sub
 
 
 

@@ -108,32 +108,34 @@
             Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
         End If
 
-        'Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Nombre_Muro)
+        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Nombre_Muro)
 
-        'If Muro_i.isMuroMaestro = True Then
+        If Muro_i.isMuroMaestro = True Then
 
-        '    Find_Muros_Hijos(Muro_i, Muros_hijos)
+            Find_Muros_Hijos(Muro_i, Muros_hijos)
 
-        '    If Muros_hijos.Count > 0 Then
+            If Muros_hijos.Count > 0 Then
 
-        '        For j = 0 To Muros_hijos.Count - 1
+                For j = 0 To Muros_hijos.Count - 1
 
-        '            If alzado_lista.Exists(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story) = False Then
-        '                Alzado_i = New alzado_muro
-        '                Alzado_i.pier = Muros_hijos(j).Pier_name
-        '                Alzado_i.story = Story
-        '                Agregar_Columnas(i, C, Data_alzado, Alzado_i)
-        '                alzado_lista.Add(Alzado_i)
-        '            Else
-        '                Indice = alzado_lista.FindIndex(Function(x) x.pier = Muros_hijos(i).Pier_name And x.story = Story)
-        '                Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
-        '            End If
+                    If alzado_lista.Exists(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story) = False Then
+                        Alzado_i = New alzado_muro
+                        Alzado_i.pier = Muros_hijos(j).Pier_name
+                        Alzado_i.story = Story
+                        Alzado_i.alzado = alzado_lista.Find(Function(x) x.pier = Muro_i.Pier_name And x.story = Story).alzado.ToList()
+                        Agregar_Columnas(i, C, Data_alzado, Alzado_i)
+                        alzado_lista.Add(Alzado_i)
+                    Else
+                        Indice = alzado_lista.FindIndex(Function(x) x.pier = Muros_hijos(j).Pier_name And x.story = Story)
+                        alzado_lista(Indice).alzado = alzado_lista.Find(Function(x) x.pier = Muro_i.Pier_name And x.story = Story).alzado.ToList()
+                        Agregar_Columnas(i, C, Data_alzado, alzado_lista(Indice))
+                    End If
 
-        '        Next
+                Next
 
-        '    End If
+            End If
 
-        'End If
+        End If
 
     End Sub
 

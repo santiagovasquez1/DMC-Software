@@ -1492,7 +1492,7 @@ Module Module1
                 End If
                 AnchoCajon = 0.6
             Else
-                Nomenc_Refuerzo = No_Capas & "#" & .RefuerzoHorizontalLabel & " a " & Format(Val(.Sep_RefuerzoHorizontal) / 100, "#0.00") & " L=" & Math.Round(.LongMallaHoriz, 2)
+                Nomenc_Refuerzo = No_Capas & "#" & .RefuerzoHorizontalLabel & " a " & Format(Val(.Sep_RefuerzoHorizontal) / 100, "#0.00") & " L=" & Format(Math.Round(.LongMallaHoriz, 2), "#0.00")
             End If
 
 
@@ -1661,7 +1661,7 @@ Module Module1
                     Else
                         For letras = 0 To Len(.Malla) - 1 : If .Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
                         If NoMallas = 1 Then : FactorAd = -0.03 : Else : FactorAd = 0 : End If
-                        InicioX = .Xmax - (.Xmax - .Xmin) * 0.3 + 0.89
+                        InicioX = .Xmax - (.Xmax - .Xmin) * 0.3 - 0.89
                     End If
 
 
@@ -2721,7 +2721,7 @@ Module Module1
 
                         If MurosaExtenderMalla = 1 And XaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino izquierdo
 
-                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.02 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = XaExtender1 + R1 - 0.01 + 0.42
@@ -2772,7 +2772,7 @@ Module Module1
                         'Caso2.2 ----> LadoIzquierdo
 
                         If MurosaExtenderMalla = 1 And XaExtender2 <> 0 Then 'Para dos Capas, con extension en un vecino derecho
-                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.02 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
                                 Coord(0) = XaExtender2 - R2 - 0.01 - 0.42
@@ -2822,7 +2822,7 @@ Module Module1
 
 
                         If MurosaExtenderMalla = 0 Then
-                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.038 * 2 + (2 * LongGancho)
+                            .LongMallaHoriz = (.XmaxE - .XminE) - 0.02 * 2 + (2 * LongGancho)
                             If Capas = 2 Then
                                 'Refuerzo Arriba
 
@@ -3181,7 +3181,7 @@ Module Module1
 
                         If MurosaExtenderMalla = 1 And YaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino abajo
 
-                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.02 + (LongGancho) + (Espesor_M1 - 0.02 + 0.3)
 
                             If Capas = 2 Then
                                 'Refuerzo Derecha
@@ -3228,7 +3228,7 @@ Module Module1
 
 
                         If MurosaExtenderMalla = 1 And YaExtender2 <> 0 Then 'Para dos Capas, con extension en un vecino arriba
-                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.02 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
                             If Capas = 2 Then
 
                                 'Refuerzo Derecha
@@ -3274,7 +3274,7 @@ Module Module1
 
                         'Caso 3 ---> Sin Vecinos
                         If MurosaExtenderMalla = 0 Then
-                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.038 * 2 + (2 * LongGancho)
+                            .LongMallaHoriz = (.YmaxE - .YminE) - 0.02 * 2 + (2 * LongGancho)
                             If Capas = 2 Then
 
                                 'Refuerzo Derecha

@@ -40,7 +40,6 @@
     Public sep_htal As List(Of Double) = New List(Of Double)
     Public As_Htal_Total As List(Of Double) = New List(Of Double)
 
-
     'Nuevas Propiedades
 
     Public isMuroMaestro As Boolean = False

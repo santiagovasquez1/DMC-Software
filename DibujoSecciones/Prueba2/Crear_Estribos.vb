@@ -109,10 +109,10 @@ Public Class Crear_Estribos
                         Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                     Else
                         Num_Estribos = 1
-                        Distancia_Limite = (Confinamiento_Izq + Delta_Escalado) - (2 * 0.02)
+                        Distancia_Limite = (Confinamiento_Izq + Delta_Escalado / 2) - (2 * 0.02)
                     End If
 
-                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, bw_Vecino_der, Num_Estribos)
+                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {ListaOrdenada(i).Xmin + Delta_Escalado / 2 + Confinamiento_Izq, Punto_inicial(1), 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 0, Vecino_Izq, Vecino_Der, bw_Vecino_der, Num_Estribos)
 
                 End If
 
@@ -217,11 +217,11 @@ Public Class Crear_Estribos
                         Distancia_Limite = (Confinamiento_Der / Num_Estribos) + 0.2
                     Else
                         Num_Estribos = 1
-                        Distancia_Limite = Confinamiento_Der + Delta_Escalado - 0.04
+                        Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 - 0.04
                     End If
 
                     Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                    Estribos_Derecha(Suma_Long, delta, {(ListaOrdenada(i).Xmax - Confinamiento_Der) - Delta_Escalado, ListaOrdenada(i).Ymin, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 0, Vecino_Der, Num_Estribos)
+                    Estribos_Derecha(Suma_Long, delta, {(ListaOrdenada(i).Xmax - Confinamiento_Der) - Delta_Escalado / 2, ListaOrdenada(i).Ymin, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 0, Vecino_Der, Num_Estribos)
 
                 End If
 
@@ -311,10 +311,10 @@ Public Class Crear_Estribos
                             Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                         Else
                             Num_Estribos = 1
-                            Distancia_Limite = Confinamiento_Izq + Delta_Escalado - (2 * 0.02)
+                            Distancia_Limite = Confinamiento_Izq + Delta_Escalado / 2 - (2 * 0.02)
                         End If
 
-                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
+                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado / 2 + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
 
                     End If
 
@@ -329,10 +329,10 @@ Public Class Crear_Estribos
                             Distancia_Limite = (Confinamiento_Izq / Num_Estribos) + 0.2
                         Else
                             Num_Estribos = 1
-                            Distancia_Limite = Confinamiento_Izq + Delta_Escalado - (2 * 0.02)
+                            Distancia_Limite = Confinamiento_Izq + Delta_Escalado / 2 - (2 * 0.02)
                         End If
 
-                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
+                        Estribos_Izquierda(Suma_Long, delta, Punto_inicial, {Punto_inicial(0), ListaOrdenada(i).Ymin + Delta_Escalado / 2 + Confinamiento_Izq, 0}, Muro_i, indice, Pos, Distancia_Limite, i, Delta_Escalado, Puntos_Limites, 1, Vecino_Abajo, Vecino_Arriba, bw_Vecino_der, Num_Estribos)
 
                     End If
 
@@ -371,11 +371,11 @@ Public Class Crear_Estribos
                         Num_Estribos = (Confinamiento_Der / Distancia_Maxima) + 1
                         Distancia_Limite = (Confinamiento_Der / Num_Estribos) + 0.2
                     Else
-                        Distancia_Limite = Confinamiento_Der + Delta_Escalado - (2 * 0.02)
+                        Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 - (2 * 0.02)
                     End If
 
                     Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                    Estribos_Derecha(Suma_Long, delta, {Punto_final(0), Punto_final(1) - Confinamiento_Der - Delta_Escalado, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 1, Vecino_Arriba, Num_Estribos)
+                    Estribos_Derecha(Suma_Long, delta, {Punto_final(0), Punto_final(1) - Confinamiento_Der - Delta_Escalado / 2, 0}, Punto_final, Muro_i, indice, Pos, Distancia_Limite, i, 1, Vecino_Arriba, Num_Estribos)
                 End If
 
                 'Agregar ganchos en la seccion
@@ -662,6 +662,9 @@ Public Class Crear_Estribos
 
         Bloque_Estribo.Layer = Layer
         Bloque_Estribo.Update()
+
+        Estribo_Back(Bloque_Estribo)
+
     End Sub
 
     Private Sub Add_Gancho(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Flip_State As Short)
@@ -683,6 +686,24 @@ Public Class Crear_Estribos
 
         Bloque_Gancho.Layer = Layer
         Bloque_Gancho.Update()
+
+    End Sub
+
+    Private Shared Sub Estribo_Back(ByVal Acad_object As AcadObject)
+
+        Dim Diccionario As AcadDictionary
+        Dim sentityObj As AcadObject
+        Dim arr(0) As AcadObject
+
+        'Mover el hacth hacia atras
+        Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
+
+
+        sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
+        sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
+
+        arr(0) = Acad_object
+        sentityObj.MoveToBottom(arr.ToArray)
 
     End Sub
 
