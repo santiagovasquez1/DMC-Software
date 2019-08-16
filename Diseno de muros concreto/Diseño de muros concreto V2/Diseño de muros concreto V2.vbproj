@@ -148,7 +148,9 @@
     <Compile Include="Form_DireccionCambiodeEspesor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Listas_serializadas.vb" />
     <Compile Include="Organizar_alzados.vb" />
+    <Compile Include="Serializador.vb" />
     <Compile Include="Similar.Designer.vb">
       <DependentUpon>Similar.vb</DependentUpon>
     </Compile>

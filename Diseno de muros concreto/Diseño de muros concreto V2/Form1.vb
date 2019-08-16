@@ -572,4 +572,29 @@ Public Class Form1
     Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim Listas_serializar As New Listas_serializadas
+
+        Listas_serializar.Lista_Muros = Muros_lista_2
+        Listas_serializar.Lista_Alzados = alzado_lista
+        Listas_serializar.lista_refuerzo = refuerzo_lista
+
+        Serializador.Serializar(Listas_serializar)
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        Dim Ruta As String = ""
+        Dim Lista_serializada As New Listas_serializadas
+
+        Serializador.Deserializar(Ruta, Lista_serializada)
+
+        Muros_lista_2 = Lista_serializada.Lista_Muros
+        alzado_lista = Lista_serializada.Lista_Alzados
+        refuerzo_lista = Lista_serializada.lista_refuerzo
+
+    End Sub
 End Class

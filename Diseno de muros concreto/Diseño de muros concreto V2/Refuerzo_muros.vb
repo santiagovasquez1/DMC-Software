@@ -1,4 +1,5 @@
-﻿Public Class Refuerzo_muros
+﻿<Serializable>
+Public Class Refuerzo_muros
     Public piername As String
     Public pierstory As String
     Public bw As Double

@@ -1,4 +1,5 @@
-﻿Public Class alzado_muro
+﻿<Serializable>
+Public Class alzado_muro
     Public pier As String
     Public story As String
     Public Bw As Single

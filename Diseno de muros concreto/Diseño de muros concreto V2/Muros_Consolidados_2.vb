@@ -1,4 +1,5 @@
-﻿Public Class Muros_Consolidados
+﻿<Serializable>
+Public Class Muros_Consolidados
 
     Public Pier_name As String
     Public Stories As List(Of String) = New List(Of String)
@@ -44,8 +45,6 @@
 
     Public isMuroMaestro As Boolean = False
     Public MuroSimilar As Muros_Consolidados
-
-
 
     Public DireccionCambioEspesor As String = "No Aplica"
     Public CantidaddeMallas_Fic As New List(Of Single)
