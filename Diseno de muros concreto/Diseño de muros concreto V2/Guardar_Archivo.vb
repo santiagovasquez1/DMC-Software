@@ -107,11 +107,14 @@ Public Class Guardar_Archivo
     End Sub
 
     Sub Actualizar_Alzado()
+
         Dim texto As String
         Dim indice As Integer
 
-        alzado_lista.OrderBy(Function(x) x.pier)
-        alzado_lista.OrderBy(Function(x) x.story)
+        alzado_lista = alzado_lista.OrderBy(Function(x) x.pier).ToList
+        alzado_lista = alzado_lista.OrderByDescending(Function(x) x.story).ToList
+        'alzado_lista.OrderBy(Function(x) x.story)
+
         indice = Lista_Texto.FindIndex(Function(x) x.Contains("Datos de alzado refuerzo longitudinal"))
 
         If indice < 0 Then
@@ -120,8 +123,8 @@ Public Class Guardar_Archivo
 
         For Each Alzado_i As alzado_muro In alzado_lista
 
-            texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
 
+            texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
             For j = 0 To Alzado_i.alzado.Count - 1
                 If j < Alzado_i.alzado.Count - 1 Then
                     texto = texto & Alzado_i.alzado(j) & vbTab
@@ -167,6 +170,8 @@ Public Class Guardar_Archivo
             Next
             Lista_Texto.Add(texto)
         Next
+
+
 
     End Sub
 
@@ -281,6 +286,15 @@ Public Class Guardar_Archivo
 
 
         Escritor.Close()
+
+    End Sub
+
+    Private Shadows Sub Add_Similare(ByVal Muro_i As Muros_Consolidados, ByVal Story As String)
+
+        If Muro_i.isMuroMaestro = True Then
+
+        End If
+
 
     End Sub
 

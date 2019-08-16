@@ -141,10 +141,15 @@
 
     Public Sub Validar_info_3(indice As Integer, ByRef Indice2 As Integer, datos_refuerzo As Refuerzo_muros, ByRef suma As Single, ByRef Muro_i As Muros_Consolidados, Muros_Hijos As List(Of Muros_Consolidados), ByVal Data_info As DataGridView)
 
+        Dim pos1, pos2 As Integer
+        Dim Muro_maestro As String
+
+        pos1 = 0
+        pos2 = 0
+
         datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
         datos_refuerzo.pierstory = Data_info.Rows(indice).Cells(1).Value
         datos_refuerzo.bw = Data_info.Rows(indice).Cells(2).Value
-
         datos_refuerzo.as_req = Data_info.Rows(indice).Cells(6).Value
 
         For i = 9 To Data_info.ColumnCount - 1
@@ -186,9 +191,21 @@
         Find_Muros_Hijos(Muro_i, Muros_Hijos)
 
         If Muros_Hijos.Count > 0 Then
+            Muro_maestro = Muro_i.Pier_name
+
             For j = 0 To Muros_Hijos.Count - 1
 
+                pos1 = Muros_lista_2.FindIndex(Function(x) x.Pier_name = Muros_Hijos(j).Pier_name)
+                pos2 = Muros_lista_2(indice).Stories.FindIndex(Function(x) x = Data_info.Rows(indice).Cells(1).Value)
+
                 datos_refuerzo.piername = Muros_Hijos(j).Pier_name
+                datos_refuerzo.pierstory = Muros_lista_2(indice).Stories(pos2)
+                datos_refuerzo.bw = Muros_lista_2(indice).Bw(pos2)
+                datos_refuerzo.as_req = Muros_lista_2(indice).As_Long(pos2)
+
+                datos_refuerzo.diametro = refuerzo_lista.Find(Function(x) x.piername = Muro_maestro And x.pierstory = datos_refuerzo.pierstory).diametro
+                datos_refuerzo.diametro = refuerzo_lista.Find(Function(x) x.piername = Muro_maestro And x.pierstory = datos_refuerzo.pierstory).cantidad
+
                 Indice2 = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo.piername And x.pierstory = datos_refuerzo.pierstory)
 
                 If Indice2 >= 0 Then
@@ -199,6 +216,7 @@
             Next
         End If
         datos_refuerzo.piername = Data_info.Rows(indice).Cells(0).Value
+
     End Sub
 
     Public Sub Find_Muros_Hijos(Muro_i As Muros_Consolidados, Muros_hijos As List(Of Muros_Consolidados))

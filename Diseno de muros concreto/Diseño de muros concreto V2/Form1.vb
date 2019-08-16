@@ -18,8 +18,6 @@ Public Class Form1
         Dim prueba As String
         Dim Muros_Distintos As New List(Of String)
 
-
-
         prueba = Ruta_1
 
         Cargar_areas_refuerzo()

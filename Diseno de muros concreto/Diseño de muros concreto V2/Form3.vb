@@ -608,6 +608,7 @@ Public Class f_alzado
     End Sub
 
     Private Sub Data_info_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Data_info.CellEndEdit
+
         Dim indice, Indice2 As Integer
         Dim datos_refuerzo As New Refuerzo_muros
         Dim prueba As String = Mid(Data_info.Columns(5).HeaderText, 2)

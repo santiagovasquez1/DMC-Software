@@ -74,13 +74,6 @@ Module Cargar_Archivos
         ConfirmarMaestrosSimilares2(ListaMuros)
     End Sub
 
-
-
-
-
-
-
-
     Sub Cargar_Resumen()
 
         Dim Inicio, Fin As Integer
@@ -267,9 +260,6 @@ Module Cargar_Archivos
 
     Public Sub ConfirmarMaestrosSimilares2(ByVal ListaMaestroSimilares As List(Of String()))
 
-
-
-
         For i = 0 To ListaMaestroSimilares.Count - 1
             If ListaMaestroSimilares(i)(3) = "True" Then
                 If alzado_lista.Exists(Function(x) x.pier = ListaMaestroSimilares(i)(0)) Then
@@ -278,11 +268,6 @@ Module Cargar_Archivos
                 End If
             End If
         Next
-
-
-
-
-
 
         For i = 0 To ListaMaestroSimilares.Count - 1
 
