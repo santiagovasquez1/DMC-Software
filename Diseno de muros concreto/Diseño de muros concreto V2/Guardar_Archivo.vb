@@ -7,7 +7,6 @@ Public Class Guardar_Archivo
 
     Public Sub New(ByVal Ruta_archivo As String, ByVal Borrar As Boolean)
 
-
         Ruta = Ruta_archivo
 
         If Muros_lista_2 IsNot Nothing Then
@@ -18,12 +17,14 @@ Public Class Guardar_Archivo
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
-                Sobre_Escribir(Borrar)
+                Sobre_Escribir()
+                NuevosArchivo()
             Catch ex As Exception
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
                 Sobre_Escribir(Borrar)
+                NuevosArchivo()
             End Try
 
         End If
@@ -136,7 +137,6 @@ Public Class Guardar_Archivo
 
         Dim texto, texto2 As String
         Dim indice, pos As Integer
-        Dim Muro_i As Muros_Consolidados
 
         alzado_lista.OrderBy(Function(x) x.pier)
         alzado_lista.OrderBy(Function(x) x.story)
@@ -148,51 +148,23 @@ Public Class Guardar_Archivo
 
         For Each Alzado_i As alzado_muro In alzado_lista
 
-            'If Alzado_i.pier = "K1" Then
-            '    Stop
-            'End If
-
-            Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Alzado_i.pier)
             texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
 
-            If IsNothing(Muro_i.MuroSimilar) = False Then
-                Dim Alzado_madre As alzado_muro
-                Alzado_madre = alzado_lista.Find(Function(x) x.pier = Muro_i.MuroSimilar.Pier_name And x.story = Alzado_i.story)
+            For j = 0 To Alzado_i.Alzado_Longitud.Count - 1
+                pos = Alzado_i.Alzado_Longitud(j).IndexOf("L=") + 2
 
-                For j = 0 To Alzado_madre.Alzado_Longitud.Count - 1
-                    pos = Alzado_madre.Alzado_Longitud(j).IndexOf("L=") + 2
+                If pos > 2 Then
+                    texto2 = Alzado_i.Alzado_Longitud(j).Substring(pos)
+                Else
+                    texto2 = Alzado_i.Alzado_Longitud(j)
+                End If
 
-                    If pos > 2 Then
-                        texto2 = Alzado_madre.Alzado_Longitud(j).Substring(pos)
-                    Else
-                        texto2 = Alzado_madre.Alzado_Longitud(j)
-                    End If
-
-                    If j < Alzado_madre.Alzado_Longitud.Count - 1 Then
-                        texto = texto & texto2 & vbTab
-                    Else
-                        texto = texto & texto2
-                    End If
-                Next
-            Else
-                For j = 0 To Alzado_i.Alzado_Longitud.Count - 1
-                    pos = Alzado_i.Alzado_Longitud(j).IndexOf("L=") + 2
-
-                    If pos > 2 Then
-                        texto2 = Alzado_i.Alzado_Longitud(j).Substring(pos)
-                    Else
-                        texto2 = Alzado_i.Alzado_Longitud(j)
-                    End If
-
-                    If j < Alzado_i.Alzado_Longitud.Count - 1 Then
-                        texto = texto & texto2 & vbTab
-                    Else
-                        texto = texto & texto2
-                    End If
-                Next
-            End If
-
-
+                If j < Alzado_i.Alzado_Longitud.Count - 1 Then
+                    texto = texto & texto2 & vbTab
+                Else
+                    texto = texto & texto2
+                End If
+            Next
             Lista_Texto.Add(texto)
         Next
 
@@ -268,6 +240,51 @@ Public Class Guardar_Archivo
 
         For i = 0 To Vector_Texto_aux.Count - 1
             Escritor.WriteLine(Vector_Texto_aux(i))
+        Next
+
+
+        Escritor.Close()
+
+    End Sub
+
+    Sub NuevosArchivo()
+        Dim NombreArchivoIguales As String = "\thesames.SDMC"
+        Dim Escritor = New StreamWriter(Ruta_Carpeta & NombreArchivoIguales)
+
+
+        For Each Muro_i In Muros_lista_2
+
+
+        Next
+
+
+
+        For Each muro_i As Muros_Consolidados In Muros_lista_2
+            Dim NombreMuroSimilar, Maestro, CreadoDespues As String
+
+            If muro_i.MuroSimilar IsNot Nothing Then
+                NombreMuroSimilar = muro_i.MuroSimilar.Pier_name
+
+            Else
+                NombreMuroSimilar = "SinSimilar"
+            End If
+            If muro_i.isMuroMaestro = True Then
+                Maestro = "True"
+            Else
+                Maestro = "False"
+            End If
+
+            If alzado_lista.Exists(Function(x) x.pier = muro_i.Pier_name) Then
+                If alzado_lista.Find(Function(x) x.pier = muro_i.Pier_name).MuroCreadoDespues = True Then
+                    CreadoDespues = True
+                Else
+                    CreadoDespues = False
+                End If
+            Else
+                CreadoDespues = False
+            End If
+
+            Escritor.WriteLine(muro_i.Pier_name & vbTab & Maestro & vbTab & NombreMuroSimilar & vbTab & CreadoDespues)
         Next
 
 
