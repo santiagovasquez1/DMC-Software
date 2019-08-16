@@ -23,6 +23,7 @@ Public Class Muros
     Public Malla As String
     Public Capas_RefuerzoHorizontal As Integer
     Public RefuerzoHorizontalLabel As String
+    Public Sep_RefuerzoHorizontal As String
 
     Public MurosVecinosClase As New List(Of Muros)
     Public MurosVecinosDerecha As New List(Of Muros)

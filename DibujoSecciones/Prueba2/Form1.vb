@@ -1,8 +1,9 @@
 ﻿
 Imports System.Runtime.InteropServices
 
-Public Class Form1
 
+Public Class Form1
+    Public RutaArchivo As String
 
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
@@ -10,14 +11,30 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Ganchos_180.Add("2", 0.116)
-        Ganchos_180.Add("3", 0.14)
-        Ganchos_180.Add("4", 0.167)
-        Ganchos_180.Add("5", 0.192)
-        Ganchos_180.Add("6", 0.228)
-        Ganchos_180.Add("7", 0.266)
-        Ganchos_180.Add("8", 0.305)
-        Ganchos_180.Add("10", 0.457)
+
+        Try
+            Ganchos_180.Clear()
+            ArchivoTexto(Me)
+            Cargar_Resumen()
+
+            CargarRefuerzo()
+
+            Ganchos_180.Add("4.5mm", 0.116)
+            Ganchos_180.Add("2", 0.116)
+            Ganchos_180.Add("3", 0.14)
+            Ganchos_180.Add("4", 0.167)
+            Ganchos_180.Add("5", 0.192)
+            Ganchos_180.Add("6", 0.228)
+            Ganchos_180.Add("7", 0.266)
+            Ganchos_180.Add("8", 0.305)
+            Ganchos_180.Add("10", 0.457)
+        Catch
+
+            MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
+            Me.Close()
+        End Try
+
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs)
@@ -30,12 +47,8 @@ Public Class Form1
 
     End Sub
 
-    Private Sub CargarDatos_Click(sender As Object, e As EventArgs) Handles CargarDatos.Click
-        ArchivoTexto()
-        Cargar_Resumen()
+    Private Sub CargarDatos_Click(sender As Object, e As EventArgs)
 
-        CargarRefuerzo()
-        MsgBox("Datos Cargados con Exito", MsgBoxStyle.Information, "efe Prima Ce")
     End Sub
 
     Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint

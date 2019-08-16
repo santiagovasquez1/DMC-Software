@@ -14,7 +14,7 @@ Module Module1
     Public MurosAranas As New List(Of MuroArana)
     Public Hacth As AcadHatch
     Public Refuerzo_Circulo As AcadBlockReference
-    Public RefuerzoHorizontal, RefuerzoHorizontal2, BloqueNombreMuro As AcadBlockReference
+    Public RefuerzoHorizontal, RefuerzoHorizontal2, BloqueNombreMuro, BloqueRefuerzoHorizMalla As AcadBlockReference
     Public Lista_TextosRefuerzos As New List(Of TextoRefuerzo)
     Public Lista_CirculoRefuerzos As New List(Of RefuerzoCirculo)
     Public Cota As AcadDimRotated
@@ -389,6 +389,7 @@ Module Module1
                         End If
 
 
+                        ListaOrdenada(i).Sep_RefuerzoHorizontal = Muros_lista_2(j).sep_htal(Indice)
                         ListaOrdenada(i).Malla = Muros_lista_2(j).Malla(Indice)
                         ListaOrdenada(i).Capas_RefuerzoHorizontal = Muros_lista_2(j).Capas_htal(Indice)
                         ListaOrdenada(i).RefuerzoHorizontalLabel = Muros_lista_2(j).Ref_htal(Indice)
@@ -731,11 +732,14 @@ Module Module1
 
 
         'DIBUJO DE REFUERZO
+
         For i = 0 To ListaOrdenada.Count - 1
+
             Dim LabelAux As Integer
             LabelAux = Str(1 + i)
             With ListaOrdenada(i)
-                For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
+                If .Lista_LongitudBarras.Count <> 0 Then
+                    For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
                     AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                 Next
                 For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
@@ -743,250 +747,275 @@ Module Module1
 
                     AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                 Next
-
+                End If
             End With
         Next
 
         'COTAS Y NUMERO DE REFUERZO
         For i = 0 To ListaOrdenada.Count - 1
             With ListaOrdenada(i)
-                If .DireccionMuro = "Vertical" Then
-                    Dim RangoEspesorLista As New List(Of Double())
-                    Dim RangoEspesorListaX As New List(Of Double())
-                    If .MurosVecinosIzquierda.Count <> 0 Then
+                If .Lista_LongitudBarras.Count <> 0 Then
+                    If .DireccionMuro = "Vertical" Then
+                        Dim RangoEspesorLista As New List(Of Double())
+                        Dim RangoEspesorListaX As New List(Of Double())
+                        If .MurosVecinosIzquierda.Count <> 0 Then
 
-                        For m = 0 To .MurosVecinosIzquierda.Count - 1
-                            Dim RangoEspesor(1) As Double
+                            For m = 0 To .MurosVecinosIzquierda.Count - 1
+                                Dim RangoEspesor(1) As Double
 
-                            RangoEspesor(0) = .MurosVecinosIzquierda(m).Ymax + 0.45
-                            RangoEspesor(1) = .MurosVecinosIzquierda(m).Ymin - 0.3
-                            RangoEspesorLista.Add(RangoEspesor)
+                                RangoEspesor(0) = .MurosVecinosIzquierda(m).Ymax + 0.45
+                                RangoEspesor(1) = .MurosVecinosIzquierda(m).Ymin - 0.3
+                                RangoEspesorLista.Add(RangoEspesor)
 
-                            Dim RangoEspesorX(0) As Double
-                            RangoEspesorX(0) = .MurosVecinosIzquierda(m).Xmax
-                            RangoEspesorListaX.Add(RangoEspesorX)
-                        Next
-
-                    End If
-
-
-                    If .MurosVecinosDerecha.Count <> 0 Then
-                        For m = 0 To .MurosVecinosDerecha.Count - 1
-                            Dim RangoEspesor(1) As Double
-                            RangoEspesor(0) = .MurosVecinosDerecha(m).Ymax + 0.45
-                            RangoEspesor(1) = .MurosVecinosDerecha(m).Ymin - 0.3
-                            RangoEspesorLista.Add(RangoEspesor)
-
-                            Dim RangoEspesorX(0) As Double
-                            RangoEspesorX(0) = .MurosVecinosDerecha(m).Xmax
-                            RangoEspesorListaX.Add(RangoEspesorX)
-                        Next
-
-                    End If
-
-                    'Desplazamiento adicional para Numero de Refuerzo
-                    If .MurosVecinosAbajo.Count <> 0 Then
-
-                        For m = 0 To .MurosVecinosAbajo.Count - 1
-                            Dim RangoEspesor(1) As Double
-                            RangoEspesor(0) = .MurosVecinosAbajo(m).Ymax + 0.3
-                            RangoEspesor(1) = .MurosVecinosAbajo(m).Ymax
-                            RangoEspesorLista.Add(RangoEspesor)
-                            Dim RangoEspesorX(0) As Double
-                            RangoEspesorX(0) = 99999999
-                            RangoEspesorListaX.Add(RangoEspesorX)
-                        Next
-
-
-                    End If
-
-
-
-                    For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                        Dim Alto = 0.0375
-                        Dim FactorSubir = 1.35
-                        Dim DesplazaCotaDerecha As Double = 0.2
-                        Dim FactoAdicionalTexto As Double = 1
-                        Dim FactorAdicionalTextoIzquierda1 As Double = 1
-                        Dim FactorAdicionalTextoIzquierda2 As Double = 1
-
-
-                        For m = 0 To RangoEspesorLista.Count - 1
-                            Dim RangoEspesorAux = RangoEspesorLista(m)
-                            If RangoEspesorAux.Count > 1 Then
-                                If RangoEspesorListaX(m)(0) < .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-
-                                    If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
-                                        DesplazaCotaDerecha = -0.1
-                                        FactoAdicionalTexto = -0.05
-                                    End If
-                                End If
-                            End If
-                        Next
-
-
-
-                        For m = 0 To RangoEspesorLista.Count - 1
-                            Dim RangoEspesorAux = RangoEspesorLista(m)
-                            If RangoEspesorAux.Count > 1 Then
-                                If RangoEspesorListaX(m)(0) > .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-                                    If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
-                                        FactorAdicionalTextoIzquierda1 = -1.03
-                                        FactorAdicionalTextoIzquierda2 = -0.6
-                                    End If
-                                End If
-                            End If
-                        Next
-
-
-                        For m = 0 To RangoEspesorLista.Count - 1
-                            Dim RangoEspesorAux = RangoEspesorLista(m)
-
-                            If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
-                                FactorSubir = 0.9
-                                FactoAdicionalTexto = -0.05
-                                FactorAdicionalTextoIzquierda1 = -1.03
-                                FactorAdicionalTextoIzquierda2 = -0.6
-                            End If
-
-                        Next
-
-
-
-                        'COTAS
-                        If j < .Lista_Refuerzos_Fila_Min.Count - 1 Then
-
-
-                            AddCota(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, .Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 90, "", False, DesplazaCotaDerecha, 0.15)
+                                Dim RangoEspesorX(0) As Double
+                                RangoEspesorX(0) = .MurosVecinosIzquierda(m).Xmax
+                                RangoEspesorListaX.Add(RangoEspesorX)
+                            Next
 
                         End If
 
-                        'TEXTOS DE BARRAS
-                        Try
-                            Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
-                            Dim FactorDesplazado = If(Len(TextoString) = 1, 0.12 * FactoAdicionalTexto, 0.15 * FactoAdicionalTexto)
-                            Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) - FactorDesplazado, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) - FactorSubir * Alto, 0}
-                            AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
-                        Catch ex As Exception
 
-                        End Try
-                        Try
-                            Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
-                            Dim FactorDesplazado2 = If(Len(TextoString2) = 1, 0.1 * FactorAdicionalTextoIzquierda2, 0.08 * FactorAdicionalTextoIzquierda1)
-                            Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + FactorDesplazado2, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) - FactorSubir * Alto, 0}
-                            AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
-                        Catch ex As Exception
+                        If .MurosVecinosDerecha.Count <> 0 Then
+                            For m = 0 To .MurosVecinosDerecha.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosDerecha(m).Ymax + 0.45
+                                RangoEspesor(1) = .MurosVecinosDerecha(m).Ymin - 0.3
+                                RangoEspesorLista.Add(RangoEspesor)
 
-                        End Try
+                                Dim RangoEspesorX(0) As Double
+                                RangoEspesorX(0) = .MurosVecinosDerecha(m).Xmax
+                                RangoEspesorListaX.Add(RangoEspesorX)
+                            Next
 
-
-                    Next
-                Else
-
-                    'FALTA MODIFICAR COTAS DE ARRIBA!!!!!!
-                    'MUROS HORIZONTALES
-                    Dim RangoEspesorLista As New List(Of Double())
-                    If .MurosVecinosDerecha.Count <> 0 Then
-
-                        For m = 0 To .MurosVecinosDerecha.Count - 1
-                            Dim RangoEspesor(0) As Double
-                            RangoEspesor(0) = .MurosVecinosDerecha(m).Xmin - 0.3
-                            RangoEspesorLista.Add(RangoEspesor)
-                        Next
-
-                    End If
-
-                    If .MurosVecinosArriba.Count <> 0 Then
-                        For m = 0 To .MurosVecinosArriba.Count - 1
-                            Dim RangoEspesor(1) As Double
-                            RangoEspesor(0) = .MurosVecinosArriba(m).Xmax + 0.4
-                            RangoEspesor(1) = .MurosVecinosArriba(m).Xmin - 0.4
-                            RangoEspesorLista.Add(RangoEspesor)
-                        Next
-
-                    End If
-
-                    If .MurosVecinosAbajo.Count <> 0 Then
-                        For m = 0 To .MurosVecinosAbajo.Count - 1
-                            Dim RangoEspesor(1) As Double
-                            RangoEspesor(0) = .MurosVecinosAbajo(m).Xmax + 0.4
-                            RangoEspesor(1) = .MurosVecinosAbajo(m).Xmin - 0.4
-                            RangoEspesorLista.Add(RangoEspesor)
-                        Next
-
-                    End If
-
-                    For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1
-                            Dim Alto = 0.0375
-
-                        Dim FactorDesplazado1 = 0.12 : Dim FactorDesplazado2 = 0.12 : Dim DesplazamientoX As Double = 0.02
-                        Dim DesplazamientoCota = 0.15
+                        End If
 
                         'Desplazamiento adicional para Numero de Refuerzo
+                        If .MurosVecinosAbajo.Count <> 0 Then
 
-                        For m = 0 To RangoEspesorLista.Count - 1
-                            Dim RangoEspesorAux = RangoEspesorLista(m)
-                            If RangoEspesorAux(0) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-                                DesplazamientoX = -0.05
-                                FactorDesplazado1 = -0.12
-                                FactorDesplazado2 = -0.12
+                            For m = 0 To .MurosVecinosAbajo.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosAbajo(m).Ymax + 0.3
+                                RangoEspesor(1) = .MurosVecinosAbajo(m).Ymax
+                                RangoEspesorLista.Add(RangoEspesor)
+                                Dim RangoEspesorX(0) As Double
+                                RangoEspesorX(0) = 99999999
+                                RangoEspesorListaX.Add(RangoEspesorX)
+                            Next
+
+
+                        End If
+
+
+
+                        For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
+                            Dim Alto = 0.0375
+                            Dim FactorSubir = 1.35
+                            Dim DesplazaCotaDerecha As Double = 0.2
+                            Dim FactoAdicionalTexto As Double = 1
+                            Dim FactorAdicionalTextoIzquierda1 As Double = 1
+                            Dim FactorAdicionalTextoIzquierda2 As Double = 1
+
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux.Count > 1 Then
+                                    If RangoEspesorListaX(m)(0) < .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
+
+                                        If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                            DesplazaCotaDerecha = -0.1
+                                            FactoAdicionalTexto = -0.05
+                                        End If
+                                    End If
+                                End If
+                            Next
+
+
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux.Count > 1 Then
+                                    If RangoEspesorListaX(m)(0) > .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
+                                        If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                            FactorAdicionalTextoIzquierda1 = -1.03
+                                            FactorAdicionalTextoIzquierda2 = -0.6
+                                        End If
+                                    End If
+                                End If
+                            Next
+
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+
+                                If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                    FactorSubir = 0.9
+                                    FactoAdicionalTexto = -0.05
+                                    FactorAdicionalTextoIzquierda1 = -1.03
+                                    FactorAdicionalTextoIzquierda2 = -0.6
+                                End If
+
+                            Next
+
+
+
+                            'COTAS
+                            If j < .Lista_Refuerzos_Fila_Min.Count - 1 Then
+
+
+                                AddCota(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, .Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 90, "", False, DesplazaCotaDerecha, 0.15)
+
                             End If
+
+                            'TEXTOS DE BARRAS
+                            Try
+                                Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
+                                Dim FactorDesplazado = If(Len(TextoString) = 1, 0.12 * FactoAdicionalTexto, 0.15 * FactoAdicionalTexto)
+                                Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) - FactorDesplazado, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) - FactorSubir * Alto, 0}
+                                AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
+                            Catch ex As Exception
+
+                            End Try
+                            Try
+                                Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
+                                Dim FactorDesplazado2 = If(Len(TextoString2) = 1, 0.1 * FactorAdicionalTextoIzquierda2, 0.08 * FactorAdicionalTextoIzquierda1)
+                                Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + FactorDesplazado2, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) - FactorSubir * Alto, 0}
+                                AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
+                            Catch ex As Exception
+
+                            End Try
+
+
                         Next
+                    Else
+
+                        'FALTA MODIFICAR COTAS DE ARRIBA!!!!!!
+                        'MUROS HORIZONTALES
+                        Dim RangoEspesorLista, RangoEspesorListaY As New List(Of Double())
+                        If .MurosVecinosDerecha.Count <> 0 Then
+
+                            For m = 0 To .MurosVecinosDerecha.Count - 1
+                                Dim RangoEspesor(0) As Double
+                                RangoEspesor(0) = .MurosVecinosDerecha(m).Xmin - 0.3
+                                RangoEspesorLista.Add(RangoEspesor)
+                            Next
+
+                        End If
+
+                        If .MurosVecinosArriba.Count <> 0 Then
+                            For m = 0 To .MurosVecinosArriba.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosArriba(m).Xmax + 0.4
+                                RangoEspesor(1) = .MurosVecinosArriba(m).Xmin - 0.4
+                                RangoEspesorLista.Add(RangoEspesor)
+                                Dim RangoEspesorY(0) As Double
+                                RangoEspesorY(0) = .MurosVecinosArriba(m).Ymax
+                                RangoEspesorListaY.Add(RangoEspesorY)
+                            Next
 
 
-                        'DesplazamientoCotas Por MurosArriba y MurosAbajo
+                        End If
 
+                        If .MurosVecinosAbajo.Count <> 0 Then
+                            For m = 0 To .MurosVecinosAbajo.Count - 1
+                                Dim RangoEspesor(1) As Double
+                                RangoEspesor(0) = .MurosVecinosAbajo(m).Xmax + 0.4
+                                RangoEspesor(1) = .MurosVecinosAbajo(m).Xmin - 0.4
+                                RangoEspesorLista.Add(RangoEspesor)
+                                Dim RangoEspesorY(0) As Double
+                                RangoEspesorY(0) = .MurosVecinosAbajo(m).Ymin
+                                RangoEspesorListaY.Add(RangoEspesorY)
+                            Next
 
+                        End If
 
-                        For m = 0 To RangoEspesorLista.Count - 1
-                            Dim RangoEspesorAux = RangoEspesorLista(m)
-                            If RangoEspesorAux.Count > 1 Then
-                                If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-                                    DesplazamientoCota = -0.09
+                        For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1
+                            Dim Alto = 0.0375
+
+                            Dim FactorDesplazado1 = 0.12 : Dim FactorDesplazado2 = 0.12 : Dim DesplazamientoX As Double = 0.02
+                            Dim DesplazamientoCota = 0.15
+
+                            'Desplazamiento adicional para Numero de Refuerzo
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux(0) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
                                     DesplazamientoX = -0.05
                                     FactorDesplazado1 = -0.12
                                     FactorDesplazado2 = -0.12
                                 End If
+                            Next
+
+
+                            'DesplazamientoCotas Por MurosArriba y MurosAbajo
+
+
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux.Count > 1 Then
+                                    If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
+                                        If RangoEspesorListaY(m)(0) > .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                            DesplazamientoCota = -0.09
+                                            DesplazamientoX = -0.05
+                                            FactorDesplazado1 = -0.12
+                                            FactorDesplazado2 = -0.12
+                                        End If
+                                    End If
+                                End If
+                            Next
+
+
+                            For m = 0 To RangoEspesorLista.Count - 1
+                                Dim RangoEspesorAux = RangoEspesorLista(m)
+                                If RangoEspesorAux.Count > 1 Then
+                                    If RangoEspesorListaY(m)(0) < .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                        If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
+                                            DesplazamientoX = -0.05
+                                            FactorDesplazado1 = -0.12
+                                            FactorDesplazado2 = -0.12
+                                        End If
+                                    End If
+                                End If
+                            Next
+
+
+
+
+                            If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
+                                AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
                             End If
+
+
+
+
+
+                            Try
+                                Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
+
+                                Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) + DesplazamientoX, ListaOrdenada(i).Ymin - FactorDesplazado1 / 2, 0}
+
+                                AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
+                            Catch ex As Exception
+
+                            End Try
+                            Try
+                                Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
+
+                                Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + DesplazamientoX, ListaOrdenada(i).Ymax + FactorDesplazado2 / 3, 0}
+
+                                AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
+                            Catch ex As Exception
+
+                            End Try
+
+
+
                         Next
 
-
-
-                        If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
-                            AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
-                        End If
-
-
-
-
-
-                        Try
-                            Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
-
-                            Dim Ubicacion = {ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) + DesplazamientoX, ListaOrdenada(i).Ymin - FactorDesplazado1 / 2, 0}
-
-                            AddTexto(TextoString, Ubicacion, Alto, "FC_R-100", "FC_TEXT")
-                        Catch ex As Exception
-
-                        End Try
-                        Try
-                            Dim TextoString2 = ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).Label
-
-                            Dim Ubicacion2 = {ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) + DesplazamientoX, ListaOrdenada(i).Ymax + FactorDesplazado2 / 3, 0}
-
-                            AddTexto(TextoString2, Ubicacion2, Alto, "FC_R-100", "FC_TEXT")
-                        Catch ex As Exception
-
-                        End Try
-
-
-
-                    Next
-
+                    End If
                 End If
             End With
         Next
-
 
         'Arreglar Numero de Barras
 
@@ -1310,7 +1339,7 @@ Module Module1
                 Dim Coord1(2) As Double
                 Dim NoMallas As Integer = 0
                 Dim NumeroFilas As Integer = 1 : Dim NumeroColumnas As Integer = 1
-                If .Malla <> "Sin Malla" Or .Malla <> "" Then
+                If .Malla <> "Sin Malla" And .Malla <> "" Then
                     For letras = 0 To Len(.Malla) - 1 : If .Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
                     If .DireccionMuro = "Vertical" Then
                         'Caso 1 
@@ -1390,6 +1419,7 @@ Module Module1
         'Refuerzo Horizontal
         For Each Muro In ListaOrdenada
             If Muro.RefuerzoHorizontalLabel <> "" Then
+
                 MALLAOREFUERZOHORIZONTAL("FC_REFUERZO HORIZONTAL 2", Muro, Muro.Capas_RefuerzoHorizontal, Muro.RecubrimientoRefuerzo, (Muro.RecubrimientoRefuerzo - Muro.Xmin), (Muro.RecubrimientoRefuerzo - Muro.Ymin), Muro.RecubrimientoRefuerzo, Ganchos_180(Muro.RefuerzoHorizontalLabel))
             End If
         Next
@@ -1402,7 +1432,17 @@ Module Module1
         For Each Muro In ListaOrdenada
             If Muro.RefuerzoHorizontalLabel <> "" Then
 
+                AddBloqueLabelRefuerzoMalla(Muro, Muro.Capas_RefuerzoHorizontal, "FC_REFUERZO HORIZONTAL 2")
+            End If
+        Next
 
+
+        For Each Muro In ListaOrdenada
+
+            If Muro.Malla <> "Sin Malla" And Muro.Malla <> "" Then
+                Dim NoMallas As Integer = 0
+                For letras = 0 To Len(Muro.Malla) - 1 : If Muro.Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+                AddBloqueLabelRefuerzoMalla(Muro, NoMallas, "FC_Malla")
 
             End If
         Next
@@ -1410,17 +1450,19 @@ Module Module1
 
 
 
-
         Dim Estribos As New Crear_Estribos
         Estribos.Determinar_Estribos(Formulario)
 
-        Dim Aux As New Estribos_Totales
-        Dim Delta_X, Delta_Y As Double
+        If Formulario.CheckBox1.Checked = True Then
+            Dim Aux As New Estribos_Totales
+            Dim Delta_X, Delta_Y As Double
+            Delta_X = Xmax + 4.6
+            Delta_Y = A(1) + 1
+            Aux.Estribos_Pisos(Delta_X, 0, A(1))
+        End If
 
-        Delta_X = Xmax + 4.6
-        Delta_Y = A(1) + 1
 
-        Aux.Estribos_Pisos(Delta_X, 0, A(1))
+
 
 
         Muros_V.Clear()
@@ -1429,39 +1471,245 @@ Module Module1
         Lista_CirculoRefuerzos.Clear()
         Lista_TextosRefuerzos.Clear()
 
+        MsgBox("Dibujado con Éxito", MsgBoxStyle.Information, "efe Prima Ce")
 
     End Sub
 
 
-    Sub AddBloqueRefuerzo(ByVal MuroI As Muros, ByVal No_Capas As Integer)
+    Sub AddBloqueLabelRefuerzoMalla(ByVal MuroI As Muros, ByVal No_Capas As Integer, ByVal Layer As String)
 
         With MuroI
+            Dim Nomenc_Refuerzo As String = ""
+            Dim AnchoCajon As Double = 0.5
+            If Layer = "FC_Malla" Then
+                Dim Label_Malla As String = .Malla
+                If No_Capas = 2 Then
+                    Label_Malla = .Malla.Substring(0, 1) & "-" & .Malla.Substring(2, Len(.Malla) - 2)
+                    Nomenc_Refuerzo = "Doble malla no central " & Label_Malla
+                ElseIf No_Capas = 1 Then
+                    Label_Malla = .Malla.Substring(0, 1) & "-" & .Malla.Substring(1, Len(.Malla) - 1)
+                    Nomenc_Refuerzo = "Malla " & Label_Malla & " central"
+                End If
+                AnchoCajon = 0.6
+            Else
+                Nomenc_Refuerzo = No_Capas & "#" & .RefuerzoHorizontalLabel & " a " & Format(Val(.Sep_RefuerzoHorizontal) / 100, "#0.00") & " L=" & Math.Round(.LongMallaHoriz, 2)
+            End If
+
 
 
             If .DireccionMuro = "Vertical" Then
-                Dim InicioX = .Xmax + 0.0167
-                Dim InicioY = .Ymax - (.Ymax - .Ymin) * 0.3
+                If No_Capas = 2 Then
+                    Dim InicioX = .Xmax + 0.1036
+                    Dim InicioY As Double
+                    If Layer = "FC_Malla" Then
+                        InicioY = .Ymin + (.Ymax - .Ymin) * 0.3
+                    Else
+                        InicioY = .Ymax - (.Ymax - .Ymin) * 0.3
+                    End If
 
-                Dim Visibility1 = "Vertical"
+                    Dim Visibility = "Vertical"
 
-                Dim Distance3 = 0.73232
-                Dim Flipstate = Convert.ToInt16(0)
-                Dim Distance1 = 0.0466
-                Dim Distane2
-                If Math.Round(.EspesorReal, 2) = 0.12 Then
-                    Distane2 = 0
+                    Dim Distance3 = 0.8
+                    Dim Flipstate = Convert.ToInt16(0)
+                    Dim Distance1 = 0.1316
+                    Dim Distane2 = 0.0842 + (.EspesorEscalado - 0.24) * 50 * 0.02
+
+                    Dim Coord = {InicioX, InicioY, 0}
+
+                    BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FDFDFDFDF", 25, 25, 25, 0)
+                    BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
+                    Dim Propiedades_Dinamicas As Object = BloqueRefuerzoHorizMalla.GetDynamicBlockProperties
+                    Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+                    Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
+                    Dim Atributo As Object = AtibutosBloque(1)
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(6)
+                    Editar_Propiedades2.Value = Visibility
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(7)
+                    Editar_Propiedades2.Value = Distance3
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(9)
+                    Editar_Propiedades2.Value = Convert.ToInt16(0)
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(13)
+                    Editar_Propiedades2.Value = Distance1
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(15)
+                    Editar_Propiedades2.Value = Distane2
+                    Atributo.MTextBoundaryWidth = AnchoCajon
+                    Atributo.TextString = Nomenc_Refuerzo
+                    BloqueRefuerzoHorizMalla.Update()
                 Else
 
+                    Dim FactorAd As Double
+                    Dim NoMallas As Integer
+                    Dim InicioY As Double
+                    If Layer = "FC_Malla" Then
+                        FactorAd = 0.01
+                        InicioY = .Ymin + (.Ymax - .Ymin) * 0.3
+                    Else
+                        InicioY = .Ymax - (.Ymax - .Ymin) * 0.3
+                        For letras = 0 To Len(.Malla) - 1 : If .Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+                        If NoMallas = 1 Then : FactorAd = -0.03 : Else : FactorAd = 0 : End If
+
+                    End If
+
+                    Dim InicioX = .Xmin + (.Xmax - .Xmin) / 2 + FactorAd + 0.14
+
+
+                    Dim Visibility = "Vertical"
+                    Dim Distance3 = 0.8
+                    Dim Flipstate = Convert.ToInt16(0)
+                    Dim Distance1 = 0.1365
+
+                    Dim Coord = {InicioX, InicioY, 0}
+
+
+
+                    BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Refuero_H_Seccion", 25, 25, 25, 0)
+                    BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
+                    Dim Propiedades_Dinamicas As Object = BloqueRefuerzoHorizMalla.GetDynamicBlockProperties
+                    Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+                    Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
+                    Dim Atributo As Object = AtibutosBloque(1)
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(6)
+                    Editar_Propiedades2.Value = Visibility
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(3)
+                    Editar_Propiedades2.Value = Distance3
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(9)
+                    Editar_Propiedades2.Value = Convert.ToInt16(0)
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(10)
+                    Editar_Propiedades2.Value = Distance1
+
+                    Atributo.MTextBoundaryWidth = AnchoCajon
+                    Atributo.TextString = Nomenc_Refuerzo
+                    BloqueRefuerzoHorizMalla.Update()
+
+
                 End If
-
-
-
-
-
 
             Else
 
 
+
+                If No_Capas = 2 Then
+                    Dim InicioX As Double
+                    If Layer = "FC_Malla" Then
+                        InicioX = .Xmin + (.Xmax - .Xmin) * 0.3
+                    Else
+                        InicioX = .Xmax - (.Xmax - .Xmin) * 0.3
+                    End If
+                    Dim InicioY = .Ymax + 0.54
+
+                    Dim Visibility = "Horizontal"
+
+
+                    Dim Distance4 = 0.5696
+                    Dim Flipstate = Convert.ToInt16(0)
+                    Dim Leader = 0.7536 + (.EspesorEscalado - 0.24) * 50 * 0.02
+                    Dim Linea_Texto = 0.6
+                    Dim Coord = {InicioX, InicioY, 0}
+
+                    BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FDFDFDFDF", 25, 25, 25, 0)
+                    BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
+                    Dim Propiedades_Dinamicas As Object = BloqueRefuerzoHorizMalla.GetDynamicBlockProperties
+                    Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+                    Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
+                    Dim Atributo As Object = AtibutosBloque(0)
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(0)
+                    Editar_Propiedades2.Value = Convert.ToInt16(0)
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(6)
+                    Editar_Propiedades2.Value = Visibility
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(1)
+                    Editar_Propiedades2.Value = Leader
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(3)
+                    Editar_Propiedades2.Value = Linea_Texto
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(10)
+                    Editar_Propiedades2.Value = Distance4
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(12)
+                    Editar_Propiedades2.Value = Convert.ToInt16(0)
+
+                    Atributo.MTextBoundaryWidth = AnchoCajon
+                    Atributo.TextString = Nomenc_Refuerzo
+                    BloqueRefuerzoHorizMalla.Update()
+                Else
+
+
+
+                    Dim FactorAd As Double
+                    Dim NoMallas As Integer
+                    Dim InicioX As Double
+                    If Layer = "FC_Malla" Then
+                        FactorAd = 0.01
+                        InicioX = .Xmin + (.Xmax - .Xmin) * 0.3 + 0.89
+                    Else
+                        For letras = 0 To Len(.Malla) - 1 : If .Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+                        If NoMallas = 1 Then : FactorAd = -0.03 : Else : FactorAd = 0 : End If
+                        InicioX = .Xmax - (.Xmax - .Xmin) * 0.3 + 0.89
+                    End If
+
+
+                    Dim InicioY = .Ymin + (.Ymax - .Ymin) / 2 + FactorAd + 0.65
+
+                    Dim Visibility = "Horizontal"
+                    Dim Leader = 0.6475
+                    Dim LineaTexto = 0.6
+                    Dim Derecha_Izquierda = Convert.ToInt16(0)
+                    Dim Arriba_Abajo = Convert.ToInt16(0)
+
+                    Dim Coord = {InicioX, InicioY, 0}
+
+
+
+                    BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Refuero_H_Seccion", 25, 25, 25, 0)
+                    BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
+                    Dim Propiedades_Dinamicas As Object = BloqueRefuerzoHorizMalla.GetDynamicBlockProperties
+                    Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+                    Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
+                    Dim Atributo As Object = AtibutosBloque(0)
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(0)
+                    Editar_Propiedades2.Value = Arriba_Abajo
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(6)
+                    Editar_Propiedades2.Value = Visibility
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(1)
+                    Editar_Propiedades2.Value = Leader
+
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(3)
+                    Editar_Propiedades2.Value = LineaTexto
+
+                    Editar_Propiedades2 = Propiedades_Dinamicas(5)
+                    Editar_Propiedades2.Value = Derecha_Izquierda
+
+
+
+                    Atributo.MTextBoundaryWidth = AnchoCajon
+                    Atributo.TextString = Nomenc_Refuerzo
+                    BloqueRefuerzoHorizMalla.Update()
+
+
+                End If
 
 
 
@@ -1472,11 +1720,6 @@ Module Module1
 
 
         End With
-
-
-
-
-
 
 
 
@@ -2614,7 +2857,7 @@ Module Module1
                     'CASO MAYOR 2: CASO 1,2,3 Cuando Elemento de Borde Derecho es Mayor a 0.45 y Elemento De Borde Izquierdo Menor 0.45 pero mayor a cero
 
 
-                    If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 And .LEB_Iz <> 0 Then
+                    If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 Then
 
                         'Caso 1 ---> Muros Vecinos
                         If MurosaExtenderMalla = 2 OrElse XaExtender1 <> 0 Then
@@ -2704,7 +2947,7 @@ Module Module1
                     'CASO MAYOR 3: CASO 1,2,3 Cuando Elemento de Borde Izquierdo es Mayor a 0.45 y Elemento De Borde Derecho Menor 0.45 pero mayor a cero
 
 
-                    If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 And .LEB_Dr <> 0 Then
+                    If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 Then
 
 
                         'Caso 1
@@ -3065,7 +3308,7 @@ Module Module1
                     'CASO MAYOR 2: CASO 1,2,3 Cuando Elemento de Borde Derecho es Mayor a 0.45 y Elemento De Borde Izquierdo Menor 0.45 pero mayor a cero
 
 
-                    If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 And .LEB_Iz <> 0 Then
+                    If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 Then
 
                         'Caso 1 ---> Muros Vecinos
                         If MurosaExtenderMalla = 2 OrElse YaExtender1 <> 0 Then
@@ -3152,7 +3395,7 @@ Module Module1
                     'CASO MAYOR 3: CASO 1,2,3 Cuando Elemento de Borde Izquierdo es Mayor a 0.45 y Elemento De Borde Derecho Menor 0.45 pero mayor a cero
 
 
-                    If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 And .LEB_Dr <> 0 Then
+                    If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 Then
 
 
                         'Caso 1

@@ -1,29 +1,20 @@
 ﻿Imports System.IO
+Imports Diseño_de_muros_concreto_V2
 
 Module CargarArchivos
-    Private Lista_texto As List(Of String)
+    Private Lista_texto As New List(Of String)
     Public Muros_lista_2 As List(Of Muros_Consolidados)
 
 
 
-    Sub ArchivoTexto()
-
-        Dim Ruta As New OpenFileDialog()
-
-
-
-        With ruta
-            .Multiselect = True
-            .Filter = "Cargar Datos|*.dmc"
-            .Title = "Archivo dmc"
-            .ShowDialog()
-        End With
+    Sub ArchivoTexto(ByVal Form As Form1)
 
         Dim sline As String
-        Lista_texto = New List(Of String)
 
-        Try
-            Dim Lector As New StreamReader(Ruta.FileName)
+        Lista_texto.Clear()
+
+
+        Dim Lector As New StreamReader(Form.RutaArchivo)
 
             Do
                 sline = Lector.ReadLine()
@@ -34,9 +25,7 @@ Module CargarArchivos
             Lector.Close()
 
 
-        Catch
 
-        End Try
 
     End Sub
 

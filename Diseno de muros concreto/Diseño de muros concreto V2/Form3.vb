@@ -563,7 +563,7 @@ Public Class f_alzado
             End If
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
+        Dim Guardar As New Guardar_Archivo(Ruta_archivo,True)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click

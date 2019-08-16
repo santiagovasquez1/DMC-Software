@@ -30,10 +30,10 @@ Partial Class Form1
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.CargarDatos = New System.Windows.Forms.Button()
-        Me.BarraPersonalizada2 = New System.Windows.Forms.Panel()
         Me.BarraPersonalizada = New System.Windows.Forms.Panel()
         Me.Label_BarraProgreso = New System.Windows.Forms.Label()
+        Me.BarraPersonalizada2 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -47,7 +47,7 @@ Partial Class Form1
         'Piso_Box
         '
         Me.Piso_Box.Font = New System.Drawing.Font("Calibri", 9.75!)
-        Me.Piso_Box.Location = New System.Drawing.Point(160, 32)
+        Me.Piso_Box.Location = New System.Drawing.Point(160, 26)
         Me.Piso_Box.Name = "Piso_Box"
         Me.Piso_Box.Size = New System.Drawing.Size(69, 23)
         Me.Piso_Box.TabIndex = 2
@@ -94,7 +94,7 @@ Partial Class Form1
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.Black
-        Me.Label2.Location = New System.Drawing.Point(55, 34)
+        Me.Label2.Location = New System.Drawing.Point(55, 28)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(99, 15)
         Me.Label2.TabIndex = 22
@@ -102,15 +102,15 @@ Partial Class Form1
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.CheckBox1)
         Me.Panel2.Controls.Add(Me.Button2)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Controls.Add(Me.Piso_Box)
-        Me.Panel2.Controls.Add(Me.CargarDatos)
         Me.Panel2.Controls.Add(Me.BarraPersonalizada)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(0, 23)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(308, 192)
+        Me.Panel2.Size = New System.Drawing.Size(308, 158)
         Me.Panel2.TabIndex = 23
         '
         'Button2
@@ -118,34 +118,12 @@ Partial Class Form1
         Me.Button2.BackColor = System.Drawing.Color.White
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(94, 132)
+        Me.Button2.Location = New System.Drawing.Point(94, 92)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(121, 33)
         Me.Button2.TabIndex = 23
         Me.Button2.Text = "Seleccionar Sección"
         Me.Button2.UseVisualStyleBackColor = False
-        '
-        'CargarDatos
-        '
-        Me.CargarDatos.BackColor = System.Drawing.Color.White
-        Me.CargarDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CargarDatos.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CargarDatos.Location = New System.Drawing.Point(94, 81)
-        Me.CargarDatos.Name = "CargarDatos"
-        Me.CargarDatos.Size = New System.Drawing.Size(121, 33)
-        Me.CargarDatos.TabIndex = 19
-        Me.CargarDatos.Text = "Cargar Datos"
-        Me.CargarDatos.UseVisualStyleBackColor = False
-        '
-        'BarraPersonalizada2
-        '
-        Me.BarraPersonalizada2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(21, Byte), Integer))
-        Me.BarraPersonalizada2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.BarraPersonalizada2.Location = New System.Drawing.Point(0, 0)
-        Me.BarraPersonalizada2.Name = "BarraPersonalizada2"
-        Me.BarraPersonalizada2.Size = New System.Drawing.Size(0, 12)
-        Me.BarraPersonalizada2.TabIndex = 24
-        Me.BarraPersonalizada2.Visible = False
         '
         'BarraPersonalizada
         '
@@ -153,7 +131,7 @@ Partial Class Form1
         Me.BarraPersonalizada.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BarraPersonalizada.Controls.Add(Me.Label_BarraProgreso)
         Me.BarraPersonalizada.Controls.Add(Me.BarraPersonalizada2)
-        Me.BarraPersonalizada.Location = New System.Drawing.Point(3, 173)
+        Me.BarraPersonalizada.Location = New System.Drawing.Point(3, 135)
         Me.BarraPersonalizada.Name = "BarraPersonalizada"
         Me.BarraPersonalizada.Size = New System.Drawing.Size(299, 14)
         Me.BarraPersonalizada.TabIndex = 25
@@ -172,12 +150,33 @@ Partial Class Form1
         Me.Label_BarraProgreso.Text = "0%"
         Me.Label_BarraProgreso.Visible = False
         '
+        'BarraPersonalizada2
+        '
+        Me.BarraPersonalizada2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(21, Byte), Integer))
+        Me.BarraPersonalizada2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.BarraPersonalizada2.Location = New System.Drawing.Point(0, 0)
+        Me.BarraPersonalizada2.Name = "BarraPersonalizada2"
+        Me.BarraPersonalizada2.Size = New System.Drawing.Size(0, 12)
+        Me.BarraPersonalizada2.TabIndex = 24
+        Me.BarraPersonalizada2.Visible = False
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.CheckBox1.Location = New System.Drawing.Point(94, 62)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(121, 19)
+        Me.CheckBox1.TabIndex = 26
+        Me.CheckBox1.Text = "Tablas de Estribos"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(308, 215)
+        Me.ClientSize = New System.Drawing.Size(308, 181)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
@@ -200,9 +199,9 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents CargarDatos As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents BarraPersonalizada2 As Panel
     Friend WithEvents BarraPersonalizada As Panel
     Friend WithEvents Label_BarraProgreso As Label
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

@@ -21,17 +21,20 @@ namespace Diseno_muros_concreto_fc
         
         public void Cargar_Lista()
         {
-            if (Listas_Programa.Lista_Muros.Count > 0)
+            if (Listas_Programa.Lista_Muros != null)
             {
-                List<Muro> Lista_ordenada = Listas_Programa.Lista_Muros.OrderBy(x1 => x1.Pier).ToList();
-                List<string> Muros_distintos = Lista_ordenada.Select(x => x.Pier).Distinct().ToList();
-                Lista_ordenada.Clear();
+                if (Listas_Programa.Lista_Muros.Count > 0)
+                {
+                    List<Muro> Lista_ordenada = Listas_Programa.Lista_Muros.OrderBy(x1 => x1.Pier).ToList();
+                    List<string> Muros_distintos = Lista_ordenada.Select(x => x.Pier).Distinct().ToList();
+                    Lista_ordenada.Clear();
 
-                if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
+                    if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
 
-                comboBox1.Items.AddRange(Muros_distintos.ToArray());
-                comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
-                Listas_Programa.Texto_combo = comboBox1.Text;
+                    comboBox1.Items.AddRange(Muros_distintos.ToArray());
+                    comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
+                    Listas_Programa.Texto_combo = comboBox1.Text;
+                }
             }
             
         }

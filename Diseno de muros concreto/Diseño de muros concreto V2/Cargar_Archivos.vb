@@ -6,9 +6,9 @@ Module Cargar_Archivos
 
     Sub Cargar_Lista_Texto()
 
-        '   Try
+        Try
 
-        Dim Carpeta As DirectoryInfo
+            Dim Carpeta As DirectoryInfo
             Dim sline, sline2 As String
             Lista_texto = New List(Of String)
 
@@ -38,15 +38,6 @@ Module Cargar_Archivos
                 MsgBox("El archivo 'thesames.SDMC' no fue encontrado.", MsgBoxStyle.Exclamation, "efe Prima Ce")
             End If
 
-
-
-
-
-
-
-
-
-
             Do
                 sline = Lector.ReadLine()
                 Lista_texto.Add(sline)
@@ -58,11 +49,11 @@ Module Cargar_Archivos
             Cargar_Alzado()
             Cargar_Long_Alzado()
             Cargar_Similares()
-            '  Catch
+        Catch
 
-        '   MsgBox("MSG1", MsgBoxStyle.Exclamation, "efe Prima Ce")
+            'MsgBox("MSG1", MsgBoxStyle.Exclamation, "efe Prima Ce")
 
-        '  End Try
+        End Try
 
 
     End Sub
@@ -233,7 +224,7 @@ Module Cargar_Archivos
                     Next
                 End With
 
-                If alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
+                If Variables_Publicas.alzado_lista.Count = 0 Or alzado_lista.Exists(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story) = False Then
                     alzado_lista.Add(Muro_Alzado_i)
                 Else
                     alzado_lista(alzado_lista.FindIndex(Function(x) x.pier = Muro_Alzado_i.pier And x.story = Muro_Alzado_i.story)) = Muro_Alzado_i
