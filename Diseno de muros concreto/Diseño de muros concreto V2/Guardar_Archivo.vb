@@ -49,11 +49,17 @@ Public Class Guardar_Archivo
 
     Sub Add_Refuerzoi(ByVal Data_info As DataGridView)
 
-        Dim Datos_refuerzo As Refuerzo_muros
-        Dim indice As Integer
+        Dim Datos_refuerzo, datos_refuerzo_hijo As Refuerzo_muros
+        Dim indice, indice2 As Integer
         Dim suma As Double
+        Dim Muro_i As Muros_Consolidados
+        Dim Muros_hijos As New List(Of Muros_Consolidados)
+
+        Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = Data_info.Rows(0).Cells(0).Value)
+        Find_Muros_Hijos(Muro_i, Muros_hijos)
 
         For i = 0 To Data_info.Rows.Count - 1
+
             Datos_refuerzo = New Refuerzo_muros With {
                 .piername = Data_info.Rows(i).Cells(0).Value,
                 .pierstory = Data_info.Rows(i).Cells(1).Value,
@@ -68,7 +74,7 @@ Public Class Guardar_Archivo
 
             suma = 0
             For j = 0 To Datos_refuerzo.diametro.Count - 1
-                suma = suma + areas_refuerzo(Datos_refuerzo.diametro(j)) * Datos_refuerzo.cantidad(j)
+                suma += areas_refuerzo(Datos_refuerzo.diametro(j)) * Datos_refuerzo.cantidad(j)
             Next
 
             Datos_refuerzo.total = suma
@@ -78,7 +84,48 @@ Public Class Guardar_Archivo
                 refuerzo_lista.Add(Datos_refuerzo)
             Else
                 indice = refuerzo_lista.FindIndex(Function(x) x.piername = Datos_refuerzo.piername And x.pierstory = Datos_refuerzo.pierstory)
-                refuerzo_lista(indice) = Datos_refuerzo
+                refuerzo_lista(indice).cantidad = Datos_refuerzo.cantidad
+                refuerzo_lista(indice).diametro = Datos_refuerzo.diametro
+                refuerzo_lista(indice).total = Datos_refuerzo.total
+                refuerzo_lista(indice).porcentaje = Datos_refuerzo.porcentaje
+            End If
+
+            If Muro_i.isMuroMaestro = True Then
+                If Muros_hijos.Count > 0 Then
+                    For k = 0 To Muros_hijos.Count - 1
+
+                        datos_refuerzo_hijo = New Refuerzo_muros With {
+                        .piername = Muros_hijos(k).Pier_name,
+                        .pierstory = Data_info.Rows(i).Cells(1).Value,
+                        .bw = Data_info.Rows(i).Cells(2).Value,
+                        .as_req = Data_info.Rows(i).Cells(6).Value
+                        }
+                        For q = 9 To Data_info.ColumnCount - 1
+                            datos_refuerzo_hijo.diametro.Add(Int(Mid(Data_info.Columns(q).HeaderText, 2)))
+                            datos_refuerzo_hijo.cantidad.Add(Data_info.Rows(i).Cells(q).Value)
+                        Next
+
+                        suma = 0
+                        For q = 0 To Datos_refuerzo.diametro.Count - 1
+                            suma += areas_refuerzo(Datos_refuerzo.diametro(q)) * Datos_refuerzo.cantidad(q)
+                        Next
+
+                        datos_refuerzo_hijo.total = suma
+                        datos_refuerzo_hijo.porcentaje = Datos_refuerzo.total / Datos_refuerzo.as_req
+
+                        If refuerzo_lista.Count = 0 Or refuerzo_lista.Exists(Function(x) x.piername = datos_refuerzo_hijo.piername And x.pierstory = datos_refuerzo_hijo.pierstory) = False Then
+                            refuerzo_lista.Add(datos_refuerzo_hijo)
+                        Else
+                            indice = refuerzo_lista.FindIndex(Function(x) x.piername = Datos_refuerzo.piername And x.pierstory = Datos_refuerzo.pierstory)
+                            refuerzo_lista(indice).cantidad = datos_refuerzo_hijo.cantidad
+                            refuerzo_lista(indice).diametro = datos_refuerzo_hijo.diametro
+                            refuerzo_lista(indice).total = datos_refuerzo_hijo.total
+                            refuerzo_lista(indice).porcentaje = datos_refuerzo_hijo.porcentaje
+                        End If
+
+                    Next
+                End If
+
             End If
 
         Next
@@ -112,9 +159,6 @@ Public Class Guardar_Archivo
         Dim indice As Integer
 
         alzado_lista = alzado_lista.OrderBy(Function(x) x.pier).ToList
-        alzado_lista = alzado_lista.OrderByDescending(Function(x) x.story).ToList
-        'alzado_lista.OrderBy(Function(x) x.story)
-
         indice = Lista_Texto.FindIndex(Function(x) x.Contains("Datos de alzado refuerzo longitudinal"))
 
         If indice < 0 Then

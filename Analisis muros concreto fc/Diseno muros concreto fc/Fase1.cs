@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
@@ -17,8 +14,8 @@ namespace Diseno_muros_concreto_fc
         private DataGridView D_Shear = new DataGridView();
         private DataGridView D_Flexion = new DataGridView();
         private DataGridView D_Resumen = new DataGridView();
-              
-        
+
+
         public void Cargar_Lista()
         {
             if (Listas_Programa.Lista_Muros != null)
@@ -36,7 +33,7 @@ namespace Diseno_muros_concreto_fc
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
             }
-            
+
         }
 
         private void SetupDataGridView(string Nombre_Data, DataGridView Formulario, DataTable Origen_datos)
@@ -68,7 +65,7 @@ namespace Diseno_muros_concreto_fc
             Formulario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             Formulario.ReadOnly = true;
 
-            
+
 
         }
 

@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diseno_muros_concreto_fc
 {
     public class Muro
     {
         public string Pier, Story;
-        public float bw, lw, hw, Fc,dw,h_acumulado;
-        public double Rho_l_Inicial,Spacing,Rho_l_Def;        
-        public List<string> Loc=new List<string>();
-        public List<string> Load=new List<string>();
-        public List<double> P=new List<double>();
-        public List<double> V2=new List<double>();
-        public List<double> V3=new List<double>();
-        public List<double> M2=new List<double>();
-        public List<double> M3=new List<double>();
-        public List<Shells_Prop> Shells_Muro=new List<Shells_Prop>();
+        public float bw, lw, hw, Fc, dw, h_acumulado;
+        public double Rho_l_Inicial, Spacing, Rho_l_Def;
+        public List<string> Loc = new List<string>();
+        public List<string> Load = new List<string>();
+        public List<double> P = new List<double>();
+        public List<double> V2 = new List<double>();
+        public List<double> V3 = new List<double>();
+        public List<double> M2 = new List<double>();
+        public List<double> M3 = new List<double>();
+        public List<Shells_Prop> Shells_Muro = new List<Shells_Prop>();
 
         //Datos para el diseño a cortante de los muros en concreto
         public List<double> Phi_Vc;
@@ -44,7 +42,7 @@ namespace Diseno_muros_concreto_fc
         public List<double> Sigma_Min;
         public List<double> Relacion;
         public List<string> Error_Flexion;
-        public double C_balanceado,P_balanceado;
+        public double C_balanceado, P_balanceado;
 
         public void Diseno_Cortante()
         {
@@ -64,35 +62,35 @@ namespace Diseno_muros_concreto_fc
             float Phi = 0.75F; //Definir si sera variable de entrada o un valor fijo
             double pt_auxiliar;
             List<double> Rango_Auxiliar;
-      
-            Phi_Vn_Max1 = Phi*2.65 * Math.Sqrt(Fc) * (bw * dw)/1000; //Tonf
+
+            Phi_Vn_Max1 = Phi * 2.65 * Math.Sqrt(Fc) * (bw * dw) / 1000; //Tonf
             Phi_Vs_Max = Phi * 2.1 * Math.Sqrt(Fc) * (bw * dw) / 1000; //Tonf
             Pt_max = Phi * 2.1 * Math.Sqrt(Fc) / Fy;
 
             for (int i = 0; i < V2.Count; i++)
 
             {
-                Phi_Vc.Add (Phi*Calc_Vc(Math.Abs(V2[i]),Math.Abs( M3[i]), -P[i]));
+                Phi_Vc.Add(Phi * Calc_Vc(Math.Abs(V2[i]), Math.Abs(M3[i]), -P[i]));
                 if (V2[i] - Phi_Vc[i] < 0)
                 {
                     Phi_Vs.Add(0);
                     pt_requerido1.Add(0);  //Según C.11.9.91
                 }
-                 else 
+                else
                 {
                     Phi_Vs.Add((V2[i] - Phi_Vc[i]) / Phi);
-                    pt_auxiliar = (V2[i] - Phi_Vc[i])*Math.Pow(10,3)/(Phi*Fy*dw*bw);
+                    pt_auxiliar = (V2[i] - Phi_Vc[i]) * Math.Pow(10, 3) / (Phi * Fy * dw * bw);
                     pt_requerido1.Add(pt_auxiliar); //Según C.11.9.91
                 }
 
                 //Calculo de pt minimo y numero de cortinas
 
-                if (V2[i] * 1000 >= 0.5 * 0.53 * Math.Sqrt(Fc) * bw * dw) 
+                if (V2[i] * 1000 >= 0.5 * 0.53 * Math.Sqrt(Fc) * bw * dw)
                 {
                     Pt_min.Add(0.0025);
                     pl_min.Add(0.0025);
                 }
-                else if (lw<500)
+                else if (lw < 500)
                 {
                     Pt_min.Add(0.0012);
                     pl_min.Add(0.0012);
@@ -109,14 +107,14 @@ namespace Diseno_muros_concreto_fc
                 Rango_Auxiliar = new List<double> { pt_requerido1[i], Pt_min[i], ptt[i] };
                 pt_definitivo.Add(Rango_Auxiliar.Max());
 
-                if (h_acumulado/lw<=2) pl_min[i] = pt_definitivo[i];
-                Phi_Vn_Max2.Add((bw * lw * (Calc_alpah(h_acumulado) * Math.Sqrt(Fc) + pt_definitivo[i] * Fy))/1000);
+                if (h_acumulado / lw <= 2) pl_min[i] = pt_definitivo[i];
+                Phi_Vn_Max2.Add((bw * lw * (Calc_alpah(h_acumulado) * Math.Sqrt(Fc) + pt_definitivo[i] * Fy)) / 1000);
 
                 //Condiciones
 
                 Error_Cortante.Add("Ok");
-                if (V2[i] > Phi_Vn_Max1 ^ V2[i] > Phi_Vn_Max2[i]) Error_Cortante[i]="V2 mayor que Phi Vn max";
-                if (Phi_Vs[i] > Phi_Vs_Max) Error_Cortante[i]="Phi Vs mayor a Phi Vs max";
+                if (V2[i] > Phi_Vn_Max1 ^ V2[i] > Phi_Vn_Max2[i]) Error_Cortante[i] = "V2 mayor que Phi Vn max";
+                if (Phi_Vs[i] > Phi_Vs_Max) Error_Cortante[i] = "Phi Vs mayor a Phi Vs max";
 
             }
             Rho_l_Def = Math.Max(Rho_l_Inicial, pl_min.Max());
@@ -128,9 +126,9 @@ namespace Diseno_muros_concreto_fc
             double Fy = 4220;           //[kgf/cm2]  
             double es = 2000000;        //[kgf/cm2]
             double recubrimiento = 2.5; //[cm]
-            int ramas,x;
-            double Beta, Acero_Long, P_error, Factor1,Factor2;
-            double Pc_Sup, Pc_inf,D_Pc,Ps_inf,Ps_Sup,D_Ps;
+            int ramas, x;
+            double Beta, Acero_Long, P_error, Factor1, Factor2;
+            double Pc_Sup, Pc_inf, D_Pc, Ps_inf, Ps_Sup, D_Ps;
             double Numerador, Denominador;
 
             List<double> As_i = new List<double>();
@@ -151,11 +149,11 @@ namespace Diseno_muros_concreto_fc
             Error_Flexion = new List<string>();
 
             //Calculation of number of rebar layers within the wall
-            ramas =Convert.ToInt32 (((lw - 2 * (recubrimiento + 0.3175))/Spacing)+1);
-            if (Rho_l_Def>0) Acero_Long = Rho_l_Def * bw * lw;  else Acero_Long = Rho_l_Inicial * bw * lw;  //[cm²]
+            ramas = Convert.ToInt32(((lw - 2 * (recubrimiento + 0.3175)) / Spacing) + 1);
+            if (Rho_l_Def > 0) Acero_Long = Rho_l_Def * bw * lw; else Acero_Long = Rho_l_Inicial * bw * lw;  //[cm²]
             if (Fc <= 280) Beta = 0.85; else Beta = 0.75;
             if (Fc == 350) Beta = 0.80;
-                                             
+
             for (int i = 0; i < ramas; i++)
             {
                 As_i.Add(Acero_Long / ramas);
@@ -200,7 +198,7 @@ namespace Diseno_muros_concreto_fc
                         else
                         {
                             Factor1 = ((Pn_inf[x - 1] - Math.Abs(P[i])) / (Pn_sup[x - 1] - Pn_inf[x - 1])) * (C_Sup[x - 1] - C_inf[x - 1]);
-                            Factor2 = (Pn_sup[x - 1] - Math.Abs (P[i])) / (D_Pn[x - 1]);
+                            Factor2 = (Pn_sup[x - 1] - Math.Abs(P[i])) / (D_Pn[x - 1]);
 
                             C_inf.Add(C_inf[x - 1] - Factor1);
                             C_Sup.Add(C_Sup[x - 1] - Factor2);
@@ -211,22 +209,22 @@ namespace Diseno_muros_concreto_fc
                         D_Pc = 0.85 * Fc * Beta * bw; //Constante para secciones rectangulares
 
                         Ps_inf = Fuerza_As(0.003, es, As_i, C_inf.Last(), d_i);
-                        Ps_Sup= Fuerza_As(0.003, es, As_i, C_Sup.Last(), d_i);
+                        Ps_Sup = Fuerza_As(0.003, es, As_i, C_Sup.Last(), d_i);
                         D_Ps = Fs_prima(0.003, es, As_i, C_Sup.Last(), d_i);
 
-                        Pn_inf.Add((Pc_inf + Ps_inf)/1000);
+                        Pn_inf.Add((Pc_inf + Ps_inf) / 1000);
                         Pn_sup.Add((Pc_Sup + Ps_Sup) / 1000);
                         D_Pn.Add((D_Pc + D_Ps) / 1000);
 
                         if (Pn_inf.Last() >= 0)
                         {
-                            P_error = Math.Abs((Pn_inf.Last() - Math.Abs(P[i]))/Math.Abs(P[i]));
+                            P_error = Math.Abs((Pn_inf.Last() - Math.Abs(P[i])) / Math.Abs(P[i]));
                         }
                         else
                         {
                             P_error = 100;
                         }
-                        
+
                         x++;
                     }
                     while (P_error > 0.025);
@@ -249,15 +247,15 @@ namespace Diseno_muros_concreto_fc
                 }
 
                 //Calculo de esfuerzos en el muro 
-                
-                Numerador = 6*M3[i] * Math.Pow(10, 5);
+
+                Numerador = 6 * M3[i] * Math.Pow(10, 5);
                 Denominador = bw * Math.Pow(lw, 2);
 
                 Fa.Add(Math.Abs(P[i] * 1000) / (bw * lw));  //[kgf/cm²]
                 Fv.Add(Numerador / Denominador);            //[kgf/cm²]
                 Sigma_Max.Add(Fa.Last() + Fv.Last());       //[kgf/cm²]
                 Sigma_Min.Add(Fa.Last() - Fv.Last());       //[kgf/cm²]
-                Relacion.Add(Math.Max(Sigma_Max.Last(), Math.Abs(Sigma_Min.Last()))/Fc);
+                Relacion.Add(Math.Max(Sigma_Max.Last(), Math.Abs(Sigma_Min.Last())) / Fc);
                 Error_Flexion.Add("Ok");
                 if (Relacion.Last() >= 0.40) Error_Flexion[i] = "Cambiar espesor";
 
@@ -267,21 +265,21 @@ namespace Diseno_muros_concreto_fc
         double Calculo_Pn_Balanceado(double As_long, double Beta, List<double> As_i, List<double> d_i, double Fy, double es)
         {
             double ey = Fy / es;
-            double ab,Pc_b,Pn_b,Ps_b;
+            double ab, Pc_b, Pn_b, Ps_b;
 
             C_balanceado = (0.003 / (0.003 + ey)) * d_i.Last();
             ab = Beta * C_balanceado;
             Pc_b = 0.85 * Fc * ab * bw;
             Ps_b = Fuerza_As(0.003, es, As_i, C_balanceado, d_i);
 
-            Pn_b =(Pc_b+Ps_b)/1000;
+            Pn_b = (Pc_b + Ps_b) / 1000;
             return Pn_b;
         }
 
-        double Fuerza_As(double ecu,double es,List<double>As_i,double Ci,List<double>d_i)
+        double Fuerza_As(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
-            double Ps,fsl;
-            List<double> Ps_i=new List<double> ();
+            double Ps, fsl;
+            List<double> Ps_i = new List<double>();
 
             for (int i = 0; i < d_i.Count; i++)
             {
@@ -299,7 +297,7 @@ namespace Diseno_muros_concreto_fc
         double Fs_prima(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
             double fs_prima, Ps_prima;
-            List<double> Psi_prima=new List<double>();
+            List<double> Psi_prima = new List<double>();
 
             for (int i = 0; i < d_i.Count; i++)
             {
@@ -310,44 +308,44 @@ namespace Diseno_muros_concreto_fc
             return Ps_prima;
         }
 
-        double Calc_Vc(double Vu,double Mu,double Pu)
+        double Calc_Vc(double Vu, double Mu, double Pu)
         {
             double Vc1, Vc2, Vc3;
-            double Numerador, Denominador,Ag;
+            double Numerador, Denominador, Ag;
 
             Ag = bw * lw;
-            Vc1 = 0.53 * Math.Sqrt(Fc) * (bw * dw)/1000;   //Tonf
-            Vc2 = (0.88 * Math.Sqrt(Fc) * (bw * dw) + (Pu*1000 * dw / (4 * lw)))/1000;    //Tonf
+            Vc1 = 0.53 * Math.Sqrt(Fc) * (bw * dw) / 1000;   //Tonf
+            Vc2 = (0.88 * Math.Sqrt(Fc) * (bw * dw) + (Pu * 1000 * dw / (4 * lw))) / 1000;    //Tonf
 
-            Numerador =(0.33 * Math.Sqrt(Fc)+(Pu*1000/(5*lw*bw)))*lw; //Unidades en centimetros
-            Denominador = ((Mu*Math.Pow(10,5)) / (Vu*1000)) - (lw / 2);   //Unidad en centimetros
+            Numerador = (0.33 * Math.Sqrt(Fc) + (Pu * 1000 / (5 * lw * bw))) * lw; //Unidades en centimetros
+            Denominador = ((Mu * Math.Pow(10, 5)) / (Vu * 1000)) - (lw / 2);   //Unidad en centimetros
 
-            if (Denominador<=0)
+            if (Denominador <= 0)
             {
-                Vc3 = Math.Pow(10,10);
+                Vc3 = Math.Pow(10, 10);
             }
             else
             {
-                Vc3 =bw*dw*(0.16 * Math.Sqrt(Fc) + (Numerador / Denominador))/1000;
+                Vc3 = bw * dw * (0.16 * Math.Sqrt(Fc) + (Numerador / Denominador)) / 1000;
             }
 
-            if (Pu>0)
+            if (Pu > 0)
             {
                 return Math.Max(Vc1, Math.Min(Vc2, Vc3));
             }
             else
             {
                 double Vtraccion;
-                Vtraccion = (0.53 * Math.Sqrt(Fc) + 0.53 * Math.Sqrt(Fc) * Pu * 1000 / (35 * Ag))/1000;
-                if (Vtraccion < 0)  Vtraccion=0;
+                Vtraccion = (0.53 * Math.Sqrt(Fc) + 0.53 * Math.Sqrt(Fc) * Pu * 1000 / (35 * Ag)) / 1000;
+                if (Vtraccion < 0) Vtraccion = 0;
                 return Vtraccion;
             }
-            
+
         }
 
         double Calc_alpah(float Htotal)
         {
-            double alpha,Relacion,m;
+            double alpha, Relacion, m;
 
             alpha = 0;
             Relacion = Htotal / lw;
@@ -360,10 +358,10 @@ namespace Diseno_muros_concreto_fc
             return alpha;
         }
 
-        double Calc_ptt(double alpha,double Vu,double Phi,double Fy)
+        double Calc_ptt(double alpha, double Vu, double Phi, double Fy)
         {
             double Rho_tt;
-            Rho_tt= (Vu / (Phi * bw * lw) - alpha*Math.Sqrt(Fc)) / Fy;
+            Rho_tt = (Vu / (Phi * bw * lw) - alpha * Math.Sqrt(Fc)) / Fy;
             if (Rho_tt < 0) return 0; else return Rho_tt;
 
         }

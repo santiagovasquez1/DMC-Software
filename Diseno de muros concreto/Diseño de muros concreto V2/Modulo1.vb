@@ -250,4 +250,56 @@
             End Try
         Next
     End Sub
+
+    Public Sub Listas_Vacias()
+
+        Dim Refuerzo_i As Refuerzo_muros
+        Dim alzado_i As alzado_muro
+        Dim Indice As Integer
+
+        For i = 0 To Muros_lista_2.Count - 1
+
+            For j = 0 To Muros_lista_2(i).Stories.Count - 1
+
+                Refuerzo_i = New Refuerzo_muros
+                With Refuerzo_i
+                    .piername = Muros_lista_2(i).Pier_name
+                    .pierstory = Muros_lista_2(i).Stories(j)
+                    .bw = Muros_lista_2(i).Bw(j)
+                    .rho = Muros_lista_2(i).Rho_l(j)
+                    .as_req = Muros_lista_2(i).As_Long(j)
+                    .Ebe_Izq = Muros_lista_2(i).Lebe_Izq(j)
+                    .Ebe_Der = Muros_lista_2(i).Lebe_Izq(j)
+                    .Zc_Izq = Muros_lista_2(i).Zc_Izq(j)
+                    .Zc_Der = Muros_lista_2(i).Zc_Der(j)
+                    .diametro.AddRange({2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14})
+                    .cantidad.AddRange({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+                    .IsMuroMaestro = Muros_lista_2(i).isMuroMaestro
+                End With
+
+                alzado_i = New alzado_muro
+                With alzado_i
+                    .pier = Muros_lista_2(i).Pier_name
+                    .story = Muros_lista_2(i).Stories(j)
+                    .Bw = Muros_lista_2(i).Bw(j)
+                End With
+
+                Indice = refuerzo_lista.FindIndex(Function(x) x.piername = Refuerzo_i.piername And x.pierstory = Refuerzo_i.pierstory)
+
+                If refuerzo_lista.Count = 0 Or Indice < 0 Then
+                    refuerzo_lista.Add(Refuerzo_i)
+                End If
+
+                Indice = alzado_lista.FindIndex(Function(x) x.pier = alzado_i.pier And x.story = alzado_i.story)
+
+                If alzado_lista.Count = 0 Or Indice < 0 Then
+                    alzado_lista.Add(alzado_i)
+                End If
+
+            Next
+
+        Next
+
+    End Sub
+
 End Module

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
@@ -46,7 +44,7 @@ namespace Diseno_muros_concreto_fc
                 } while (!(sline == null));
                 Lector.Close();
 
-                for (int i = 3; i < Lineas_CSV.Count - 1;i++)
+                for (int i = 3; i < Lineas_CSV.Count - 1; i++)
                 {
                     if (Lineas_CSV[i].Contains("Wall") == true)
                     {
@@ -54,9 +52,9 @@ namespace Diseno_muros_concreto_fc
                         Esfuerzo_i = new Esfuerzos
                         {
                             Label = Vector_Texto[1],
-                            Story=Vector_Texto[0],
-                            Load=Vector_Texto[6],
-                            S22=Convert.ToDouble (Vector_Texto[14])
+                            Story = Vector_Texto[0],
+                            Load = Vector_Texto[6],
+                            S22 = Convert.ToDouble(Vector_Texto[14])
                         };
                         Listas_Programa.Lista_Esfuerzos.Add(Esfuerzo_i);
                     }
@@ -75,7 +73,7 @@ namespace Diseno_muros_concreto_fc
             int Pos;
             for (int i = 0; i < Shells_piso.Count; i++)
             {
-                List<Esfuerzos> Esf_Aux_i = Listas_Programa.Lista_Esfuerzos.FindAll(x => x.Label == Shells_piso[i].Label & x.Story== Shells_piso[i].Story);
+                List<Esfuerzos> Esf_Aux_i = Listas_Programa.Lista_Esfuerzos.FindAll(x => x.Label == Shells_piso[i].Label & x.Story == Shells_piso[i].Story);
                 Shells_piso[i].S22 = Esf_Aux_i.Min(x => x.S22);
                 Pos = Esf_Aux_i.FindIndex(x => x.S22 == Shells_piso[i].S22);
                 Shells_piso[i].Loads = Esf_Aux_i[Pos].Load;

@@ -38,7 +38,6 @@ Public Class f_alzado
         If Muros_lista_2 Is Nothing Then
             Muros_lista_2 = New List(Of Muros_Consolidados)
             Cargar_Lista_Texto()
-            'CargarTablas(Muros_lista_2(0).Pier_name)
             ActivarTablas = False
         End If
 
@@ -49,6 +48,8 @@ Public Class f_alzado
             LMuros.Items.AddRange(Muros_Distintos.ToArray)
             LMuros.Text = Muros_lista_2(0).Pier_name
         End If
+
+        Listas_Vacias()
 
         Me.AutoScroll = False
         Me.DoubleBuffered = True
@@ -69,12 +70,11 @@ Public Class f_alzado
 
 
     Sub CargarTablas(ByVal Nombre_Muro As String)
+
         Data_Alzado.Rows.Clear()
         Data_Alzado.ColumnCount = 2
 
-
         Dim diametros As New List(Of Integer)
-
 
         Data_info.Rows.Clear()
         Tabla_info_gnl(Nombre_Muro, Data_info)
@@ -90,13 +90,6 @@ Public Class f_alzado
 
 
     End Sub
-
-
-
-    Public Sub cb_Agregrar_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
 
     Public Sub descontar_ref(ByVal indice)
         Dim vector_texto() As String

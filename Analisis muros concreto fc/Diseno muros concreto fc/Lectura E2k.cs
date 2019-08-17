@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
@@ -14,9 +11,9 @@ namespace Diseno_muros_concreto_fc
         public float Fc;
     }
 
-     class Area_Assigns
+    class Area_Assigns
     {
-       public string Label,Pier,Story,Section;            
+        public string Label, Pier, Story, Section;
     }
 
     public class Lectura_E2k
@@ -25,10 +22,10 @@ namespace Diseno_muros_concreto_fc
 
         public static void Cargar_E2k()
         {
-           
+
             OpenFileDialog Myfile = new OpenFileDialog();
             string sline;
-            int Inicio, Fin,indice;
+            int Inicio, Fin, indice;
             List<string> Lineas_E2k = new List<string>();
             string[] Vector_Texto;
             StreamReader Lector;
@@ -46,7 +43,7 @@ namespace Diseno_muros_concreto_fc
             Myfile.Filter = "Archivo de Etabs |*.$ET";
             Myfile.Title = "Abrir Modelo";
             Myfile.ShowDialog();
-            
+
             if (Myfile.FileName != "")
             {
                 try
@@ -166,7 +163,7 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-        private static string Texto_sub (string[] vector_texto,int indice,int Caracter)
+        private static string Texto_sub(string[] vector_texto, int indice, int Caracter)
         {
             int Pos;
             string Texto;
@@ -176,7 +173,7 @@ namespace Diseno_muros_concreto_fc
             return Texto;
         }
 
-        private static List<List<double>> Extraccion_Coord (List<string>Puntos_Shell)
+        private static List<List<double>> Extraccion_Coord(List<string> Puntos_Shell)
         {
             int Indice;
             List<List<double>> Lista_coord = new List<List<double>>();
@@ -189,6 +186,6 @@ namespace Diseno_muros_concreto_fc
             return Lista_coord;
         }
     }
-  
+
 
 }

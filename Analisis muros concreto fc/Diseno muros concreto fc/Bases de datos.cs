@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diseno_muros_concreto_fc
 {
@@ -14,7 +12,7 @@ namespace Diseno_muros_concreto_fc
         public static void Datos_Fuerzas()
 
         {
-            List<string> Encabezados = new List<string> { "Story", "Pier", "Load", "Loc", "P" + Environment.NewLine + "Tonf", "V2" + Environment.NewLine + "Tonf", "V3" + Environment.NewLine + "Tonf", "M2"+Environment.NewLine+"Tonf-m","M3"+Environment.NewLine+"Tonf-m"};
+            List<string> Encabezados = new List<string> { "Story", "Pier", "Load", "Loc", "P" + Environment.NewLine + "Tonf", "V2" + Environment.NewLine + "Tonf", "V3" + Environment.NewLine + "Tonf", "M2" + Environment.NewLine + "Tonf-m", "M3" + Environment.NewLine + "Tonf-m" };
             List<Muro> Muro_i = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Listas_Programa.Texto_combo).ToList();
             DataTable T_Fuerzas = new DataTable("Fuerzas");
 
@@ -24,7 +22,7 @@ namespace Diseno_muros_concreto_fc
 
             foreach (DataTable Tabla in Ds_Shear.Tables)
             {
-                if (Tabla.TableName == "Fuerzas") {Pos = X;break; }
+                if (Tabla.TableName == "Fuerzas") { Pos = X; break; }
                 X++;
             }
 
@@ -52,11 +50,11 @@ namespace Diseno_muros_concreto_fc
                     dr[1] = Muro_i[i].Pier;
                     dr[2] = Muro_i[i].Load[j];
                     dr[3] = Muro_i[i].Loc[j];
-                    dr[4] = Math.Round(Muro_i[i].P[j],2);
-                    dr[5] = Math.Round(Muro_i[i].V2[j],2);
-                    dr[6] = Math.Round(Muro_i[i].V3[j],2);
-                    dr[7] = Math.Round(Muro_i[i].M2[j],2);
-                    dr[8] = Math.Round(Muro_i[i].M3[j],2);
+                    dr[4] = Math.Round(Muro_i[i].P[j], 2);
+                    dr[5] = Math.Round(Muro_i[i].V2[j], 2);
+                    dr[6] = Math.Round(Muro_i[i].V3[j], 2);
+                    dr[7] = Math.Round(Muro_i[i].M2[j], 2);
+                    dr[8] = Math.Round(Muro_i[i].M3[j], 2);
                     T_Fuerzas.Rows.Add(dr);
                 }
             }
@@ -65,7 +63,7 @@ namespace Diseno_muros_concreto_fc
 
         public static void Datos_Geometria()
         {
-            List<string> Encabezados = new List<string> { "Story", "Pier", "Lw"+Environment.NewLine+"m", "Bw" +Environment.NewLine+"m","Fc"+Environment.NewLine+"kgf/m²","Hpiso"+Environment.NewLine+"m","H acumulada"+ Environment.NewLine+"m","rho l"};
+            List<string> Encabezados = new List<string> { "Story", "Pier", "Lw" + Environment.NewLine + "m", "Bw" + Environment.NewLine + "m", "Fc" + Environment.NewLine + "kgf/m²", "Hpiso" + Environment.NewLine + "m", "H acumulada" + Environment.NewLine + "m", "rho l" };
             List<Muro> Lista_ordenada = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Listas_Programa.Texto_combo).ToList();
             DataTable T_Geometria = new DataTable("Geometria");
             int Pos, X;
@@ -103,7 +101,7 @@ namespace Diseno_muros_concreto_fc
                 dr[2] = Math.Round(Lista_ordenada[i].lw / 100, 2);
                 dr[3] = Math.Round(Lista_ordenada[i].bw / 100, 2);
                 dr[4] = Lista_ordenada[i].Fc;
-                dr[5] = Math.Round(Lista_ordenada[i].hw/ 100, 2);
+                dr[5] = Math.Round(Lista_ordenada[i].hw / 100, 2);
                 dr[6] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
                 dr[7] = Math.Round(Lista_ordenada[i].Rho_l_Inicial, 4);
                 T_Geometria.Rows.Add(dr);
@@ -126,16 +124,16 @@ namespace Diseno_muros_concreto_fc
             }
 
             DataTable T_Shear = new DataTable("Cortante");
-            int Pos,X;
+            int Pos, X;
             Pos = -1;
             X = 0;
-            foreach(DataTable Tabla in Ds_Shear.Tables)
+            foreach (DataTable Tabla in Ds_Shear.Tables)
             {
                 if (Tabla.TableName == "Cortante") { Pos = X; }
                 X++;
             }
 
-            if (Pos>-1)
+            if (Pos > -1)
             {
 
                 Ds_Shear.Tables.Clear();
@@ -168,7 +166,7 @@ namespace Diseno_muros_concreto_fc
                     dr[8] = Math.Round(Lista_ordenada[i].V2[j], 2);
                     dr[9] = Math.Round(Lista_ordenada[i].M3[j], 2);
 
-                    if (Lista_ordenada[i].Phi_Vc== null)
+                    if (Lista_ordenada[i].Phi_Vc == null)
                     {
                         dr[10] = 0;
                         dr[11] = 0;
@@ -244,7 +242,7 @@ namespace Diseno_muros_concreto_fc
                     dr[4] = Lista_ordenada[i].Fc;
                     dr[5] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
                     dr[6] = Lista_ordenada[i].Load[j];
-                    dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);         
+                    dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);
                     dr[8] = Math.Round(Lista_ordenada[i].M3[j], 2);
 
                     if (Lista_ordenada[i].Fa == null)
@@ -264,9 +262,9 @@ namespace Diseno_muros_concreto_fc
                         dr[10] = Math.Round(Lista_ordenada[i].Fv[j], 2);
                         dr[11] = Math.Round(Lista_ordenada[i].Sigma_Max[j], 2);
                         dr[12] = Math.Round(Lista_ordenada[i].Sigma_Min[j], 2);
-                        dr[13] = Math.Round(Lista_ordenada[i].Relacion[j]*100, 2);
+                        dr[13] = Math.Round(Lista_ordenada[i].Relacion[j] * 100, 2);
                         dr[14] = Math.Round(Lista_ordenada[i].C_def[j], 2);
-                        dr[15]= Math.Round(Lista_ordenada[i].L_Conf[j], 2);
+                        dr[15] = Math.Round(Lista_ordenada[i].L_Conf[j], 2);
                         dr[16] = Lista_ordenada[i].Error_Flexion[j];
                     }
                     T_Flexion.Rows.Add(dr);
@@ -310,14 +308,14 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < Lista_ordenada.Count; i++)
             {
-                for (int j = 0; j < Lista_ordenada[i].Stories.Count;j++)
+                for (int j = 0; j < Lista_ordenada[i].Stories.Count; j++)
                 {
                     DataRow dr = T_Resumen.NewRow();
 
                     dr[0] = Lista_ordenada[i].Stories[j];
                     dr[1] = Lista_ordenada[i].Pier_name;
                     dr[2] = Math.Round(Lista_ordenada[i].lw[j] / 100, 2);
-                    dr[3] = Math.Round(Lista_ordenada[i].Bw[j]/ 100, 2);
+                    dr[3] = Math.Round(Lista_ordenada[i].Bw[j] / 100, 2);
                     dr[4] = Lista_ordenada[i].fc[j];
                     dr[5] = Math.Round(Lista_ordenada[i].Rho_T[j], 4);
                     dr[6] = Math.Round(Lista_ordenada[i].Rho_l[j], 4);

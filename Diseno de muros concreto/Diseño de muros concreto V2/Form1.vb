@@ -48,6 +48,10 @@ Public Class Form1
             LMuros.Text = LMuros.Items(0)
         End If
 
+        ''Crear lista vacia de alzado y refuerzos
+        Listas_Vacias()
+
+
     End Sub
     Private Sub PasteClipboard(datos As DataGridView)
 
