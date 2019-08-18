@@ -577,7 +577,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) 
 
         Dim Listas_serializar As New Listas_serializadas
 
@@ -589,7 +589,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) 
 
         Dim Ruta As String = ""
         Dim Lista_serializada As New Listas_serializadas

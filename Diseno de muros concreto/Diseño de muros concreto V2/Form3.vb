@@ -63,6 +63,11 @@ Public Class f_alzado
             CargarTablas(LMuros.Text)
         End If
         ActivarTablas = True
+
+        For i = 0 To Data_ayuda.Rows.Count - 1
+            descontar_ref(i)
+        Next
+
         pb_Alzado.CreateGraphics.Clear(Color.White)
         pb_Alzado.Invalidate()
 
@@ -447,6 +452,7 @@ Public Class f_alzado
             For i = 0 To data_grid.Rows.Count - 1
                 Story = Data_Alzado.Rows(i).Cells(1).Value
                 validar_info2(LMuros.Text, Story, i, data_grid.Columns.Count, data_grid)
+                descontar_ref(i)
             Next
 
         End If
