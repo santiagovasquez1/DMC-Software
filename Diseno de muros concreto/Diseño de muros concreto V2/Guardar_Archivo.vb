@@ -92,6 +92,7 @@ Public Class Guardar_Archivo
 
             If Muro_i.isMuroMaestro = True Then
                 If Muros_hijos.Count > 0 Then
+
                     For k = 0 To Muros_hijos.Count - 1
 
                         datos_refuerzo_hijo = New Refuerzo_muros With {
@@ -100,23 +101,17 @@ Public Class Guardar_Archivo
                         .bw = Data_info.Rows(i).Cells(2).Value,
                         .as_req = Data_info.Rows(i).Cells(6).Value
                         }
-                        For q = 9 To Data_info.ColumnCount - 1
-                            datos_refuerzo_hijo.diametro.Add(Int(Mid(Data_info.Columns(q).HeaderText, 2)))
-                            datos_refuerzo_hijo.cantidad.Add(Data_info.Rows(i).Cells(q).Value)
-                        Next
 
-                        suma = 0
-                        For q = 0 To Datos_refuerzo.diametro.Count - 1
-                            suma += areas_refuerzo(Datos_refuerzo.diametro(q)) * Datos_refuerzo.cantidad(q)
-                        Next
+                        datos_refuerzo_hijo.cantidad = Datos_refuerzo.cantidad
+                        datos_refuerzo_hijo.diametro = Datos_refuerzo.diametro
 
-                        datos_refuerzo_hijo.total = suma
-                        datos_refuerzo_hijo.porcentaje = Datos_refuerzo.total / Datos_refuerzo.as_req
+                        datos_refuerzo_hijo.total = Datos_refuerzo.total
+                        datos_refuerzo_hijo.porcentaje = Datos_refuerzo.total / datos_refuerzo_hijo.as_req
 
                         If refuerzo_lista.Count = 0 Or refuerzo_lista.Exists(Function(x) x.piername = datos_refuerzo_hijo.piername And x.pierstory = datos_refuerzo_hijo.pierstory) = False Then
                             refuerzo_lista.Add(datos_refuerzo_hijo)
                         Else
-                            indice = refuerzo_lista.FindIndex(Function(x) x.piername = Datos_refuerzo.piername And x.pierstory = Datos_refuerzo.pierstory)
+                            indice = refuerzo_lista.FindIndex(Function(x) x.piername = datos_refuerzo_hijo.piername And x.pierstory = datos_refuerzo_hijo.pierstory)
                             refuerzo_lista(indice).cantidad = datos_refuerzo_hijo.cantidad
                             refuerzo_lista(indice).diametro = datos_refuerzo_hijo.diametro
                             refuerzo_lista(indice).total = datos_refuerzo_hijo.total

@@ -57,14 +57,7 @@ namespace Diseno_muros_concreto_fc
             this.Opacity -= 0.1;
             if (this.Opacity == 0)
             {
-
-
                 timer2.Stop();
-
-
-
-
-
 
             }
         }

@@ -161,7 +161,7 @@ Partial Class f_alzado
         Me.Panel2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1553, 29)
+        Me.Panel2.Size = New System.Drawing.Size(1386, 29)
         Me.Panel2.TabIndex = 21
         '
         'Panel6
@@ -860,7 +860,7 @@ Partial Class f_alzado
         Me.Data_Alzado.BackgroundColor = System.Drawing.Color.White
         Me.Data_Alzado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Data_Alzado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
-        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
+        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke
         Me.Data_Alzado.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.Data_Alzado.Location = New System.Drawing.Point(7, 34)
         Me.Data_Alzado.Name = "Data_Alzado"
@@ -985,7 +985,7 @@ Partial Class f_alzado
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1553, 760)
+        Me.ClientSize = New System.Drawing.Size(1386, 760)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel4)
