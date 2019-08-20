@@ -63,8 +63,8 @@ namespace Diseno_muros_concreto_fc
         }
 
         public static void Comprobar(Inicio Formulario)
-        {                      
-            
+        {
+
             string ComprobarEntrada = "FAIL";
 
             String IP_Servidor = "";
@@ -129,7 +129,7 @@ namespace Diseno_muros_concreto_fc
                     Fromulario.ShowDialog();
                 }
 
-            }                       
+            }
             else
             {
                 MessageBox.Show("SIN CONEXIÓN A LA RED", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

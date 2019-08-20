@@ -94,7 +94,7 @@ namespace Diseno_muros_concreto_fc
             Guardar_archivo.ShowDialog();
 
             Ruta_archivo = Guardar_archivo.FileName;
-            
+
             Listas_Programa.Ruta_archivo = Ruta_archivo;
             try
             {

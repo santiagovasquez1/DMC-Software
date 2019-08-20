@@ -399,31 +399,6 @@ Public Class f_alzado
 
     End Sub
 
-
-
-    Public Sub cb_Ayuda_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Public Sub cb_autocad_Click(sender As Object, e As EventArgs)
-
-
-
-    End Sub
-
-    Public Sub Button1_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-
-
-
-
-
-
-
     Public Sub CopyToClipboard(datos As DataGridView)
         Dim dataObj As DataObject = datos.GetClipboardContent
         If Not IsNothing(dataObj) Then

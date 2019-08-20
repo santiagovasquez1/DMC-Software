@@ -389,7 +389,7 @@ namespace Diseno_muros_concreto_fc
 
         private static void Det_At(Muros_Consolidados Muro_i)
         {
-            double Aux_As_t, Acero_malla, Aux_As_tm;
+            double Aux_As_t, Aux_As_tm;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
                 if (Muro_i.Rho_T[i] < 0.0020) Muro_i.Rho_T[i] = 0.0020;

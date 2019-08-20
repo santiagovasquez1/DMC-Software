@@ -8,7 +8,7 @@ namespace Diseno_muros_concreto_fc
         {
             Panel FM = Formulario_Madre;
             Form FH = Formulario;
-                       
+
             if (FM.Controls.Count > 0)
             {
                 FM.Controls.Clear();
