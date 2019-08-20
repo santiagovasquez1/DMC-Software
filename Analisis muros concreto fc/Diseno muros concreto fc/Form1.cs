@@ -16,10 +16,6 @@ namespace Diseno_muros_concreto_fc
 
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
-
-
-
-
         private const int WM_NCHITTEST = 0x84;
         private const int HTCLIENT = 0x1;
         private const int HTCAPTION = 0x2;
@@ -316,6 +312,7 @@ namespace Diseno_muros_concreto_fc
             murosSimilaresToolStripMenuItem.Enabled = true;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
+            listasDeMurosAGraficarToolStripMenuItem.Enabled = true;
         }
 
         private void analisisEstructuralToolStripMenuItem_Click(object sender, EventArgs e)
@@ -391,16 +388,14 @@ namespace Diseno_muros_concreto_fc
             Diseño_de_muros_concreto_V2.f_alzado Formulario3 = new Diseño_de_muros_concreto_V2.f_alzado();
             this.Width = 1553 + 200;
             this.Height = 760 + 35;
-
-
-
-
+                                 
             // this.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
 
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario3);
 
             murosSimilaresToolStripMenuItem.Enabled = true;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
+            listasDeMurosAGraficarToolStripMenuItem.Enabled = true;
         }
 
 
@@ -469,8 +464,6 @@ namespace Diseno_muros_concreto_fc
         private void MurosSimilaresToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Diseño_de_muros_concreto_V2.Similar VentanaSimilares = new Diseño_de_muros_concreto_V2.Similar();
-
-
             VentanaSimilares.Show();
 
 
@@ -558,12 +551,23 @@ namespace Diseno_muros_concreto_fc
 
         private void Button9_Click(object sender, EventArgs e)
         {
-
             Diseño_de_muros_concreto_V2.ExportExcel exportExcel = new Diseño_de_muros_concreto_V2.ExportExcel();
             exportExcel.Exportar(Listas_Programa.Ruta_archivo);
+        }
 
+        private void listasDeMurosAGraficarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
+            List<Diseño_de_muros_concreto_V2.Muros_Consolidados> L_Muro_aux=new List<Diseño_de_muros_concreto_V2.Muros_Consolidados>();
 
+            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            {
+                L_Muro_aux.Add((Diseño_de_muros_concreto_V2.Muros_Consolidados)muro_i);
+            }
+
+            Diseño_de_muros_concreto_V2.Muros_Alzados Muros_graficar = new Diseño_de_muros_concreto_V2.Muros_Alzados();
+            //Diseño_de_muros_concreto_V2.Muros_Alzados Muros_graficar = new Diseño_de_muros_concreto_V2.Muros_Alzados(L_Muro_aux);
+            Muros_graficar.Show();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 Public Class Similar
     Public AtivarEvento As Boolean
+
     Public Sub CrearDataGrid(ByVal DataGrid As DataGridView, ByVal ListaMuros As List(Of Muros_Consolidados))
 
         Dim Estilo As New DataGridViewCellStyle
@@ -21,8 +22,6 @@ Public Class Similar
         If ListaMurosMaestros.Count > 0 Then
             ListaMurosMaestrosName = ListaMurosMaestros.Select(Function(x) x.Pier_name).ToList()
         End If
-
-
 
         For i = 0 To ListaMuros.Count - 1
             DataGrid.Rows.Add()
@@ -454,58 +453,6 @@ Public Class Similar
 
         Me.Close()
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     'Mover Pestaña
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
     Private Shared Sub ReleaseCapture()
@@ -531,7 +478,6 @@ Public Class Similar
     End Sub
 
 
-
     Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
         PictureBox1.BackColor = Color.White
     End Sub
@@ -543,8 +489,6 @@ Public Class Similar
     Private Sub PictureBox1_MouseLeave(sender As Object, e As EventArgs) Handles PictureBox1.MouseLeave
         PictureBox1.BackColor = Color.Transparent
     End Sub
-
-
 
     'CREAR SOMBRA EN EL FORMULARIO 
 
@@ -579,7 +523,9 @@ Public Class Similar
 
     End Sub
 
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
+    End Sub
 End Class
 
 

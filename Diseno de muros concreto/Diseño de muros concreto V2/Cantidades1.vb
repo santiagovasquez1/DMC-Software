@@ -1,7 +1,6 @@
 ﻿Imports System.IO
 Module Cantidades1
 
-
     Sub GenerarCantidades(ByVal Lista_Alzado As List(Of alzado_muro), ByVal Lista_Muros As List(Of Muros_Consolidados))
 
         Dim ArchivoTexto As New List(Of String)
@@ -45,7 +44,6 @@ Module Cantidades1
                 For j = 0 To .ListaRefuerzo_DllNet.Count - 1
                     ArchivoTexto.Add(.ListaRefuerzo_DllNet(j))
                 Next
-
 
                 For j = 0 To ListaAuxiliarMuro.CantidadMallasDllNet.Count - 1
                     ArchivoTexto.Add(ListaAuxiliarMuro.CantidadMallasDllNet(j))

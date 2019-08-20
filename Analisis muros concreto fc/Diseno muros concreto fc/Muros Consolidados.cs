@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diseño_de_muros_concreto_V2;
+
 delegate void Strmod(ref string str);
 
 namespace Diseno_muros_concreto_fc
@@ -50,7 +52,54 @@ namespace Diseno_muros_concreto_fc
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
 
-
+        public static explicit operator Diseño_de_muros_concreto_V2.Muros_Consolidados(Muros_Consolidados v)
+        {
+            Diseño_de_muros_concreto_V2.Muros_Consolidados muro_i = new Diseño_de_muros_concreto_V2.Muros_Consolidados
+            {
+                Pier_name = v.Pier_name,
+                Stories = v.Stories,
+                Bw = v.Bw,
+                lw = v.lw,
+                Hw = v.Hw,
+                fc = v.fc,
+                Rho_T = v.Rho_T,
+                Rho_l = v.Rho_l,
+                Malla = v.Malla,
+                Sigma_piso = v.Sigma_piso,
+                Confinamiento = v.Confinamiento,
+                C_max = v.C_max,
+                C_min=v.C_min,
+                C_esfuerzo=v.C_esfuerzo,
+                L_esfuerzo=v.L_esfuerzo,
+                L_Conf_Max=v.L_Conf_Max,
+                L_Conf_Min=v.L_Conf_Min,
+                Lebe_Izq=v.Lebe_Izq,
+                Lebe_Der=v.Lebe_Der,
+                Lebe_Centro=v.Lebe_Centro,
+                Zc_Izq=v.Zc_Izq,
+                Zc_Der=v.Zc_Der,
+                Est_ebe=v.Est_ebe,
+                Sep_ebe=v.Sep_ebe,
+                Est_Zc=v.Est_Zc,
+                Sep_Zc=v.Sep_Zc,
+                As_Long=v.As_Long,
+                ramas_der=v.ramas_der,
+                ramas_izq=v.ramas_izq,
+                ramas_centro=v.ramas_centro,
+                As_htal=v.As_htal,
+                Ref_htal=v.Ref_htal,
+                Capas_htal=v.Capas_htal,
+                sep_htal=v.sep_htal,
+                As_Htal_Total=v.As_Htal_Total                
+                
+            };
+            muro_i.Calculo_H_acumulado();
+            //Muros_Consolidados Muro_i;
+            //Muro_i = v;
+            //return Muro_i;
+            return muro_i;
+            //throw new NotImplementedException();
+        }
     }
     public class Strops
     {

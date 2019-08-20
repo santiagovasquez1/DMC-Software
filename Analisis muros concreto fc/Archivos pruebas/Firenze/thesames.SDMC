@@ -45,7 +45,7 @@ J1	False	SinSimilar	False
 J2	False	SinSimilar	False
 J3	False	SinSimilar	False
 J4	False	SinSimilar	False
-K1	False	SinSimilar	False
-K2	False	SinSimilar	False
+K1	False	K2	False
+K2	True	SinSimilar	False
 L1	False	SinSimilar	False
 L2	False	SinSimilar	False

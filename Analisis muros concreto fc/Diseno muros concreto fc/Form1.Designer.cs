@@ -48,6 +48,7 @@
             this.variablesDeDibujoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.murosSimilaresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listasDeMurosAGraficarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeDiseñoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -153,7 +154,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -230,7 +231,8 @@
             this.dibujoSeccionToolStripMenuItem,
             this.variablesDeDibujoToolStripMenuItem,
             this.murosSimilaresToolStripMenuItem,
-            this.direcciónDeCambioDeEspesorToolStripMenuItem});
+            this.direcciónDeCambioDeEspesorToolStripMenuItem,
+            this.listasDeMurosAGraficarToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -239,35 +241,35 @@
             // analisisEstructuralToolStripMenuItem
             // 
             this.analisisEstructuralToolStripMenuItem.Name = "analisisEstructuralToolStripMenuItem";
-            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.analisisEstructuralToolStripMenuItem.Text = "Analisis Estructural";
             this.analisisEstructuralToolStripMenuItem.Click += new System.EventHandler(this.analisisEstructuralToolStripMenuItem_Click);
             // 
             // infoGeneralToolStripMenuItem
             // 
             this.infoGeneralToolStripMenuItem.Name = "infoGeneralToolStripMenuItem";
-            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.infoGeneralToolStripMenuItem.Text = "Info General";
             this.infoGeneralToolStripMenuItem.Click += new System.EventHandler(this.InfoGeneralToolStripMenuItem_Click);
             // 
             // alzadoRefuerzoToolStripMenuItem
             // 
             this.alzadoRefuerzoToolStripMenuItem.Name = "alzadoRefuerzoToolStripMenuItem";
-            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.alzadoRefuerzoToolStripMenuItem.Text = "Alzado refuerzo";
             this.alzadoRefuerzoToolStripMenuItem.Click += new System.EventHandler(this.AlzadoRefuerzoToolStripMenuItem_Click);
             // 
             // dibujoSeccionToolStripMenuItem
             // 
             this.dibujoSeccionToolStripMenuItem.Name = "dibujoSeccionToolStripMenuItem";
-            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.dibujoSeccionToolStripMenuItem.Text = "Dibujo Seccion";
             this.dibujoSeccionToolStripMenuItem.Click += new System.EventHandler(this.DibujoSeccionToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
             // 
             this.variablesDeDibujoToolStripMenuItem.Name = "variablesDeDibujoToolStripMenuItem";
-            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.variablesDeDibujoToolStripMenuItem.Text = "Variables de Dibujo";
             this.variablesDeDibujoToolStripMenuItem.Click += new System.EventHandler(this.VariablesDeDibujoToolStripMenuItem_Click);
             // 
@@ -275,7 +277,7 @@
             // 
             this.murosSimilaresToolStripMenuItem.Enabled = false;
             this.murosSimilaresToolStripMenuItem.Name = "murosSimilaresToolStripMenuItem";
-            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.murosSimilaresToolStripMenuItem.Text = "Muros Iguales";
             this.murosSimilaresToolStripMenuItem.Click += new System.EventHandler(this.MurosSimilaresToolStripMenuItem_Click);
             // 
@@ -283,9 +285,17 @@
             // 
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Name = "direcciónDeCambioDeEspesorToolStripMenuItem";
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Text = "D. Cambio Espesor";
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Click += new System.EventHandler(this.DirecciónDeCambioDeEspesorToolStripMenuItem_Click);
+            // 
+            // listasDeMurosAGraficarToolStripMenuItem
+            // 
+            this.listasDeMurosAGraficarToolStripMenuItem.Enabled = false;
+            this.listasDeMurosAGraficarToolStripMenuItem.Name = "listasDeMurosAGraficarToolStripMenuItem";
+            this.listasDeMurosAGraficarToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.listasDeMurosAGraficarToolStripMenuItem.Text = "Listas de muros a graficar";
+            this.listasDeMurosAGraficarToolStripMenuItem.Click += new System.EventHandler(this.listasDeMurosAGraficarToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -850,6 +860,7 @@
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeDiseñoToolStripMenuItem;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.ToolStripMenuItem listasDeMurosAGraficarToolStripMenuItem;
     }
 }
 

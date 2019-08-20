@@ -539,27 +539,50 @@ Public Class f_alzado
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles button4.Click
+
         Dim Auxiliar As Datos_Refuerzo
-        Dim Story As String
+        Dim alzado_lista_aux As List(Of alzado_muro) = New List(Of alzado_muro)
+        Dim Num_cols As Integer
+        Dim indice As Integer
+        Dim prueba As List(Of String)
 
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
         Else
 
-            dibujar_alzado(LMuros.Text)
 
-            If alzado_lista.Count > 0 And alzado_lista.Exists(Function(x) x.pier = LMuros.Text) = True Then
+            For i = 0 To Lista_graficar.Count - 1
 
-                For i = 0 To Data_Alzado.Rows.Count - 1
-                    Story = Data_Alzado.Rows(i).Cells(1).Value
-                    validar_info2(LMuros.Text, Story, i, Data_Alzado.Columns.Count, Data_Alzado)
-                Next
+                If Lista_graficar(i).Graficar = True Then
 
-                Auxiliar = New Datos_Refuerzo
-                Auxiliar.Nombre_muro = LMuros.Text
-                Auxiliar.Load_Coordinates(LMuros.Text, coordX)
-                Dibujar_Refuerzo(Auxiliar)
-            End If
+                    dibujar_alzado(Lista_graficar(i).Nombre)
+
+                    If alzado_lista.Count > 0 And alzado_lista.Exists(Function(x) x.pier = Lista_graficar(i).Nombre) = True Then
+
+                        alzado_lista_aux = alzado_lista.FindAll(Function(x) x.pier = Lista_graficar(i).Nombre)
+                        prueba = alzado_lista_aux.Select(Function(x) x.alzado(0)).Distinct().ToList
+                        Num_cols = alzado_lista_aux.Select(Function(x) x.alzado.Count).ToList().Max
+
+                        If Num_cols > 0 And prueba.Exists(Function(x) x <> "") = True Then
+
+                            For j = 0 To alzado_lista_aux.Count - 1
+                                If alzado_lista_aux(j).alzado.Count < Num_cols Then
+                                    For k = alzado_lista_aux(j).alzado.Count To Num_cols - 1
+                                        indice = alzado_lista.FindIndex(Function(x) x.pier = alzado_lista_aux(j).pier And x.story = alzado_lista_aux(j).story)
+                                        alzado_lista(indice).alzado.Add("")
+                                    Next
+                                End If
+                            Next
+
+                            Auxiliar = New Datos_Refuerzo
+                            Auxiliar.Nombre_muro = Lista_graficar(i).Nombre
+                            Auxiliar.Load_Coordinates(Lista_graficar(i).Nombre, coordX)
+                            Dibujar_Refuerzo(Auxiliar)
+                        End If
+                    End If
+                End If
+            Next
+
         End If
 
         Dim Guardar As New Guardar_Archivo(Ruta_archivo,True)
