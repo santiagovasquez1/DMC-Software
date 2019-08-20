@@ -276,7 +276,7 @@ Public Class Crear_Estribos
 
                 ''Caso en el cual el muro no va totalmente confinado
 
-                If Muro_i.Lebe_Izq(indice) > 0 OrElse Muro_i.Zc_Izq(indice) > 0 Then
+                If Muro_i.Lebe_Izq(indice) > 0 Or Muro_i.Zc_Izq(indice) > 0 Then
 
                     Dim prueba1, prueba2 As List(Of Double)
                     Dim prueba3 As List(Of Double) = New List(Of Double)
@@ -323,6 +323,8 @@ Public Class Crear_Estribos
                         For j = 0 To prueba3.Count - 1
                             Escalado_Vertical_1(Punto_inicial(1) + 0.038, Punto_final(1) - 0.038, indice2, Delta_Escalado, Puntos_Limites, i, prueba3, j)
                         Next
+
+                        Confinamiento_Izq = Punto_final(1) - Punto_inicial(1)
 
                         If Confinamiento_Izq > 2 + Delta_Escalado Then
                             Num_Estribos = (Confinamiento_Izq / Distancia_Maxima) + 1
@@ -663,7 +665,7 @@ Public Class Crear_Estribos
         Bloque_Estribo.Layer = Layer
         Bloque_Estribo.Update()
 
-        Estribo_Back(Bloque_Estribo)
+        ''Estribo_Back(Bloque_Estribo)
 
     End Sub
 
