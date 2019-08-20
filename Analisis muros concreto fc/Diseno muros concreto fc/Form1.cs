@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using Prueba2;
+using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
@@ -23,7 +19,7 @@ namespace Diseno_muros_concreto_fc
 
 
 
-  
+
         private const int WM_NCHITTEST = 0x84;
         private const int HTCLIENT = 0x1;
         private const int HTCAPTION = 0x2;
@@ -198,19 +194,6 @@ namespace Diseno_muros_concreto_fc
             Fase1 Formulario1 = new Fase1();
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1);
 
-            //Diseño_de_muros_concreto_V2.f_alzado Formulario3 = new Diseño_de_muros_concreto_V2.f_alzado();
-
-            //foreach(Control Control_i in Formulario3.Controls)
-            //{
-            //    if (Control_i.Name == "Panel2")
-            //    {
-            //        Panel_i =(Panel) Control_i;
-            //        Cargar_Formulario.Open_From_Panel2(this.panel3, Panel_i);
-            //        break;
-            //    }
-            //}
-
-            // Cargar_Formulario.Open_From_Panel(this.panel3, Formulario3);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -293,7 +276,7 @@ namespace Diseno_muros_concreto_fc
             }
 
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -325,7 +308,7 @@ namespace Diseno_muros_concreto_fc
             this.Height = 760 + 35;
             if (Listas_Programa.Muros_Consolidados_Listos != null)
             {
-                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad,Listas_Programa.Ruta_Carpeta);
+                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad, Listas_Programa.Ruta_Carpeta);
             }
 
             Diseño_de_muros_concreto_V2.Form1 Formulario1 = new Diseño_de_muros_concreto_V2.Form1();
@@ -395,14 +378,14 @@ namespace Diseno_muros_concreto_fc
         {
             Guardar_archivo.Crear_Archivo_Texto();
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
         }
 
         private void AlzadoRefuerzoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Listas_Programa.Muros_Consolidados_Listos != null)
             {
-                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad,Listas_Programa.Ruta_Carpeta);
+                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad, Listas_Programa.Ruta_Carpeta);
             }
             panel1.Visible = true;
             Diseño_de_muros_concreto_V2.f_alzado Formulario3 = new Diseño_de_muros_concreto_V2.f_alzado();
@@ -471,7 +454,7 @@ namespace Diseno_muros_concreto_fc
             }
 
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
 
         }
 
@@ -479,7 +462,7 @@ namespace Diseno_muros_concreto_fc
         {
             Guardar_archivo.Crear_Archivo_Texto();
             Guardar_archivo.Generar_texto();
-            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo,false);
+            Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
 
         }
 
@@ -487,10 +470,10 @@ namespace Diseno_muros_concreto_fc
         {
             Diseño_de_muros_concreto_V2.Similar VentanaSimilares = new Diseño_de_muros_concreto_V2.Similar();
 
-          
-                VentanaSimilares.Show();
-       
-            
+
+            VentanaSimilares.Show();
+
+
 
         }
 
@@ -509,8 +492,8 @@ namespace Diseno_muros_concreto_fc
         private void Button10_Click(object sender, EventArgs e)
         {
 
-             Application.Exit();
-          
+            Application.Exit();
+
         }
 
         private void Button10_MouseMove(object sender, MouseEventArgs e)
@@ -588,4 +571,3 @@ namespace Diseno_muros_concreto_fc
 
 
 
- 

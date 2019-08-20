@@ -64,18 +64,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="accoremgd, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\accoremgd.dll</HintPath>
-    </Reference>
-    <Reference Include="acdbmgd, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\acdbmgd.dll</HintPath>
-    </Reference>
-    <Reference Include="acmgd, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\acmgd.dll</HintPath>
-    </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop">
       <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -115,7 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CargarArchivos.vb" />
-    <Compile Include="Commands_Autocad.vb" />
     <Compile Include="Crear_Estribos.vb" />
     <Compile Include="Estribos_Totales.vb" />
     <Compile Include="Form1.vb">

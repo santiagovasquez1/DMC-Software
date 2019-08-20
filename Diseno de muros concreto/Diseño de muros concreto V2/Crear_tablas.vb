@@ -105,9 +105,6 @@
                         MuroAxuiliar = refuerzo_lista(indice).MuroSimilar
                     End If
 
-
-
-
                     If indice >= 0 Then
                         .Cells(7).Value = Format(MuroAxuiliar.total, "##,0.00")
                         .Cells(8).Value = Format(MuroAxuiliar.porcentaje * 100, "##,0.0") & "%"

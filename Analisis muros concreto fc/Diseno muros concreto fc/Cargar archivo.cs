@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
@@ -23,7 +21,8 @@ namespace Diseno_muros_concreto_fc
             };
             Myfile.ShowDialog();
             Listas_Programa.Ruta_archivo = Myfile.FileName;
-            try {
+            try
+            {
 
                 int FinPunto = 0;
                 int FinSla = 0;
@@ -35,11 +34,12 @@ namespace Diseno_muros_concreto_fc
 
                 Listas_Programa.Ruta_Carpeta = Ruta_Carpeta;
             }
-            catch {
+            catch
+            {
 
 
             }
-         
+
 
 
 
@@ -71,12 +71,12 @@ namespace Diseno_muros_concreto_fc
             int inicio, Fin;
             inicio = Lista_texto.FindIndex(x => x.Contains("0.Capacidad")) + 2;
             Fin = Lista_texto.FindIndex(x => x.Contains("1.Wall Forces")) - 2;
-            string[] Vector_Texto=null;
+            string[] Vector_Texto = null;
 
             for (int i = inicio; i <= Fin; i++)
             {
                 Vector_Texto = Lista_texto[i].Split('\t');
-               
+
             }
             Listas_Programa.Capacidad = Vector_Texto[0];
 
@@ -88,8 +88,8 @@ namespace Diseno_muros_concreto_fc
             string[] Vector_Texto;
             Muro Muro_i;
 
-            inicio = Lista_texto.FindIndex(x => x.Contains("2.Wall Geometry"))+2;
-            Fin = Lista_texto.FindIndex(x => x.Contains("3.Shear Design")) -2;
+            inicio = Lista_texto.FindIndex(x => x.Contains("2.Wall Geometry")) + 2;
+            Fin = Lista_texto.FindIndex(x => x.Contains("3.Shear Design")) - 2;
 
             if (Listas_Programa.Lista_Muros != null)
             {
@@ -123,9 +123,9 @@ namespace Diseno_muros_concreto_fc
 
         private static void Cargar_Fuerzas()
         {
-            int inicio, Fin,indice;
+            int inicio, Fin, indice;
             string[] Vector_Texto;
-            
+
             inicio = Lista_texto.FindIndex(x => x.Contains("1.Wall Forces")) + 2;
             Fin = Lista_texto.FindIndex(x => x.Contains("2.Wall Geometry")) - 2;
 
@@ -135,7 +135,7 @@ namespace Diseno_muros_concreto_fc
                 indice = Listas_Programa.Lista_Muros.FindIndex(x => x.Story == Vector_Texto[0] & x.Pier == Vector_Texto[1]);
                 Listas_Programa.Lista_Muros[indice].Load.Add(Vector_Texto[2]);
                 Listas_Programa.Lista_Muros[indice].Loc.Add(Vector_Texto[3]);
-                Listas_Programa.Lista_Muros[indice].P.Add(Convert.ToDouble (Vector_Texto[4]));
+                Listas_Programa.Lista_Muros[indice].P.Add(Convert.ToDouble(Vector_Texto[4]));
                 Listas_Programa.Lista_Muros[indice].V2.Add(Convert.ToDouble(Vector_Texto[5]));
                 Listas_Programa.Lista_Muros[indice].V3.Add(Convert.ToDouble(Vector_Texto[6]));
                 Listas_Programa.Lista_Muros[indice].M2.Add(Convert.ToDouble(Vector_Texto[7]));
@@ -171,7 +171,7 @@ namespace Diseno_muros_concreto_fc
                 Listas_Programa.Lista_Muros[indice].Phi_Vn_Max2.Add(Convert.ToDouble(Vector_Texto[12]));
                 Listas_Programa.Lista_Muros[indice].Phi_Vs.Add(Convert.ToDouble(Vector_Texto[13]));
                 Listas_Programa.Lista_Muros[indice].Phi_Vs_Max = Convert.ToDouble(Vector_Texto[14]);
-                Listas_Programa.Lista_Muros[indice].Pt_max= Convert.ToDouble(Vector_Texto[15]);
+                Listas_Programa.Lista_Muros[indice].Pt_max = Convert.ToDouble(Vector_Texto[15]);
                 Listas_Programa.Lista_Muros[indice].pt_definitivo.Add(Convert.ToDouble(Vector_Texto[16]));
                 Listas_Programa.Lista_Muros[indice].Cortinas.Add(Convert.ToInt16(Vector_Texto[18]));
                 Listas_Programa.Lista_Muros[indice].Error_Cortante.Add(Vector_Texto[19]);
@@ -192,7 +192,7 @@ namespace Diseno_muros_concreto_fc
                 Vector_Texto = Lista_texto[i].Split('\t');
                 indice = Listas_Programa.Lista_Muros.FindIndex(x => x.Story == Vector_Texto[0] & x.Pier == Vector_Texto[1]);
 
-                if (Listas_Programa.Lista_Muros[indice].Fa==null)
+                if (Listas_Programa.Lista_Muros[indice].Fa == null)
                 {
                     Listas_Programa.Lista_Muros[indice].Fa = new List<double>();
                     Listas_Programa.Lista_Muros[indice].Fv = new List<double>();
@@ -227,7 +227,7 @@ namespace Diseno_muros_concreto_fc
             Muros_Consolidados Muro_i;
 
             inicio = Lista_texto.FindIndex(x => x.Contains("5.Reporte")) + 2;
-            
+
             try
             {
                 Fin = Lista_texto.FindIndex(x => x.Contains("6.Datos de Refuerzo Adicional")) - 2;
@@ -235,7 +235,7 @@ namespace Diseno_muros_concreto_fc
             catch
             {
                 Fin = Lista_texto.FindIndex(x => x.Contains("Fin")) - 2;
-            }            
+            }
 
             if (Listas_Programa.Muros_Consolidados_Listos != null)
             {
@@ -252,16 +252,16 @@ namespace Diseno_muros_concreto_fc
                 Auxiliar.Add(Vector_Texto.ToList());
             }
 
-             Muros_distintos = Auxiliar.Select(x => x[1]).Distinct().ToList();
+            Muros_distintos = Auxiliar.Select(x => x[1]).Distinct().ToList();
 
-            for(int i=0; i < Muros_distintos.Count; i++)
+            for (int i = 0; i < Muros_distintos.Count; i++)
             {
                 List<List<string>> Auxiliar_2 = Auxiliar.FindAll(x => x[1] == Muros_distintos[i]).ToList();
 
                 Muro_i = new Muros_Consolidados();
                 Muro_i.Pier_name = Muros_distintos[i];
-                Muro_i.Stories.AddRange(Auxiliar_2.Select(x=> x[0]));
-                Muro_i.lw.AddRange(Auxiliar_2.Select(x => Convert.ToSingle (x[2])));
+                Muro_i.Stories.AddRange(Auxiliar_2.Select(x => x[0]));
+                Muro_i.lw.AddRange(Auxiliar_2.Select(x => Convert.ToSingle(x[2])));
                 Muro_i.Bw.AddRange(Auxiliar_2.Select(x => Convert.ToSingle(x[3])));
                 Muro_i.fc.AddRange(Auxiliar_2.Select(x => Convert.ToSingle(x[4])));
                 Muro_i.Rho_T.AddRange(Auxiliar_2.Select(x => Convert.ToDouble(x[5])));
@@ -290,7 +290,7 @@ namespace Diseno_muros_concreto_fc
 
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
-            
+
         }
     }
 }

@@ -27,12 +27,12 @@ Partial Class Similar
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.DataGrid_Muros = New System.Windows.Forms.DataGridView()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Similars = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.ListadeMuros = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel2.SuspendLayout()
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -86,6 +86,27 @@ Partial Class Similar
         Me.DataGrid_Muros.Size = New System.Drawing.Size(365, 343)
         Me.DataGrid_Muros.TabIndex = 0
         '
+        'Muros
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Muros.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Muros.HeaderText = "Muros"
+        Me.Muros.Name = "Muros"
+        '
+        'Similars
+        '
+        Me.Similars.HeaderText = "Maestro"
+        Me.Similars.Name = "Similars"
+        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Similars.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'ListadeMuros
+        '
+        Me.ListadeMuros.HeaderText = "Igual a:"
+        Me.ListadeMuros.Name = "ListadeMuros"
+        Me.ListadeMuros.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ListadeMuros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Gainsboro
@@ -120,27 +141,6 @@ Partial Class Similar
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
         '
-        'Muros
-        '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Muros.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Muros.HeaderText = "Muros"
-        Me.Muros.Name = "Muros"
-        '
-        'Similars
-        '
-        Me.Similars.HeaderText = "Maestro"
-        Me.Similars.Name = "Similars"
-        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Similars.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
-        'ListadeMuros
-        '
-        Me.ListadeMuros.HeaderText = "Igual a:"
-        Me.ListadeMuros.Name = "ListadeMuros"
-        Me.ListadeMuros.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ListadeMuros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
         'Similar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -151,6 +151,8 @@ Partial Class Similar
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Similar"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Panel2.ResumeLayout(False)
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).EndInit()

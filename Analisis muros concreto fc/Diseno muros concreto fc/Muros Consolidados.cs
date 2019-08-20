@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 delegate void Strmod(ref string str);
 
 namespace Diseno_muros_concreto_fc
@@ -52,14 +50,14 @@ namespace Diseno_muros_concreto_fc
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
 
-       
+
     }
-   public class Strops
+    public class Strops
     {
         static void Reemplazar_espacios(ref string a)
         {
             Console.WriteLine("Reemplaza espacios con guiones");
-            a=a.Replace(' ', '-');
+            a = a.Replace(' ', '-');
         }
 
         static void Eliminar_espacios(ref string a)
@@ -74,22 +72,22 @@ namespace Diseno_muros_concreto_fc
                 if (a[i] != ' ') temp += a[i];
             }
 
-            a= temp;
+            a = temp;
         }
 
 
         static void Invierte(ref string a)
         {
             string temp = "";
-            int i,j;
-    
-        Console.WriteLine("Invierte una cadena.");
-            for (j = 0, i = a.Length-1; i >= 0;i--, j++)
+            int i, j;
+
+            Console.WriteLine("Invierte una cadena.");
+            for (j = 0, i = a.Length - 1; i >= 0; i--, j++)
                 temp += a[i];
             a = temp;
         }
 
-        
+
         public static void main() //Ejemplo de distribucion multiple de delegados
         {
 
@@ -99,7 +97,7 @@ namespace Diseno_muros_concreto_fc
             Strmod Eliminarsp = Eliminar_espacios;
             Strmod InvierteStr = Invierte;
 
-            string Str= "Esta es una prueba";
+            string Str = "Esta es una prueba";
 
             //Establecer distribucion multiple
 
@@ -117,7 +115,7 @@ namespace Diseno_muros_concreto_fc
 
             Str = "Esta es una prueba"; //Reestablece la cadena
 
-             //invocacion distribucion multiple
+            //invocacion distribucion multiple
             StrOp(ref Str);
             Console.WriteLine("Cadena resultante" + Str);
             Console.WriteLine("");
@@ -135,7 +133,7 @@ namespace Diseno_muros_concreto_fc
     {
         public static void Compilar_Datos()
         {
-            
+
             List<double> prueba;
             int indice;
             double Factor1, Factor2;
@@ -155,9 +153,9 @@ namespace Diseno_muros_concreto_fc
                 Factor2 = 0.15;
             }
 
-            Lectura_Esfuerzos.Cargar_Esfuerzos();            
+            Lectura_Esfuerzos.Cargar_Esfuerzos();
 
-            for (int i= 0; i < Muros_distintos.Count; i++)
+            for (int i = 0; i < Muros_distintos.Count; i++)
             {
                 List<Muro> Auxiliar = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Muros_distintos[i]).ToList();
 
@@ -180,23 +178,23 @@ namespace Diseno_muros_concreto_fc
 
                     Muro_i.C_max.Add(Auxiliar[j].C_def.Max());
                     Muro_i.C_min.Add(Auxiliar[j].C_def.FindAll(x => x > 0).ToList().Min());
-                    
+
                     Muro_i.Malla.Add(Det_malla(Muro_i.Rho_T[j], Muro_i.Rho_l[j], Muro_i.Bw[j]));
 
                     //Determinacion de C maximo cuando los esfuezos superan los limites
                     try
                     {
-                        prueba = Auxiliar[j].Sigma_Max.FindAll(x=> x>=Factor2*Muro_i.fc[j]);
+                        prueba = Auxiliar[j].Sigma_Max.FindAll(x => x >= Factor2 * Muro_i.fc[j]);
                     }
                     catch
                     {
                         prueba = null;
                     }
 
-                    if (prueba.Count>0)
+                    if (prueba.Count > 0)
                     {
-                        List<double> C_Aux=new List<double>();
-                        foreach(double Valor in prueba)
+                        List<double> C_Aux = new List<double>();
+                        foreach (double Valor in prueba)
                         {
                             indice = Auxiliar[j].Sigma_Max.FindIndex(x => x == Valor);
                             C_Aux.Add(Auxiliar[j].C_def[indice]);
@@ -212,7 +210,7 @@ namespace Diseno_muros_concreto_fc
 
                     //Buscar shells a la derecha y a la izquierda del muro 
 
-                    Xmax = Auxiliar[j].Shells_Muro.Select(x => x.Coord.Max(x1=>x1[0])).Max();
+                    Xmax = Auxiliar[j].Shells_Muro.Select(x => x.Coord.Max(x1 => x1[0])).Max();
                     Xmin = Auxiliar[j].Shells_Muro.Select(x => x.Coord.Min(x1 => x1[0])).Min();
                     Ymax = Auxiliar[j].Shells_Muro.Select(x => x.Coord.Max(x1 => x1[1])).Max();
                     Ymin = Auxiliar[j].Shells_Muro.Select(x => x.Coord.Min(x1 => x1[1])).Min();
@@ -251,18 +249,18 @@ namespace Diseno_muros_concreto_fc
                     //
 
 
-    }
-                Determinacion_EBE(Muro_i,Factor1,Factor2);
-                Determinacion_Lado(Muro_i,Factor2);
+                }
+                Determinacion_EBE(Muro_i, Factor1, Factor2);
+                Determinacion_Lado(Muro_i, Factor2);
                 Det_As_Long(Muro_i);
                 Det_At(Muro_i);
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
-               
+
             }
-            
+
         }
 
-        static List<Shells_Prop>Seleccion_Muros(List<Shells_Prop>Shells_i,double Parametro,int indice)
+        static List<Shells_Prop> Seleccion_Muros(List<Shells_Prop> Shells_i, double Parametro, int indice)
         {
             List<Shells_Prop> Auxiliar = new List<Shells_Prop>();
 
@@ -282,14 +280,14 @@ namespace Diseno_muros_concreto_fc
             return Auxiliar;
         }
 
-        private static void Determinacion_EBE(Muros_Consolidados Muro_i,double Limite1,double Limite2)
+        private static void Determinacion_EBE(Muros_Consolidados Muro_i, double Limite1, double Limite2)
         {
             for (int j = Muro_i.Stories.Count - 1; j >= 0; j--)
             {
-                if (j == Muro_i.Stories.Count -1)
+                if (j == Muro_i.Stories.Count - 1)
                 {
-                    if (Muro_i.Sigma_piso[j] >= Limite1 * Muro_i.fc[j]) Muro_i.Confinamiento[j] = "Si";  
-                    if (Muro_i.Rho_l[j]>=0.01) Muro_i.Confinamiento[j] = "Si";
+                    if (Muro_i.Sigma_piso[j] >= Limite1 * Muro_i.fc[j]) Muro_i.Confinamiento[j] = "Si";
+                    if (Muro_i.Rho_l[j] >= 0.01) Muro_i.Confinamiento[j] = "Si";
                 }
                 else
                 {
@@ -301,10 +299,10 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-        private static void Determinacion_Lado(Muros_Consolidados Muro_i,double Limite)
+        private static void Determinacion_Lado(Muros_Consolidados Muro_i, double Limite)
 
         {
-            for(int i = 0; i < Muro_i.Confinamiento.Count; i++)
+            for (int i = 0; i < Muro_i.Confinamiento.Count; i++)
             {
                 if (Muro_i.Confinamiento[i] == "Si")
                 {
@@ -318,7 +316,7 @@ namespace Diseno_muros_concreto_fc
                     }
                     else
                     {
-                        if (Muro_i.Shells_piso_Izq[i].Select(x => x.S22).Min() <= -Limite * Muro_i.fc[i]*10)
+                        if (Muro_i.Shells_piso_Izq[i].Select(x => x.S22).Min() <= -Limite * Muro_i.fc[i] * 10)
                         {
                             Muro_i.Lebe_Izq[i] = Muro_i.L_esfuerzo[i];
                         }
@@ -330,15 +328,15 @@ namespace Diseno_muros_concreto_fc
                 }
 
                 //Casos esperados de confinamiento
-                if (Muro_i.Rho_l[i]>=0.0066 & Muro_i.Lebe_Izq[i] > 0 & Muro_i.Lebe_Der[i]==0 & Muro_i.Rho_l[i] < 0.01)
+                if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Lebe_Izq[i] > 0 & Muro_i.Lebe_Der[i] == 0 & Muro_i.Rho_l[i] < 0.01)
                 {
-                    Muro_i.Zc_Der[i]= Muro_i.L_Conf_Max[i];
-                    
+                    Muro_i.Zc_Der[i] = Muro_i.L_Conf_Max[i];
+
                 }
                 else if (Muro_i.Lebe_Izq[i] > 0 & Muro_i.Lebe_Der[i] == 0 & Muro_i.Rho_l[i] < 0.01)
                 {
                     Muro_i.Zc_Der[i] = Muro_i.L_Conf_Min[i];
-                    
+
                 }
 
                 if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Lebe_Izq[i] == 0 & Muro_i.Lebe_Der[i] > 0 & Muro_i.Rho_l[i] < 0.01)
@@ -366,7 +364,7 @@ namespace Diseno_muros_concreto_fc
                 if (Muro_i.Zc_Der[i] < 30) Muro_i.Zc_Der[i] = 0;
                 if (Muro_i.Zc_Izq[i] < 30) Muro_i.Zc_Izq[i] = 0;
 
-                
+
 
             }
 
@@ -374,12 +372,12 @@ namespace Diseno_muros_concreto_fc
 
         private static void Det_As_Long(Muros_Consolidados Muro_i)
         {
-            double Aux_As_Long, Acero_malla,Aux_Long;            
+            double Aux_As_Long, Acero_malla, Aux_Long;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
                 Aux_As_Long = Muro_i.Bw[i] * Muro_i.lw[i] * Muro_i.Rho_l[i];
-                Aux_Long = Muro_i.lw[i] - Muro_i.Lebe_Izq[i] - Muro_i.Lebe_Der[i]-Muro_i.Lebe_Centro[i]-Muro_i.Zc_Izq[i]-Muro_i.Zc_Der[i];
-                Acero_malla = (Aux_Long / 100)*Al_Malla(Muro_i.Malla[i]);
+                Aux_Long = Muro_i.lw[i] - Muro_i.Lebe_Izq[i] - Muro_i.Lebe_Der[i] - Muro_i.Lebe_Centro[i] - Muro_i.Zc_Izq[i] - Muro_i.Zc_Der[i];
+                Acero_malla = (Aux_Long / 100) * Al_Malla(Muro_i.Malla[i]);
 
                 if (Aux_As_Long - Acero_malla > 0)
                 {
@@ -394,9 +392,9 @@ namespace Diseno_muros_concreto_fc
             double Aux_As_t, Acero_malla, Aux_As_tm;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
-                if (Muro_i.Rho_T[i] < 0.0020) Muro_i.Rho_T[i]=0.0020;
+                if (Muro_i.Rho_T[i] < 0.0020) Muro_i.Rho_T[i] = 0.0020;
                 Aux_As_t = Muro_i.Bw[i] * 100 * Muro_i.Rho_T[i];
-                Aux_As_tm= Al_Malla(Muro_i.Malla[i]);
+                Aux_As_tm = Al_Malla(Muro_i.Malla[i]);
 
                 if (Aux_As_t - Aux_As_tm > 0)
                 {
@@ -405,19 +403,19 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        static string Det_malla(double rt,double rl,float espesor)
+        static string Det_malla(double rt, double rl, float espesor)
         {
             string Malla;
             Malla = "Sin Malla";
 
-            if(espesor>=8 & espesor < 10)
+            if (espesor >= 8 & espesor < 10)
             {
-                if (rt >= 0.0012 & rt < 0.0020 & rl<0.01) Malla = "D106";
+                if (rt >= 0.0012 & rt < 0.0020 & rl < 0.01) Malla = "D106";
                 if (rt >= 0.0020 & rt < 0.0025 & rl < 0.01) Malla = "D188";
                 if (rt >= 0.0025 & rl < 0.01) Malla = "DD106";
             }
 
-            if (espesor >=10 & espesor < 12)
+            if (espesor >= 10 & espesor < 12)
             {
                 if (rt >= 0.0012 & rt < 0.0020 & rl < 0.01) Malla = "D131";
                 if (rt >= 0.0020 & rt < 0.0025 & rl < 0.01) Malla = "D106";
@@ -450,8 +448,8 @@ namespace Diseno_muros_concreto_fc
 
         static double Al_Malla(string Malla)
         {
-           
-            double Aux_acero=0;
+
+            double Aux_acero = 0;
             switch (Malla)
 
             {
@@ -459,10 +457,10 @@ namespace Diseno_muros_concreto_fc
                     Aux_acero = 0;
                     break;
                 case "D84":
-                    Aux_acero =0.84;
+                    Aux_acero = 0.84;
                     break;
                 case "D106":
-                    Aux_acero =1.06;
+                    Aux_acero = 1.06;
                     break;
                 case "D131":
                     Aux_acero = 1.31;
@@ -471,7 +469,7 @@ namespace Diseno_muros_concreto_fc
                     Aux_acero = 1.58;
                     break;
                 case "D188":
-                    Aux_acero =1.88;
+                    Aux_acero = 1.88;
                     break;
                 case "D221":
                     Aux_acero = 2.21;
@@ -481,29 +479,29 @@ namespace Diseno_muros_concreto_fc
                     break;
 
                 case "DD84":
-                    Aux_acero = 0.84*2;
+                    Aux_acero = 0.84 * 2;
                     break;
                 case "DD106":
-                    Aux_acero = 1.06*2;
+                    Aux_acero = 1.06 * 2;
                     break;
                 case "DD131":
-                    Aux_acero = 1.31*2;
+                    Aux_acero = 1.31 * 2;
                     break;
                 case "DD158":
-                    Aux_acero = 1.58*2;
+                    Aux_acero = 1.58 * 2;
                     break;
                 case "DD188":
-                    Aux_acero = 1.88*2;
+                    Aux_acero = 1.88 * 2;
                     break;
                 case "DD221":
-                    Aux_acero = 2.21*2;
+                    Aux_acero = 2.21 * 2;
                     break;
                 case "DD257":
-                    Aux_acero = 2.57*2;
+                    Aux_acero = 2.57 * 2;
                     break;
             }
             return Aux_acero;
         }
-       
+
     }
 }

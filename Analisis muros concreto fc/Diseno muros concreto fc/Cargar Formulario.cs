@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
     class Cargar_Formulario
     {
-        public static void Open_From_Panel(Panel Formulario_Madre,Form Formulario)
+        public static void Open_From_Panel(Panel Formulario_Madre, Form Formulario)
         {
             Panel FM = Formulario_Madre;
-            Form FH = Formulario ;
-            
-
-
+            Form FH = Formulario;
+                       
             if (FM.Controls.Count > 0)
             {
                 FM.Controls.Clear();
@@ -41,7 +34,7 @@ namespace Diseno_muros_concreto_fc
                 FM.Controls.Clear();
             }
 
- 
+
             FM.Controls.Add(FH);
             FM.Tag = FH;
             FH.Show();

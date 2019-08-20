@@ -207,6 +207,9 @@
     <Compile Include="Variables Publicas.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form_DireccionCambiodeEspesor.resx">
+      <DependentUpon>Form_DireccionCambiodeEspesor.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Similar.resx">
       <DependentUpon>Similar.vb</DependentUpon>
     </EmbeddedResource>

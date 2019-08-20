@@ -161,7 +161,7 @@ Partial Class f_alzado
         Me.Panel2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1553, 29)
+        Me.Panel2.Size = New System.Drawing.Size(1386, 29)
         Me.Panel2.TabIndex = 21
         '
         'Panel6
@@ -336,28 +336,28 @@ Partial Class f_alzado
         '
         Me.CopiarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CopiarToolStripMenuItem.Name = "CopiarToolStripMenuItem"
-        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CopiarToolStripMenuItem.Text = "Copiar"
         '
         'CortarToolStripMenuItem
         '
         Me.CortarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CortarToolStripMenuItem.Name = "CortarToolStripMenuItem"
-        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CortarToolStripMenuItem.Text = "Cortar"
         '
         'PegarToolStripMenuItem
         '
         Me.PegarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PegarToolStripMenuItem.Name = "PegarToolStripMenuItem"
-        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PegarToolStripMenuItem.Text = "Pegar"
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopiarToolStripMenuItem, Me.CortarToolStripMenuItem, Me.PegarToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(110, 70)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 92)
         '
         'DataGridView1
         '
@@ -860,7 +860,7 @@ Partial Class f_alzado
         Me.Data_Alzado.BackgroundColor = System.Drawing.Color.White
         Me.Data_Alzado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.Data_Alzado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
-        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
+        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke
         Me.Data_Alzado.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.Data_Alzado.Location = New System.Drawing.Point(7, 34)
         Me.Data_Alzado.Name = "Data_Alzado"
@@ -985,7 +985,7 @@ Partial Class f_alzado
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1553, 760)
+        Me.ClientSize = New System.Drawing.Size(1386, 760)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel4)
