@@ -19,10 +19,6 @@ Module Cantidades1
             End If
         Next
 
-
-
-
-
         For i = 0 To Lista_Muros_Refuerzo.Count - 1
             Lista_Muros_Refuerzo(i).ActivarNuevasFunciones()
         Next
@@ -87,28 +83,11 @@ Module Cantidades1
 
         For i = 0 To TextoAEscribir.Count - 1
             Escritor.WriteLine(TextoAEscribir(i))
-
         Next
-
-
-
 
         Escritor.Close()
 
 
-
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
 
 End Module

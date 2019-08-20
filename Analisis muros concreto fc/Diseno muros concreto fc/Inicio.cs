@@ -54,8 +54,12 @@ namespace Diseno_muros_concreto_fc
         }
 
         public static void Comprobar(Inicio Formulario)
-        {                      
-            
+        {
+
+
+
+
+
             string ComprobarEntrada = "FAIL";
 
             String IP_Servidor = "";
@@ -70,9 +74,9 @@ namespace Diseno_muros_concreto_fc
                     IP_Servidor = address.ToString();
 
                 }
-                               
+
                 List<IPAddressCollection> ListaIPS = new List<IPAddressCollection>();
-                               
+
                 foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
                 {
                     if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
@@ -112,64 +116,52 @@ namespace Diseno_muros_concreto_fc
                 {
 
                     MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Formulario.Close();
+                    Application.Exit();
+
+                }
+
+            }
+            else
+            {
+
+                NetworkInterface[] Interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+                List<string> MacAdress = new List<string>();
+                foreach (NetworkInterface adapter in Interfaces)
+                {
+
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    MacAdress.Add(adapter.GetPhysicalAddress().ToString());
+                }
+
+                for (int i = 0; i < MacAdress.Count; i++)
+                {
+                    if (MacAdress[i] == "00D8610657A5")
+                    {
+                        ComprobarEntrada = "CORRECT";
+                        break;
+                    }
+
+                }
+
+                if (ComprobarEntrada == "CORRECT")
+                {
+                    //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     Formulario.Visible = false;
                     Form1 Fromulario = new Form1();
                     Fromulario.ShowDialog();
                 }
+                else
+                {
 
-            }                       
-            else
-            {
-                MessageBox.Show("SIN CONEXIÓN A LA RED", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Formulario.Close();
+                    MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Application.Exit();
+
+                }
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

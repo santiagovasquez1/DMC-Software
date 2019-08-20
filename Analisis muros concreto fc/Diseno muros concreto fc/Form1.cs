@@ -524,7 +524,7 @@ namespace Diseno_muros_concreto_fc
 
             Prueba2.Form1 Formulario = new Prueba2.Form1();
             Formulario.RutaArchivo = Listas_Programa.Ruta_archivo;
-            Formulario.Show();
+            Formulario.ShowDialog();
 
 
         }

@@ -251,6 +251,7 @@ Partial Class f_alzado
         'button6
         '
         Me.button6.BackColor = System.Drawing.Color.Transparent
+        Me.button6.Enabled = False
         Me.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
         Me.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
@@ -336,28 +337,28 @@ Partial Class f_alzado
         '
         Me.CopiarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CopiarToolStripMenuItem.Name = "CopiarToolStripMenuItem"
-        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.CopiarToolStripMenuItem.Text = "Copiar"
         '
         'CortarToolStripMenuItem
         '
         Me.CortarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CortarToolStripMenuItem.Name = "CortarToolStripMenuItem"
-        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.CortarToolStripMenuItem.Text = "Cortar"
         '
         'PegarToolStripMenuItem
         '
         Me.PegarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PegarToolStripMenuItem.Name = "PegarToolStripMenuItem"
-        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.PegarToolStripMenuItem.Text = "Pegar"
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopiarToolStripMenuItem, Me.CortarToolStripMenuItem, Me.PegarToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 92)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(110, 70)
         '
         'DataGridView1
         '
