@@ -1,5 +1,4 @@
-﻿
-Imports System.IO
+﻿Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
 
 Public Class Serializador
@@ -18,6 +17,8 @@ Public Class Serializador
 
         Dim Escritor As Stream = New FileStream(Myfile.FileName, FileMode.Create, FileAccess.Write, FileShare.None)
         Formatter.Serialize(Escritor, Lista_serializadas)
+
+        Escritor.Close()
 
     End Sub
 
@@ -38,6 +39,7 @@ Public Class Serializador
         Dim Lector As Stream = New FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None)
         Lista_Serializadas = CType(Formatter.Deserialize(Lector), Listas_serializadas)
 
+        Lector.Close()
     End Sub
 
 End Class

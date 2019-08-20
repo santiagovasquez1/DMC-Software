@@ -507,10 +507,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ToolStripButton1_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub CopiarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopiarToolStripMenuItem.Click
         CopyToClipboard(data_grid)
     End Sub
@@ -551,26 +547,6 @@ Public Class Form1
             End If
 
         End If
-    End Sub
-
-
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-
-        'If CheckBox1.Checked = True Then
-        '    e_EBE.Enabled = True
-        'Else
-        '    e_EBE.Enabled = False
-        'End If
-
-    End Sub
-
-    Private Sub Data_muros_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Data_muros.CellContentClick
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
-
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
