@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="yellow_information_icon-icons.com_59572x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yellow_information_icon-icons.com_59572x161.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Newx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Newx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Openx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Openx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cerrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cerrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,8 +139,8 @@
   <data name="folder-open_119118x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-open_119118x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EtDCS3CG_400x400" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EtDCS3CG_400x400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Xx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Xx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close-button1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close-button1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,8 +151,14 @@
   <data name="yellow_information_icon-icons.com_59572x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yellow_information_icon-icons.com_59572x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Xx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Xx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="exportar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exportar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveX13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveX13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exportarx16C" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exportarx16C.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vcsadded_93506x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vcsadded_93506x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,11 +169,17 @@
   <data name="Excelx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Excelx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="editarx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\editarx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-ms-excel-48X18" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ms-excel-48X18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveAsx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAsx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveAllx13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveAllx13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,11 +199,17 @@
   <data name="x16Blanca" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\x16Blanca.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="efe-Prima-ce-negative-left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\efe-Prima-ce-negative-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo vertical bmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo vertical bmp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SaveX13" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveX13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PRUEBA4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PRUEBA4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EtDCS3CG_400x400" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EtDCS3CG_400x400.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Puntosx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Puntosx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,20 +220,23 @@
   <data name="LOGO PIXELADO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LOGO PIXELADO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PRUEBA5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PRUEBA5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveAsx161" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAsx161.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SaveAllx13" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveAllx13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Openx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Openx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vcsadded_93506" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vcsadded_93506.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="yellow_information_icon-icons.com_59572x161" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\yellow_information_icon-icons.com_59572x161.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Editar x16(2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Editar x16(2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="efe Prima Ce Pixelado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\efe Prima Ce Pixelado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -223,7 +244,7 @@
   <data name="LOGO PIXELADO1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LOGO PIXELADO1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="efe-Prima-ce-negative-left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\efe-Prima-ce-negative-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ICONO" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ICONO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
