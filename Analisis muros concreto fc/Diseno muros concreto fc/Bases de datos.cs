@@ -201,7 +201,7 @@ namespace Diseno_muros_concreto_fc
         public static void Datos_Flexion()
         {
             List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "Ht(m)", "Load", "P (Tonf)", "M3 (Tonf-m)","Fa"+Environment.NewLine+"(kgf/cm²)",
-                "Fv"+Environment.NewLine+"(kgf/cm²)","σ max"+Environment.NewLine+"(kgf/cm²)","σ min"+Environment.NewLine+"(kgf/cm²)","σ max/f'c"+Environment.NewLine+"%","C (m)","L_Conf" + Environment.NewLine+"(cm)","Error"};
+                "Fv"+Environment.NewLine+"(kgf/cm²)","σ max"+Environment.NewLine+"(kgf/cm²)","σ min"+Environment.NewLine+"(kgf/cm²)","σ max/f'c"+Environment.NewLine+"%","C (cm)","L_Conf" + Environment.NewLine+"(cm)","Error"};
             List<Muro> Lista_ordenada = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Listas_Programa.Texto_combo).ToList();
             DataTable T_Flexion = new DataTable("Flexion");
             int Pos, X;
@@ -275,7 +275,7 @@ namespace Diseno_muros_concreto_fc
 
         public static void Datos_resumen()
         {
-            List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "rho t", "rho l","Malla", "C" + Environment.NewLine+"(m)","Lebe_Izq"+Environment.NewLine+"(cm)",
+            List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "rho t", "rho l","Malla", "C" + Environment.NewLine+"(cm)","Lebe_Izq"+Environment.NewLine+"(cm)",
                 "Lebe_Der"+Environment.NewLine+"(cm)","Zc_Izq"+Environment.NewLine+"(cm)" ,"Zc_der"+Environment.NewLine+"(cm)"};
             List<Muros_Consolidados> Lista_ordenada = Listas_Programa.Muros_Consolidados_Listos.FindAll(x => x.Pier_name == Listas_Programa.Texto_combo).ToList();
 

@@ -22,7 +22,7 @@ Partial Class Muros_Alzados
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGrid_Muros = New System.Windows.Forms.DataGridView()
         Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Similars = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -48,13 +48,13 @@ Partial Class Muros_Alzados
         Me.DataGrid_Muros.GridColor = System.Drawing.SystemColors.Control
         Me.DataGrid_Muros.Location = New System.Drawing.Point(12, 26)
         Me.DataGrid_Muros.Name = "DataGrid_Muros"
-        Me.DataGrid_Muros.Size = New System.Drawing.Size(251, 343)
+        Me.DataGrid_Muros.Size = New System.Drawing.Size(263, 343)
         Me.DataGrid_Muros.TabIndex = 1
         '
         'Muros
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Muros.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Muros.DefaultCellStyle = DataGridViewCellStyle2
         Me.Muros.HeaderText = "Muros"
         Me.Muros.Name = "Muros"
         '
@@ -94,7 +94,7 @@ Partial Class Muros_Alzados
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(275, 23)
+        Me.Panel1.Size = New System.Drawing.Size(287, 23)
         Me.Panel1.TabIndex = 13
         '
         'PictureBox2
@@ -102,7 +102,7 @@ Partial Class Muros_Alzados
         Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox2.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.close_button
-        Me.PictureBox2.Location = New System.Drawing.Point(248, 6)
+        Me.PictureBox2.Location = New System.Drawing.Point(269, 3)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(10, 10)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -133,7 +133,7 @@ Partial Class Muros_Alzados
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(275, 406)
+        Me.ClientSize = New System.Drawing.Size(287, 406)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button2)

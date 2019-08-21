@@ -279,6 +279,7 @@
             this.button10.TabIndex = 7;
             this.button10.Text = "     Generar";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // label9
             // 

@@ -14,7 +14,6 @@ Public Class ExportExcel
         Dim Lector As New StreamReader(Ruta_archivo_1)
         Dim LineText As String
 
-
         Do
             LineText = Lector.ReadLine()
             Lista_TextoPlano.Add(LineText)
@@ -45,12 +44,9 @@ Public Class ExportExcel
         For i = Inicio_Reporte To Final_Reporte : Lista_Reporte.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
 
 
-
-
-
-
-
-
+        Lista_ShearDesing = Lista_ShearDesing.OrderBy(Function(x) x(1)).ToList
+        Lista_FlexuralStress = Lista_FlexuralStress.OrderBy(Function(x) x(1)).ToList
+        Lista_Reporte = Lista_Reporte.OrderBy(Function(x) x(1)).ToList
     End Sub
 
     Sub Exportar(ByVal Route_File As String)

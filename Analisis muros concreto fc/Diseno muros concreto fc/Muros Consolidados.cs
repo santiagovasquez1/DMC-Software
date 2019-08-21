@@ -52,6 +52,12 @@ namespace Diseno_muros_concreto_fc
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
 
+        //Variables para el calculo de peso aproximado
+
+        public List<double> Peso_Long = new List<double>();
+        public List<double> Peso_Transv = new List<double>();
+        public List<double> Peso_malla = new List<double>();
+
         public static explicit operator Diseño_de_muros_concreto_V2.Muros_Consolidados(Muros_Consolidados v)
         {
             Diseño_de_muros_concreto_V2.Muros_Consolidados muro_i = new Diseño_de_muros_concreto_V2.Muros_Consolidados
@@ -100,81 +106,196 @@ namespace Diseno_muros_concreto_fc
             return muro_i;
             //throw new NotImplementedException();
         }
-    }
-    public class Strops
-    {
-        static void Reemplazar_espacios(ref string a)
+        
+        public void Calculo_Peso_Long_malla()
         {
-            Console.WriteLine("Reemplaza espacios con guiones");
-            a = a.Replace(' ', '-');
+            double Traslapo,Peso_long_i,Peso_malla_i;
+
+            for (int i = 0; i < Stories.Count; i++)
+            {
+                Traslapo = 1+Factores_Traslapo(Bw[i] / 100, Rho_l[i]);
+                Peso_long_i = Traslapo * As_Long[i] * Hw[i] * 7850 / (Math.Pow(100, 3));
+                Peso_malla_i = Peso_unit_Malla(Malla[i]) * ((lw[i] - 10) * (Hw[i] + 0.30)) / Math.Pow(100, 2);
+                
+                Peso_Long.Add(Peso_long_i);
+                Peso_malla.Add(Peso_malla_i);
+            }
+        }
+        public void Calculo_Peso_transv()
+        {
+
         }
 
-        static void Eliminar_espacios(ref string a)
+        public double Factores_Traslapo(double bw,double pl)
         {
-            string temp = "";
-            int i;
+            double a, d, e;
+            double factor = 1;
 
-            Console.WriteLine("Elimina espacios");
-
-            for (i = 0; i < a.Length; i++)
+            if (bw == 0.12 & bw < 0.135) factor = 23.32 / 100;
+            if (bw >= 0.135 & bw < 0.175) factor = 20.79 / 100;
+            if (bw >= 0.175 & bw < 0.23) factor = 23.68 / 100;
+            if (bw >= 0.23 & bw < 0.28) factor = 30.62 / 100;
+            if (bw >= 0.28)
             {
-                if (a[i] != ' ') temp += a[i];
+                a = 3493.5;
+                d = -26.287;
+                e = 0.2349;
+                factor = (a * Math.Pow(pl,4)) + (d * pl) + e;
             }
 
-            a = temp;
+            return factor;
         }
 
-
-        static void Invierte(ref string a)
+        public double Peso_unit_Malla(string Malla_i)
         {
-            string temp = "";
-            int i, j;
+            double Peso_malla = 0;
+            switch (Malla_i)
+            {
+                case "Sin Malla":
+                    Peso_malla = 0;
+                    break;
+                case "D84":
+                    Peso_malla =1.32;
+                    break;
+                case "D106":
+                    Peso_malla = 1.67;
+                    break;
+                case "D131":
+                    Peso_malla = 2.06;
+                    break;
+                case "D158":
+                    Peso_malla = 2.487;
+                    break;
+                case "D188":
+                    Peso_malla = 2.96;
+                    break;
+                case "D221":
+                    Peso_malla = 3.48;
+                    break;
+                case "D257":
+                    Peso_malla = 4.03;
+                    break;
 
-            Console.WriteLine("Invierte una cadena.");
-            for (j = 0, i = a.Length - 1; i >= 0; i--, j++)
-                temp += a[i];
-            a = temp;
+                case "DD84":
+                    Peso_malla = 1.32 * 2;
+                    break;
+                case "DD106":
+                    Peso_malla = 1.67 * 2;
+                    break;
+                case "DD131":
+                    Peso_malla = 2.06 * 2;
+                    break;
+                case "DD158":
+                    Peso_malla = 2.487* 2;
+                    break;
+                case "DD188":
+                    Peso_malla = 2.96 * 2;
+                    break;
+                case "DD221":
+                    Peso_malla = 3.48 * 2;
+                    break;
+                case "DD257":
+                    Peso_malla = 4.03 * 2;
+                    break;
+            }
+            return Peso_malla;
         }
 
-
-        public static void main() //Ejemplo de distribucion multiple de delegados
+        public double Peso_ebe(double bw,double fc,double lebe,double Hw,string Capacidad)
         {
+            double Ast1, Ast2, G_As1, G_As2, LG_As1, LG_As2;
+            double Long_Estribo;
+            double S_inicial; //Cm
+            float delta;
+            int pasos;
+            double S_min;
 
-            //Constructor de delegados
-            Strmod StrOp; //Construye una instancia del delegado
-            Strmod ReemplazaSp = Reemplazar_espacios;
-            Strmod Eliminarsp = Eliminar_espacios;
-            Strmod InvierteStr = Invierte;
+            List<int> Num_ramas_1 = new List<int>();    //Numero de ramas a lo largo del muro para Ast1
+            List<int> Num_ramas_2 = new List<int>();    //Numero de ramas a lo largo del muro para Ast2
+            List<double> Separacion_L_1 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast1
+            List<double> Separacion_L_2 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast2
 
-            string Str = "Esta es una prueba";
+            List<int> Num_ramas_T1 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast1
+            List<int> Num_ramas_T2 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast2
 
-            //Establecer distribucion multiple
+            List<int> Num_Ramas_V = new List<int>();    //Numero de ramas en altura del muro para ambos casos de ast
+            List<double> GT_As1 = new List<double>();   //Longitud total de los gancho para As1, bajo cada una de las variaciones de la separacion
+            List<double> GT_As2 = new List<double>();   //Longitud total de los gancho para As2, bajo cada una de las variaciones de la separacion
 
-            StrOp = ReemplazaSp;
-            StrOp += InvierteStr;
+            List<double> Factor_Ast1 = new List<double>();
+            List<double> Factor_Ast2 = new List<double>();
 
-            //invocacion distribucion multiple
-            StrOp(ref Str);
-            Console.WriteLine("Cadena resultante" + Str);
-            Console.WriteLine("");
+            List<double> P_As1 = new List<double>();     //'Peso total As1
+            List<double> P_As2 = new List<double>();     //'Peso total As1
 
-            //Elimina reemplazo y agrega remover
-            StrOp -= ReemplazaSp;
-            StrOp += Eliminarsp;
+            double Sep_max;
 
-            Str = "Esta es una prueba"; //Reestablece la cadena
+            Ast1 = 0.71; //'Estribo #3
+            Ast2 = 1.29; //'Estribo #4
+            delta = 0.5f;
 
-            //invocacion distribucion multiple
-            StrOp(ref Str);
-            Console.WriteLine("Cadena resultante" + Str);
-            Console.WriteLine("");
+            S_min = Capacidad == "DES" ? 5 : 7.5;
 
+            G_As1 = bw - 2 * 2 + 2 * 17; //'Longitud del gancho transversal
+            G_As2 = bw - 2 * 2 + 2 * 20.5; //'Longitud del gancho transversal
+
+            LG_As1 = lebe - 2 * 2 + 2 * 17; //'Longitud del gancho longitudinal
+            LG_As2 = lebe - 2 * 2 + 2 * 20.5; //'Longitud del gancho longitudinal
+
+            //'Calculo de la separacion inicial de los estribos
+            if (Capacidad == "DES")
+            {
+                S_inicial = bw / 3;
+                if (S_inicial < S_min)
+                {
+                    S_inicial = S_min;
+                }
+                pasos = Convert.ToInt32((S_inicial - S_min) / delta);
+            }
+            else
+            {
+
+                S_inicial = bw / 2;
+                if (S_inicial <= S_min)
+                {
+                    S_inicial = S_min;
+                }
+                pasos = Convert.ToInt32((S_inicial - S_min) / delta);
+            }
+
+            if (pasos == 0) pasos = 1;
+            S_inicial = S_min;
+
+            for (int j = 0; j < pasos; j++)
+            {
+                //Caso 1 estribos #3
+                Num_ramas_1.Add(Ramas_cuantia_volumetrica(lebe, fc, Ast1, Capacidad, S_inicial));
+
+            }
+
+                return 0;
         }
 
-    }
+        public int Ramas_cuantia_volumetrica(double Lc, double fc, double As_t, string capacidad, double sep)
+        {
+            double Ash;
+            int Ramas;
+
+            if (capacidad == "DES")
+            {
+                Ash = 0.09 * sep * Lc * fc / 4220;
+            }
+            else
+            {
+                Ash = 0.06 * sep * Lc * fc / 4220;
+            }
+
+            Ramas = Convert.ToInt32(Math.Round((Ash / As_t) + 1, 0));
+            return Ramas;
+        }
+    }  
 
 }
-
 
 namespace Diseno_muros_concreto_fc
 {
@@ -413,8 +534,6 @@ namespace Diseno_muros_concreto_fc
                 if (Muro_i.Zc_Der[i] < 30) Muro_i.Zc_Der[i] = 0;
                 if (Muro_i.Zc_Izq[i] < 30) Muro_i.Zc_Izq[i] = 0;
 
-
-
             }
 
         }
@@ -456,12 +575,13 @@ namespace Diseno_muros_concreto_fc
         {
             string Malla;
             Malla = "Sin Malla";
-
+           
             if (espesor >= 8 & espesor < 10)
             {
                 if (rt >= 0.0012 & rt < 0.0020 & rl < 0.01) Malla = "D106";
                 if (rt >= 0.0020 & rt < 0.0025 & rl < 0.01) Malla = "D188";
                 if (rt >= 0.0025 & rl < 0.01) Malla = "DD106";
+               
             }
 
             if (espesor >= 10 & espesor < 12)

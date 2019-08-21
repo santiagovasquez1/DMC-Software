@@ -30,6 +30,7 @@ namespace Diseno_muros_concreto_fc
         [DllImport("dwmapi.dll")]
         public static extern int DwmIsCompositionEnabled(ref int pfEnabled);
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+
         private static extern IntPtr CreateRoundRectRgn
         (
             int nLeftRect,
@@ -147,8 +148,6 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-
-
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -179,12 +178,8 @@ namespace Diseno_muros_concreto_fc
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-
-
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
-            Radio_Dmo.Select();
             Panel Panel_i = new Panel();
 
             Fase1 Formulario1 = new Fase1();
@@ -198,41 +193,51 @@ namespace Diseno_muros_concreto_fc
             DialogResult result;
             string Mensaje;
 
-            try
+            if (Radio_Dmo.Checked==true | Radio_Des.Checked == true)
             {
-                Listas_Programa.Muros_insuficientes = new List<Muro>();
-
-                for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
+                try
                 {
-                    Listas_Programa.Lista_Muros[i].Diseno_Cortante();
-                    if (Listas_Programa.Lista_Muros[i].Error_Cortante.Exists(x1 => x1 == "V2 mayor que Phi Vn max") == true ^ Listas_Programa.Lista_Muros[i].Error_Cortante.Exists(x1 => x1 == "Phi Vs mayor a Phi Vs max") == true) Listas_Programa.Muros_insuficientes.Add(Listas_Programa.Lista_Muros[i]);
+                    Listas_Programa.Muros_insuficientes = new List<Muro>();
 
-                }
-
-                if (Listas_Programa.Muros_insuficientes.Count > 0)
-                {
-                    Mensaje = "Los muros :";
-
-                    for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                    for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
-                        if (i < Listas_Programa.Muros_insuficientes.Count - 1)
-                        {
-                            Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
-                        }
-                        else
-                        {
-                            Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
-                        }
+                        Listas_Programa.Lista_Muros[i].Diseno_Cortante();
+                        if (Listas_Programa.Lista_Muros[i].Error_Cortante.Exists(x1 => x1 == "V2 mayor que Phi Vn max") == true ^ Listas_Programa.Lista_Muros[i].Error_Cortante.Exists(x1 => x1 == "Phi Vs mayor a Phi Vs max") == true) Listas_Programa.Muros_insuficientes.Add(Listas_Programa.Lista_Muros[i]);
+
                     }
 
-                    Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
-                    result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                    if (Listas_Programa.Muros_insuficientes.Count > 0)
+                    {
+                        Mensaje = "Los muros :";
+
+                        for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                        {
+                            if (i < Listas_Programa.Muros_insuficientes.Count - 1)
+                            {
+                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
+                            }
+                            else
+                            {
+                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
+                            }
+                        }
+
+                        Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
+                        result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                    }
+
+                }
+                catch
+                {
+
                 }
             }
-            catch
+            else
             {
-
+                Mensaje = "Seleccione la capacidad de dicipación de la estructura";
+                result = MessageBox.Show(Mensaje, "efe Prima Ce", buttons);
             }
+            
         }
 
         private void B_Report_Click(object sender, EventArgs e)
@@ -295,7 +300,7 @@ namespace Diseno_muros_concreto_fc
             {
                 Radio_Des.Checked = true;
             }
-
+            Generar.Enabled = true;
         }
 
         private void InfoGeneralToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,43 +337,51 @@ namespace Diseno_muros_concreto_fc
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
             string Mensaje;
-
-            try
+            if (Radio_Dmo.Checked == true | Radio_Des.Checked == true)
             {
-                Listas_Programa.Muros_insuficientes = new List<Muro>();
-
-                for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
+                try
                 {
-                    Listas_Programa.Lista_Muros[i].Flexural_Analisis();
+                    Listas_Programa.Muros_insuficientes = new List<Muro>();
 
-                }
-
-
-                if (Listas_Programa.Muros_insuficientes.Count > 0)
-                {
-                    Mensaje = "Los muros :";
-
-                    for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                    for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
-                        if (i < Listas_Programa.Muros_insuficientes.Count - 1)
-                        {
-                            Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
-                        }
-                        else
-                        {
-                            Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
-                        }
+                        Listas_Programa.Lista_Muros[i].Flexural_Analisis();
                     }
 
-                    Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
-                    result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
-                }
-                B_Report.Enabled = true;
-            }
-            catch
-            {
 
+                    if (Listas_Programa.Muros_insuficientes.Count > 0)
+                    {
+                        Mensaje = "Los muros :";
+
+                        for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                        {
+                            if (i < Listas_Programa.Muros_insuficientes.Count - 1)
+                            {
+                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
+                            }
+                            else
+                            {
+                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
+                            }
+                        }
+
+                        Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
+                        result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                    }
+                    B_Report.Enabled = true;
+                }
+                catch
+                {
+
+                }
             }
+            else
+            {
+                Mensaje = "Seleccione la capacidad de dicipación de la estructura";
+                result = MessageBox.Show(Mensaje, "efe Prima Ce", buttons);
+            }
+                       
+
         }
 
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -465,9 +478,6 @@ namespace Diseno_muros_concreto_fc
         {
             Diseño_de_muros_concreto_V2.Similar VentanaSimilares = new Diseño_de_muros_concreto_V2.Similar();
             VentanaSimilares.Show();
-
-
-
         }
 
 
@@ -560,15 +570,16 @@ namespace Diseno_muros_concreto_fc
 
             List<Diseño_de_muros_concreto_V2.Muros_Consolidados> L_Muro_aux=new List<Diseño_de_muros_concreto_V2.Muros_Consolidados>();
 
-            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
-            {
-                L_Muro_aux.Add((Diseño_de_muros_concreto_V2.Muros_Consolidados)muro_i);
-            }
+            //foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            //{
+            //    L_Muro_aux.Add((Diseño_de_muros_concreto_V2.Muros_Consolidados)muro_i);
+            //}
 
             Diseño_de_muros_concreto_V2.Muros_Alzados Muros_graficar = new Diseño_de_muros_concreto_V2.Muros_Alzados();
-            //Diseño_de_muros_concreto_V2.Muros_Alzados Muros_graficar = new Diseño_de_muros_concreto_V2.Muros_Alzados(L_Muro_aux);
-            Muros_graficar.Show();
+            Muros_graficar.ShowDialog();
         }
+
+ 
     }
 }
 

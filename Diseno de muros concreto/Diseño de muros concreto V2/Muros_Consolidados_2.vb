@@ -69,7 +69,6 @@ Public Class Muros_Consolidados
             Next
 
 
-
             For i = 0 To Malla.Count - 1
                 Dim NoMallas As Integer = 0
                 For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
@@ -92,8 +91,6 @@ Public Class Muros_Consolidados
                 MallasIndv.Add(MallaStr)
 
             Next
-
-
 
 
             Dim VectoIndices As New List(Of Integer)
@@ -152,26 +149,9 @@ Public Class Muros_Consolidados
 
             Next
 
-
-
-
-
-
-
-
-
-
-
-
         End If
 
-
-
-
     End Sub
-
-
-
 
 
     Public Sub Calculo_H_acumulado()

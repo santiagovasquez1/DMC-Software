@@ -60,7 +60,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.LMuros = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.Generar = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -154,7 +154,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -178,7 +178,7 @@
             // 
             this.nuevoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
@@ -186,7 +186,7 @@
             // 
             this.abrirToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -194,7 +194,7 @@
             // 
             this.guardarToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
@@ -202,7 +202,7 @@
             // 
             this.guardarComoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.guardarComoToolStripMenuItem.Text = "Guardar como";
             this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
@@ -211,14 +211,14 @@
             this.exportarMemoriasToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exportarMemoriasToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.exportarMemoriasToolStripMenuItem.Name = "exportarMemoriasToolStripMenuItem";
-            this.exportarMemoriasToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.exportarMemoriasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportarMemoriasToolStripMenuItem.Text = "Exportar memorias";
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -333,7 +333,7 @@
             this.Panel6.Controls.Add(this.label7);
             this.Panel6.Controls.Add(this.LMuros);
             this.Panel6.Controls.Add(this.label10);
-            this.Panel6.Controls.Add(this.button6);
+            this.Panel6.Controls.Add(this.Generar);
             this.Panel6.Controls.Add(this.label11);
             this.Panel6.Controls.Add(this.button5);
             this.Panel6.Controls.Add(this.button4);
@@ -428,23 +428,22 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "|";
             // 
-            // button6
+            // Generar
             // 
-            this.button6.Enabled = false;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
-            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
-            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button6.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Crearx16;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(501, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(82, 24);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "     Generar";
-            this.button6.UseVisualStyleBackColor = true;
+            this.Generar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
+            this.Generar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
+            this.Generar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
+            this.Generar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Generar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Generar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Generar.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Crearx16;
+            this.Generar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Generar.Location = new System.Drawing.Point(501, 2);
+            this.Generar.Name = "Generar";
+            this.Generar.Size = new System.Drawing.Size(82, 24);
+            this.Generar.TabIndex = 7;
+            this.Generar.Text = "     Generar";
+            this.Generar.UseVisualStyleBackColor = true;
             // 
             // label11
             // 
@@ -840,7 +839,7 @@
         internal System.Windows.Forms.Label label7;
         internal System.Windows.Forms.ComboBox LMuros;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button Generar;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
