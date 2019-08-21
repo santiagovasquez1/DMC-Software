@@ -113,6 +113,16 @@ namespace Diseno_muros_concreto_fc.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap close_button2 {
+            get {
+                object obj = ResourceManager.GetObject("close-button2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Crearx16 {
             get {
                 object obj = ResourceManager.GetObject("Crearx16", resourceCulture);
@@ -466,6 +476,16 @@ namespace Diseno_muros_concreto_fc.Properties {
         internal static System.Drawing.Bitmap Xx16 {
             get {
                 object obj = ResourceManager.GetObject("Xx16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Xx161 {
+            get {
+                object obj = ResourceManager.GetObject("Xx161", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

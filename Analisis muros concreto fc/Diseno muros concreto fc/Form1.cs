@@ -497,7 +497,7 @@ namespace Diseno_muros_concreto_fc
         private void Button10_Click(object sender, EventArgs e)
         {
 
-            Application.Exit();
+            this.Close();
 
         }
 
@@ -534,10 +534,7 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-        private void Panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+     
 
         private void VariablesDeDibujoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -601,7 +598,15 @@ namespace Diseno_muros_concreto_fc
             ExportMemorias();
         }
 
- 
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Generar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

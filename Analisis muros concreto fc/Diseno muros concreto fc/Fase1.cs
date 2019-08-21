@@ -231,11 +231,29 @@ namespace Diseno_muros_concreto_fc
 
         private void button10_Click(object sender, EventArgs e)
         {
-            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
-            {
+
+            
+
+             foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+             {
+                muro_i.Peso_Long.Clear();
+                muro_i.Peso_malla.Clear();
+                muro_i.Peso_Transv.Clear();
+
                 muro_i.Calculo_Peso_Aprox();
-                
-            }
+             }
+
+      
+
+            CantidadesAproximadas formCantidades = new CantidadesAproximadas();
+            formCantidades.ShowDialog();
+
+
+
+
+
+
+
         }
     }
 }

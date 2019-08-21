@@ -22,16 +22,16 @@ Partial Class Muros_Alzados
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGrid_Muros = New System.Windows.Forms.DataGridView()
-        Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Similars = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Similars = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,20 +50,6 @@ Partial Class Muros_Alzados
         Me.DataGrid_Muros.Name = "DataGrid_Muros"
         Me.DataGrid_Muros.Size = New System.Drawing.Size(263, 343)
         Me.DataGrid_Muros.TabIndex = 1
-        '
-        'Muros
-        '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Muros.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Muros.HeaderText = "Muros"
-        Me.Muros.Name = "Muros"
-        '
-        'Similars
-        '
-        Me.Similars.HeaderText = "Graficar"
-        Me.Similars.Name = "Similars"
-        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Similars.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
         'Button2
         '
@@ -97,18 +83,6 @@ Partial Class Muros_Alzados
         Me.Panel1.Size = New System.Drawing.Size(287, 23)
         Me.Panel1.TabIndex = 13
         '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox2.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.close_button
-        Me.PictureBox2.Location = New System.Drawing.Point(269, 3)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(10, 10)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 13
-        Me.PictureBox2.TabStop = False
-        '
         'Label9
         '
         Me.Label9.AutoSize = True
@@ -128,6 +102,32 @@ Partial Class Muros_Alzados
         Me.Button3.TabIndex = 14
         Me.Button3.Text = "Seleccionar todo"
         Me.Button3.UseVisualStyleBackColor = True
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox2.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.close_button
+        Me.PictureBox2.Location = New System.Drawing.Point(269, 3)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(10, 10)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 13
+        Me.PictureBox2.TabStop = False
+        '
+        'Muros
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Muros.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Muros.HeaderText = "Muro"
+        Me.Muros.Name = "Muros"
+        '
+        'Similars
+        '
+        Me.Similars.HeaderText = "Graficar"
+        Me.Similars.Name = "Similars"
+        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Similars.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
         'Muros_Alzados
         '
@@ -153,12 +153,12 @@ Partial Class Muros_Alzados
     End Sub
 
     Friend WithEvents DataGrid_Muros As DataGridView
-    Friend WithEvents Muros As DataGridViewTextBoxColumn
-    Friend WithEvents Similars As DataGridViewCheckBoxColumn
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Button3 As Button
+    Friend WithEvents Muros As DataGridViewTextBoxColumn
+    Friend WithEvents Similars As DataGridViewCheckBoxColumn
 End Class

@@ -93,10 +93,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Diseno_muros_concreto_fc.Properties.Resources.PRUEBA5;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 25);
+            this.pictureBox1.Image = global::Diseno_muros_concreto_fc.Properties.Resources.efe_Prima_Ce_Pixelado;
+            this.pictureBox1.Location = new System.Drawing.Point(107, 18);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(452, 269);
+            this.pictureBox1.Size = new System.Drawing.Size(298, 277);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -126,13 +126,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

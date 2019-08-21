@@ -15,6 +15,7 @@ namespace Diseno_muros_concreto_fc
         public static string Ruta_archivo;
         public static string Ruta_Carpeta;
         public static List<Muros_Consolidados> Muros_Consolidados_Listos;
+        public static string Area_ParaTenorApprox="";
 
     }
 }
