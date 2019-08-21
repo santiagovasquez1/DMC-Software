@@ -107,9 +107,12 @@ namespace Diseno_muros_concreto_fc
             //throw new NotImplementedException();
         }
         
-        public void Calculo_Peso_Long_malla()
+        public void Calculo_Peso_Aprox()
         {
             double Traslapo,Peso_long_i,Peso_malla_i;
+            double P_LD, P_LI;
+            double P_ZD, P_ZI;
+            double suma_transv;
 
             for (int i = 0; i < Stories.Count; i++)
             {
@@ -119,11 +122,16 @@ namespace Diseno_muros_concreto_fc
                 
                 Peso_Long.Add(Peso_long_i);
                 Peso_malla.Add(Peso_malla_i);
-            }
-        }
-        public void Calculo_Peso_transv()
-        {
 
+                P_LI = Lebe_Izq[i] > 0 ? Peso_ebe(Bw[i], fc[i], Lebe_Izq[i], Hw[i], Listas_Programa.Capacidad) : 0;
+                P_LD = Lebe_Der[i] > 0 ? Peso_ebe(Bw[i], fc[i], Lebe_Der[i], Hw[i], Listas_Programa.Capacidad) : 0;
+                P_ZI = Zc_Izq[i] > 0 ? Peso_zc(Bw[i], Listas_Programa.Capacidad) * (Zc_Izq[i] / 100) : 0;
+                P_ZD = Zc_Der[i] > 0 ? Peso_zc(Bw[i], Listas_Programa.Capacidad) * (Zc_Der[i] / 100) : 0;
+
+                suma_transv = P_LI + P_LD + P_ZI + P_ZD;
+                Peso_Transv.Add(suma_transv);
+            }
+            
         }
 
         public double Factores_Traslapo(double bw,double pl)
@@ -203,12 +211,12 @@ namespace Diseno_muros_concreto_fc
 
         public double Peso_ebe(double bw,double fc,double lebe,double Hw,string Capacidad)
         {
-            double Ast1, Ast2, G_As1, G_As2, LG_As1, LG_As2;
-            double Long_Estribo;
+            double Ast1, Ast2, G_As1, G_As2, LG_As1, LG_As2;  
             double S_inicial; //Cm
             float delta;
             int pasos;
             double S_min;
+            double P_ebe;
 
             List<int> Num_ramas_1 = new List<int>();    //Numero de ramas a lo largo del muro para Ast1
             List<int> Num_ramas_2 = new List<int>();    //Numero de ramas a lo largo del muro para Ast2
@@ -228,7 +236,7 @@ namespace Diseno_muros_concreto_fc
             List<double> P_As1 = new List<double>();     //'Peso total As1
             List<double> P_As2 = new List<double>();     //'Peso total As1
 
-            double Sep_max;
+            double Sep_max=0;
 
             Ast1 = 0.71; //'Estribo #3
             Ast2 = 1.29; //'Estribo #4
@@ -268,12 +276,73 @@ namespace Diseno_muros_concreto_fc
 
             for (int j = 0; j < pasos; j++)
             {
-                //Caso 1 estribos #3
-                Num_ramas_1.Add(Ramas_cuantia_volumetrica(lebe, fc, Ast1, Capacidad, S_inicial));
+                GT_As1.Add(0);
+                P_As1.Add(0);
 
+                GT_As2.Add(0);
+                P_As2.Add(0);
+
+                Num_ramas_1.Add(0);
+                Num_ramas_T1.Add(0);
+
+                Num_ramas_2.Add(0);
+                Num_ramas_T2.Add(0);
+
+                Separacion_L_1.Add(0);
+                Separacion_L_2.Add(0);
+
+                Num_Ramas_V.Add(Convert.ToInt32(Math.Round((Hw - 10) / S_inicial, 0) + 1));
+
+                //Caso 1 estribos #3
+                Num_ramas_1[j] = Ramas_cuantia_volumetrica(lebe, fc, Ast1, Capacidad, S_inicial);
+                Num_ramas_T1[j] = Ramas_cuantia_volumetrica(bw, fc, Ast1, Capacidad, S_inicial) - 2;
+
+                if (Num_ramas_1.Last() != 0) Separacion_L_1[j] = (lebe - 2 * 3.8) / Num_ramas_1.Last();
+                if (Num_ramas_T1.Last() < 0) Num_ramas_T1[j] = 0;
+
+                GT_As1[j]= Num_Ramas_V[j] * ((G_As1 * Num_ramas_1[j]) + (LG_As1 * (Num_ramas_T1[j] + 2)));
+                P_As1[j] = GT_As1[j] * Ast1 * 7850 / Math.Pow(100, 3);
+
+                //Caso 2 estribos #4
+                Num_ramas_2[j] = Ramas_cuantia_volumetrica(lebe, fc, Ast1, Capacidad, S_inicial);
+                Num_ramas_T2[j] = Ramas_cuantia_volumetrica(bw, fc, Ast1, Capacidad, S_inicial) - 2;
+
+                if (Num_ramas_2.Last() != 0) Separacion_L_2[j] = (lebe - 2 * 3.8) / Num_ramas_2.Last();
+                if (Num_ramas_T2.Last() < 0) Num_ramas_T2[j] = 0;
+
+                GT_As2[j] = Num_Ramas_V[j] * ((G_As2 * Num_ramas_2[j]) + (LG_As2 * (Num_ramas_T2[j] + 2)));
+                P_As2[j] = GT_As2[j] * Ast2 * 7850 / Math.Pow(100, 3);
+
+                if (Separacion_L_1[j] >= Sep_max) Sep_max = Separacion_L_1[j];
+                if (Separacion_L_2[j] >= Sep_max) Sep_max = Separacion_L_2[j];
+
+                S_inicial += delta;
             }
 
-                return 0;
+            P_ebe = P_As2.Min() < P_As1.Min() ? P_As2.Min() : P_As1.Min();
+            return P_ebe;
+        }
+
+        public double Peso_zc(double bw,string Capacidad)
+        {
+            double P_zc=0;
+            //El factor debe multiplicarse por la longitud del elemento confinado en [m]
+
+            //Peso en estructuras DES
+            if (bw == 12 & bw < 13.5 & Capacidad == "DES") P_zc = 49.6 * 0.95;
+            if (bw >= 13.5 & bw < 17.5 & Capacidad == "DES") P_zc = 46.14;
+            if (bw >= 17.5 & bw < 23 & Capacidad == "DES") P_zc = 35.49;
+            if (bw >= 23 & bw < 28.5 & Capacidad == "DES") P_zc = 52.13;
+            if (bw >= 28.5 & Capacidad == "DES") P_zc = 52.13;
+
+            //Peso en estructuras DMO
+            if (bw == 12 & bw < 13.5 & Capacidad == "DMO") P_zc = 43.59;
+            if (bw >= 13.5 & bw < 17.5 & Capacidad == "DMO") P_zc = 43.46;
+            if (bw >= 17.5 & bw < 23 & Capacidad == "DMO") P_zc = 48.46;
+            if (bw >= 23 & bw < 28.5 & Capacidad == "DMO") P_zc = 42.74;
+            if (bw >= 28.5 & Capacidad == "DMO") P_zc = 42.74;
+            
+            return P_zc;
         }
 
         public int Ramas_cuantia_volumetrica(double Lc, double fc, double As_t, string capacidad, double sep)
@@ -290,7 +359,7 @@ namespace Diseno_muros_concreto_fc
                 Ash = 0.06 * sep * Lc * fc / 4220;
             }
 
-            Ramas = Convert.ToInt32(Math.Round((Ash / As_t) + 1, 0));
+            Ramas = Convert.ToInt32(Math.Round(Ash / As_t, 0));
             return Ramas;
         }
     }  

@@ -233,7 +233,8 @@ namespace Diseno_muros_concreto_fc
         {
             foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
-                muro_i.Calculo_Peso_Long_malla();
+                muro_i.Calculo_Peso_Aprox();
+                
             }
         }
     }
