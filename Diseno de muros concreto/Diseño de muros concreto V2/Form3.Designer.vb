@@ -161,7 +161,7 @@ Partial Class f_alzado
         Me.Panel2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1386, 29)
+        Me.Panel2.Size = New System.Drawing.Size(1554, 29)
         Me.Panel2.TabIndex = 21
         '
         'Panel6
@@ -282,6 +282,7 @@ Partial Class f_alzado
         'button5
         '
         Me.button5.BackColor = System.Drawing.Color.Transparent
+        Me.button5.Enabled = False
         Me.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
         Me.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
@@ -306,13 +307,14 @@ Partial Class f_alzado
         Me.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.button4.ForeColor = System.Drawing.Color.White
-        Me.button4.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Autocad_23637x16
+        Me.button4.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Editar_x16_2_
         Me.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.button4.Location = New System.Drawing.Point(247, 3)
         Me.button4.Name = "button4"
         Me.button4.Size = New System.Drawing.Size(82, 24)
         Me.button4.TabIndex = 4
         Me.button4.Text = "     AutoCAD"
+        Me.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.button4.UseVisualStyleBackColor = False
         '
         'Button3
@@ -921,6 +923,7 @@ Partial Class f_alzado
         '
         'Panel8
         '
+        Me.Panel8.AutoScroll = True
         Me.Panel8.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.pb_Alzado)
@@ -934,9 +937,9 @@ Partial Class f_alzado
         '
         Me.pb_Alzado.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.pb_Alzado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pb_Alzado.Location = New System.Drawing.Point(8, 35)
+        Me.pb_Alzado.Location = New System.Drawing.Point(8, 38)
         Me.pb_Alzado.Name = "pb_Alzado"
-        Me.pb_Alzado.Size = New System.Drawing.Size(551, 654)
+        Me.pb_Alzado.Size = New System.Drawing.Size(1207, 634)
         Me.pb_Alzado.TabIndex = 12
         Me.pb_Alzado.TabStop = False
         '
@@ -948,7 +951,7 @@ Partial Class f_alzado
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(0, 0)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(567, 29)
+        Me.Panel9.Size = New System.Drawing.Size(1215, 29)
         Me.Panel9.TabIndex = 19
         '
         'Label5
@@ -986,7 +989,7 @@ Partial Class f_alzado
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1386, 760)
+        Me.ClientSize = New System.Drawing.Size(1554, 760)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel4)
@@ -996,6 +999,7 @@ Partial Class f_alzado
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.Name = "f_alzado"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Diseño Muros de Concreto"

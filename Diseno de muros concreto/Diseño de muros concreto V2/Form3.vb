@@ -32,6 +32,13 @@ Public Class f_alzado
     Public Sub f_alzado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
+        Dim Tooltip As New ToolTip
+
+        Tooltip.SetToolTip(Button3, "Agregar columna de alzado (Ctrl + Q)")
+        Tooltip.SetToolTip(button4, "Dibujar Alzado de Muros en AutoCAD (Ctrl + W)")
+
+
+
         Dim Muros_Distintos As New List(Of String)
         Cargar_areas_refuerzo()
 
@@ -436,14 +443,16 @@ Public Class f_alzado
         CopyToClipboard(data_grid)
     End Sub
 
-    Public Sub CortarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CortarToolStripMenuItem.Click
+    Private Sub Cortar()
         CopyToClipboard(data_grid)
         For counter As Integer = 0 To data_grid.SelectedCells.Count - 1
             data_grid.SelectedCells(counter).Value = String.Empty
         Next
     End Sub
-
-    Public Sub PegarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PegarToolStripMenuItem.Click
+    Public Sub CortarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CortarToolStripMenuItem.Click
+        Cortar()
+    End Sub
+    Private Sub Pegar()
         PasteClipboard(data_grid)
 
         If data_grid.Name = Data_Alzado.Name Then
@@ -456,7 +465,9 @@ Public Class f_alzado
             Next
 
         End If
-
+    End Sub
+    Public Sub PegarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PegarToolStripMenuItem.Click
+        Pegar()
     End Sub
 
     Public Sub PasteClipboard(datos As DataGridView)
@@ -539,6 +550,10 @@ Public Class f_alzado
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles button4.Click
+        DibujarAlzadoAutoCAD()
+    End Sub
+
+    Private Sub DibujarAlzadoAutoCAD()
 
         Dim Auxiliar As Datos_Refuerzo
         Dim alzado_lista_aux As List(Of alzado_muro) = New List(Of alzado_muro)
@@ -549,7 +564,6 @@ Public Class f_alzado
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
         Else
-
 
             For i = 0 To Lista_graficar.Count - 1
 
@@ -585,10 +599,13 @@ Public Class f_alzado
 
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo,True)
+        Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
+    End Sub
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Agregar()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Agregar()
         Dim columnas As New DataGridViewTextBoxColumn
 
         If Data_Alzado.Columns.Count <= 2 Then
@@ -608,6 +625,14 @@ Public Class f_alzado
             Data_Alzado.Columns.Add(columnas)
         End If
     End Sub
+
+
+
+
+
+
+
+
 
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
@@ -716,5 +741,26 @@ Public Class f_alzado
 
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
+    End Sub
+
+    Private Sub F_alzado_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyData = Keys.Control + Keys.Q Then
+            Agregar()
+        End If
+
+        If e.KeyData = Keys.Control + Keys.W Then
+            DibujarAlzadoAutoCAD()
+        End If
+
+        If e.KeyData = Keys.Control + Keys.C Then
+            CopyToClipboard(data_grid)
+        End If
+
+        If e.KeyData = Keys.Control + Keys.V Then
+            Pegar()
+        End If
+        If e.KeyData = Keys.Control + Keys.X Then
+            Cortar()
+        End If
     End Sub
 End Class

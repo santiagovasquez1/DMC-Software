@@ -86,20 +86,20 @@ Partial Class Form1
         Me.PegarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panel3 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.cb_cuantiavol = New System.Windows.Forms.Button()
         Me.label2 = New System.Windows.Forms.Label()
         Me.label3 = New System.Windows.Forms.Label()
         Me.label4 = New System.Windows.Forms.Label()
         Me.comboBox2 = New System.Windows.Forms.ComboBox()
         Me.label5 = New System.Windows.Forms.Label()
-        Me.button10 = New System.Windows.Forms.Button()
         Me.label9 = New System.Windows.Forms.Label()
-        Me.button11 = New System.Windows.Forms.Button()
-        Me.button12 = New System.Windows.Forms.Button()
-        Me.button13 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.cb_cuantiavol = New System.Windows.Forms.Button()
+        Me.button10 = New System.Windows.Forms.Button()
+        Me.button11 = New System.Windows.Forms.Button()
+        Me.button12 = New System.Windows.Forms.Button()
+        Me.button13 = New System.Windows.Forms.Button()
         CType(Me.Data_muros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.panel3.SuspendLayout()
@@ -160,7 +160,7 @@ Partial Class Form1
         Me.bwall.Name = "bwall"
         Me.bwall.ReadOnly = True
         Me.bwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.bwall.Width = 46
+        Me.bwall.Width = 51
         '
         'Lwall
         '
@@ -173,7 +173,7 @@ Partial Class Form1
         Me.Lwall.HeaderText = "Lw (cm)"
         Me.Lwall.Name = "Lwall"
         Me.Lwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Lwall.Width = 45
+        Me.Lwall.Width = 50
         '
         'Hwall
         '
@@ -185,7 +185,7 @@ Partial Class Form1
         Me.Hwall.Name = "Hwall"
         Me.Hwall.ReadOnly = True
         Me.Hwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Hwall.Width = 47
+        Me.Hwall.Width = 52
         '
         'EfeCe
         '
@@ -197,7 +197,7 @@ Partial Class Form1
         Me.EfeCe.Name = "EfeCe"
         Me.EfeCe.ReadOnly = True
         Me.EfeCe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EfeCe.Width = 66
+        Me.EfeCe.Width = 73
         '
         'Column1
         '
@@ -211,7 +211,7 @@ Partial Class Form1
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
         Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column1.Width = 30
+        Me.Column1.Width = 33
         '
         'Column2
         '
@@ -225,7 +225,7 @@ Partial Class Form1
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column2.Width = 28
+        Me.Column2.Width = 34
         '
         'DMalla
         '
@@ -252,7 +252,7 @@ Partial Class Form1
         Me.DAs_long.Name = "DAs_long"
         Me.DAs_long.ReadOnly = True
         Me.DAs_long.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DAs_long.Width = 70
+        Me.DAs_long.Width = 78
         '
         'EBE_Izq
         '
@@ -265,7 +265,7 @@ Partial Class Form1
         Me.EBE_Izq.HeaderText = "EBE Izq (cm)"
         Me.EBE_Izq.Name = "EBE_Izq"
         Me.EBE_Izq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EBE_Izq.Width = 67
+        Me.EBE_Izq.Width = 74
         '
         'EBE_Der
         '
@@ -278,7 +278,7 @@ Partial Class Form1
         Me.EBE_Der.HeaderText = "EBE Der (cm)"
         Me.EBE_Der.Name = "EBE_Der"
         Me.EBE_Der.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EBE_Der.Width = 69
+        Me.EBE_Der.Width = 77
         '
         'Column3
         '
@@ -291,7 +291,7 @@ Partial Class Form1
         Me.Column3.HeaderText = "EBE Cent (cm)"
         Me.Column3.Name = "Column3"
         Me.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column3.Width = 74
+        Me.Column3.Width = 82
         '
         'Est_Ebe
         '
@@ -303,7 +303,7 @@ Partial Class Form1
         Me.Est_Ebe.Name = "Est_Ebe"
         Me.Est_Ebe.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.Est_Ebe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Est_Ebe.Width = 54
+        Me.Est_Ebe.Width = 60
         '
         'Sep_EBE
         '
@@ -539,23 +539,6 @@ Partial Class Form1
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "|"
         '
-        'cb_cuantiavol
-        '
-        Me.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cb_cuantiavol.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
-        Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cb_cuantiavol.Location = New System.Drawing.Point(611, 2)
-        Me.cb_cuantiavol.Name = "cb_cuantiavol"
-        Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
-        Me.cb_cuantiavol.TabIndex = 5
-        Me.cb_cuantiavol.Text = "       Cuantia Volumetrica"
-        Me.cb_cuantiavol.UseVisualStyleBackColor = True
-        '
         'label2
         '
         Me.label2.AutoSize = True
@@ -612,24 +595,6 @@ Partial Class Form1
         Me.label5.TabIndex = 8
         Me.label5.Text = "|"
         '
-        'button10
-        '
-        Me.button10.Enabled = False
-        Me.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.button10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.button10.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.button10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.button10.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.button10.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Crearx16
-        Me.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button10.Location = New System.Drawing.Point(509, 3)
-        Me.button10.Name = "button10"
-        Me.button10.Size = New System.Drawing.Size(88, 24)
-        Me.button10.TabIndex = 7
-        Me.button10.Text = "     Generar"
-        Me.button10.UseVisualStyleBackColor = True
-        '
         'label9
         '
         Me.label9.AutoSize = True
@@ -640,60 +605,6 @@ Partial Class Form1
         Me.label9.Size = New System.Drawing.Size(16, 19)
         Me.label9.TabIndex = 6
         Me.label9.Text = "|"
-        '
-        'button11
-        '
-        Me.button11.Enabled = False
-        Me.button11.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.button11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.button11.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.button11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.button11.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.button11.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.yellow_information_icon_icons_com_59572x161
-        Me.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button11.Location = New System.Drawing.Point(341, 2)
-        Me.button11.Name = "button11"
-        Me.button11.Size = New System.Drawing.Size(154, 25)
-        Me.button11.TabIndex = 5
-        Me.button11.Text = "     Procesar Información"
-        Me.button11.UseVisualStyleBackColor = True
-        '
-        'button12
-        '
-        Me.button12.Enabled = False
-        Me.button12.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.button12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.button12.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.button12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.button12.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.button12.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Autocad_23637x16
-        Me.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button12.Location = New System.Drawing.Point(248, 3)
-        Me.button12.Name = "button12"
-        Me.button12.Size = New System.Drawing.Size(82, 24)
-        Me.button12.TabIndex = 4
-        Me.button12.Text = "     AutoCAD"
-        Me.button12.UseVisualStyleBackColor = True
-        '
-        'button13
-        '
-        Me.button13.Enabled = False
-        Me.button13.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.button13.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.button13.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.button13.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.button13.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.button13.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.vcsadded_93506x16
-        Me.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button13.Location = New System.Drawing.Point(150, 3)
-        Me.button13.Name = "button13"
-        Me.button13.Size = New System.Drawing.Size(76, 24)
-        Me.button13.TabIndex = 0
-        Me.button13.Text = "     Agregar"
-        Me.button13.UseVisualStyleBackColor = True
         '
         'Panel1
         '
@@ -727,6 +638,96 @@ Partial Class Form1
         Me.Label6.Size = New System.Drawing.Size(118, 15)
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "Información General"
+        '
+        'cb_cuantiavol
+        '
+        Me.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cb_cuantiavol.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
+        Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cb_cuantiavol.Location = New System.Drawing.Point(611, 2)
+        Me.cb_cuantiavol.Name = "cb_cuantiavol"
+        Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
+        Me.cb_cuantiavol.TabIndex = 5
+        Me.cb_cuantiavol.Text = "       Cuantia Volumetrica"
+        Me.cb_cuantiavol.UseVisualStyleBackColor = True
+        '
+        'button10
+        '
+        Me.button10.Enabled = False
+        Me.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.button10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.button10.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.button10.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.button10.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.button10.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Crearx16
+        Me.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.button10.Location = New System.Drawing.Point(509, 3)
+        Me.button10.Name = "button10"
+        Me.button10.Size = New System.Drawing.Size(88, 24)
+        Me.button10.TabIndex = 7
+        Me.button10.Text = "     Generar"
+        Me.button10.UseVisualStyleBackColor = True
+        '
+        'button11
+        '
+        Me.button11.Enabled = False
+        Me.button11.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.button11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.button11.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.button11.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.button11.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.button11.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.yellow_information_icon_icons_com_59572x161
+        Me.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.button11.Location = New System.Drawing.Point(341, 2)
+        Me.button11.Name = "button11"
+        Me.button11.Size = New System.Drawing.Size(154, 25)
+        Me.button11.TabIndex = 5
+        Me.button11.Text = "     Procesar Información"
+        Me.button11.UseVisualStyleBackColor = True
+        '
+        'button12
+        '
+        Me.button12.Enabled = False
+        Me.button12.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.button12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.button12.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.button12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.button12.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.button12.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Editar_x16_2_
+        Me.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.button12.Location = New System.Drawing.Point(248, 3)
+        Me.button12.Name = "button12"
+        Me.button12.Size = New System.Drawing.Size(82, 24)
+        Me.button12.TabIndex = 4
+        Me.button12.Text = "     AutoCAD"
+        Me.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.button12.UseVisualStyleBackColor = True
+        '
+        'button13
+        '
+        Me.button13.Enabled = False
+        Me.button13.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.button13.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.button13.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.button13.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.button13.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.button13.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.vcsadded_93506x16
+        Me.button13.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.button13.Location = New System.Drawing.Point(150, 3)
+        Me.button13.Name = "button13"
+        Me.button13.Size = New System.Drawing.Size(76, 24)
+        Me.button13.TabIndex = 0
+        Me.button13.Text = "     Agregar"
+        Me.button13.UseVisualStyleBackColor = True
         '
         'Form1
         '

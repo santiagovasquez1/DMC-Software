@@ -266,6 +266,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-vertical-bmp-ConvertImage.ico" />
+    <None Include="Resources\Editar x16%282%29.png" />
+    <None Include="Resources\editarx16.png" />
     <None Include="packages.config" />
     <None Include="Resources\image.png" />
     <None Include="Resources\beam.png" />

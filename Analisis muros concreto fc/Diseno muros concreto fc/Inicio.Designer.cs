@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,22 +47,12 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Diseno_muros_concreto_fc.Properties.Resources.efe_Prima_Ce_Pixelado;
-            this.pictureBox1.Location = new System.Drawing.Point(101, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(300, 300);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Calibri", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label7.Location = new System.Drawing.Point(10, 325);
+            this.label7.Location = new System.Drawing.Point(12, 326);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(105, 10);
             this.label7.TabIndex = 36;
@@ -73,7 +63,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(10, 316);
+            this.label6.Location = new System.Drawing.Point(12, 317);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 10);
             this.label6.TabIndex = 35;
@@ -84,7 +74,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(10, 307);
+            this.label5.Location = new System.Drawing.Point(12, 308);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 10);
             this.label5.TabIndex = 34;
@@ -95,11 +85,21 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(10, 297);
+            this.label4.Location = new System.Drawing.Point(12, 298);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 10);
             this.label4.TabIndex = 33;
             this.label4.Text = "Diseño de Muros de Concreto";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Diseno_muros_concreto_fc.Properties.Resources.PRUEBA5;
+            this.pictureBox1.Location = new System.Drawing.Point(26, 25);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(452, 269);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // Inicio
             // 
@@ -114,6 +114,8 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Inicio";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inicio";
             this.Load += new System.EventHandler(this.Inicio_Load);

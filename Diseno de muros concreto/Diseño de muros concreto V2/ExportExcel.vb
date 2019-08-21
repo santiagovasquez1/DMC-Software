@@ -70,7 +70,7 @@ Public Class ExportExcel
             m_Excel.Visible = True
 
         Else
-            MsgBox("Proyecto sin salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
+            MsgBox("Proyecto sin Salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
 
         End If
     End Sub

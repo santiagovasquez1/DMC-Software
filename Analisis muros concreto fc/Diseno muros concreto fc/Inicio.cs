@@ -34,7 +34,7 @@ namespace Diseno_muros_concreto_fc
         {
             if (this.Opacity < 1) this.Opacity += 0.05;
             cont += 1;
-            if (cont == 20)
+            if (cont == 40)
             {
                 Comprobar(this);
                 timer1.Stop();

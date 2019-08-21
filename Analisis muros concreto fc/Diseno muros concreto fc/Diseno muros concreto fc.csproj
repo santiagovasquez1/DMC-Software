@@ -240,5 +240,26 @@
   <ItemGroup>
     <None Include="Resources\efe-Prima-ce-negative-left.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editarx16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Editar x16%282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exportar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exportarx16C.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PRUEBA4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PRUEBA5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ICONO.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
