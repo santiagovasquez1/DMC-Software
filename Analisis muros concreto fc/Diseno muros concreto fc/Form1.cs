@@ -590,33 +590,9 @@ namespace Diseno_muros_concreto_fc
                 
            private void Form1_KeyDown(object sender, KeyEventArgs e)
            {
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.S)) { 
-                SaveFile();
-            }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.E))
-            {
-                ExportMemorias();
-            }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.O))
-            {
-                AbrirProyecto();
-            }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.N))
-            {
-                NuevoProyecto();
-            }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.Shift)+Convert.ToInt32(Keys.S))
-            {
-                GuardarComo();
-            }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.F) && direcciónDeCambioDeEspesorToolStripMenuItem.Enabled==true)
-             {
-                CambioEspesorVentana();
-             }
-            if (Convert.ToInt32(e.KeyData) == Convert.ToInt32(Keys.Control) + Convert.ToInt32(Keys.I) && murosSimilaresToolStripMenuItem.Enabled == true)
-            {
-                MurosSimilaresVentana();
-            }         
+        
+     
+     
 
         }
 
