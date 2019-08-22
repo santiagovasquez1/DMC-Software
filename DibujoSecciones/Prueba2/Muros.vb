@@ -1,9 +1,4 @@
-﻿Imports netDxf
-Imports netDxf.Entities
-Imports netDxf.Tables
-Imports netDxf.Header
-Imports netDxf.Units
-Public Class Muros
+﻿Public Class Muros
 
     Public NombreMuro As String
     Public CoordenadasX As List(Of Double)
@@ -16,7 +11,6 @@ Public Class Muros
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
     Public Lista_Refuerzos_Fila_Max As New List(Of RefuerzoCirculo)
     Public RecubrimientoRefuerzo As Double
-
 
     Public Lista_NoBarras As New List(Of String)
     Public Lista_LongitudBarras As New List(Of Double)
@@ -31,7 +25,6 @@ Public Class Muros
     Public MurosVecinosArriba As New List(Of Muros)
     Public MurosVecinosAbajo As New List(Of Muros)
 
-
     Public CentroideX As Double
     Public CentroideY As Double
     Public Property Xmax As Double
@@ -42,7 +35,6 @@ Public Class Muros
     Public Property XminE As Double
     Public Property YminE As Double
     Public Property YmaxE As Double
-
 
     Public LEB_Iz As Double
     Public LEB_Dr As Double
@@ -57,7 +49,6 @@ Public Class Muros
     Public Hatch_Layer_Izq As String
     Public Hatch_Layer_Der As String
 
-
     Public Longitud As Double
     Public DireccionMuro As String
     Public EspesorEscalado As Double
@@ -70,11 +61,8 @@ Public Class Muros
     Public PuntosHatchIz As New List(Of Double)
     Public PuntosHatchDer As New List(Of Double)
 
-
     Public Recubrimiento_Malla As Double = 0.02
     Public LongMallaHoriz As Double = 0
-
-
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -94,16 +82,13 @@ Public Class Muros
 
     End Sub
 
-
     Sub ActualizarCoordenadas()
         XmaxM = Xmax
         XminM = Xmin
         YmaxM = Ymax
         YminM = Ymin
 
-
     End Sub
-
 
     Sub PutosHatchFuc()
 
@@ -115,15 +100,12 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymax)
 
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymax)
-
             Else
-
 
                 'ELEMENTO IZQUIERDO
                 PuntosHatchIz.Add(Xmin)
@@ -131,7 +113,6 @@ Public Class Muros
 
                 PuntosHatchIz.Add(Xmin + LEB_Iz)
                 PuntosHatchIz.Add(Ymin)
-
 
                 PuntosHatchIz.Add(Xmin + LEB_Iz)
                 PuntosHatchIz.Add(Ymax)
@@ -160,7 +141,6 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymax)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymax)
 
@@ -175,13 +155,11 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymin + LEB_Iz)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin + LEB_Iz)
 
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin)
-
 
                 'ELEMENTO DERECHO
 
@@ -223,14 +201,11 @@ Public Class RefuerzoCirculo
 
 End Class
 
-
 Public Class TextoRefuerzo
     Public CoordenasdasXyY(2) As Double
     Public NombreTexto As Double
 
-
 End Class
-
 
 Public Class CircunferenciaBloque
 
@@ -254,8 +229,6 @@ Public Class MuroArana
     Public MurosComponene As New List(Of String)
 
 End Class
-
-
 
 Public Class Muros_Consolidados
 
@@ -284,14 +257,18 @@ Public Class Muros_Consolidados
     Public Lebe_Centro As List(Of Double) = New List(Of Double)
     Public Zc_Izq As List(Of Double) = New List(Of Double)
     Public Zc_Der As List(Of Double) = New List(Of Double)
+
     'Nuevas variables
     Public Est_ebe As List(Of Integer) = New List(Of Integer)
+
     Public Sep_ebe As List(Of Double) = New List(Of Double)
     Public Est_Zc As List(Of Integer) = New List(Of Integer)
     Public Sep_Zc As List(Of Double) = New List(Of Double)
     Public As_Long As List(Of Double) = New List(Of Double)
+
     '
     Public ramas_der As List(Of Integer) = New List(Of Integer)
+
     Public ramas_izq As List(Of Integer) = New List(Of Integer)
     Public ramas_centro As List(Of Integer) = New List(Of Integer)
     Public As_htal As List(Of Double) = New List(Of Double)

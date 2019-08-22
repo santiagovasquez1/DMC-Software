@@ -38,7 +38,6 @@ Public Class Guardar_Archivo
         Lista_Texto = New List(Of String)
         Dim Texto As String
 
-
         For i = 0 To Muros_lista_2.Count - 1
 
             If IsNothing(Muros_lista_2(i).MuroSimilar) = False Then
@@ -188,7 +187,6 @@ Public Class Guardar_Archivo
 
         For Each Alzado_i As alzado_muro In alzado_lista
 
-
             texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
             For j = 0 To Alzado_i.alzado.Count - 1
                 If j < Alzado_i.alzado.Count - 1 Then
@@ -235,8 +233,6 @@ Public Class Guardar_Archivo
             Next
             Lista_Texto.Add(texto)
         Next
-
-
 
     End Sub
 
@@ -312,7 +308,6 @@ Public Class Guardar_Archivo
             Escritor.WriteLine(Vector_Texto_aux(i))
         Next
 
-
         Escritor.Close()
 
     End Sub
@@ -326,7 +321,6 @@ Public Class Guardar_Archivo
 
             If muro_i.MuroSimilar IsNot Nothing Then
                 NombreMuroSimilar = muro_i.MuroSimilar.Pier_name
-
             Else
                 NombreMuroSimilar = "SinSimilar"
             End If
@@ -349,7 +343,6 @@ Public Class Guardar_Archivo
             Escritor.WriteLine(muro_i.Pier_name & vbTab & Maestro & vbTab & NombreMuroSimilar & vbTab & CreadoDespues)
         Next
 
-
         Escritor.Close()
 
     End Sub
@@ -359,7 +352,6 @@ Public Class Guardar_Archivo
         If Muro_i.isMuroMaestro = True Then
 
         End If
-
 
     End Sub
 

@@ -18,7 +18,6 @@
 
     Sub Validar_info1(ByVal Nombre_Muro As String, ByVal i As Integer, ByVal Data_ganeral As DataGridView)
 
-
         Dim Indice As Integer
         Dim j As Integer = 0
 
@@ -65,8 +64,8 @@
 
         End With
 
-
     End Sub
+
     Sub FuncionAgregar(ByRef DataAlzado1 As DataGridView)
 
         Dim columnas As New DataGridViewTextBoxColumn
@@ -243,7 +242,6 @@
                     Else
                         Alzado_i.alzado.Add(Data_alzado.Rows(i).Cells(j + 2).Value)
                     End If
-
                 Catch ex2 As Exception
                     Alzado_i.alzado.Add("")
                 End Try

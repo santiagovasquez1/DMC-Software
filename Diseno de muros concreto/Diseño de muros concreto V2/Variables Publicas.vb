@@ -1,5 +1,4 @@
-﻿
-Module Variables_Publicas
+﻿Module Variables_Publicas
     Public list_muros() As String
     Public piername() As String
     Public Muros_lista_2 As List(Of Muros_Consolidados)

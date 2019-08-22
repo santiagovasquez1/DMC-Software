@@ -12,6 +12,5 @@ namespace Diseno_muros_concreto_fc
         public string Loads;
         public double S22;
         public List<List<double>> Coord;
-
     }
 }

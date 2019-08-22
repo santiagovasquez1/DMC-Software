@@ -2,14 +2,15 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 namespace Diseno_muros_concreto_fc
 {
     public partial class DerechosAutor : Form
     {
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
 
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         private const int WM_NCHITTEST = 0x84;
@@ -19,12 +20,16 @@ namespace Diseno_muros_concreto_fc
         private const int CS_DROPSHADOW = 0x00020000;
         private const int WM_NCPAINT = 0x0085;
         private const int WM_ACTIVATEAPP = 0x001C;
+
         [DllImport("dwmapi.dll")]
         public static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMarInset);
+
         [DllImport("dwmapi.dll")]
         public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
         [DllImport("dwmapi.dll")]
         public static extern int DwmIsCompositionEnabled(ref int pfEnabled);
+
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -40,8 +45,8 @@ namespace Diseno_muros_concreto_fc
         {
             m_aeroEnabled = false;
             InitializeComponent();
-
         }
+
         public struct MARGINS
         {
             public int leftWidth;
@@ -63,6 +68,7 @@ namespace Diseno_muros_concreto_fc
                 return cp;
             }
         }
+
         private bool CheckAeroEnabled()
         {
             if (Environment.OSVersion.Version.Major >= 6)
@@ -73,6 +79,7 @@ namespace Diseno_muros_concreto_fc
             }
             return false;
         }
+
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -90,9 +97,9 @@ namespace Diseno_muros_concreto_fc
                             topHeight = 0
                         };
                         DwmExtendFrameIntoClientArea(this.Handle, ref margins);
-
                     }
                     break;
+
                 default:
                     break;
             }
@@ -100,14 +107,13 @@ namespace Diseno_muros_concreto_fc
 
             if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)     // drag the form
                 m.Result = (IntPtr)HTCAPTION;
-
         }
-
 
         private void Button10_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void Button10_MouseMove(object sender, MouseEventArgs e)
         {
             button10.FlatAppearance.BorderColor = Color.FromArgb(232, 17, 35);
@@ -120,11 +126,8 @@ namespace Diseno_muros_concreto_fc
 
         private void Panel1_MouseDown(object sender, MouseEventArgs e)
         {
-
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
-
-
         }
     }
 }

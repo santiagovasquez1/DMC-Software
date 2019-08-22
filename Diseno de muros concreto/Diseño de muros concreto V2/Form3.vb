@@ -1,5 +1,5 @@
-﻿Imports System.Runtime.InteropServices
-Public Class f_alzado
+﻿Public Class f_alzado
+
     Public Class refuerzo_piso
         Public cantidad As Integer
         Public diametro As Integer
@@ -28,16 +28,15 @@ Public Class f_alzado
 
         Return lapiz
     End Function
-    Public ActivarTablas As Boolean
-    Public Sub f_alzado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+    Public ActivarTablas As Boolean
+
+    Public Sub f_alzado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim Tooltip As New ToolTip
 
         Tooltip.SetToolTip(Button3, "Agregar columna de alzado (Ctrl + Q)")
         Tooltip.SetToolTip(button4, "Dibujar Alzado de Muros en AutoCAD (Ctrl + W)")
-
-
 
         Dim Muros_Distintos As New List(Of String)
         Cargar_areas_refuerzo()
@@ -61,7 +60,6 @@ Public Class f_alzado
         Me.AutoScroll = False
         Me.DoubleBuffered = True
 
-
     End Sub
 
     Public Sub LMuros_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LMuros.SelectedIndexChanged
@@ -79,7 +77,6 @@ Public Class f_alzado
         pb_Alzado.Invalidate()
 
     End Sub
-
 
     Sub CargarTablas(ByVal Nombre_Muro As String)
 
@@ -99,7 +96,6 @@ Public Class f_alzado
             Tabla_Data_Ayuda(Nombre_Muro, Data_ayuda, i, True)
         Next
         Alzado_info(Nombre_Muro, Data_Alzado)
-
 
     End Sub
 
@@ -130,7 +126,6 @@ Public Class f_alzado
                     Catch ex As Exception
                         refuerzo.diametro = 0
                     End Try
-
                 Else
                     Try
                         refuerzo.diametro = Mid(vector_texto(1), pos1 + 1)
@@ -189,7 +184,6 @@ Public Class f_alzado
         Public traslapo As String
     End Class
 
-
     Public Sub Pb_Alzado_Paint(sender As Object, e As PaintEventArgs) Handles pb_Alzado.Paint
 
         Dim alzado As Graphics = e.Graphics
@@ -205,8 +199,6 @@ Public Class f_alzado
         Dim pos As Integer
         Dim texto2 As String
         Dim constante As Single
-
-
 
         With lapiz1
             .Width = 1.0
@@ -260,7 +252,7 @@ Public Class f_alzado
             End If
             menc = 0
             'CAMBIO 11111--------------
-            'Dibujo de barras de refuerzo 
+            'Dibujo de barras de refuerzo
             For j = dato_alzado.Count - 1 To 0 Step -1
                 If j < dato_alzado.Count - 1 Then
                     If dato_alzado(j) <> Nothing And dato_alzado(j) <> "Error" Then
@@ -406,30 +398,17 @@ Public Class f_alzado
 
     End Sub
 
-
-
     Public Sub cb_Ayuda_Click(sender As Object, e As EventArgs)
-
 
     End Sub
 
     Public Sub cb_autocad_Click(sender As Object, e As EventArgs)
 
-
-
     End Sub
 
     Public Sub Button1_Click(sender As Object, e As EventArgs)
 
-
     End Sub
-
-
-
-
-
-
-
 
     Public Sub CopyToClipboard(datos As DataGridView)
         Dim dataObj As DataObject = datos.GetClipboardContent
@@ -449,9 +428,11 @@ Public Class f_alzado
             data_grid.SelectedCells(counter).Value = String.Empty
         Next
     End Sub
+
     Public Sub CortarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CortarToolStripMenuItem.Click
         Cortar()
     End Sub
+
     Private Sub Pegar()
         PasteClipboard(data_grid)
 
@@ -466,6 +447,7 @@ Public Class f_alzado
 
         End If
     End Sub
+
     Public Sub PegarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PegarToolStripMenuItem.Click
         Pegar()
     End Sub
@@ -498,12 +480,10 @@ Public Class f_alzado
                     iRow = iRow + 1
                 End If
             Next
-
         Catch ex As Exception
 
         End Try
     End Sub
-
 
     Public Sub f_alzado_Click(sender As Object, e As EventArgs) Handles MyBase.Click
 
@@ -512,15 +492,11 @@ Public Class f_alzado
         Data_Alzado.ClearSelection()
     End Sub
 
-
-
     Public Sub Button2_Click(sender As Object, e As EventArgs)
         Procesar_info(datos_alzado)
         Procesar_Info_2()
         Generar_informe()
     End Sub
-
-
 
     Public Sub Data_Alzado_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Data_Alzado.CellEndEdit
         Dim indice, Columna As Integer
@@ -532,8 +508,6 @@ Public Class f_alzado
         pb_Alzado.CreateGraphics.Clear(Color.White)
         pb_Alzado.Invalidate()
     End Sub
-
-
 
     Public Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
@@ -601,6 +575,7 @@ Public Class f_alzado
 
         Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
     End Sub
+
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Agregar()
     End Sub
@@ -625,14 +600,6 @@ Public Class f_alzado
             Data_Alzado.Columns.Add(columnas)
         End If
     End Sub
-
-
-
-
-
-
-
-
 
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
@@ -705,7 +672,6 @@ Public Class f_alzado
 
         Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
 
-
     End Sub
 
     Private Sub Panel11_Paint(sender As Object, e As PaintEventArgs) Handles Panel11.Paint
@@ -763,4 +729,5 @@ Public Class f_alzado
             Cortar()
         End If
     End Sub
+
 End Class

@@ -15,9 +15,6 @@
     Public Barra As List(Of String)
     Public Lista_Barras As List(Of List(Of String))
 
-
-
-
     Public Lista_Longitudes As New List(Of List(Of Single))
     Public Lista_Figura As New List(Of List(Of String))
     Public ListaDiametros As New List(Of List(Of String))
@@ -27,7 +24,6 @@
     Public ListaTotalRefuerzo_PorMuro_Cantidad As New List(Of Integer)
     Public ListaTotalRefuerzo_EspecificadoConCantidad As New List(Of String)
     Public ListaRefuerzo_DllNet As New List(Of String)
-
 
     Public Sub Load_Coordinates(ByVal Muro_i As String, ByRef pos_x As Double)
 
@@ -152,7 +148,6 @@
                                         delta = 0
                                     End If
 
-
                                 End If
                             End If
 
@@ -196,7 +191,6 @@
                                 delta = 0
                             End If
                         End If
-
                     Else
 
                         texto1 = Alzado_i(j)(i)
@@ -215,7 +209,6 @@
                                 delta = 0
                             End If
                         End If
-
 
                     End If
 
@@ -305,7 +298,6 @@
         If x1 = 0 Then
             Caso = 3
         End If
-
 
         If Paso < 0 And Caso = 1 Then
 
@@ -462,7 +454,6 @@
                 Traslapo1_1 = Traslapo2
             End If
 
-
             Fc2 = Muros_lista_2(indice1).fc(indice2 - 1)
 
             Pos_T1 = Alzado_i(fila)(col).IndexOf("T")
@@ -497,8 +488,6 @@
 
             Pc1.Add(Pc1_aux)
             Pc2.Add(Pc2_aux)
-
-
         Else
 
             indice1 = Muros_lista_2.FindIndex(Function(x) x.Pier_name = Nombre_muro)
@@ -656,10 +645,7 @@
 
     End Sub
 
-
-
     '*******NUEVAS FUNCIONES *******
-
 
     Sub ActivarNuevasFunciones()
         CalcularLongitudesBarras()
@@ -671,10 +657,7 @@
         RefuerzoDllNet()
     End Sub
 
-
     Sub RefuerzoDllNet()
-
-
 
         For i = 0 To ListaTotalRefuerzo_EspecificadoConCantidad.Count - 1
 
@@ -699,7 +682,6 @@
             CantidadBarras = Val(Nomenclatura.Substring(0, PosicionFinalCantidad))
             Longitud = Val(Nomenclatura.Substring(PosicionInicalLongitud, 3))
 
-
             Try
                 If Nomenclatura.Chars(PosicionDiametro + 1) = "-" Then
                     DiametroA = Val(Nomenclatura.Chars(PosicionDiametro))
@@ -711,7 +693,6 @@
             End Try
 
             Gancho = ganchos_90(DiametroA)
-
 
             If FiguraBarras = "R" Then
                 NomenclaturaFinal = CantidadBarras & " " & "#" & (DiametroA) & " " & Format(Longitud, "0.00")
@@ -727,24 +708,16 @@
             End If
             ListaRefuerzo_DllNet.Add(NomenclaturaFinal)
 
-
         Next
 
-
-
-
     End Sub
-
-
 
     Sub RefuerzoFinal()
 
         Dim VectoIndices As New List(Of Integer)
 
-
         For i = 0 To ListaTotalRefuerzo_PorMuro.Count - 1
             Dim Cantidad As Integer = ListaTotalRefuerzo_PorMuro_Cantidad(i)
-
 
             If VectoIndices.Exists(Function(x) x = i) = False Then
 
@@ -760,15 +733,7 @@
 
         Next
 
-
-
-
-
-
     End Sub
-
-
-
 
     Sub RefuerzoTotal()
 
@@ -779,9 +744,7 @@
             Next
         Next
 
-
     End Sub
-
 
     Sub ConcatenarBarras()
         For i = 0 To ListaDiametros.Count - 1
@@ -794,10 +757,7 @@
             ListaBarrasConcatenadas.Add(ListaConcate)
         Next
 
-
     End Sub
-
-
 
     Sub DiametroBarras_CantidadBarras()
 
@@ -834,12 +794,7 @@
 
     End Sub
 
-
-
-
-
     Sub Barra_Recta_L_C()
-
 
         For j = 0 To Lista_Coordenadas.Count - 1
             Dim ListaBarras As New List(Of String)
@@ -860,11 +815,6 @@
 
     End Sub
 
-
-
-
-
-
     Sub CalcularLongitudesBarras()
         For i = 0 To Lista_Coordenadas.Count - 1
             Dim ListaLong As New List(Of Single)
@@ -874,7 +824,6 @@
             Next
             Lista_Longitudes.Add(ListaLong)
         Next
-
 
     End Sub
 
@@ -895,21 +844,9 @@
         Return Longitud
     End Function
 
-
     '*******FIN - NUEVAS FUNCIONES *******
 
-
-
-
-
-
-
-
-
-
     Private Sub Find_Pos_3(ByVal col As Integer, ByVal fila As Integer, ByRef Pos1 As Double, ByRef Pos2 As Double, ByVal Fin As Integer, ByVal Paso As Integer, ByVal Posx As Double)
-
-
 
     End Sub
 
@@ -964,9 +901,6 @@
             Traslapo = 0
         End Try
 
-
     End Function
-
-
 
 End Class

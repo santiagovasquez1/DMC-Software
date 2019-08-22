@@ -4,13 +4,12 @@ using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
-    class Guardar_archivo
+    internal class Guardar_archivo
     {
         private static List<string> Lista_texto;
 
         public static void Generar_texto()
         {
-
             try
             {
                 StreamWriter escritor = new StreamWriter(Listas_Programa.Ruta_archivo);
@@ -79,7 +78,6 @@ namespace Diseno_muros_concreto_fc
             }
             catch
             {
-
             }
         }
 
@@ -94,11 +92,10 @@ namespace Diseno_muros_concreto_fc
             Guardar_archivo.ShowDialog();
 
             Ruta_archivo = Guardar_archivo.FileName;
-            
+
             Listas_Programa.Ruta_archivo = Ruta_archivo;
             try
             {
-
                 int FinPunto = 0;
                 int FinSla = 0;
                 string Ruta_Carpeta = "";
@@ -111,8 +108,6 @@ namespace Diseno_muros_concreto_fc
             }
             catch
             {
-
-
             }
         }
 
@@ -132,10 +127,7 @@ namespace Diseno_muros_concreto_fc
                         Lista_texto.Add(Texto);
                     }
                 }
-
             }
-
-
         }
 
         private static void Texto_Geometria()
@@ -172,10 +164,7 @@ namespace Diseno_muros_concreto_fc
                         Lista_texto.Add(Texto);
                     }
                 }
-
             }
-
-
         }
 
         private static void Texto_Flexural_Stress()
@@ -195,7 +184,6 @@ namespace Diseno_muros_concreto_fc
                         Lista_texto.Add(Texto);
                     }
                 }
-
             }
         }
 
@@ -219,9 +207,7 @@ namespace Diseno_muros_concreto_fc
                         Lista_texto.Add(Texto);
                     }
                 }
-
             }
-
         }
     }
 }

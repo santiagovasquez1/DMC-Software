@@ -1,9 +1,9 @@
 ﻿Module Generar_Ayuda
+
     Public Sub Tabla_Data_Ayuda(ByVal Nombre_muro As String, ByVal Data_ayuda As DataGridView, ByVal i As Integer, ByVal Crear_Fila As Boolean)
 
         Dim Muroi As Muros_Consolidados
         Dim indice As Integer
-
 
         Muroi = Muros_lista_2.Find(Function(x1) x1.Pier_name = Nombre_muro)
 
@@ -12,7 +12,6 @@
             Muroi = Muroi.MuroSimilar
 
         End If
-
 
         If Crear_Fila = True Then
             Data_ayuda.Rows.Add()
@@ -75,7 +74,6 @@
                 .Cells(13).Value = 0
                 .Cells(14).Value = 0
                 .Cells(15).Value = 0
-
             Else
                 Dim MuroAxuiliar As New Refuerzo_muros
                 If refuerzo_lista.Exists(Function(x) x.piername = Muroi.Pier_name And x.pierstory = Muroi.Stories(i) And x.MuroSimilar Is Nothing) Then
@@ -104,6 +102,6 @@
         ' Data_ayuda.Refresh()
         ' Data_ayuda.Update()
 
-
     End Sub
+
 End Module
