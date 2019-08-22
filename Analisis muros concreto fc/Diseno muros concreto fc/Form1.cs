@@ -161,7 +161,12 @@ namespace Diseno_muros_concreto_fc
 
         private void NuevoProyecto()
         {
+            Label_Inicial.Visible = true;
+            Label_Inicial.Text = "Cargando modelo del edificio";
             Lectura_E2k.Cargar_E2k();
+            Label_Inicial.Text = "Listo";
+            Label_Inicial.Update();
+            Label_Inicial.Visible = false;
             Generador_de_piers.Lector_Geometria();
             Generador_de_piers.Lector_Fuerza();
             Generador_de_piers.Lectura_Diseno();
@@ -282,6 +287,14 @@ namespace Diseno_muros_concreto_fc
             Mensaje = "Listo";
             result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
 
+            this.Width = 995;
+            this.Height = 675;
+            Fase1 Formulario1 = new Fase1();
+            Formulario1.Cargar_Lista();
+            Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1);
+            murosSimilaresToolStripMenuItem.Enabled = false;
+            direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
+
         }
 
         private void Radio_Dmo_CheckedChanged(object sender, EventArgs e)
@@ -303,6 +316,11 @@ namespace Diseno_muros_concreto_fc
                 Guardar_archivo.Generar_texto();
                 Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
 
+            }
+            else
+            {
+                Guardar_archivo.Generar_texto();
+                Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
             }
         }
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -604,6 +622,11 @@ namespace Diseno_muros_concreto_fc
         }
 
         private void Generar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
         {
 
         }

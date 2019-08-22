@@ -578,4 +578,8 @@ Public Class Form1
         refuerzo_lista = Lista_serializada.lista_refuerzo
 
     End Sub
+
+    Private Sub button10_Click(sender As Object, e As EventArgs) Handles button10.Click
+
+    End Sub
 End Class

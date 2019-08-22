@@ -86,20 +86,20 @@ Partial Class Form1
         Me.PegarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panel3 = New System.Windows.Forms.Panel()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.cb_cuantiavol = New System.Windows.Forms.Button()
         Me.label2 = New System.Windows.Forms.Label()
         Me.label3 = New System.Windows.Forms.Label()
         Me.label4 = New System.Windows.Forms.Label()
         Me.comboBox2 = New System.Windows.Forms.ComboBox()
         Me.label5 = New System.Windows.Forms.Label()
-        Me.label9 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.cb_cuantiavol = New System.Windows.Forms.Button()
         Me.button10 = New System.Windows.Forms.Button()
+        Me.label9 = New System.Windows.Forms.Label()
         Me.button11 = New System.Windows.Forms.Button()
         Me.button12 = New System.Windows.Forms.Button()
         Me.button13 = New System.Windows.Forms.Button()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.Data_muros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.panel3.SuspendLayout()
@@ -160,7 +160,7 @@ Partial Class Form1
         Me.bwall.Name = "bwall"
         Me.bwall.ReadOnly = True
         Me.bwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.bwall.Width = 51
+        Me.bwall.Width = 46
         '
         'Lwall
         '
@@ -173,7 +173,7 @@ Partial Class Form1
         Me.Lwall.HeaderText = "Lw (cm)"
         Me.Lwall.Name = "Lwall"
         Me.Lwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Lwall.Width = 50
+        Me.Lwall.Width = 45
         '
         'Hwall
         '
@@ -185,7 +185,7 @@ Partial Class Form1
         Me.Hwall.Name = "Hwall"
         Me.Hwall.ReadOnly = True
         Me.Hwall.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Hwall.Width = 52
+        Me.Hwall.Width = 47
         '
         'EfeCe
         '
@@ -197,7 +197,7 @@ Partial Class Form1
         Me.EfeCe.Name = "EfeCe"
         Me.EfeCe.ReadOnly = True
         Me.EfeCe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EfeCe.Width = 73
+        Me.EfeCe.Width = 66
         '
         'Column1
         '
@@ -211,7 +211,7 @@ Partial Class Form1
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
         Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column1.Width = 33
+        Me.Column1.Width = 30
         '
         'Column2
         '
@@ -225,7 +225,7 @@ Partial Class Form1
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
         Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column2.Width = 34
+        Me.Column2.Width = 28
         '
         'DMalla
         '
@@ -252,7 +252,7 @@ Partial Class Form1
         Me.DAs_long.Name = "DAs_long"
         Me.DAs_long.ReadOnly = True
         Me.DAs_long.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.DAs_long.Width = 78
+        Me.DAs_long.Width = 70
         '
         'EBE_Izq
         '
@@ -265,7 +265,7 @@ Partial Class Form1
         Me.EBE_Izq.HeaderText = "EBE Izq (cm)"
         Me.EBE_Izq.Name = "EBE_Izq"
         Me.EBE_Izq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EBE_Izq.Width = 74
+        Me.EBE_Izq.Width = 67
         '
         'EBE_Der
         '
@@ -278,7 +278,7 @@ Partial Class Form1
         Me.EBE_Der.HeaderText = "EBE Der (cm)"
         Me.EBE_Der.Name = "EBE_Der"
         Me.EBE_Der.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.EBE_Der.Width = 77
+        Me.EBE_Der.Width = 69
         '
         'Column3
         '
@@ -291,7 +291,7 @@ Partial Class Form1
         Me.Column3.HeaderText = "EBE Cent (cm)"
         Me.Column3.Name = "Column3"
         Me.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column3.Width = 82
+        Me.Column3.Width = 74
         '
         'Est_Ebe
         '
@@ -303,7 +303,7 @@ Partial Class Form1
         Me.Est_Ebe.Name = "Est_Ebe"
         Me.Est_Ebe.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.Est_Ebe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Est_Ebe.Width = 60
+        Me.Est_Ebe.Width = 54
         '
         'Sep_EBE
         '
@@ -525,7 +525,7 @@ Partial Class Form1
         Me.panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.panel3.Location = New System.Drawing.Point(0, 0)
         Me.panel3.Name = "panel3"
-        Me.panel3.Size = New System.Drawing.Size(1386, 28)
+        Me.panel3.Size = New System.Drawing.Size(1595, 28)
         Me.panel3.TabIndex = 24
         '
         'Label1
@@ -538,6 +538,23 @@ Partial Class Form1
         Me.Label1.Size = New System.Drawing.Size(16, 19)
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "|"
+        '
+        'cb_cuantiavol
+        '
+        Me.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
+        Me.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
+        Me.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
+        Me.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cb_cuantiavol.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
+        Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.cb_cuantiavol.Location = New System.Drawing.Point(611, 2)
+        Me.cb_cuantiavol.Name = "cb_cuantiavol"
+        Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
+        Me.cb_cuantiavol.TabIndex = 5
+        Me.cb_cuantiavol.Text = "       Cuantia Volumetrica"
+        Me.cb_cuantiavol.UseVisualStyleBackColor = True
         '
         'label2
         '
@@ -595,67 +612,6 @@ Partial Class Form1
         Me.label5.TabIndex = 8
         Me.label5.Text = "|"
         '
-        'label9
-        '
-        Me.label9.AutoSize = True
-        Me.label9.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.label9.Location = New System.Drawing.Point(329, 6)
-        Me.label9.Name = "label9"
-        Me.label9.Size = New System.Drawing.Size(16, 19)
-        Me.label9.TabIndex = 6
-        Me.label9.Text = "|"
-        '
-        'Panel1
-        '
-        Me.Panel1.AutoSize = True
-        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.Data_muros)
-        Me.Panel1.Controls.Add(Me.Panel10)
-        Me.Panel1.Location = New System.Drawing.Point(15, 34)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1526, 714)
-        Me.Panel1.TabIndex = 27
-        '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel10.Controls.Add(Me.Label6)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel10.Location = New System.Drawing.Point(0, 0)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(1524, 29)
-        Me.Panel10.TabIndex = 14
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label6.Location = New System.Drawing.Point(8, 7)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(118, 15)
-        Me.Label6.TabIndex = 1
-        Me.Label6.Text = "Información General"
-        '
-        'cb_cuantiavol
-        '
-        Me.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
-        Me.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
-        Me.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
-        Me.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cb_cuantiavol.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
-        Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cb_cuantiavol.Location = New System.Drawing.Point(611, 2)
-        Me.cb_cuantiavol.Name = "cb_cuantiavol"
-        Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
-        Me.cb_cuantiavol.TabIndex = 5
-        Me.cb_cuantiavol.Text = "       Cuantia Volumetrica"
-        Me.cb_cuantiavol.UseVisualStyleBackColor = True
-        '
         'button10
         '
         Me.button10.Enabled = False
@@ -673,6 +629,17 @@ Partial Class Form1
         Me.button10.TabIndex = 7
         Me.button10.Text = "     Generar"
         Me.button10.UseVisualStyleBackColor = True
+        '
+        'label9
+        '
+        Me.label9.AutoSize = True
+        Me.label9.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.label9.Location = New System.Drawing.Point(329, 6)
+        Me.label9.Name = "label9"
+        Me.label9.Size = New System.Drawing.Size(16, 19)
+        Me.label9.TabIndex = 6
+        Me.label9.Text = "|"
         '
         'button11
         '
@@ -729,13 +696,46 @@ Partial Class Form1
         Me.button13.Text = "     Agregar"
         Me.button13.UseVisualStyleBackColor = True
         '
+        'Panel1
+        '
+        Me.Panel1.AutoSize = True
+        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Data_muros)
+        Me.Panel1.Controls.Add(Me.Panel10)
+        Me.Panel1.Location = New System.Drawing.Point(15, 34)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1526, 714)
+        Me.Panel1.TabIndex = 27
+        '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel10.Controls.Add(Me.Label6)
+        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel10.Location = New System.Drawing.Point(0, 0)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(1524, 29)
+        Me.Panel10.TabIndex = 14
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label6.Location = New System.Drawing.Point(8, 7)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(118, 15)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "Información General"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gray
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1386, 760)
+        Me.ClientSize = New System.Drawing.Size(1595, 760)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

@@ -58,6 +58,8 @@ namespace Diseno_muros_concreto_fc
         public List<double> Peso_Transv = new List<double>();
         public List<double> Peso_malla = new List<double>();
 
+        public readonly List<double> Volumen = new List<double>();
+
         public static explicit operator Diseño_de_muros_concreto_V2.Muros_Consolidados(Muros_Consolidados v)
         {
             Diseño_de_muros_concreto_V2.Muros_Consolidados muro_i = new Diseño_de_muros_concreto_V2.Muros_Consolidados
@@ -112,6 +114,7 @@ namespace Diseno_muros_concreto_fc
             double Traslapo,Peso_long_i,Peso_malla_i;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
+            double P_Transversal;
             double suma_transv;
 
             for (int i = 0; i < Stories.Count; i++)
@@ -128,10 +131,21 @@ namespace Diseno_muros_concreto_fc
                 P_ZI = Zc_Izq[i] > 0 ? Peso_zc(Bw[i], Listas_Programa.Capacidad) * (Zc_Izq[i] / 100) : 0;
                 P_ZD = Zc_Der[i] > 0 ? Peso_zc(Bw[i], Listas_Programa.Capacidad) * (Zc_Der[i] / 100) : 0;
 
-                suma_transv = P_LI + P_LD + P_ZI + P_ZD;
+                P_Transversal = As_htal[i] > 0 ? As_htal[i] * (Hw[i]/100)*lw[i] * 7850 / Math.Pow(100, 3) : 0;
+                suma_transv = P_LI + P_LD + P_ZI + P_ZD+P_Transversal;
                 Peso_Transv.Add(suma_transv);
             }
-            
+            Calculo_volumen();
+        }
+
+        private void Calculo_volumen()
+        {
+            double Volumen_i;
+            for (int i = 0; i < Stories.Count; i++)
+            {
+                Volumen_i = Bw[i] * lw[i] * Hw[i] / Math.Pow(100, 3);
+                Volumen.Add(Volumen_i);
+            }
         }
 
         public double Factores_Traslapo(double bw,double pl)

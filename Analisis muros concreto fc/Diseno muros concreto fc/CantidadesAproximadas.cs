@@ -110,35 +110,7 @@ namespace Diseno_muros_concreto_fc
                 m.Result = (IntPtr)HTCAPTION;
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    
         private void PictureBox2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -162,6 +134,7 @@ namespace Diseno_muros_concreto_fc
           
             CargarDataGrid(this.DataGrid_Muros);
             CargarDataGrid2(this.dataGridView1);
+            CargarDataGrid3(this.dataGridViewVols);
             dataGridView1.Rows[0].Cells[3].Value = Listas_Programa.Area_ParaTenorApprox;
 
             if (Listas_Programa.Area_ParaTenorApprox != "") { 
@@ -199,16 +172,15 @@ namespace Diseno_muros_concreto_fc
        
         }
 
-
         private void CargarDataGrid2(DataGridView DataGrid)
         {
+           
             DataGridViewCellStyle Estilo = new DataGridViewCellStyle();
             Estilo.Alignment = DataGridViewContentAlignment.MiddleCenter;
             Estilo.Font = new Font("Verdana", 8);
             Estilo.BackColor = Color.White;
 
             foreach (DataGridViewColumn column in DataGrid.Columns) { column.HeaderCell.Style = Estilo; }
-
       
             double PesoLongitudinal=0; double PesoTransversal = 0; double PesoMalla = 0;
             foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
@@ -216,10 +188,7 @@ namespace Diseno_muros_concreto_fc
                 PesoLongitudinal +=  muro_i.Peso_Long.Sum();
                 PesoTransversal += muro_i.Peso_Transv.Sum();
                 PesoMalla += muro_i.Peso_malla.Sum();
-
             }
-
-
 
             DataGrid.Rows.Add();
             DataGrid.Rows[0].Cells[0].ReadOnly = true;
@@ -235,18 +204,70 @@ namespace Diseno_muros_concreto_fc
 
         }
 
-        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void CargarDataGrid3(DataGridView DataGrid)
         {
-          
+            List<double> Fc_dif = new List<double>();
+            List<double> Volumenes = new List<double>();
+            Resumen_Vol(Listas_Programa.Muros_Consolidados_Listos,ref Fc_dif,ref Volumenes);
+
+            DataGridViewCellStyle Estilo = new DataGridViewCellStyle();
+            Estilo.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Estilo.Font = new Font("Verdana", 8);
+            Estilo.BackColor = Color.White;
+
+            foreach (DataGridViewColumn column in DataGrid.Columns) { column.HeaderCell.Style = Estilo; }
+
+            for (int i = 0; i < Fc_dif.Count; i++)
+            {
+                DataGrid.Rows.Add();
+                DataGrid.Rows[i].Cells[0].Value =string.Format(Fc_dif[i].ToString(), "#0") ;
+                DataGrid.Rows[i].Cells[1].Value = string.Format(Convert.ToString(Math.Round(Volumenes[i],2)), "##0.00");
+            }
+            DataGrid.DefaultCellStyle = Estilo;
+        }
+
+        private void Resumen_Vol(List<Muros_Consolidados> Muros_lista,ref List<double> Fc_dif,ref List<double> Volumenes)
+        {
+            double suma;
+
+            for (int i=0;i<Muros_lista.Count; i++)
+            {
+                for (int j = 0; j < Muros_lista[i].fc.Count; j++)
+                {
+                    Fc_dif.Add(Muros_lista[i].fc[j]);
+                }
+            }
+            Fc_dif = Fc_dif.Distinct().ToList();
+
+            for (int i=0; i < Fc_dif.Count; i++)
+            {
+                suma = 0;
+                for (int j = 0; j < Muros_lista.Count; j++)
+                {
+                    for (int k = 0; k < Muros_lista[j].fc.Count; k++)
+                    {
+                        if (Muros_lista[i].fc[k] == Fc_dif[i])
+                        {
+                            suma += Muros_lista[j].Volumen[k];
+                        }
+                    }
+                }
+                Volumenes.Add(suma);
+            }
+
+        }
+
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {          
             double Area = Convert.ToDouble(dataGridView1.Rows[0].Cells[3].Value);
             Listas_Programa.Area_ParaTenorApprox = Convert.ToString(Area);
 
             if (Area != 0) { 
             dataGridView1.Rows[0].Cells[4].Value = Math.Round((Convert.ToDouble(dataGridView1.Rows[0].Cells[0].Value) + Convert.ToDouble(dataGridView1.Rows[0].Cells[1].Value) + Convert.ToDouble(dataGridView1.Rows[0].Cells[2].Value))/ Convert.ToDouble( Listas_Programa.Area_ParaTenorApprox), 2);
-            }
-
-         
+            }         
          
         }
+
+
     }
 }
