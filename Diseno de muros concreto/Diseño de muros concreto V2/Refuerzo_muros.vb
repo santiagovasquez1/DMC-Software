@@ -16,10 +16,9 @@ Public Class Refuerzo_muros
 
     'Nuevas Variables
     Public IsMuroMaestro As Boolean = False
+
     Public MuroSimilar As Refuerzo_muros
     Public MuroCreadoDespues As Boolean = False
-
-
 
     Sub Calculo_Porcentaje()
 
@@ -38,4 +37,5 @@ Public Class Refuerzo_muros
         End If
 
     End Sub
+
 End Class

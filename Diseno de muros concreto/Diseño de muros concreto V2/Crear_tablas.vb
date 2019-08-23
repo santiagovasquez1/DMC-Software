@@ -1,6 +1,7 @@
 ﻿Module Crear_tablas
 
     Public Ds_form3 As DataSet
+
     Sub Tabla_info_gnl(ByVal Nombre_muro As String, ByVal Data_info As DataGridView)
 
         Dim Muroi As Muros_Consolidados
@@ -8,12 +9,9 @@
 
         Muroi = Muros_lista_2.Find(Function(x1) x1.Pier_name = Nombre_muro)
 
-
-
         If Muroi.MuroSimilar IsNot Nothing Then
             Muroi = Muroi.MuroSimilar
         End If
-
 
         For i = 0 To Muroi.Stories.Count - 1
             Data_info.Rows.Add()
@@ -135,9 +133,7 @@
         Dim Columna_i As DataGridViewTextBoxColumn
         Dim Lista_Cols As New List(Of DataGridViewTextBoxColumn)
 
-
         Muroi = Muros_lista_2.Find(Function(x1) x1.Pier_name = Nombre_muro)
-
 
         contador = 0
 
@@ -167,34 +163,33 @@
 
                     End If
 
-                        indice = Lista_auxiliar.FindIndex(Function(x) x.story = Muroi.Stories(i))
-                        If indice >= 0 Then
+                    indice = Lista_auxiliar.FindIndex(Function(x) x.story = Muroi.Stories(i))
+                    If indice >= 0 Then
 
-                            For j = 0 To Lista_auxiliar(indice).alzado.Count - 1
+                        For j = 0 To Lista_auxiliar(indice).alzado.Count - 1
 
-                                Try
-                                    .Cells(j + 2).Value = Lista_auxiliar(indice).alzado(j)
-                                Catch ex As Exception
-                                    Columna_i = New DataGridViewTextBoxColumn
+                            Try
+                                .Cells(j + 2).Value = Lista_auxiliar(indice).alzado(j)
+                            Catch ex As Exception
+                                Columna_i = New DataGridViewTextBoxColumn
 
-                                    If Data_Alzado.ColumnCount = 2 Then
-                                        contador = 1
+                                If Data_Alzado.ColumnCount = 2 Then
+                                    contador = 1
+                                Else
+                                    contador = contador + 1
+                                End If
+                                Columna_i.Name = "Alz" & contador
+                                Columna_i.HeaderText = "Alzado" & contador
+                                Columna_i.SortMode = DataGridViewColumnSortMode.NotSortable
+                                Columna_i.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                                Data_Alzado.Columns.Add(Columna_i)
+                                .Cells(j + 2).Value = Lista_auxiliar(indice).alzado(j)
+                            End Try
 
-                                    Else
-                                        contador = contador + 1
-                                    End If
-                                    Columna_i.Name = "Alz" & contador
-                                    Columna_i.HeaderText = "Alzado" & contador
-                                    Columna_i.SortMode = DataGridViewColumnSortMode.NotSortable
-                                    Columna_i.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                                    Data_Alzado.Columns.Add(Columna_i)
-                                    .Cells(j + 2).Value = Lista_auxiliar(indice).alzado(j)
-                                End Try
+                        Next
 
-                            Next
-
-                        End If
                     End If
+                End If
 
             End With
 
@@ -246,7 +241,6 @@
             Texto = "#" & i
             Encabezados.Add(Texto)
         Next
-
 
         For Each Tabla As DataTable In Ds_form3.Tables
             If Tabla.TableName = "Info refuerzo adicional" Then
@@ -346,15 +340,15 @@
                 Cells(19).Value = 0
             Else ''Llenado de informacion en la lista
                 Indice = refuerzo_lista.FindIndex(Function(x1) x1.piername = Muroi.Pier_name And x1.pierstory = Muroi.Stories(i))
-                If indice >= 0 Then
-                    Cells(7).Value = Format(refuerzo_lista(indice).total, "##,0.00")
-                    Cells(8).Value = Format(refuerzo_lista(indice).porcentaje * 100, "##,0.0") & "%"
+                If Indice >= 0 Then
+                    Cells(7).Value = Format(refuerzo_lista(Indice).total, "##,0.00")
+                    Cells(8).Value = Format(refuerzo_lista(Indice).porcentaje * 100, "##,0.0") & "%"
 
                     Dim contador As Integer
                     contador = 9
 
-                    For j = 0 To refuerzo_lista(indice).diametro.Count - 1
-                        Cells(contador).Value = refuerzo_lista(indice).cantidad(j)
+                    For j = 0 To refuerzo_lista(Indice).diametro.Count - 1
+                        Cells(contador).Value = refuerzo_lista(Indice).cantidad(j)
                         contador += 1
                     Next
 
@@ -365,9 +359,6 @@
             T_info.Rows.Add(Cells)
         Next
 
-
     End Sub
-
-
 
 End Module

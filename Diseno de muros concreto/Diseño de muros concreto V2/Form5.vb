@@ -2,8 +2,6 @@
 
 Public Class f_variables
 
-
-
     Private Sub f_variables_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         T_Hviga.TextAlign = HorizontalAlignment.Center
@@ -25,43 +23,6 @@ Public Class f_variables
 
     End Sub
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     'Mover Pestaña
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
     Private Shared Sub ReleaseCapture()
@@ -71,17 +32,10 @@ Public Class f_variables
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-
     Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
-
-
-
-
-
-
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Me.Close()
@@ -91,17 +45,9 @@ Public Class f_variables
         PictureBox1.BackColor = Color.White
     End Sub
 
-
     Private Sub PictureBox1_MouseLeave(sender As Object, e As EventArgs) Handles PictureBox1.MouseLeave
         PictureBox1.BackColor = Color.Transparent
     End Sub
-
-
-
-
-
-
-
 
     Private Sub Cb_Aceptar_Click_1(sender As Object, e As EventArgs) Handles cb_Aceptar.Click
 
@@ -121,10 +67,7 @@ Public Class f_variables
 
     End Sub
 
-
-
     'CREAR SOMBRA EN EL FORMULARIO
-
 
     Private m_hOriginalParent As Integer
     Private Const GWL_HWNDPARENT As Integer = -8
@@ -133,7 +76,6 @@ Public Class f_variables
     Private Declare Function GetDesktopWindow Lib "user32" () As Integer
     Private Declare Function SetClassLong Lib "user32" Alias "SetClassLongA" (lngHandler As IntPtr, lngIndex As Integer, lngNewClassLong As Integer) As Integer
     Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (hWnd As IntPtr, nIndex As Integer, dwNewLong As Integer) As Integer
-
 
     Public Sub New()
 
@@ -154,12 +96,5 @@ Public Class f_variables
         Me.ResumeLayout(False)
 
     End Sub
-
-
-
-
-
-
-
 
 End Class

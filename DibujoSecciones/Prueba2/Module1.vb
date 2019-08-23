@@ -1,7 +1,6 @@
 ﻿Imports Autodesk.AutoCAD.Interop
 Imports Autodesk.AutoCAD.Interop.Common
 Imports MathNet.Numerics.LinearAlgebra
-Imports Diseño_de_muros_concreto_V2
 
 Module Module1
 
@@ -24,13 +23,10 @@ Module Module1
 
     Public Ganchos_180 As New Dictionary(Of String, Double)
 
-
     Public Linea As AcadLine
     Public ListaOrdenada As List(Of Muros)
 
-
     Sub IniciarAplicacion(ByVal Formulario As Form1)
-
 
         Dim rnd As New Random
 
@@ -59,8 +55,6 @@ Module Module1
                 Exit For
             End If
         Next
-
-
 
         AcadDoc = AcadApp.ActiveDocument
         AcadDoc.PurgeAll()
@@ -127,7 +121,6 @@ Module Module1
             X_max = Muros_V(i).CoordenadasX.Max
             Y_max = Muros_V(i).CoordenadasY.Max
 
-
             Muros_V(i).EspesorReal = EspesorMuro(X_max, X_min, Y_max, Y_min)(2)
             Muros_V(i).DireccionMuro = EspesorMuro(X_max, X_min, Y_max, Y_min)(3)
             Muros_V(i).Longitud = EspesorMuro(X_max, X_min, Y_max, Y_min)(4)
@@ -152,17 +145,13 @@ Module Module1
             Muros_V(i).YmaxE = Muros_V(i).CoordenadasY.Max
             Muros_V(i).YminE = Muros_V(i).CoordenadasY.Min
 
-
             'Centroide de Cada Muro
             Muros_V(i).CentroideX = CentroideX + X_min
             Muros_V(i).CentroideY = CentroideY + Y_min
 
-
             'Espesor
 
         Next
-
-
 
         Dim Distancia_ As Double
 
@@ -180,7 +169,6 @@ Module Module1
 
         Next
 
-
         'Muros Vecinos
 
         For i = 0 To Muros_V.Count - 1
@@ -189,7 +177,6 @@ Module Module1
             Y_min = Math.Round(Muros_V(i).Ymin, 2)
             X_max = Math.Round(Muros_V(i).Xmax, 2)
             Y_max = Math.Round(Muros_V(i).Ymax, 2)
-
 
             For j = 0 To Muros_V.Count - 1
 
@@ -220,10 +207,8 @@ Module Module1
 
         Next
 
-
         Dim ValorMenorX As Double = 999999
         ' Dim ValorMayorY, ValorMenorY As Double
-
 
         For i = 0 To Muros_V.Count - 1
             For k = 0 To Muros_V(i).MurosVecinos.Count - 1
@@ -260,17 +245,10 @@ Module Module1
             Next
         Next
 
-
-
-
-
-
-
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP = ListaOrdenada(i).MurosVecinosP.OrderBy(Function(x) x).ToList
 
         Next
-
 
         For i = 0 To ListaOrdenada.Count - 1
             For j = 0 To ListaOrdenada(i).MurosVecinos.Count - 1
@@ -279,7 +257,6 @@ Module Module1
             Next
         Next
 
-
         For i = 0 To ListaOrdenada.Count - 1
             For j = 0 To ListaOrdenada(i).MurosVecinos.Count - 1
                 ListaOrdenada(i).MurosVeciosYmin.Add(ListaOrdenada(ListaOrdenada(i).MurosVecinosPY(j)).Ymin)
@@ -287,11 +264,9 @@ Module Module1
             Next
         Next
 
-
         Dim PosicionX As Double
 
         Dim AuxX As Integer
-
 
         For i = 0 To ListaOrdenada.Count - 1
 
@@ -307,7 +282,6 @@ Module Module1
 
                         ListaOrdenada(i).MurosVeciosXmin(m + 1) = PosicionX
                         ListaOrdenada(i).MurosVecinosP(m + 1) = AuxX
-
 
                     End If
                 Next
@@ -334,7 +308,6 @@ Module Module1
                         ListaOrdenada(i).MurosVeciosYmin(m + 1) = PosicionY
                         ListaOrdenada(i).MurosVecinosPY(m + 1) = AuxY
 
-
                     End If
                 Next
             Next
@@ -343,14 +316,12 @@ Module Module1
 
         '-------------------------------INICIO ESCALA
 
-
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).ClasificacionMuros()
         Next
         ESCALA()
 
         '-----------------------------------------------------FIN DE ESCALA
-
 
         'CARGAR DATOS ----> Elemento de Borde, Numero de Barras, Longitud, Malla
 
@@ -359,13 +330,11 @@ Module Module1
         For i = 0 To ListaOrdenada.Count - 1
             Try
 
-
                 For j = 0 To Muros_lista_2.Count - 1
 
                     If ListaOrdenada(i).NombreMuro = Muros_lista_2(j).Pier_name Then
 
                         Dim Indice = Muros_lista_2(j).Stories.FindIndex(Function(x) x = ("Story" & No_Piso))
-
 
                         ListaOrdenada(i).LEB_Iz = Muros_lista_2(j).Lebe_Izq(Indice) / 100
                         ListaOrdenada(i).LEB_Dr = Muros_lista_2(j).Lebe_Der(Indice) / 100
@@ -374,7 +343,6 @@ Module Module1
                         ListaOrdenada(i).Hatch_pattern_Der = "SOLID"
                         ListaOrdenada(i).Hatch_Layer_Izq = "FC_HATCH MUROS"
                         ListaOrdenada(i).Hatch_Layer_Der = "FC_HATCH MUROS"
-
 
                         If Muros_lista_2(j).Lebe_Der(Indice) = 0 Then
                             ListaOrdenada(i).LEB_Dr = Muros_lista_2(j).Zc_Der(Indice) / 100
@@ -388,7 +356,6 @@ Module Module1
                             ListaOrdenada(i).Hatch_Layer_Izq = "FC_HATCH 252"
                         End If
 
-
                         ListaOrdenada(i).Sep_RefuerzoHorizontal = Muros_lista_2(j).sep_htal(Indice)
                         ListaOrdenada(i).Malla = Muros_lista_2(j).Malla(Indice)
                         ListaOrdenada(i).Capas_RefuerzoHorizontal = Muros_lista_2(j).Capas_htal(Indice)
@@ -401,13 +368,9 @@ Module Module1
 
                         End Try
 
-
-
-
                     End If
                 Next
             Catch ex As Exception
-
 
             End Try
         Next
@@ -416,7 +379,6 @@ Module Module1
 
         'Dim Escala_dibujo As New Commands_Autocad
         'Escala_dibujo.add_scale(AcadDoc)
-
 
         Formulario.BarraPersonalizada.Visible = False
         Formulario.BarraPersonalizada2.Visible = False
@@ -467,13 +429,12 @@ Module Module1
 
         Next
 
-
         For i = 0 To ListaOrdenada.Count - 1
 
             ListaOrdenada(i).CoordenadasaGraficas = Traslacion_Coordenas(A(0) - Xmin, A(1) - Ymin, ListaOrdenada(i).Xmin, ListaOrdenada(i).Xmax, ListaOrdenada(i).Ymin, ListaOrdenada(i).Ymax)
 
         Next
-        'Actualizar Coordenadas 
+        'Actualizar Coordenadas
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).Xmin = ListaOrdenada(i).CoordenadasaGraficas(0)
             ListaOrdenada(i).Xmax = ListaOrdenada(i).CoordenadasaGraficas(2)
@@ -481,7 +442,6 @@ Module Module1
             ListaOrdenada(i).Ymax = ListaOrdenada(i).CoordenadasaGraficas(5)
 
         Next
-
 
         Dim Ymax As Double = -99999
         Dim Xmax As Double = -99999
@@ -497,9 +457,7 @@ Module Module1
 
         Next
 
-
         'AsignarBloques----------> NOMBRES DE MUROS
-
 
         For i = 0 To ListaOrdenada.Count - 1
 
@@ -507,22 +465,13 @@ Module Module1
 
         Next
 
-
-
-
-
-
         'Asignar cada Circulo Refuerzo con Su Respectivo Label
         For s = 0 To ListaOrdenada.Count - 1
             For i = 0 To Lista_CirculoRefuerzos.Count - 1
                 Dim Dmin As Double = 99999999
                 For j = 0 To Lista_TextosRefuerzos.Count - 1
 
-
                     Distancia_ = Math.Sqrt((Lista_CirculoRefuerzos(i).CoordenadasXyY(0) - Lista_TextosRefuerzos(j).CoordenasdasXyY(0)) ^ 2 + (Lista_CirculoRefuerzos(i).CoordenadasXyY(1) - Lista_TextosRefuerzos(j).CoordenasdasXyY(1)) ^ 2)
-
-
-
 
                     If Dmin > Distancia_ Then
                         Dmin = Distancia_
@@ -547,9 +496,6 @@ Module Module1
             Next
         Next
 
-
-
-
         For i = 0 To Lista_CirculoRefuerzos.Count - 1
 
             Dim YBarra = (Lista_CirculoRefuerzos(i).CoordenadasXyY(1)) - ListaOrdenada(Lista_CirculoRefuerzos(i).IndiceMuroPerteneciente).YminE
@@ -568,15 +514,13 @@ Module Module1
 
             Lista_CirculoRefuerzos(i).CoordenadasXyY(0) = ListaOrdenada(Lista_CirculoRefuerzos(i).IndiceMuroPerteneciente).Xmin + XBarraE
 
-
         Next
 
-        '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO 
+        '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO
 
         For i = 0 To ListaOrdenada.Count - 1
             Dim MenorRecubrimiento As Double = 9999999
             If ListaOrdenada(i).DireccionMuro = "Vertical" Then
-
 
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos.Count - 1
 
@@ -586,8 +530,6 @@ Module Module1
 
                 Next
                 ListaOrdenada(i).RecubrimientoRefuerzo = MenorRecubrimiento
-
-
             Else
 
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos.Count - 1
@@ -600,9 +542,7 @@ Module Module1
 
             End If
 
-
         Next
-
 
         For i = 0 To ListaOrdenada.Count - 1
 
@@ -623,7 +563,6 @@ Module Module1
                 End If
             Next
 
-
         Next
 
         'ORDENAR SEGUN COORDENADAS
@@ -633,11 +572,8 @@ Module Module1
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min = ListaNuevaOrdenar
 
-
                 ListaNuevaOrdenar = ListaOrdenada(i).Lista_Refuerzos_Fila_Max.OrderBy(Function(x) x.CoordenadasXyY(1)).ToList
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Max = ListaNuevaOrdenar
-
-
             Else
                 Dim ListaNuevaOrdenar As List(Of RefuerzoCirculo)
 
@@ -649,8 +585,6 @@ Module Module1
             End If
 
         Next
-
-
 
         'Cambio de Recubrimiento a 0.038
 
@@ -666,7 +600,6 @@ Module Module1
                     For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
                         .Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) = .Ymax - 0.038
                     Next
-
                 Else
                     For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
                         .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) = .Xmin + 0.038
@@ -677,7 +610,6 @@ Module Module1
                 End If
 
             End With
-
 
         Next
 
@@ -694,9 +626,6 @@ Module Module1
             End With
         Next
 
-
-
-
         '-------------------------------ASIGNAR FILAS DE RECUBRIMIENTO A CADA MURO -------------- FIN
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -706,7 +635,6 @@ Module Module1
         Next
 
         For i = 0 To ListaOrdenada.Count - 1
-
 
             If ListaOrdenada(i).LEB_Iz <> 0 Then
 
@@ -730,7 +658,6 @@ Module Module1
             Polyline.Update()
         Next
 
-
         'DIBUJO DE REFUERZO
 
         For i = 0 To ListaOrdenada.Count - 1
@@ -740,13 +667,12 @@ Module Module1
             With ListaOrdenada(i)
                 If .Lista_LongitudBarras.Count <> 0 Then
                     For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                    AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
-                Next
-                For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
+                        AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
+                    Next
+                    For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
 
-
-                    AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
-                Next
+                        AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
+                    Next
                 End If
             End With
         Next
@@ -773,7 +699,6 @@ Module Module1
                             Next
 
                         End If
-
 
                         If .MurosVecinosDerecha.Count <> 0 Then
                             For m = 0 To .MurosVecinosDerecha.Count - 1
@@ -802,10 +727,7 @@ Module Module1
                                 RangoEspesorListaX.Add(RangoEspesorX)
                             Next
 
-
                         End If
-
-
 
                         For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
                             Dim Alto = 0.0375
@@ -814,7 +736,6 @@ Module Module1
                             Dim FactoAdicionalTexto As Double = 1
                             Dim FactorAdicionalTextoIzquierda1 As Double = 1
                             Dim FactorAdicionalTextoIzquierda2 As Double = 1
-
 
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
@@ -829,8 +750,6 @@ Module Module1
                                 End If
                             Next
 
-
-
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
                                 If RangoEspesorAux.Count > 1 Then
@@ -842,7 +761,6 @@ Module Module1
                                     End If
                                 End If
                             Next
-
 
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
@@ -856,11 +774,8 @@ Module Module1
 
                             Next
 
-
-
                             'COTAS
                             If j < .Lista_Refuerzos_Fila_Min.Count - 1 Then
-
 
                                 AddCota(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, .Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 90, "", False, DesplazaCotaDerecha, 0.15)
 
@@ -883,7 +798,6 @@ Module Module1
                             Catch ex As Exception
 
                             End Try
-
 
                         Next
                     Else
@@ -911,7 +825,6 @@ Module Module1
                                 RangoEspesorY(0) = .MurosVecinosArriba(m).Ymax
                                 RangoEspesorListaY.Add(RangoEspesorY)
                             Next
-
 
                         End If
 
@@ -945,10 +858,7 @@ Module Module1
                                 End If
                             Next
 
-
                             'DesplazamientoCotas Por MurosArriba y MurosAbajo
-
-
 
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
@@ -964,7 +874,6 @@ Module Module1
                                 End If
                             Next
 
-
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
                                 If RangoEspesorAux.Count > 1 Then
@@ -978,16 +887,9 @@ Module Module1
                                 End If
                             Next
 
-
-
-
                             If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
                                 AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
                             End If
-
-
-
-
 
                             Try
                                 Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
@@ -1007,8 +909,6 @@ Module Module1
                             Catch ex As Exception
 
                             End Try
-
-
 
                         Next
 
@@ -1040,17 +940,15 @@ Module Module1
             NombresMuros = ListaOrdenada.Select(Function(x) x.NombreMuro).ToList()
             CoordTabla(0) = Xmax + 2 : CoordTabla(1) = Ymax
 
-
             CrearTabla(CoordTabla, NombresMuros)
 
         End If
 
-        ''LABEL ----> BARRAS Y LONGITUDES 
+        ''LABEL ----> BARRAS Y LONGITUDES
 
         'For i = 0 To ListaOrdenada.Count - 1
         '    Dim Alto = 0.05
         '    Dim Ubicacion1 As Double()
-
 
         '    For j = 0 To ListaOrdenada(i).Lista_NoBarras.Count - 1
         '        Dim TextoString = ListaOrdenada(i).Lista_NoBarras(j) & " L=" & ListaOrdenada(i).Lista_LongitudBarras(j) & " (" & j + 1 & ")"
@@ -1076,9 +974,9 @@ Module Module1
         ' COTAS------------------------------------------------------------->
         For i = 0 To ListaOrdenada.Count - 1
             With ListaOrdenada(i)
-            Dim TextoAdicional As String = Format(.EspesorReal, "##,0.00")
-            Dim PTO1(2) As Double
-            Dim PTO2(2) As Double
+                Dim TextoAdicional As String = Format(.EspesorReal, "##,0.00")
+                Dim PTO1(2) As Double
+                Dim PTO2(2) As Double
                 If .DireccionMuro = "Vertical" Then
 
                     'Cotas de Espesores
@@ -1090,15 +988,11 @@ Module Module1
 
                     End If
 
-
                     If .MurosVecinosAbajo.Count = 0 Then
                         PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
                         PTO2(0) = .Xmax : PTO2(1) = .Ymin : PTO2(2) = 0
                         AddCota(PTO1, PTO2, 0, TextoAdicional, True, 0.2, -0.15)
                     End If
-
-
-
 
                     'Cotas de Elementos de Borde y Longitud del Elemento
                     If .LEB_Dr < .Longitud And .LEB_Iz < .Longitud And .LEB_Dr <> 0 And .LEB_Iz <> 0 Then
@@ -1108,9 +1002,7 @@ Module Module1
                             PTO2(0) = .Xmin : PTO2(1) = .Ymax - .LEB_Dr
                             AddCota(PTO1, PTO2, 90, "", False, 0.35, 0.15)
 
-
                         End If
-
 
                         If .LEB_Iz <> 0 Then
                             PTO1(0) = .Xmin : PTO1(1) = .Ymin
@@ -1125,9 +1017,7 @@ Module Module1
                             PTO1(0) = .Xmin : PTO1(1) = .Ymax - .LEB_Dr : PTO1(2) = 0
                             PTO2(0) = .Xmin : PTO2(1) = .Ymin + .LEB_Iz
                             AddCota(PTO1, PTO2, 90, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.35, 0.15)
-
                         Else
-
 
                             Dim ListaDeMurosVecinosIzquierdaOrdenados As New List(Of Muros)
 
@@ -1140,14 +1030,12 @@ Module Module1
 
                             AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
 
-
                             For V = 0 To ListaDeMurosVecinosIzquierdaOrdenados.Count - 1
                                 PTO1(1) = ListaDeMurosVecinosIzquierdaOrdenados(V).Ymax
                                 Try
                                     PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).Ymin
                                     LongitudReal = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).YminE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
                                     AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
-
                                 Catch
                                     PTO2(1) = .Ymax - .LEB_Dr
                                     LongitudReal = (.YmaxE - .LEB_Dr) - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
@@ -1156,9 +1044,7 @@ Module Module1
                                 End Try
                             Next
 
-
                         End If
-
 
                     ElseIf .LEB_Dr > .Longitud Or .LEB_Iz > .Longitud OrElse .LEB_Dr = 0 And .LEB_Iz = 0 Then
                         PTO1(0) = .Xmin : PTO1(1) = .Ymin
@@ -1179,14 +1065,12 @@ Module Module1
 
                             AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
 
-
                             For V = 0 To ListaDeMurosVecinosIzquierdaOrdenados.Count - 1
                                 PTO1(1) = ListaDeMurosVecinosIzquierdaOrdenados(V).Ymax
                                 Try
                                     PTO2(1) = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).Ymin
                                     LongitudReal = ListaDeMurosVecinosIzquierdaOrdenados(V + 1).YminE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
                                     AddCota(PTO1, PTO2, 90, Format(LongitudReal, "##,0.00"), True, 0.35, 0.15)
-
                                 Catch
                                     PTO2(1) = .Ymax
                                     LongitudReal = .YmaxE - ListaDeMurosVecinosIzquierdaOrdenados(V).YmaxE
@@ -1195,19 +1079,12 @@ Module Module1
                                 End Try
                             Next
 
-
                         End If
 
-
-
                     End If
-
                 Else
 
-
-
                     'Cotas de Espesores
-
 
                     If .MurosVecinosIzquierda.Count = 0 Then
                         PTO1(0) = .Xmin : PTO1(1) = .Ymin : PTO1(2) = 0
@@ -1221,7 +1098,6 @@ Module Module1
                         AddCota(PTO1, PTO2, 90, TextoAdicional, True, -0.2, 0.15)
                     End If
 
-
                     'Cotas de Elementos de Borde y Longitud del Elemento
                     If .LEB_Dr < .Longitud And .LEB_Iz < .Longitud And .LEB_Dr <> 0 And .LEB_Iz <> 0 Then
 
@@ -1231,13 +1107,11 @@ Module Module1
                         PTO2(0) = .Xmax - .LEB_Dr : PTO2(1) = .Ymax
                         AddCota(PTO1, PTO2, 0, "", False, 0.2, 0.25)
 
-
                         'Cota Izquierda
 
                         PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
                         PTO2(0) = .Xmin + .LEB_Iz : PTO2(1) = .Ymax
                         AddCota(PTO1, PTO2, 0, "", False, 0.2, 0.25)
-
 
                         PTO1(0) = .Xmin + .LEB_Iz
                         PTO1(1) = .Ymax
@@ -1248,9 +1122,7 @@ Module Module1
                             PTO1(0) = .Xmin + .LEB_Iz : PTO1(1) = .Ymax : PTO1(2) = 0
                             PTO2(0) = .Xmax - .LEB_Dr : PTO2(1) = .Ymax
                             AddCota(PTO1, PTO2, 0, Format(.Longitud - .LEB_Dr - .LEB_Iz, "##,0.00"), True, 0.2, 0.25)
-
                         Else
-
 
                             Dim ListaDeMurosVecinosArribaOrdenados As New List(Of Muros)
 
@@ -1261,7 +1133,6 @@ Module Module1
                             Dim LongitudReal As Double = ListaDeMurosVecinosArribaOrdenados(0).XminE - (.XminE + .LEB_Iz)
 
                             AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
-
 
                             For H = 0 To ListaDeMurosVecinosArribaOrdenados.Count - 1
                                 PTO1(0) = ListaDeMurosVecinosArribaOrdenados(H).Xmax
@@ -1277,13 +1148,9 @@ Module Module1
                                 End Try
                             Next
 
-
                         End If
 
-
                     ElseIf .LEB_Dr > .Longitud Or .LEB_Iz > .Longitud OrElse .LEB_Dr = 0 And .LEB_Iz = 0 Then
-
-
 
                         PTO1(0) = .Xmin : PTO1(1) = .Ymax : PTO1(2) = 0
                         PTO2(0) = .Xmax : PTO2(1) = .Ymax
@@ -1302,7 +1169,6 @@ Module Module1
 
                             AddCota(PTO1, PTO2, 0, Format(LongitudReal, "##,0.00"), True, 0.2, 0.25)
 
-
                             For H = 0 To ListaDeMurosVecinosArribaOrdenados.Count - 1
                                 PTO1(0) = ListaDeMurosVecinosArribaOrdenados(H).Xmax
                                 Try
@@ -1317,21 +1183,14 @@ Module Module1
                                 End Try
                             Next
 
-
                         End If
 
-
-
                     End If
 
-                    End If
+                End If
 
             End With
         Next
-
-
-
-
 
         'MALLA
         For i = 0 To ListaOrdenada.Count - 1
@@ -1342,7 +1201,7 @@ Module Module1
                 If .Malla <> "Sin Malla" And .Malla <> "" Then
                     For letras = 0 To Len(.Malla) - 1 : If .Malla.Chars(letras) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
                     If .DireccionMuro = "Vertical" Then
-                        'Caso 1 
+                        'Caso 1
 
                         If .LEB_Dr = 0 And .LEB_Iz = 0 Then
                             Dim FilasSinRedon = (Math.Abs(.Ymax - .Ymin) - (2 * 0.04)) / 0.1
@@ -1375,7 +1234,6 @@ Module Module1
                             End If
 
                         End If
-
                     Else
                         If .LEB_Dr = 0 And .LEB_Iz = 0 Then
                             Dim ColumnasRedon = (Math.Abs(.Xmax - .Xmin) - (2 * 0.04)) / 0.1
@@ -1424,9 +1282,6 @@ Module Module1
             End If
         Next
 
-
-
-
         'ColocarLabelsDeMallaORefuerzoHorizontal
 
         For Each Muro In ListaOrdenada
@@ -1435,7 +1290,6 @@ Module Module1
                 AddBloqueLabelRefuerzoMalla(Muro, Muro.Capas_RefuerzoHorizontal, "FC_REFUERZO HORIZONTAL 2")
             End If
         Next
-
 
         For Each Muro In ListaOrdenada
 
@@ -1446,9 +1300,6 @@ Module Module1
 
             End If
         Next
-
-
-
 
         Dim Estribos As New Crear_Estribos
         Estribos.Determinar_Estribos(Formulario)
@@ -1461,10 +1312,6 @@ Module Module1
             Aux.Estribos_Pisos(Delta_X, 0, A(1))
         End If
 
-
-
-
-
         Muros_V.Clear()
         ListaOrdenada.Clear()
         Selecccionar.Clear()
@@ -1474,7 +1321,6 @@ Module Module1
         MsgBox("Dibujado con Éxito", MsgBoxStyle.Information, "efe Prima Ce")
 
     End Sub
-
 
     Sub AddBloqueLabelRefuerzoMalla(ByVal MuroI As Muros, ByVal No_Capas As Integer, ByVal Layer As String)
 
@@ -1494,8 +1340,6 @@ Module Module1
             Else
                 Nomenc_Refuerzo = No_Capas & "#" & .RefuerzoHorizontalLabel & " a " & Format(Val(.Sep_RefuerzoHorizontal) / 100, "#0.00") & " L=" & Format(Math.Round(.LongMallaHoriz, 2), "#0.00")
             End If
-
-
 
             If .DireccionMuro = "Vertical" Then
                 If No_Capas = 2 Then
@@ -1523,10 +1367,8 @@ Module Module1
                     Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
                     Dim Atributo As Object = AtibutosBloque(1)
 
-
                     Editar_Propiedades2 = Propiedades_Dinamicas(6)
                     Editar_Propiedades2.Value = Visibility
-
 
                     Editar_Propiedades2 = Propiedades_Dinamicas(7)
                     Editar_Propiedades2.Value = Distance3
@@ -1559,15 +1401,12 @@ Module Module1
 
                     Dim InicioX = .Xmin + (.Xmax - .Xmin) / 2 + FactorAd + 0.14
 
-
                     Dim Visibility = "Vertical"
                     Dim Distance3 = 0.8
                     Dim Flipstate = Convert.ToInt16(0)
                     Dim Distance1 = 0.1365
 
                     Dim Coord = {InicioX, InicioY, 0}
-
-
 
                     BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Refuero_H_Seccion", 25, 25, 25, 0)
                     BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
@@ -1582,7 +1421,6 @@ Module Module1
                     Editar_Propiedades2 = Propiedades_Dinamicas(3)
                     Editar_Propiedades2.Value = Distance3
 
-
                     Editar_Propiedades2 = Propiedades_Dinamicas(9)
                     Editar_Propiedades2.Value = Convert.ToInt16(0)
 
@@ -1593,12 +1431,8 @@ Module Module1
                     Atributo.TextString = Nomenc_Refuerzo
                     BloqueRefuerzoHorizMalla.Update()
 
-
                 End If
-
             Else
-
-
 
                 If No_Capas = 2 Then
                     Dim InicioX As Double
@@ -1610,7 +1444,6 @@ Module Module1
                     Dim InicioY = .Ymax + 0.54
 
                     Dim Visibility = "Horizontal"
-
 
                     Dim Distance4 = 0.5696
                     Dim Flipstate = Convert.ToInt16(0)
@@ -1631,13 +1464,11 @@ Module Module1
                     Editar_Propiedades2 = Propiedades_Dinamicas(6)
                     Editar_Propiedades2.Value = Visibility
 
-
                     Editar_Propiedades2 = Propiedades_Dinamicas(1)
                     Editar_Propiedades2.Value = Leader
 
                     Editar_Propiedades2 = Propiedades_Dinamicas(3)
                     Editar_Propiedades2.Value = Linea_Texto
-
 
                     Editar_Propiedades2 = Propiedades_Dinamicas(10)
                     Editar_Propiedades2.Value = Distance4
@@ -1649,8 +1480,6 @@ Module Module1
                     Atributo.TextString = Nomenc_Refuerzo
                     BloqueRefuerzoHorizMalla.Update()
                 Else
-
-
 
                     Dim FactorAd As Double
                     Dim NoMallas As Integer
@@ -1664,7 +1493,6 @@ Module Module1
                         InicioX = .Xmax - (.Xmax - .Xmin) * 0.3 - 0.89
                     End If
 
-
                     Dim InicioY = .Ymin + (.Ymax - .Ymin) / 2 + FactorAd + 0.65
 
                     Dim Visibility = "Horizontal"
@@ -1675,8 +1503,6 @@ Module Module1
 
                     Dim Coord = {InicioX, InicioY, 0}
 
-
-
                     BloqueRefuerzoHorizMalla = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Refuero_H_Seccion", 25, 25, 25, 0)
                     BloqueRefuerzoHorizMalla.Layer = "FC_COTAS"
                     Dim Propiedades_Dinamicas As Object = BloqueRefuerzoHorizMalla.GetDynamicBlockProperties
@@ -1684,17 +1510,14 @@ Module Module1
                     Dim AtibutosBloque As Object = BloqueRefuerzoHorizMalla.GetAttributes()
                     Dim Atributo As Object = AtibutosBloque(0)
 
-
                     Editar_Propiedades2 = Propiedades_Dinamicas(0)
                     Editar_Propiedades2.Value = Arriba_Abajo
 
                     Editar_Propiedades2 = Propiedades_Dinamicas(6)
                     Editar_Propiedades2.Value = Visibility
 
-
                     Editar_Propiedades2 = Propiedades_Dinamicas(1)
                     Editar_Propiedades2.Value = Leader
-
 
                     Editar_Propiedades2 = Propiedades_Dinamicas(3)
                     Editar_Propiedades2.Value = LineaTexto
@@ -1702,37 +1525,21 @@ Module Module1
                     Editar_Propiedades2 = Propiedades_Dinamicas(5)
                     Editar_Propiedades2.Value = Derecha_Izquierda
 
-
-
                     Atributo.MTextBoundaryWidth = AnchoCajon
                     Atributo.TextString = Nomenc_Refuerzo
                     BloqueRefuerzoHorizMalla.Update()
 
-
                 End If
-
-
 
             End If
 
-
-
-
-
         End With
-
-
 
     End Sub
 
-
-
     Sub AddBloqueNombresMuros(ByVal MuroI As Muros)
 
-
-
         With MuroI
-
 
             If .DireccionMuro = "Vertical" Then
 
@@ -1745,7 +1552,6 @@ Module Module1
                 Dim Propiedades_Dinamicas As Object = BloqueNombreMuro.GetDynamicBlockProperties
                 Dim AtibutosBloque As Object = BloqueNombreMuro.GetAttributes()
 
-
                 Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
                 Dim Editar_Atributos As Object = AtibutosBloque(1)
 
@@ -1755,19 +1561,16 @@ Module Module1
                 Editar_Propiedades2 = Propiedades_Dinamicas(5) ''''Distance1
                 Editar_Propiedades2.Value = 0.1577
 
-                Editar_Propiedades2 = Propiedades_Dinamicas(7) ''''FlipState1     
+                Editar_Propiedades2 = Propiedades_Dinamicas(7) ''''FlipState1
                 Editar_Propiedades2.Value = Convert.ToInt16(0)
 
-                Editar_Propiedades2 = Propiedades_Dinamicas(12) ''''Distance3     
+                Editar_Propiedades2 = Propiedades_Dinamicas(12) ''''Distance3
                 Editar_Propiedades2.Value = 0.4018
 
                 Editar_Atributos.TextString = "Muro " & .NombreMuro
 
-
-                '//////(0)---->Arriba-Abajo    //////(1)---->Leader   /////////(3) --------->  Derecha-Izquierda    ////(8)------>Distance2   ////(10) -----Distance4 /////(12)---- Distance3   
-
+                '//////(0)---->Arriba-Abajo    //////(1)---->Leader   /////////(3) --------->  Derecha-Izquierda    ////(8)------>Distance2   ////(10) -----Distance4 /////(12)---- Distance3
             Else
-
 
                 Dim Coord(2) As Double
                 Coord(0) = .Xmin + (.Xmax - .Xmin) * 0.2
@@ -1778,13 +1581,11 @@ Module Module1
                 Dim Propiedades_Dinamicas As Object = BloqueNombreMuro.GetDynamicBlockProperties
                 Dim AtibutosBloque As Object = BloqueNombreMuro.GetAttributes()
 
-
                 Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
                 Dim Editar_Atributos As Object = AtibutosBloque(0)
 
                 Editar_Propiedades2 = Propiedades_Dinamicas(0) ''''Arriba-Abajo
                 Editar_Propiedades2.Value = Convert.ToInt16(1)
-
 
                 Editar_Propiedades2 = Propiedades_Dinamicas(4) ''''Visibility1
                 Editar_Propiedades2.Value = "Horizontal"
@@ -1792,35 +1593,21 @@ Module Module1
                 Editar_Propiedades2 = Propiedades_Dinamicas(5) ''''Distance1
                 Editar_Propiedades2.Value = 0.1577
 
-                Editar_Propiedades2 = Propiedades_Dinamicas(3) ''''Derecha-Izquierda      
+                Editar_Propiedades2 = Propiedades_Dinamicas(3) ''''Derecha-Izquierda
                 Editar_Propiedades2.Value = Convert.ToInt16(0)
 
-                Editar_Propiedades2 = Propiedades_Dinamicas(10) ''''Distance4     
+                Editar_Propiedades2 = Propiedades_Dinamicas(10) ''''Distance4
                 Editar_Propiedades2.Value = 0.4774
 
                 Editar_Atributos.TextString = "Muro " & .NombreMuro
 
-
-
-
-
-
-
             End If
-
 
         End With
 
         BloqueNombreMuro.Update()
 
     End Sub
-
-
-
-
-
-
-
 
     Sub ESCALA()
         For i = 0 To ListaOrdenada.Count - 1
@@ -1830,7 +1617,6 @@ Module Module1
                     Dim Delta = (.EspesorEscalado - .EspesorReal) / 2
                     .Ymin = .Ymin - Delta
                     .Ymax = .Ymax + Delta
-
 
                     For j = 0 To .MurosVecinosIzquierda.Count - 1
 
@@ -1848,7 +1634,6 @@ Module Module1
                             DesplazaminetoaAbajo(.MurosVecinosIzquierda(j), .MurosVecinosIzquierda(j).MurosVecinosAbajo(0), Delta)
                         End If
 
-
                         For s = 0 To .MurosVecinosIzquierda(j).MurosVecinosIzquierda.Count - 1
                             If Math.Round(.CentroideY, 2) < Math.Round(.MurosVecinosIzquierda(j).MurosVecinosIzquierda(s).CentroideY, 2) Then
                                 .MurosVecinosIzquierda(j).MurosVecinosIzquierda(s).Ymax = .MurosVecinosIzquierda(j).MurosVecinosIzquierda(s).Ymax + Delta
@@ -1860,7 +1645,6 @@ Module Module1
                                 DesplazaminetoaAbajo(.MurosVecinosIzquierda(j), .MurosVecinosIzquierda(j).MurosVecinosIzquierda(s), Delta)
                             End If
                         Next
-
 
                         For s = 0 To .MurosVecinosIzquierda(j).MurosVecinosDerecha.Count - 1
                             If Math.Round(.CentroideY, 2) < Math.Round(.MurosVecinosIzquierda(j).MurosVecinosDerecha(s).CentroideY, 2) Then
@@ -1915,8 +1699,6 @@ Module Module1
                                 DesplazaminetoaAbajo(.MurosVecinosDerecha(j), .MurosVecinosDerecha(j).MurosVecinosAbajo(0), Delta)
                             End If
 
-
-
                             For s = 0 To .MurosVecinosDerecha(j).MurosVecinosDerecha.Count - 1
                                 If Math.Round(.CentroideY, 2) < Math.Round(.MurosVecinosDerecha(j).MurosVecinosDerecha(s).CentroideY, 2) Then
                                     .MurosVecinosDerecha(j).MurosVecinosDerecha(s).Ymax = .MurosVecinosDerecha(j).MurosVecinosDerecha(s).Ymax + Delta
@@ -1928,7 +1710,6 @@ Module Module1
                                     DesplazaminetoaAbajo(.MurosVecinosDerecha(j), .MurosVecinosDerecha(j).MurosVecinosDerecha(s), Delta)
                                 End If
                             Next
-
 
                             For s = 0 To .MurosVecinosDerecha(j).MurosVecinosIzquierda.Count - 1
                                 If Math.Round(.CentroideY, 2) < Math.Round(.MurosVecinosDerecha(j).MurosVecinosIzquierda(s).CentroideY, 2) Then
@@ -1954,7 +1735,6 @@ Module Module1
 
         '''''''------------------------VERTICALES-------------------------------.
 
-
         For i = 0 To ListaOrdenada.Count - 1
             With ListaOrdenada(i)
 
@@ -1962,7 +1742,6 @@ Module Module1
                     Dim Delta = (.EspesorEscalado - .EspesorReal) / 2
                     .Xmin = .Xmin - Delta
                     .Xmax = .Xmax + Delta
-
 
                     For j = 0 To .MurosVecinosAbajo.Count - 1
 
@@ -1980,7 +1759,6 @@ Module Module1
                             .MurosVecinosAbajo(j).MurosVecinosIzquierda(0).Xmin = .MurosVecinosAbajo(j).MurosVecinosIzquierda(0).Xmin - Delta
                             DesplazaminetoaIzquierda(.MurosVecinosAbajo(j), .MurosVecinosAbajo(j).MurosVecinosIzquierda(0), Delta)
                         End If
-
 
                         For s = 0 To .MurosVecinosAbajo(j).MurosVecinosAbajo.Count - 1
                             If Math.Round(.CentroideX, 2) < Math.Round(.MurosVecinosAbajo(j).MurosVecinosAbajo(s).CentroideX, 2) Then
@@ -2047,7 +1825,6 @@ Module Module1
 
                             'CAMBIO 3 --- OK!
 
-
                             If .MurosVecinosArriba(j).MurosVecinosIzquierda.Count > 0 Then
                                 .MurosVecinosArriba(j).MurosVecinosIzquierda(0).Xmax = .MurosVecinosArriba(j).MurosVecinosIzquierda(0).Xmax - Delta
                                 .MurosVecinosArriba(j).MurosVecinosIzquierda(0).Xmin = .MurosVecinosArriba(j).MurosVecinosIzquierda(0).Xmin - Delta
@@ -2085,7 +1862,6 @@ Module Module1
                             'CAMBIO 6----- OK!
                         End If
 
-
                     Next
 
                 End If
@@ -2122,7 +1898,6 @@ Module Module1
 
     End Sub
 
-
     Sub DesplazaminetoaIzquierda(ByVal MuroMadre As Muros, ByVal MuroHijo As Muros, ByVal Delta As Double)
 
         For i = 0 To MuroHijo.MurosVecinosClase.Count - 1
@@ -2136,8 +1911,6 @@ Module Module1
         Next
 
     End Sub
-
-
 
     Sub DesplazaminetoaDerecha(ByVal MuroMadre As Muros, ByVal MuroHijo As Muros, ByVal Delta As Double)
 
@@ -2182,8 +1955,6 @@ Module Module1
 
     End Sub
 
-
-
     Sub CrearTabla(ByVal Coord() As Double, ByVal NombresMuros As List(Of String))
 
         Dim No_Rows As Integer = NombresMuros.Count
@@ -2216,7 +1987,6 @@ Module Module1
 
         Next
 
-
         TablaAutocad.ScaleEntity(Coord, 0.04)
         For i = 0 To NombresMuros.Count - 1
             Dim Coord2 = {Coord(0) + 0.315, Coord(1) - 0.75 - i * 0.12, 0}
@@ -2226,18 +1996,7 @@ Module Module1
 
         TablaAutocad.Update()
 
-
-
     End Sub
-
-
-
-
-
-
-
-
-
 
     Public Function ClasificarObjectos(Objeto As AcadObject, Numero As Integer) As String
         Dim NombreObjecto As String = "Sin Definir"
@@ -2272,16 +2031,9 @@ Module Module1
             End If
         End If
 
-
-
-
         Return NombreObjecto
 
     End Function
-
-
-
-
 
     Public Function EspesorMuro(MaximoX, MinimoX, MaximoY, MinimoY) As List(Of Object)
 
@@ -2297,8 +2049,8 @@ Module Module1
             Direccion = "Vertical"
         Else
             Espesor = EspesorY
-            Longitud= EspesorX
-            Direccion="Horizontal"
+            Longitud = EspesorX
+            Direccion = "Horizontal"
         End If
 
         EspesorMuro1.Add(EspesorX)
@@ -2309,8 +2061,6 @@ Module Module1
         EspesorMuro = EspesorMuro1
 
     End Function
-
-
 
     Public Function Coordenadas(Objeto As AcadObject) As List(Of List(Of Double))
 
@@ -2328,21 +2078,17 @@ Module Module1
             End If
         End If
 
-
         Coord.Add(Coordenadas_X)
         Coord.Add(Coordenadas_Y)
         Coordenadas = Coord
 
-
     End Function
-
 
     Function PropiedadesdelBloque(Objeto As AcadObject) As List(Of Double())
 
         Dim PropiedadesdelBloque2 As New List(Of Double())
         Dim MinPunto(2) As Double : Dim MaxPunto(2) As Double
         Dim Radio(0) As Double
-
 
         If Objeto.ObjectName = "AcDbBlockReference" Then
             Dim BloqueReferencia As AcadBlockReference = Objeto
@@ -2375,8 +2121,6 @@ Module Module1
             End If
         End If
 
-
-
         PropiedadesdelBloque2.Add(Radio)
         PropiedadesdelBloque2.Add(MinPunto)
 
@@ -2386,7 +2130,6 @@ Module Module1
 
     'Translacion de Coordenadas
     Function Traslacion_Coordenas(ByVal X As Double, ByVal Y As Double, Xmin As Double, Xmax As Double, Ymin As Double, Ymax As Double) As List(Of Double)
-
 
         Dim O As Matrix(Of Double)
         Dim P As Matrix(Of Double)
@@ -2398,24 +2141,19 @@ Module Module1
 
         T_aux = P * O
 
-
         For j = 0 To T_aux.ColumnCount - 1
             Traslacion.Add(T_aux(0, j))
             Traslacion.Add(T_aux(1, j))
 
         Next
 
-
         Traslacion_Coordenas = Traslacion
 
-
     End Function
-
 
     Sub AddRefuerzo(ByVal Coord() As Double, ByVal NumeroBloque As String, ByVal Xscale As Double, ByVal Layer As String)
 
         Dim Bloque As String = "FC_B_Convenciones refuerzoV2"
-
 
         Refuerzo_Circulo = AcadDoc.ModelSpace.InsertBlock(Coord, Bloque, 1, 1, 1, 0)
 
@@ -2431,11 +2169,7 @@ Module Module1
         End With
         Refuerzo_Circulo.Update()
 
-
-
     End Sub
-
-
 
     Sub AddCota(ByVal PTO1() As Double, ByVal PTO2() As Double, ByVal Rotation As Double, ByVal TextoAdicional As String, ByVal EditarTexto As Boolean, ByVal DesplazX As Double, ByVal DesplazY As Double)
 
@@ -2449,7 +2183,6 @@ Module Module1
             Location = {((PTO2(0) - PTO1(0)) / 2) + PTO1(0), PTO1(1) + DesplazY, 0}
         End If
 
-
         Cota = AcadDoc.ModelSpace.AddDimRotated(PTO1, PTO2, Location, Rotation)
 
         With Cota
@@ -2462,22 +2195,17 @@ Module Module1
             .Arrowhead2Type = AcDimArrowheadType.acArrowDot
             .ArrowheadSize = 0.001
 
-
             If EditarTexto Then
                 .TextOverride = TextoAdicional
 
             End If
-
 
         End With
 
         Cota.Update()
     End Sub
 
-
-
     Sub AddTexto(ByVal TextoString As String, Ubicacion() As Double, ByVal Alto As Double, ByVal LayerText As String, ByVal StyleText As String)
-
 
         Texto = AcadDoc.ModelSpace.AddText(TextoString, Ubicacion, Alto)
 
@@ -2493,7 +2221,6 @@ Module Module1
     Sub AddNombreMuro(ByVal Coord() As Double, ByVal LabelNa As String)
 
         Dim Bloque As String = "FC_B_Nombre de muro en seccion"
-
 
         NombreMuro = AcadDoc.ModelSpace.InsertBlock(Coord, Bloque, 1, 1, 1, 0)
 
@@ -2511,10 +2238,7 @@ Module Module1
         NombreMuro.Update()
     End Sub
 
-
-
     Sub AddRefuerzoHorizo_LineaMalla(ByVal Coord() As Double, ByVal NombreBloque As String, ByVal Rotacion As Double, ByVal Layer As String, ByVal LongituddeMalla As Double, ByVal DireccGancho1 As Integer, ByVal DireccGancho2 As Integer, ByVal ScaleX As Double)
-
 
         Rotacion = (Rotacion * Math.PI) / 180
 
@@ -2536,11 +2260,7 @@ Module Module1
         ElseIf NombreBloque = "FC_B_Malla-refuerzo_1" Then
             Editar_Propiedades2 = Propiedades_Dinamicas(0)
             Editar_Propiedades2.Value = LongituddeMalla
-
-
-
         Else
-
 
             Editar_Propiedades2 = Propiedades_Dinamicas(2)
             Editar_Propiedades2.Value = LongituddeMalla
@@ -2552,9 +2272,6 @@ Module Module1
             Editar_Propiedades2.Value = Convert.ToInt16(DireccGancho2)
 
         End If
-
-
-
 
         With RefuerzoHorizontal
             .Layer = Layer
@@ -2572,18 +2289,9 @@ Module Module1
 
         End With
 
-
-
     End Sub
 
-
-
-
-
-
-
     Sub AddMalla(ByVal CoordCircle1() As Double, ByVal NumeroFilas As Integer, ByVal DistanciaFilas As Double, ByVal DistanciaColumas As Double, ByVal NumeroColumnas As Integer)
-
 
         AddRefuerzo(CoordCircle1, 1, 0.7, "FC_HATCH 251")
         Refuerzo_Circulo.ArrayRectangular(NumeroFilas, NumeroColumnas, 1, DistanciaFilas, DistanciaColumas, 0.1)
@@ -2591,11 +2299,9 @@ Module Module1
 
         Refuerzo_Circulo.Update()
 
-
     End Sub
 
     Public Sub MALLAOREFUERZOHORIZONTAL(ByVal Layer As String, ByVal MuroaAnalizar As Muros, ByVal Capas As Integer, ByVal UbicacionRefuerzoMV As Double, ByVal UbicacionRefuerzoMV2 As Double, ByVal UbicacionRefuerzoMH As Double, ByVal UbicacionRefuerzoMH0 As Double, ByVal LongGancho As Double)
-
 
         With MuroaAnalizar
             Dim FactorAd
@@ -2613,7 +2319,6 @@ Module Module1
             End If
 
             If Capas <> 0 Then
-
 
                 If .DireccionMuro = "Horizontal" Then
                     '----------------------MUROS HORIZONTALES ---------------------------------
@@ -2635,7 +2340,6 @@ Module Module1
 
                         End If
 
-
                         If Math.Round(.XmaxE, 2) = Math.Round(ListaOrdenada(.MurosVecinosP(j)).XminE, 2) Or Math.Round(.XmaxE, 2) = Math.Round(ListaOrdenada(.MurosVecinosP(j)).XmaxE, 2) Then
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             XaExtender2 = ListaOrdenada(.MurosVecinosP(j)).Xmax
@@ -2649,11 +2353,9 @@ Module Module1
                         End If
                     Next
 
-
                     'CASO MAYOR 1: CASO 1,2,3 Cuando Los Elementos de Borde son menores a 0.45
 
                     'CASO MAYOR 1
-
 
                     If .LEB_Dr < 0.45 And .LEB_Iz < 0.45 Then
                         'Caso1
@@ -2665,21 +2367,15 @@ Module Module1
                                 Coord(1) = (.Ymax - UbicacionRefuerzoMH) + 0.01
                                 LongitudRefuerzo = (Coord(0) + 0.42) - (XaExtender1 + R1 + 0.01)
 
-
-
-
                                 'Refuerzo Arriba
                                 DireccGancho1 = 0 : DireccGancho2 = 0
-
 
                                 If MuroL1 = "MuroLArriba" Then : DireccGancho2 = 1 : End If
                                 If MuroL1 = "MuroLAbajo" Then : DireccGancho2 = 0 : End If
                                 If MuroL2 = "MuroLArriba" Then : DireccGancho1 = 1 : End If
                                 If MuroL2 = "MuroLAbajo" Then : DireccGancho1 = 0 : End If
 
-
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_4", 270, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
-
 
                                 'Refuerzo Abajo
 
@@ -2708,16 +2404,9 @@ Module Module1
 
                             End If
 
-
-
                         End If
 
-
-
-
-                        'Caso2.1 ----> LadoDerecho 
-
-
+                        'Caso2.1 ----> LadoDerecho
 
                         If MurosaExtenderMalla = 1 And XaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino izquierdo
 
@@ -2730,12 +2419,8 @@ Module Module1
 
                                 DireccGancho1 = 1 : DireccGancho2 = 1
 
-
-
                                 If MuroL1 = "MuroLArriba" Then : DireccGancho1 = 0 : End If
                                 If MuroL1 = "MuroLAbajo" Then : DireccGancho1 = 1 : End If
-
-
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 90, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
@@ -2751,7 +2436,6 @@ Module Module1
                                 LongitudRefuerzo = (.Xmax - (.RecubrimientoRefuerzo - .Ymin) / 2 + 0.01) - (Coord(0) - 0.42)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 90, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                             ElseIf Capas = 1 Then
 
                                 DireccGancho1 = 0 : DireccGancho2 = 0
@@ -2764,8 +2448,6 @@ Module Module1
                                 LongitudRefuerzo = (.Xmax - (.RecubrimientoRefuerzo - .Ymin) / 2 + 0.01) - (Coord(0) - 0.42)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 90, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
                             End If
-
-
 
                         End If
 
@@ -2781,10 +2463,8 @@ Module Module1
 
                                 DireccGancho1 = 0 : DireccGancho2 = 0
 
-
                                 If MuroL1 = "MuroLArriba" Then : DireccGancho1 = 1 : End If
                                 If MuroL1 = "MuroLAbajo" Then : DireccGancho1 = 0 : End If
-
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 270, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
@@ -2813,13 +2493,9 @@ Module Module1
 
                             End If
 
-
-
-
                         End If
 
                         'Caso 3 -----> Sin Vecinos
-
 
                         If MurosaExtenderMalla = 0 Then
                             .LongMallaHoriz = (.XmaxE - .XminE) - 0.02 * 2 + (2 * LongGancho)
@@ -2844,18 +2520,13 @@ Module Module1
                                 LongitudRefuerzo = ((.Xmax - (.RecubrimientoRefuerzo - .Ymin) / 2) + 0.01) - (Coord(0) - 0.02)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_2", 270, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                             End If
                         End If
 
-
                     End If
-
-
 
                     'CASO MAYOR 2
                     'CASO MAYOR 2: CASO 1,2,3 Cuando Elemento de Borde Derecho es Mayor a 0.45 y Elemento De Borde Izquierdo Menor 0.45 pero mayor a cero
-
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 Then
 
@@ -2876,12 +2547,10 @@ Module Module1
                                 LongitudRefuerzo = (Coord(0)) - (XaExtender1 + R1 + 0.01)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_3", 90, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                                 'Refuerzo Abajo
                                 Coord(0) = .Xmax - 0.15
                                 Coord(1) = UbicacionRefuerzoMH0 - 0.01
                                 DireccGancho1 = 0
-
 
                                 If MuroL1 = "MuroLArriba" Then : DireccGancho1 = 0 : End If
                                 If MuroL1 = "MuroLAbajo" Then : DireccGancho1 = 1 : End If
@@ -2900,10 +2569,8 @@ Module Module1
                                 LongitudRefuerzo = (Coord(0)) - (XaExtender1 + R1 + 0.01)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_3", 90, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                             End If
                         End If
-
 
                         'Caso 2
 
@@ -2938,17 +2605,12 @@ Module Module1
                             End If
                         End If
 
-
-
-
                     End If
 
                     'CASO MAYOR 3
                     'CASO MAYOR 3: CASO 1,2,3 Cuando Elemento de Borde Izquierdo es Mayor a 0.45 y Elemento De Borde Derecho Menor 0.45 pero mayor a cero
 
-
                     If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 Then
-
 
                         'Caso 1
                         If MurosaExtenderMalla = 2 OrElse MurosaExtenderMalla = 1 And XaExtender2 <> 0 Then
@@ -2970,7 +2632,6 @@ Module Module1
                                 Coord(0) = .Xmin + 0.15
                                 Coord(1) = UbicacionRefuerzoMH0 - 0.01
                                 DireccGancho1 = 1
-
 
                                 If MuroL1 = "MuroLArriba" Then : DireccGancho1 = 1 : End If
                                 If MuroL1 = "MuroLAbajo" Then : DireccGancho1 = 0 : End If
@@ -3004,7 +2665,6 @@ Module Module1
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_1", 270, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                                 'Refuerzo Arriba
                                 Coord(0) = .Xmin + 0.15 : Coord(1) = .Ymax - UbicacionRefuerzoMH + 0.01
                                 LongitudRefuerzo = (.Xmax - (.RecubrimientoRefuerzo - .Ymin) / 2 + 0.01) - Coord(0)
@@ -3023,10 +2683,7 @@ Module Module1
                             End If
                         End If
 
-
                     End If
-
-
 
                     'CASO MAYOR 4
                     'CASO MAYOR 4: CASO 1,2,3 Cuando Los Elementos de Borde son mayores a 0.45
@@ -3054,27 +2711,16 @@ Module Module1
 
                         End If
 
-
                     End If
-
-
-
-
-
                 Else
 
-
                     '----------------------MUROS VERTICALES ---------------------------------
-
-
-
 
                     Dim MurosaExtenderMalla As Integer = 0
                     Dim YaExtender1 As Double = 0 : Dim YaExtender2 As Double = 0 : Dim R1 As Double = 0 : Dim R2 As Double = 0
                     Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0 : Dim Espesor_M1 As Double : Dim Espesor_M2 As Double
 
                     For j = 0 To .MurosVecinosPY.Count - 1
-
 
                         If Math.Round(ListaOrdenada(.MurosVecinosPY(j)).YmaxE, 2) = Math.Round(.YminE, 2) Or Math.Round(ListaOrdenada(.MurosVecinosPY(j)).YminE, 2) = Math.Round(.YminE, 2) Then
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
@@ -3089,9 +2735,6 @@ Module Module1
 
                         End If
 
-
-
-
                         If Math.Round(.YmaxE, 2) = Math.Round(ListaOrdenada(.MurosVecinosPY(j)).YminE, 2) Or Math.Round(.YmaxE, 2) = Math.Round(ListaOrdenada(.MurosVecinosPY(j)).YmaxE, 2) Then
                             MurosaExtenderMalla = MurosaExtenderMalla + 1
                             YaExtender2 = ListaOrdenada(.MurosVecinosPY(j)).Ymax
@@ -3104,17 +2747,10 @@ Module Module1
                             End If
                         End If
 
-
-
                     Next
-
-
-
 
                     'CASO MAYOR 1
                     'CASO MAYOR 1: CASO 1,2,3 Cuando Los Elementos de Borde son menores a 0.45
-
-
 
                     If .LEB_Dr < 0.45 And .LEB_Iz < 0.45 Then
                         'Caso1
@@ -3128,13 +2764,11 @@ Module Module1
                                 'Refuerzo Derecha
                                 DireccGancho1 = 1 : DireccGancho2 = 1
 
-
                                 If MuroL1 = "MuroLIzquierda" Then : DireccGancho2 = 0 : End If
                                 If MuroL1 = "MuroLDerecha" Then : DireccGancho2 = 1 : End If
 
                                 If MuroL2 = "MuroLIzquierda" Then : DireccGancho1 = 0 : End If
                                 If MuroL2 = "MuroLDerecha" Then : DireccGancho1 = 1 : End If
-
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_4", 0, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
@@ -3142,13 +2776,11 @@ Module Module1
 
                                 DireccGancho1 = 0 : DireccGancho2 = 0
 
-
                                 If MuroL1 = "MuroLIzquierda" Then : DireccGancho2 = 0 : End If
                                 If MuroL1 = "MuroLDerecha" Then : DireccGancho2 = 1 : End If
 
                                 If MuroL2 = "MuroLIzquierda" Then : DireccGancho1 = 0 : End If
                                 If MuroL2 = "MuroLDerecha" Then : DireccGancho1 = 1 : End If
-
 
                                 Coord(0) = UbicacionRefuerzoMV - 0.01
                                 Coord(1) = YaExtender2 - R2 - 0.42 - 0.01
@@ -3173,11 +2805,7 @@ Module Module1
                             End If
                         End If
 
-
-
                         'Caso2.1 ----> LadoAbajo
-
-
 
                         If MurosaExtenderMalla = 1 And YaExtender1 <> 0 Then 'Para dos Capas, con extension en un vecino abajo
 
@@ -3194,7 +2822,6 @@ Module Module1
                                 If MuroL1 = "MuroLIzquierda" Then : DireccGancho1 = 1 : End If
                                 If MuroL1 = "MuroLDerecha" Then : DireccGancho1 = 0 : End If
 
-
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 180, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
                                 'Refuerzo Izquierda
@@ -3220,12 +2847,9 @@ Module Module1
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 180, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
                             End If
 
-
                         End If
 
                         'Caso2.2 ----> LadoArriba
-
-
 
                         If MurosaExtenderMalla = 1 And YaExtender2 <> 0 Then 'Para dos Capas, con extension en un vecino arriba
                             .LongMallaHoriz = (.YmaxE - .YminE) - 0.02 + (LongGancho) + (Espesor_M2 - 0.02 + 0.3)
@@ -3238,10 +2862,8 @@ Module Module1
 
                                 DireccGancho1 = 1 : DireccGancho2 = 1
 
-
                                 If MuroL1 = "MuroLIzquierda" Then : DireccGancho1 = 0 : End If
                                 If MuroL1 = "MuroLDerecha" Then : DireccGancho1 = 1 : End If
-
 
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_5", 0, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
@@ -3269,8 +2891,6 @@ Module Module1
 
                             End If
                         End If
-
-
 
                         'Caso 3 ---> Sin Vecinos
                         If MurosaExtenderMalla = 0 Then
@@ -3301,12 +2921,8 @@ Module Module1
 
                     End If
 
-
-
-
                     'CASO MAYOR 2
                     'CASO MAYOR 2: CASO 1,2,3 Cuando Elemento de Borde Derecho es Mayor a 0.45 y Elemento De Borde Izquierdo Menor 0.45 pero mayor a cero
-
 
                     If .LEB_Dr >= 0.45 And .LEB_Iz < 0.45 Then
 
@@ -3330,7 +2946,6 @@ Module Module1
                                 Coord(1) = .Ymax - 0.15
                                 DireccGancho1 = 1
 
-
                                 If MuroL1 = "MuroLIzquierda" Then : DireccGancho1 = 1 : End If
                                 If MuroL1 = "MuroLDerecha" Then : DireccGancho1 = 0 : End If
 
@@ -3347,11 +2962,9 @@ Module Module1
                                 LongitudRefuerzo = (Coord(1)) - (YaExtender1 + R1 + 0.01)
                                 AddRefuerzoHorizo_LineaMalla(Coord, "FC_B_Malla-refuerzo_3", 180, Layer, LongitudRefuerzo, DireccGancho1, DireccGancho2, 1)
 
-
                             End If
 
                         End If
-
 
                         'Caso 2
 
@@ -3384,19 +2997,12 @@ Module Module1
                             End If
                         End If
 
-
-
-
                     End If
-
-
 
                     'CASO MAYOR 3
                     'CASO MAYOR 3: CASO 1,2,3 Cuando Elemento de Borde Izquierdo es Mayor a 0.45 y Elemento De Borde Derecho Menor 0.45 pero mayor a cero
 
-
                     If .LEB_Dr < 0.45 And .LEB_Iz >= 0.45 Then
-
 
                         'Caso 1
                         If MurosaExtenderMalla = 2 OrElse MurosaExtenderMalla = 1 And YaExtender2 <> 0 Then
@@ -3468,9 +3074,7 @@ Module Module1
                             End If
                         End If
 
-
                     End If
-
 
                     'CASO MAYOR 4
                     'CASO MAYOR 4: CASO 1,2,3 Cuando Los Elementos de Borde son mayores a 0.45
@@ -3498,30 +3102,14 @@ Module Module1
                             AddRefuerzoHorizo_LineaMalla_ElementosDeBordeMayores045(Coord0, Coord1, Layer)
                         End If
 
-
                     End If
-
 
                 End If
 
-
-
-
             End If
-
-
 
         End With
 
-
-
     End Sub
 
-
-
-
-
 End Module
-
-
-

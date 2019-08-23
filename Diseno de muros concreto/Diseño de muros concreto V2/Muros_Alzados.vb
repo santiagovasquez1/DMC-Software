@@ -1,10 +1,9 @@
 ﻿Imports System.Runtime.InteropServices
-Imports Diseño_de_muros_concreto_V2
 
 Public Class Muros_Alzados
     Public AtivarEvento As Boolean
 
-    'CREAR SOMBRA EN EL FORMULARIO 
+    'CREAR SOMBRA EN EL FORMULARIO
 
     Private m_hOriginalParent As Integer
     Private Const GWL_HWNDPARENT As Integer = -8
@@ -145,4 +144,5 @@ Public Class Muros_Alzados
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Close()
     End Sub
+
 End Class

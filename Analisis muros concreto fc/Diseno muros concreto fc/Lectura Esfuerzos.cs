@@ -10,15 +10,12 @@ namespace Diseno_muros_concreto_fc
     {
         public string Label, Story, Load;
         public double S22;
-
     }
 
-    class Lectura_Esfuerzos
+    internal class Lectura_Esfuerzos
     {
-
         public static void Cargar_Esfuerzos()
         {
-
             OpenFileDialog Myfile = new OpenFileDialog();
             string sline;
             StreamReader Lector;
@@ -40,7 +37,6 @@ namespace Diseno_muros_concreto_fc
                 {
                     sline = Lector.ReadLine();
                     Lineas_CSV.Add(sline);
-
                 } while (!(sline == null));
                 Lector.Close();
 
@@ -58,13 +54,10 @@ namespace Diseno_muros_concreto_fc
                         };
                         Listas_Programa.Lista_Esfuerzos.Add(Esfuerzo_i);
                     }
-
                 }
-
             }
             catch
             {
-
             }
         }
 
@@ -78,8 +71,6 @@ namespace Diseno_muros_concreto_fc
                 Pos = Esf_Aux_i.FindIndex(x => x.S22 == Shells_piso[i].S22);
                 Shells_piso[i].Loads = Esf_Aux_i[Pos].Load;
             }
-
         }
-
     }
 }

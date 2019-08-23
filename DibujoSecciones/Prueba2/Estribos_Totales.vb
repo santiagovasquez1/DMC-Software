@@ -1,5 +1,4 @@
-﻿Imports Autodesk.AutoCAD.Interop
-Imports Autodesk.AutoCAD.Interop.Common
+﻿Imports Autodesk.AutoCAD.Interop.Common
 Imports MathNet.Numerics.LinearAlgebra
 
 Public Class Estribos_Totales
@@ -13,7 +12,6 @@ Public Class Estribos_Totales
     Public Coord_Tabla As Double()
     Public Rectangulo As AcadLWPolyline
     Public Lista_Rect As New List(Of AcadLWPolyline)
-
 
     Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single)
 
@@ -57,7 +55,7 @@ Public Class Estribos_Totales
 
                 If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
 
-                    ''Primer paso para el inicio del dibujo 
+                    ''Primer paso para el inicio del dibujo
                     Determinacion_Vecinos(Vecino_izquierda, Vecino_Derecha, i, Muro_vecino_izquierda, Muro_Vecino_derecha, ListaOrdenada(i).DireccionMuro)
                     Ordenar_Refuerzo_H(ListaOrdenada(i), Delta_X, DeltaY)
                     Longitud_Real = ListaOrdenada(i).XmaxE - ListaOrdenada(i).XminE
@@ -102,7 +100,6 @@ Public Class Estribos_Totales
                                 Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos)
                             End If
 
-
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
 
@@ -123,7 +120,6 @@ Public Class Estribos_Totales
                             Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
                             Texto_Estribos = Muro_i.Stories(j)
                             Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
-
                         Else
 
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
@@ -146,7 +142,6 @@ Public Class Estribos_Totales
                                 Else
                                     Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos)
                                 End If
-
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -260,7 +255,6 @@ Public Class Estribos_Totales
                                 Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, 0, Num_Estribos)
                             End If
 
-
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
                             Pc = {Delta_X, Punto_inicial(1) - 0.3, 0}
@@ -280,7 +274,6 @@ Public Class Estribos_Totales
                             Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
                             Texto_Estribos = Muro_i.Stories(j)
                             Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
-
                         Else
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
 
@@ -430,7 +423,6 @@ Public Class Estribos_Totales
 
             Pattern = "SOLID"
             Layer = "FC_HATCH MUROS"
-
         Else
 
             Distancia_Confinada = (Bw_izq + Muro_i.Zc_Izq(j)) / 100
@@ -531,9 +523,7 @@ Public Class Estribos_Totales
 
         Dim Longitud_Muro As Double
 
-
         Longitud_Muro = Muro_D.XmaxE - Muro_D.XminE
-
 
         If Vecino_derecha = True Then
 
@@ -622,7 +612,6 @@ Public Class Estribos_Totales
                 End If
 
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
-
 
                     If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 Then
                         Condicion = False
@@ -753,7 +742,6 @@ Public Class Estribos_Totales
                     Lista_Ganchos(j - 2) = True
                     Exit For
                 End If
-
             Else
                 Lista_Ganchos(j + 1) = True
                 Exit For
@@ -966,7 +954,6 @@ Public Class Estribos_Totales
         'Mover el hacth hacia atras
         Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
 
-
         sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
         sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
 
@@ -1022,4 +1009,5 @@ Public Class Estribos_Totales
         Bloque_Gancho.Layer = "FC_GANCHOS"
         Bloque_Gancho.Update()
     End Sub
+
 End Class

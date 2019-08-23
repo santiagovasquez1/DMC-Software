@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.InteropServices
+
 Public Class Form_DireccionCambiodeEspesor
 
     Private Sub Form_DireccionCambiodeEspesor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -10,53 +11,6 @@ Public Class Form_DireccionCambiodeEspesor
         Me.Close()
     End Sub
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     'Mover Pestaña
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
     Private Shared Sub ReleaseCapture()
@@ -65,7 +19,6 @@ Public Class Form_DireccionCambiodeEspesor
     <DllImport("user32.DLL", EntryPoint:="SendMessage")>
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
-
 
     Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
         ReleaseCapture()
@@ -76,6 +29,7 @@ Public Class Form_DireccionCambiodeEspesor
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
+
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Me.Close()
     End Sub
@@ -83,8 +37,6 @@ Public Class Form_DireccionCambiodeEspesor
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs)
         Me.WindowState = FormWindowState.Minimized
     End Sub
-
-
 
     Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
         PictureBox1.BackColor = Color.White
@@ -98,10 +50,7 @@ Public Class Form_DireccionCambiodeEspesor
         PictureBox1.BackColor = Color.Transparent
     End Sub
 
-
-
-    'CREAR SOMBRA EN EL FORMULARIO 
-
+    'CREAR SOMBRA EN EL FORMULARIO
 
     Private m_hOriginalParent As Integer
     Private Const GWL_HWNDPARENT As Integer = -8
@@ -110,8 +59,6 @@ Public Class Form_DireccionCambiodeEspesor
     Private Declare Function GetDesktopWindow Lib "user32" () As Integer
     Private Declare Function SetClassLong Lib "user32" Alias "SetClassLongA" (lngHandler As IntPtr, lngIndex As Integer, lngNewClassLong As Integer) As Integer
     Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (hWnd As IntPtr, nIndex As Integer, dwNewLong As Integer) As Integer
-
-
 
     Public Sub New()
 
@@ -132,6 +79,5 @@ Public Class Form_DireccionCambiodeEspesor
         Me.ResumeLayout(False)
 
     End Sub
-
 
 End Class

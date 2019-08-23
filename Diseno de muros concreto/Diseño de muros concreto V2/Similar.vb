@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.InteropServices
+
 Public Class Similar
     Public AtivarEvento As Boolean
 
@@ -13,10 +14,8 @@ Public Class Similar
         DataGrid.Columns(1).HeaderCell.Style = Estilo
         DataGrid.Columns(2).HeaderCell.Style = Estilo
 
-
         Dim ListaMurosMaestros As New List(Of Muros_Consolidados)
         Dim ListaMurosMaestrosName As New List(Of String)
-
 
         ListaMurosMaestros = ListaMuros.FindAll(Function(x) x.isMuroMaestro = True)
         If ListaMurosMaestros.Count > 0 Then
@@ -55,7 +54,6 @@ Public Class Similar
             End With
         Next
 
-
     End Sub
 
     Private Sub Similar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -63,17 +61,16 @@ Public Class Similar
         'Me.StartPosition = FormStartPosition.Manual
         'Me.Location = New Point(f_alzado.Location.X + f_alzado.Width / 2 - Me.Width / 2, f_alzado.Location.Y + f_alzado.Height / 2 - Me.Height / 2)
 
-
-
         CrearDataGrid(DataGrid_Muros, Muros_lista_2)
         AtivarEvento = True
     End Sub
+
     Sub ConfirmarMaestrosSimilares(ByVal DataGrid As DataGridView)
 
         For i = 0 To DataGrid.Rows.Count - 1
             With DataGrid.Rows(i)
 
-                'Confirmar Maestros 
+                'Confirmar Maestros
                 If .Cells(1).Value = True Then
                     Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).isMuroMaestro = True
 
@@ -87,7 +84,6 @@ Public Class Similar
                             alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).isMuroMaestro = True
                         End If
                     Next
-
                 Else
                     Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).isMuroMaestro = False
 
@@ -103,7 +99,6 @@ Public Class Similar
 
                     Next
 
-
                 End If
 
                 'Confirmar Similares
@@ -112,16 +107,13 @@ Public Class Similar
 
                     Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).MuroSimilar = Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(2).Value)
 
-
                     Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = .Cells(0).Value)
 
                     For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                         If refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j))
 
-
                         ElseIf refuerzo_lista.Find(Function(x) x.piername = .Cells(0).Value) Is Nothing Then
-
 
                             For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                                 If refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
@@ -144,13 +136,10 @@ Public Class Similar
 
                         End If
 
-
                         If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = alzado_lista.Find(Function(x) x.pier = .Cells(2).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j))
 
-
                         ElseIf alzado_lista.Find(Function(x) x.pier = .Cells(0).Value) Is Nothing Then
-
 
                             For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                                 If alzado_lista.Find(Function(x) x.pier = .Cells(2).Value And x.story = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
@@ -174,11 +163,7 @@ Public Class Similar
 
                         End If
 
-
-
-
                     Next
-
                 Else
                     Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).MuroSimilar = Nothing
 
@@ -196,7 +181,6 @@ Public Class Similar
                             End If
                         End If
 
-
                         If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                             If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
                                 alzado_lista.Remove(alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)))
@@ -211,7 +195,6 @@ Public Class Similar
 
     End Sub
 
-
     'Sub ConfirmarMaestrosSimilares(ByVal DataGrid As DataGridView)
 
     '    Dim Indice As Integer
@@ -219,7 +202,7 @@ Public Class Similar
     '    For i = 0 To DataGrid.Rows.Count - 1
     '        With DataGrid.Rows(i)
 
-    '            'Confirmar Maestros 
+    '            'Confirmar Maestros
     '            If .Cells(1).Value = True Then
     '                Muros_lista_2.Find(Function(x) x.Pier_name = .Cells(0).Value).isMuroMaestro = True
 
@@ -308,9 +291,6 @@ Public Class Similar
 
     '                                NuevoMuroRefuerzo.MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = .Cells(2).Value And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m))
 
-
-
-
     '                                refuerzo_lista.Add(NuevoMuroRefuerzo)
 
     '                            End If
@@ -318,10 +298,8 @@ Public Class Similar
 
     '                    End If
 
-
     '                    If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
     '                        alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = alzado_lista.Find(Function(x) x.pier = .Cells(2).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j))
-
 
     '                    ElseIf alzado_lista.Find(Function(x) x.pier = .Cells(0).Value) Is Nothing Then
 
@@ -342,9 +320,6 @@ Public Class Similar
 
     '                    End If
 
-
-
-
     '                Next
 
     '            Else
@@ -364,8 +339,6 @@ Public Class Similar
     '                        End If
     '                    End If
 
-
-
     '                    If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
     '                        If alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
     '                            alzado_lista.Remove(alzado_lista.Find(Function(x) x.pier = .Cells(0).Value And x.story = Muros_lista_2(IndiceMuro).Stories(j)))
@@ -376,18 +349,11 @@ Public Class Similar
 
     '                Next
 
-
-
-
     '            End If
-
 
     '        End With
 
-
     '    Next
-
-
 
     'End Sub
 
@@ -401,13 +367,10 @@ Public Class Similar
                         .Cells(2).Value = ""
                         Dim ComboBox1 As DataGridViewComboBoxCell = .Cells(2)
                         ComboBox1.Items.Clear()
-
-
                     Else
                         .Cells(2).ReadOnly = False
 
                     End If
-
 
                     For i = 0 To DataGrid_Muros.Rows.Count - 1
                         Dim ListaMurosNombre As New List(Of String)
@@ -423,14 +386,11 @@ Public Class Similar
 
                     Next
 
-
                 End With
             End If
         End If
 
-
     End Sub
-
 
     Private Sub DataGrid_Muros_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles DataGrid_Muros.CellBeginEdit
         If AtivarEvento Then
@@ -445,7 +405,6 @@ Public Class Similar
 
     End Sub
 
-
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
         ConfirmarMaestrosSimilares(DataGrid_Muros)
@@ -453,6 +412,7 @@ Public Class Similar
 
         Me.Close()
     End Sub
+
     'Mover Pestaña
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
     Private Shared Sub ReleaseCapture()
@@ -462,12 +422,10 @@ Public Class Similar
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
-
     Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
-
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Me.Close()
@@ -476,7 +434,6 @@ Public Class Similar
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs)
         Me.WindowState = FormWindowState.Minimized
     End Sub
-
 
     Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
         PictureBox1.BackColor = Color.White
@@ -490,8 +447,7 @@ Public Class Similar
         PictureBox1.BackColor = Color.Transparent
     End Sub
 
-    'CREAR SOMBRA EN EL FORMULARIO 
-
+    'CREAR SOMBRA EN EL FORMULARIO
 
     Private m_hOriginalParent As Integer
     Private Const GWL_HWNDPARENT As Integer = -8
@@ -500,8 +456,6 @@ Public Class Similar
     Private Declare Function GetDesktopWindow Lib "user32" () As Integer
     Private Declare Function SetClassLong Lib "user32" Alias "SetClassLongA" (lngHandler As IntPtr, lngIndex As Integer, lngNewClassLong As Integer) As Integer
     Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (hWnd As IntPtr, nIndex As Integer, dwNewLong As Integer) As Integer
-
-
 
     Public Sub New()
 
@@ -526,6 +480,5 @@ Public Class Similar
     Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
     End Sub
+
 End Class
-
-

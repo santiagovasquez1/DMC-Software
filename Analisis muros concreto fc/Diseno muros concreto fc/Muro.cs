@@ -20,6 +20,7 @@ namespace Diseno_muros_concreto_fc
 
         //Datos para el diseño a cortante de los muros en concreto
         public List<double> Phi_Vc;
+
         public List<double> Phi_Vs;
         public List<double> Pt_min;
         public List<double> pl_min;
@@ -35,6 +36,7 @@ namespace Diseno_muros_concreto_fc
 
         //Datos para el analisis a flexo compresion
         public List<double> C_def;
+
         public List<double> L_Conf;
         public List<double> Fa;
         public List<double> Fv;
@@ -58,7 +60,7 @@ namespace Diseno_muros_concreto_fc
             Cortinas = new List<int>();
             Error_Cortante = new List<string>();
 
-            double Fy = 4220; //[kgf/cm2]            
+            double Fy = 4220; //[kgf/cm2]
             float Phi = 0.75F; //Definir si sera variable de entrada o un valor fijo
             double pt_auxiliar;
             List<double> Rango_Auxiliar;
@@ -115,15 +117,13 @@ namespace Diseno_muros_concreto_fc
                 Error_Cortante.Add("Ok");
                 if (V2[i] > Phi_Vn_Max1 ^ V2[i] > Phi_Vn_Max2[i]) Error_Cortante[i] = "V2 mayor que Phi Vn max";
                 if (Phi_Vs[i] > Phi_Vs_Max) Error_Cortante[i] = "Phi Vs mayor a Phi Vs max";
-
             }
             Rho_l_Def = Math.Max(Rho_l_Inicial, pl_min.Max());
-
         }
 
         public void Flexural_Analisis()
         {
-            double Fy = 4220;           //[kgf/cm2]  
+            double Fy = 4220;           //[kgf/cm2]
             double es = 2000000;        //[kgf/cm2]
             double recubrimiento = 2.5; //[cm]
             int ramas, x;
@@ -246,7 +246,7 @@ namespace Diseno_muros_concreto_fc
                     L_Conf.Add(0);
                 }
 
-                //Calculo de esfuerzos en el muro 
+                //Calculo de esfuerzos en el muro
 
                 Numerador = 6 * M3[i] * Math.Pow(10, 5);
                 Denominador = bw * Math.Pow(lw, 2);
@@ -258,11 +258,10 @@ namespace Diseno_muros_concreto_fc
                 Relacion.Add(Math.Max(Sigma_Max.Last(), Math.Abs(Sigma_Min.Last())) / Fc);
                 Error_Flexion.Add("Ok");
                 if (Relacion.Last() >= 0.40) Error_Flexion[i] = "Cambiar espesor";
-
             }
         }
 
-        double Calculo_Pn_Balanceado(double As_long, double Beta, List<double> As_i, List<double> d_i, double Fy, double es)
+        private double Calculo_Pn_Balanceado(double As_long, double Beta, List<double> As_i, List<double> d_i, double Fy, double es)
         {
             double ey = Fy / es;
             double ab, Pc_b, Pn_b, Ps_b;
@@ -276,7 +275,7 @@ namespace Diseno_muros_concreto_fc
             return Pn_b;
         }
 
-        double Fuerza_As(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
+        private double Fuerza_As(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
             double Ps, fsl;
             List<double> Ps_i = new List<double>();
@@ -294,7 +293,7 @@ namespace Diseno_muros_concreto_fc
             return Ps;
         }
 
-        double Fs_prima(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
+        private double Fs_prima(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
             double fs_prima, Ps_prima;
             List<double> Psi_prima = new List<double>();
@@ -308,7 +307,7 @@ namespace Diseno_muros_concreto_fc
             return Ps_prima;
         }
 
-        double Calc_Vc(double Vu, double Mu, double Pu)
+        private double Calc_Vc(double Vu, double Mu, double Pu)
         {
             double Vc1, Vc2, Vc3;
             double Numerador, Denominador, Ag;
@@ -340,10 +339,9 @@ namespace Diseno_muros_concreto_fc
                 if (Vtraccion < 0) Vtraccion = 0;
                 return Vtraccion;
             }
-
         }
 
-        double Calc_alpah(float Htotal)
+        private double Calc_alpah(float Htotal)
         {
             double alpha, Relacion, m;
 
@@ -358,13 +356,11 @@ namespace Diseno_muros_concreto_fc
             return alpha;
         }
 
-        double Calc_ptt(double alpha, double Vu, double Phi, double Fy)
+        private double Calc_ptt(double alpha, double Vu, double Phi, double Fy)
         {
             double Rho_tt;
             Rho_tt = (Vu / (Phi * bw * lw) - alpha * Math.Sqrt(Fc)) / Fy;
             if (Rho_tt < 0) return 0; else return Rho_tt;
-
         }
-
     }
 }

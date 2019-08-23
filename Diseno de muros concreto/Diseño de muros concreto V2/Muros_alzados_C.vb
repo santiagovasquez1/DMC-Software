@@ -3,7 +3,4 @@
     Public Nombre As String
     Public Graficar As Boolean
 
-
-
-
 End Class

@@ -11,7 +11,7 @@ namespace Diseno_muros_concreto_fc
         public float Fc;
     }
 
-    class Area_Assigns
+    internal class Area_Assigns
     {
         public string Label, Pier, Story, Section;
     }
@@ -22,10 +22,9 @@ namespace Diseno_muros_concreto_fc
 
         public static void Cargar_E2k()
         {
-
             OpenFileDialog Myfile = new OpenFileDialog();
             string sline;
-            int Inicio, Fin, indice;
+            int Inicio, Fin;
             List<string> Lineas_E2k = new List<string>();
             string[] Vector_Texto;
             StreamReader Lector;
@@ -53,7 +52,6 @@ namespace Diseno_muros_concreto_fc
                     {
                         sline = Lector.ReadLine();
                         Lineas_E2k.Add(sline);
-
                     } while (!(sline == null));
 
                     Lector.Close();
@@ -76,7 +74,6 @@ namespace Diseno_muros_concreto_fc
                                 Listas_Programa.Lista_Materiales.Add(Material_i);
                             }
                         }
-
                     }
 
                     Inicio = Lineas_E2k.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
@@ -84,7 +81,6 @@ namespace Diseno_muros_concreto_fc
 
                     for (int i = Inicio; i < Fin; i++)
                     {
-
                         Vector_Texto = Lineas_E2k[i].Split();
                         pos = Vector_Texto[3].LastIndexOf((char)34);
                         Puntoi = new Puntos_Modelo
@@ -131,7 +127,6 @@ namespace Diseno_muros_concreto_fc
                         Vector_Texto = Lineas_E2k[i].Split();
                         if (Vector_Texto[5].Contains("PANEL") == true)
                         {
-
                             List<Area_Assigns> Aux = Lista_Areas_Aux.FindAll(x => x.Label == Texto_sub(Vector_Texto, 3, 34));
 
                             for (int j = 0; j < Aux.Count; j++)
@@ -147,20 +142,14 @@ namespace Diseno_muros_concreto_fc
                                 };
                                 Listas_Programa.Lista_shells.Add(Shell_i);
                             }
-
                         }
                     }
-
                 }
                 catch (FileNotFoundException e)
                 {
                     e.Message.ToString();
                 }
-
-
             }
-
-
         }
 
         private static string Texto_sub(string[] vector_texto, int indice, int Caracter)
@@ -186,6 +175,4 @@ namespace Diseno_muros_concreto_fc
             return Lista_coord;
         }
     }
-
-
 }
