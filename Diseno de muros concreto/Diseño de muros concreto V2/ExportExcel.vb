@@ -88,6 +88,7 @@ Public Class ExportExcel
         objHojaExcel.Columns(11).ColumnWidth = 7.57
         objHojaExcel.Columns(12).ColumnWidth = 6.43
         objHojaExcel.Columns(13).ColumnWidth = 6.29
+        objHojaExcel.Columns(14).ColumnWidth = 6.29
 
         EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
         EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
@@ -100,13 +101,14 @@ Public Class ExportExcel
         EstioTexto(objHojaExcel.Range("I1:I2"), "C (m)", TLT)
         EstioTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
         EstioTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("L1:L2"), "Zc_Izq (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("M1:M2"), "Zc_Der (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
 
-        Dim ArregloDatos3(Lista_Reporte.Count - 1, Lista_Reporte(0).Count - 14) As Object
+        Dim ArregloDatos3(Lista_Reporte.Count - 1, Lista_Reporte(0).Count - 13) As Object
 
         For i = 0 To Lista_Reporte.Count - 1
-            For j = 0 To Lista_Reporte(i).Count - 14
+            For j = 0 To Lista_Reporte(i).Count - 13
                 If j = 2 Or j = 3 Then
                     ArregloDatos3(i, j) = Val(Lista_Reporte(i)(j)) / 100
                 ElseIf j = 0 Or j = 1 Or j = 7 Or j = 5 Or j = 6 Then
@@ -118,9 +120,9 @@ Public Class ExportExcel
             Next
         Next
 
-        objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 15).Value = ArregloDatos3
+        objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14).Value = ArregloDatos3
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 15))
+        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14))
 
         objHojaExcel.Visible = True
 

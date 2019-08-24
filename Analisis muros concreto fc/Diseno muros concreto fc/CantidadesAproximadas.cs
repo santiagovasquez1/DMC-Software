@@ -259,5 +259,11 @@ namespace Diseno_muros_concreto_fc
                 dataGridView1.Rows[0].Cells[4].Value = Math.Round((Convert.ToDouble(dataGridView1.Rows[0].Cells[0].Value) + Convert.ToDouble(dataGridView1.Rows[0].Cells[1].Value) + Convert.ToDouble(dataGridView1.Rows[0].Cells[2].Value)) / Convert.ToDouble(Listas_Programa.Area_ParaTenorApprox), 2);
             }
         }
+
+        private void label3_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Diseno_muros_concreto_fc
         {
             OpenFileDialog Myfile = new OpenFileDialog();
             string sline;
-            int Inicio, Fin, indice;
+            int Inicio, Fin;
             List<string> Lineas_E2k = new List<string>();
             string[] Vector_Texto;
             StreamReader Lector;

@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Panel10 = new System.Windows.Forms.Panel();
             this.PictureBox2 = new System.Windows.Forms.PictureBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.LabelCambio = new System.Windows.Forms.Label();
             this.DataGrid_Muros = new System.Windows.Forms.DataGridView();
+            this.Muros = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Similars = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PesoMalla = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PesoTransversal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PesoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,25 +49,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.dataGridViewVols = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Muros = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Similars = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PesoMalla = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PesoTransversal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PesoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid_Muros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVols)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Panel10
@@ -129,6 +129,43 @@
             this.DataGrid_Muros.Name = "DataGrid_Muros";
             this.DataGrid_Muros.Size = new System.Drawing.Size(561, 286);
             this.DataGrid_Muros.TabIndex = 2;
+            // 
+            // Muros
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            this.Muros.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Muros.HeaderText = "Muro";
+            this.Muros.Name = "Muros";
+            this.Muros.ReadOnly = true;
+            this.Muros.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Muros.Width = 50;
+            // 
+            // Similars
+            // 
+            this.Similars.HeaderText = "Peso Longitudinal (kgf)";
+            this.Similars.Name = "Similars";
+            this.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Similars.Width = 130;
+            // 
+            // PesoMalla
+            // 
+            this.PesoMalla.HeaderText = "Peso Malla (kgf)";
+            this.PesoMalla.Name = "PesoMalla";
+            this.PesoMalla.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // PesoTransversal
+            // 
+            this.PesoTransversal.HeaderText = "Peso Transversal (kgf)";
+            this.PesoTransversal.Name = "PesoTransversal";
+            this.PesoTransversal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PesoTransversal.Width = 126;
+            // 
+            // PesoTotal
+            // 
+            this.PesoTotal.HeaderText = "Peso Total (kgf)";
+            this.PesoTotal.Name = "PesoTotal";
+            this.PesoTotal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PesoTotal.Width = 90;
             // 
             // dataGridView1
             // 
@@ -228,36 +265,6 @@
             this.panel2.Size = new System.Drawing.Size(583, 650);
             this.panel2.TabIndex = 26;
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Location = new System.Drawing.Point(1, 455);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(581, 29);
-            this.panel3.TabIndex = 17;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(1, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(175, 15);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Resumen Volumenes Concreto";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(8, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 15);
-            this.label4.TabIndex = 1;
-            // 
             // dataGridViewVols
             // 
             this.dataGridViewVols.AllowUserToAddRows = false;
@@ -289,42 +296,36 @@
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // Muros
+            // panel3
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            this.Muros.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Muros.HeaderText = "Muro";
-            this.Muros.Name = "Muros";
-            this.Muros.ReadOnly = true;
-            this.Muros.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Muros.Width = 50;
+            this.panel3.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Location = new System.Drawing.Point(1, 455);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(581, 29);
+            this.panel3.TabIndex = 17;
             // 
-            // Similars
+            // label3
             // 
-            this.Similars.HeaderText = "Peso Longitudinal (kgf)";
-            this.Similars.Name = "Similars";
-            this.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Similars.Width = 130;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(1, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(175, 15);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Resumen Volumenes Concreto";
+            this.label3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label3_MouseDown);
             // 
-            // PesoMalla
+            // label4
             // 
-            this.PesoMalla.HeaderText = "Peso Malla (kgf)";
-            this.PesoMalla.Name = "PesoMalla";
-            this.PesoMalla.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // PesoTransversal
-            // 
-            this.PesoTransversal.HeaderText = "Peso Transversal (kgf)";
-            this.PesoTransversal.Name = "PesoTransversal";
-            this.PesoTransversal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PesoTransversal.Width = 126;
-            // 
-            // PesoTotal
-            // 
-            this.PesoTotal.HeaderText = "Peso Total (kgf)";
-            this.PesoTotal.Name = "PesoTotal";
-            this.PesoTotal.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PesoTotal.Width = 90;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(8, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 15);
+            this.label4.TabIndex = 1;
             // 
             // CantidadesAproximadas
             // 
@@ -346,9 +347,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVols)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVols)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

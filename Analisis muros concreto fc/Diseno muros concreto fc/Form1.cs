@@ -148,12 +148,12 @@ namespace Diseno_muros_concreto_fc
             Formulario.ReadOnly = true;
         }
 
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NuevoProyecto();
         }
@@ -166,6 +166,7 @@ namespace Diseno_muros_concreto_fc
             Label_Inicial.Text = "Listo";
             Label_Inicial.Update();
             Label_Inicial.Visible = false;
+
             Generador_de_piers.Lector_Geometria();
             Generador_de_piers.Lector_Fuerza();
             Generador_de_piers.Lectura_Diseno();

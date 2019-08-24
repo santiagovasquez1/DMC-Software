@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-internal delegate void Strmod(ref string str);
-
 namespace Diseno_muros_concreto_fc
 {
     public class Muros_Consolidados
@@ -66,7 +64,7 @@ namespace Diseno_muros_concreto_fc
 
         public static explicit operator Diseño_de_muros_concreto_V2.Muros_Consolidados(Muros_Consolidados v)
         {
-            Diseño_de_muros_concreto_V2.Muros_Consolidados muro_i = new Diseño_de_muros_concreto_V2.Muros_Consolidados
+            var muro_i = new Diseño_de_muros_concreto_V2.Muros_Consolidados
             {
                 Pier_name = v.Pier_name,
                 Stories = v.Stories,
@@ -105,11 +103,7 @@ namespace Diseno_muros_concreto_fc
                 As_Htal_Total = v.As_Htal_Total
             };
             muro_i.Calculo_H_acumulado();
-            //Muros_Consolidados Muro_i;
-            //Muro_i = v;
-            //return Muro_i;
             return muro_i;
-            //throw new NotImplementedException();
         }
 
         public void Calculo_Peso_Aprox()

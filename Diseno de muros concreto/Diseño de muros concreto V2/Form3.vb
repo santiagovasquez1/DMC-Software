@@ -533,7 +533,7 @@
         Dim alzado_lista_aux As List(Of alzado_muro) = New List(Of alzado_muro)
         Dim Num_cols As Integer
         Dim indice As Integer
-        Dim prueba As List(Of String)
+        Dim prueba As List(Of String) = New List(Of String)
 
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
@@ -548,10 +548,9 @@
                     If alzado_lista.Count > 0 And alzado_lista.Exists(Function(x) x.pier = Lista_graficar(i).Nombre) = True Then
 
                         alzado_lista_aux = alzado_lista.FindAll(Function(x) x.pier = Lista_graficar(i).Nombre)
-                        prueba = alzado_lista_aux.Select(Function(x) x.alzado(0)).Distinct().ToList
                         Num_cols = alzado_lista_aux.Select(Function(x) x.alzado.Count).ToList().Max
 
-                        If Num_cols > 0 And prueba.Exists(Function(x) x <> "") = True Then
+                        If Num_cols > 0 Then
 
                             For j = 0 To alzado_lista_aux.Count - 1
                                 If alzado_lista_aux(j).alzado.Count < Num_cols Then
@@ -565,7 +564,9 @@
                             Auxiliar = New Datos_Refuerzo
                             Auxiliar.Nombre_muro = Lista_graficar(i).Nombre
                             Auxiliar.Load_Coordinates(Lista_graficar(i).Nombre, coordX)
-                            Dibujar_Refuerzo(Auxiliar)
+                            If Auxiliar.Barra.Count > 0 Then
+                                Dibujar_Refuerzo(Auxiliar)
+                            End If
                         End If
                     End If
                 End If
