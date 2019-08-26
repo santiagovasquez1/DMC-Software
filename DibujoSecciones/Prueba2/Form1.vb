@@ -2,6 +2,7 @@
 
 Public Class Form1
     Public RutaArchivo As String
+    Public Lista_Cantidades As New Lista_Cantidades
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
 
@@ -50,7 +51,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        IniciarAplicacion(Me)
+        IniciarAplicacion(Me, Lista_Cantidades)
     End Sub
 
     'Mover Pestaña

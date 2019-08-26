@@ -112,6 +112,7 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Lista_Cantidades.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="Muros.vb" />
     <Compile Include="Muros_Auxiliares.vb" />
@@ -130,6 +131,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Seccion Estribos.vb" />
+    <Compile Include="Seccion_Ganchos.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">

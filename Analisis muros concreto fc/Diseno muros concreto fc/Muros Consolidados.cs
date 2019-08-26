@@ -6,6 +6,7 @@ namespace Diseno_muros_concreto_fc
 {
     public class Muros_Consolidados
     {
+        #region Propiedades_Seccion
         public string Pier_name;
         public List<string> Stories = new List<string>();
         public List<float> Bw = new List<float>();
@@ -29,18 +30,15 @@ namespace Diseno_muros_concreto_fc
         public List<double> Lebe_Centro = new List<double>();
         public List<double> Zc_Izq = new List<double>();
         public List<double> Zc_Der = new List<double>();
+        #endregion
 
-        //Nuevas variables
+        #region Diseno_muro
         public List<int> Est_ebe = new List<int>();
-
         public List<double> Sep_ebe = new List<double>();
         public List<int> Est_Zc = new List<int>();
         public List<double> Sep_Zc = new List<double>();
         public List<double> As_Long = new List<double>();
-
-        //
         public List<int> ramas_der = new List<int>();
-
         public List<int> ramas_izq = new List<int>();
         public List<int> ramas_centro = new List<int>();
         public List<double> As_htal = new List<double>();
@@ -48,19 +46,17 @@ namespace Diseno_muros_concreto_fc
         public List<int> Capas_htal = new List<int>();
         public List<double> sep_htal = new List<double>();
         public List<double> As_Htal_Total = new List<double>();
+        #endregion
 
-        //
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
-
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
-
-        //Variables para el calculo de peso aproximado
-
+               
+        #region Cantidades
         public List<double> Peso_Long = new List<double>();
         public List<double> Peso_Transv = new List<double>();
         public List<double> Peso_malla = new List<double>();
-
         public readonly List<double> Volumen = new List<double>();
+        #endregion
 
         public static explicit operator Diseño_de_muros_concreto_V2.Muros_Consolidados(Muros_Consolidados v)
         {
@@ -131,6 +127,7 @@ namespace Diseno_muros_concreto_fc
                 P_Transversal = As_htal[i] > 0 ? As_htal[i] * (Hw[i] / 100) * lw[i] * 7850 / Math.Pow(100, 3) : 0;
                 suma_transv = P_LI + P_LD + P_ZI + P_ZD + P_Transversal;
                 Peso_Transv.Add(suma_transv);
+
             }
             Calculo_volumen();
         }
@@ -242,23 +239,23 @@ namespace Diseno_muros_concreto_fc
             double S_min;
             double P_ebe;
 
-            List<int> Num_ramas_1 = new List<int>();    //Numero de ramas a lo largo del muro para Ast1
-            List<int> Num_ramas_2 = new List<int>();    //Numero de ramas a lo largo del muro para Ast2
-            List<double> Separacion_L_1 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast1
-            List<double> Separacion_L_2 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast2
+            var Num_ramas_1 = new List<int>();    //Numero de ramas a lo largo del muro para Ast1
+            var Num_ramas_2 = new List<int>();    //Numero de ramas a lo largo del muro para Ast2
+            var Separacion_L_1 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast1
+            var Separacion_L_2 = new List<double>();    //Espaciamiento entre cada una de las capas de refuerzo para Ast2
 
-            List<int> Num_ramas_T1 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast1
-            List<int> Num_ramas_T2 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast2
+            var Num_ramas_T1 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast1
+            var Num_ramas_T2 = new List<int>();    //Numero de ramas a lo ancho del muro para Ast2
+         
+            var Num_Ramas_V = new List<int>();    //Numero de ramas en altura del muro para ambos casos de ast
+            var GT_As1 = new List<double>();   //Longitud total de los gancho para As1, bajo cada una de las variaciones de la separacion
+            var GT_As2 = new List<double>();   //Longitud total de los gancho para As2, bajo cada una de las variaciones de la separacion
 
-            List<int> Num_Ramas_V = new List<int>();    //Numero de ramas en altura del muro para ambos casos de ast
-            List<double> GT_As1 = new List<double>();   //Longitud total de los gancho para As1, bajo cada una de las variaciones de la separacion
-            List<double> GT_As2 = new List<double>();   //Longitud total de los gancho para As2, bajo cada una de las variaciones de la separacion
-
-            List<double> Factor_Ast1 = new List<double>();
-            List<double> Factor_Ast2 = new List<double>();
-
-            List<double> P_As1 = new List<double>();     //'Peso total As1
-            List<double> P_As2 = new List<double>();     //'Peso total As1
+            var Factor_Ast1 = new List<double>();
+            var Factor_Ast2 = new List<double>();
+       
+            var P_As1 = new List<double>();     //'Peso total As1
+            var P_As2 = new List<double>();     //'Peso total As1
 
             double Sep_max = 0;
 
@@ -394,7 +391,7 @@ namespace Diseno_muros_concreto_fc
     {
         public static void Compilar_Datos()
         {
-            List<double> prueba;
+            var prueba = new List<double>();
             int indice;
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
@@ -448,7 +445,7 @@ namespace Diseno_muros_concreto_fc
                     }
                     catch
                     {
-                        prueba = null;
+                        prueba = new List<double>();
                     }
 
                     if (prueba.Count > 0)

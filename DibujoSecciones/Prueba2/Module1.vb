@@ -13,7 +13,7 @@ Module Module1
     Public MurosAranas As New List(Of MuroArana)
     Public Hacth As AcadHatch
     Public Refuerzo_Circulo As AcadBlockReference
-    Public RefuerzoHorizontal, RefuerzoHorizontal2, BloqueNombreMuro, BloqueRefuerzoHorizMalla As AcadBlockReference
+    Public RefuerzoHorizontal, RefuerzoHorizontal2, BloqueNombreMuro, BloqueRefuerzoHorizMalla, BloquePiso As AcadBlockReference
     Public Lista_TextosRefuerzos As New List(Of TextoRefuerzo)
     Public Lista_CirculoRefuerzos As New List(Of RefuerzoCirculo)
     Public Cota As AcadDimRotated
@@ -26,7 +26,7 @@ Module Module1
     Public Linea As AcadLine
     Public ListaOrdenada As List(Of Muros)
 
-    Sub IniciarAplicacion(ByVal Formulario As Form1)
+    Sub IniciarAplicacion(ByVal Formulario As Form1, ByRef Lista_cantidades As Lista_Cantidades)
 
         Dim rnd As New Random
 
@@ -456,6 +456,37 @@ Module Module1
             End If
 
         Next
+
+        Dim Ymin2 As Double = 99999
+        Dim Xmin2 As Double = 99999
+
+        For i = 0 To ListaOrdenada.Count - 1
+
+            If ListaOrdenada(i).Ymin < Ymin2 Then
+                Ymin2 = ListaOrdenada(i).Ymin
+            End If
+            If ListaOrdenada(i).Xmin < Xmin2 Then
+                Xmin2 = ListaOrdenada(i).Xmin
+            End If
+
+        Next
+        Dim Mensaje1 As String = "%%USECCIÓN DE PISO " & No_Piso
+        Dim mensaje2 As String = ""
+        For i = 0 To ListaOrdenada.Count - 1
+            If i <> ListaOrdenada.Count - 1 Then
+                mensaje2 = mensaje2 & ListaOrdenada(i).NombreMuro & "," & " "
+            Else
+                mensaje2 = mensaje2 & ListaOrdenada(i).NombreMuro
+            End If
+
+        Next
+        mensaje2 = "%%UMUROS " & mensaje2
+
+        Dim Coord_Mensaje = {Xmin2 + (Xmax - Xmin2) / 2, Ymin2 - 0.8, 0}
+        AddBloqueNomenc(Mensaje1, Coord_Mensaje)
+
+        Coord_Mensaje = {Xmin2 + (Xmax - Xmin2) / 2, Ymin2 - 0.8 - 0.2, 0}
+        AddBloqueNomenc(mensaje2, Coord_Mensaje)
 
         'AsignarBloques----------> NOMBRES DE MUROS
 
@@ -1309,7 +1340,7 @@ Module Module1
             Dim Delta_X, Delta_Y As Double
             Delta_X = Xmax + 4.6
             Delta_Y = A(1) + 1
-            Aux.Estribos_Pisos(Delta_X, 0, A(1))
+            Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_cantidades)
         End If
 
         Muros_V.Clear()
@@ -1319,6 +1350,24 @@ Module Module1
         Lista_TextosRefuerzos.Clear()
 
         MsgBox("Dibujado con Éxito", MsgBoxStyle.Information, "efe Prima Ce")
+
+    End Sub
+
+    Sub AddBloqueNomenc(ByVal Mensaje As String, ByVal Coord() As Double)
+
+        BloquePiso = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Titulo 6", 25, 25, 25, 0)
+        BloquePiso.Layer = "FC_R-140"
+
+        Dim Distance1 As Double = (Len(Mensaje) - 3) * 0.0572
+
+        Dim Propiedades_Dinamicas As Object = BloquePiso.GetDynamicBlockProperties
+        Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+        Editar_Propiedades2 = Propiedades_Dinamicas(0)
+        Editar_Propiedades2.Value = Distance1
+
+        Dim AtibutosBloque As Object = BloquePiso.GetAttributes()
+        Dim Atributo As Object = AtibutosBloque(0)
+        Atributo.TextString = Mensaje
 
     End Sub
 
