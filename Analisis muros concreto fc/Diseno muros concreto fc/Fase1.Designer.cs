@@ -279,6 +279,7 @@
             this.button10.TabIndex = 7;
             this.button10.Text = "     Generar";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // label9
             // 
@@ -319,7 +320,7 @@
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button12.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Autocad_23637x16;
+            this.button12.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Editar_x16_2_;
             this.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button12.Location = new System.Drawing.Point(247, 3);
             this.button12.Name = "button12";

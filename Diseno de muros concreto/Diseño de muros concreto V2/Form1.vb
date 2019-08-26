@@ -1,8 +1,7 @@
-﻿
-Imports System.IO
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 
 Public Class Form1
+
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
     Private Shared Sub ReleaseCapture()
     End Sub
@@ -10,6 +9,7 @@ Public Class Form1
     <DllImport("user32.DLL", EntryPoint:="SendMessage")>
     Private Shared Sub SendMessage()
     End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         '   AutoScroll = True
@@ -51,8 +51,8 @@ Public Class Form1
         ''Crear lista vacia de alzado y refuerzos
         Listas_Vacias()
 
-
     End Sub
+
     Private Sub PasteClipboard(datos As DataGridView)
 
         Dim s As String
@@ -81,12 +81,10 @@ Public Class Form1
                     iRow = iRow + 1
                 End If
             Next
-
         Catch ex As Exception
 
         End Try
     End Sub
-
 
     Private Sub CopyToClipboard(datos As DataGridView)
         Dim dataObj As DataObject = datos.GetClipboardContent
@@ -121,7 +119,6 @@ Public Class Form1
         Dim Pier As String
         Dim Hw, Bw As New List(Of Single) : Dim Stories As New List(Of String) : Dim As_Long As New List(Of Double)
 
-
         Indice = Muros_lista_2.FindIndex(Function(x) x.Pier_name = LMuros.Text)
         Muro = Muros_lista_2(Indice) : Pier = Muros_lista_2(Indice).Pier_name
         Rho_l = Muros_lista_2(Indice).Rho_l : Rho_t = Muros_lista_2(Indice).Rho_T : Fc = Muros_lista_2(Indice).fc : Hw = Muros_lista_2(Indice).Hw
@@ -130,8 +127,6 @@ Public Class Form1
         If Muros_lista_2(Indice).MuroSimilar IsNot Nothing Then
             Muro = Muros_lista_2(Indice).MuroSimilar
         End If
-
-
 
         Data_muros.Rows().Add(Muros_lista_2(Indice).Stories.Count)
 
@@ -194,11 +189,9 @@ Public Class Form1
         '  Data_muros.AutoSize = True
         Data_muros.Update()
 
-
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
-
 
         Try
             LMuros.Enabled = True
@@ -213,7 +206,6 @@ Public Class Form1
 
     Private Sub Ts_guardar_Click(sender As Object, e As EventArgs)
 
-
     End Sub
 
     Private Sub cargar_proyecto_Click(sender As Object, e As EventArgs)
@@ -223,6 +215,7 @@ Public Class Form1
     Private Sub cb_Validar_Click(sender As Object, e As EventArgs)
 
     End Sub
+
     Private Sub cb_next_Click(sender As Object, e As EventArgs)
         f_alzado.Show()
         f_alzado.Text = "Diseño Muros de Concreto :" & Ruta_archivo
@@ -283,7 +276,7 @@ Public Class Form1
                     Data_muros.Rows(i).Cells(15).Value = 0
                 End If
 
-                'Calculo Cuantia Volumetrica EBE der         
+                'Calculo Cuantia Volumetrica EBE der
                 If Data_muros.Rows(i).Cells(11).Value > 0 Then
                     lebe = Data_muros.Rows(i).Cells(11).Value - r
                     Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
@@ -298,7 +291,7 @@ Public Class Form1
                     Data_muros.Rows(i).Cells(16).Value = 0
                 End If
 
-                'Calculo Cuantia Volumetrica EBE centro        
+                'Calculo Cuantia Volumetrica EBE centro
                 If Data_muros.Rows(i).Cells(12).Value > 0 Then
                     lebe = Data_muros.Rows(i).Cells(12).Value
                     Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
@@ -511,10 +504,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ToolStripButton1_Click_1(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub CopiarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopiarToolStripMenuItem.Click
         CopyToClipboard(data_grid)
     End Sub
@@ -557,27 +546,7 @@ Public Class Form1
         End If
     End Sub
 
-
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-
-        'If CheckBox1.Checked = True Then
-        '    e_EBE.Enabled = True
-        'Else
-        '    e_EBE.Enabled = False
-        'End If
-
-    End Sub
-
-    Private Sub Data_muros_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Data_muros.CellContentClick
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs)
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) 
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
 
         Dim Listas_serializar As New Listas_serializadas
 
@@ -589,7 +558,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) 
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
 
         Dim Ruta As String = ""
         Dim Lista_serializada As New Listas_serializadas
@@ -601,4 +570,9 @@ Public Class Form1
         refuerzo_lista = Lista_serializada.lista_refuerzo
 
     End Sub
+
+    Private Sub button10_Click(sender As Object, e As EventArgs) Handles button10.Click
+
+    End Sub
+
 End Class

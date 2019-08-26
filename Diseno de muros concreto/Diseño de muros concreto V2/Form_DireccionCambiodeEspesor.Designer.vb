@@ -22,16 +22,16 @@ Partial Class Form_DireccionCambiodeEspesor
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.DataGrid_Muros = New System.Windows.Forms.DataGridView()
+        Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ListadeMuros = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ListadeMuros = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Panel2.SuspendLayout()
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -85,6 +85,21 @@ Partial Class Form_DireccionCambiodeEspesor
         Me.DataGrid_Muros.Size = New System.Drawing.Size(266, 343)
         Me.DataGrid_Muros.TabIndex = 0
         '
+        'Muros
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Muros.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Muros.HeaderText = "Muros"
+        Me.Muros.Name = "Muros"
+        '
+        'ListadeMuros
+        '
+        Me.ListadeMuros.HeaderText = "Dirección:"
+        Me.ListadeMuros.Items.AddRange(New Object() {"Derecha", "Izquierda", "Arriba", "Abajo", "Centro", "No Aplica"})
+        Me.ListadeMuros.Name = "ListadeMuros"
+        Me.ListadeMuros.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.ListadeMuros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Gainsboro
@@ -119,21 +134,6 @@ Partial Class Form_DireccionCambiodeEspesor
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
         '
-        'Muros
-        '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Muros.DefaultCellStyle = DataGridViewCellStyle5
-        Me.Muros.HeaderText = "Muros"
-        Me.Muros.Name = "Muros"
-        '
-        'ListadeMuros
-        '
-        Me.ListadeMuros.HeaderText = "Dirección:"
-        Me.ListadeMuros.Items.AddRange(New Object() {"Derecha", "Izquierda", "Arriba", "Abajo", "Centro", "No Aplica"})
-        Me.ListadeMuros.Name = "ListadeMuros"
-        Me.ListadeMuros.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.ListadeMuros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
         'Form_DireccionCambiodeEspesor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -144,6 +144,8 @@ Partial Class Form_DireccionCambiodeEspesor
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Form_DireccionCambiodeEspesor"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form_DireccionCambiodeEspesor"
         Me.Panel2.ResumeLayout(False)

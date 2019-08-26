@@ -1,11 +1,8 @@
 ﻿Imports System.IO
-Imports Diseño_de_muros_concreto_V2
 
 Module CargarArchivos
     Private Lista_texto As New List(Of String)
     Public Muros_lista_2 As List(Of Muros_Consolidados)
-
-
 
     Sub ArchivoTexto(ByVal Form As Form1)
 
@@ -13,24 +10,17 @@ Module CargarArchivos
 
         Lista_texto.Clear()
 
-
         Dim Lector As New StreamReader(Form.RutaArchivo)
 
-            Do
-                sline = Lector.ReadLine()
-                Lista_texto.Add(sline)
+        Do
+            sline = Lector.ReadLine()
+            Lista_texto.Add(sline)
 
-            Loop Until sline Is Nothing
+        Loop Until sline Is Nothing
 
-            Lector.Close()
-
-
-
+        Lector.Close()
 
     End Sub
-
-
-
 
     Sub Cargar_Resumen()
 
@@ -95,23 +85,15 @@ Module CargarArchivos
             Muros_lista_2.Add(Muro_i)
         Next
 
-
-
     End Sub
 
-
-
     Sub CargarRefuerzo()
-
-
-
 
         Dim Inicio, Fin As Integer
         Dim Auxiliar As List(Of List(Of String)) = New List(Of List(Of String))
         Dim Vector_Texto As String()
         Dim Auxiliar2 As List(Of List(Of String)) = New List(Of List(Of String))
         Dim Auxiliar3 As List(Of List(Of String)) = New List(Of List(Of String))
-
 
         Try
             Inicio = Lista_texto.FindIndex(Function(x) x.Contains("6.Datos de Refuerzo Adicional")) + 2
@@ -120,14 +102,10 @@ Module CargarArchivos
             Fin = Lista_texto.FindIndex(Function(x) x.Contains("Fin")) - 2
         End Try
 
-
-
         For i As Integer = Inicio To Fin
             Vector_Texto = Lista_texto(i).Split(vbTab)
             Auxiliar.Add(Vector_Texto.ToList())
         Next
-
-
 
         For i = 0 To Muros_lista_2.Count - 1
             For j = 0 To Auxiliar.Count - 1
@@ -144,7 +122,6 @@ Module CargarArchivos
                     Muros_lista_2(i).NoBarras.Add(SumaDeBarras)
 
                 End If
-
 
             Next
         Next
@@ -177,8 +154,6 @@ Module CargarArchivos
                         For m = IndiceStory To Auxiliar2(j).Count - 1
                             NombreBarras.Add(Auxiliar2(j)(m))
                         Next
-
-
                     Else
                         NombreBarras.Add("")
 
@@ -186,11 +161,7 @@ Module CargarArchivos
 
                     Muros_lista_2(i).NombreBarras.Add(NombreBarras)
 
-
-
-
                 End If
-
 
             Next
         Next
@@ -222,8 +193,6 @@ Module CargarArchivos
                         For m = IndiceStory To Auxiliar3(j).Count - 1
                             L_Barras.Add(Val(Auxiliar3(j)(m)))
                         Next
-
-
                     Else
                         L_Barras.Add(0)
 
@@ -231,25 +200,11 @@ Module CargarArchivos
 
                     Muros_lista_2(i).LongitudBarras.Add(L_Barras)
 
-
-
-
                 End If
-
 
             Next
         Next
 
-
-
-
     End Sub
-
-
-
-
-
-
-
 
 End Module

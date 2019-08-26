@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports Excel = Microsoft.Office.Interop.Excel
+
 Public Class ExportExcel
     Private Lista_TextoPlano As New List(Of String)
     Private Lista_ShearDesing, Lista_FlexuralStress, Lista_Reporte As New List(Of List(Of String))
@@ -10,10 +11,8 @@ Public Class ExportExcel
 
     Sub CargarDatos()
 
-
         Dim Lector As New StreamReader(Ruta_archivo_1)
         Dim LineText As String
-
 
         Do
             LineText = Lector.ReadLine()
@@ -21,7 +20,6 @@ Public Class ExportExcel
         Loop Until LineText Is Nothing
 
         Lector.Close()
-
 
         Dim Inicio_ShearDesing, Final_ShearDesing, Inicio_FlexuralStress, Final_FlexuralStress, Inicio_Reporte, Final_Reporte As Integer
 
@@ -39,18 +37,13 @@ Public Class ExportExcel
 
         End Try
 
-
         For i = Inicio_ShearDesing To Final_ShearDesing : Lista_ShearDesing.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
         For i = Inicio_FlexuralStress To Final_FlexuralStress : Lista_FlexuralStress.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
         For i = Inicio_Reporte To Final_Reporte : Lista_Reporte.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
 
-
-
-
-
-
-
-
+        Lista_ShearDesing = Lista_ShearDesing.OrderBy(Function(x) x(1)).ToList
+        Lista_FlexuralStress = Lista_FlexuralStress.OrderBy(Function(x) x(1)).ToList
+        Lista_Reporte = Lista_Reporte.OrderBy(Function(x) x(1)).ToList
     End Sub
 
     Sub Exportar(ByVal Route_File As String)
@@ -69,16 +62,13 @@ Public Class ExportExcel
             objHojaExcel = objLibroExcel.Worksheets.Add()
             ExportarExcel_ShearDesing()
 
-
             m_Excel.Windows(1).DisplayGridlines = False
             m_Excel.Visible = True
-
         Else
-            MsgBox("Proyecto sin salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
+            MsgBox("Proyecto sin Salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
 
         End If
     End Sub
-
 
     Private Sub ExportarExcel_Reporte()
         objHojaExcel.Activate()
@@ -98,6 +88,7 @@ Public Class ExportExcel
         objHojaExcel.Columns(11).ColumnWidth = 7.57
         objHojaExcel.Columns(12).ColumnWidth = 6.43
         objHojaExcel.Columns(13).ColumnWidth = 6.29
+        objHojaExcel.Columns(14).ColumnWidth = 6.29
 
         EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
         EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
@@ -110,14 +101,14 @@ Public Class ExportExcel
         EstioTexto(objHojaExcel.Range("I1:I2"), "C (m)", TLT)
         EstioTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
         EstioTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("L1:L2"), "Zc_Izq (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("M1:M2"), "Zc_Der (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
+        EstioTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
 
-
-        Dim ArregloDatos3(Lista_Reporte.Count - 1, Lista_Reporte(0).Count - 14) As Object
+        Dim ArregloDatos3(Lista_Reporte.Count - 1, Lista_Reporte(0).Count - 13) As Object
 
         For i = 0 To Lista_Reporte.Count - 1
-            For j = 0 To Lista_Reporte(i).Count - 14
+            For j = 0 To Lista_Reporte(i).Count - 13
                 If j = 2 Or j = 3 Then
                     ArregloDatos3(i, j) = Val(Lista_Reporte(i)(j)) / 100
                 ElseIf j = 0 Or j = 1 Or j = 7 Or j = 5 Or j = 6 Then
@@ -129,22 +120,18 @@ Public Class ExportExcel
             Next
         Next
 
-        objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 15).Value = ArregloDatos3
+        objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14).Value = ArregloDatos3
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 15))
+        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14))
 
         objHojaExcel.Visible = True
 
     End Sub
 
-
     Private Sub ExportarExcel_ShearDesing()
-
-
 
         objHojaExcel.Activate()
         objHojaExcel.Name = "1.Shear Design"
-
 
         objHojaExcel.Columns(1).ColumnWidth = 5.71
         objHojaExcel.Columns(2).ColumnWidth = 2.86
@@ -167,9 +154,7 @@ Public Class ExportExcel
         objHojaExcel.Columns(19).ColumnWidth = 8
         objHojaExcel.Columns(20).ColumnWidth = 6.29
 
-
         Dim TLT = "Arial"
-
 
         EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
         EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
@@ -192,7 +177,6 @@ Public Class ExportExcel
         EstioTexto(objHojaExcel.Range("S1:S2"), "# Cortinas (C.21.9.2.3)", TLT)
         EstioTexto(objHojaExcel.Range("T1:T2"), "Sección OK?", TLT)
 
-
         Dim ArregloDatos(Lista_ShearDesing.Count - 1, Lista_ShearDesing(0).Count - 1) As Object
         For i = 0 To Lista_ShearDesing.Count - 1
             For j = 0 To Lista_ShearDesing(i).Count - 1
@@ -213,24 +197,12 @@ Public Class ExportExcel
 
         objHojaExcel.Visible = True
 
-
     End Sub
-
-
-
-
-
-
-
 
     Sub ExportarExcel_FlexuralStress()
 
-
         objHojaExcel.Activate()
         objHojaExcel.Name = "2.Flexural Stress"
-
-
-
 
         objHojaExcel.Columns.ColumnWidth = 13
 
@@ -291,31 +263,20 @@ Public Class ExportExcel
 
         EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_FlexuralStress.Count, Lista_FlexuralStress(0).Count))
 
-
         objHojaExcel.Visible = True
 
     End Sub
 
-
-
-
-
-
-
     Private Sub Reporte(ByVal ListaCiclos As List(Of Muros_Consolidados), ByVal Inicio As Integer)
-
 
         m_Excel = New Excel.Application
 
         objLibroExcel = m_Excel.Workbooks.Add()
         objHojaExcel = objLibroExcel.Worksheets(1)
 
-
         objHojaExcel.Activate()
 
-
         objHojaExcel.Columns.ColumnWidth = 13
-
 
         Dim Inicio2 As Integer = 0
 
@@ -326,11 +287,9 @@ Public Class ExportExcel
             objHojaExcel.Range("C" & 5 + i - Inicio).Font.Name = "Arial"
         Next
 
-
         m_Excel.Windows(1).DisplayGridlines = False
         m_Excel.Visible = True
         objHojaExcel.Visible = True
-
 
     End Sub
 
@@ -355,9 +314,8 @@ Public Class ExportExcel
             Rango.Characters(NoLetra, 1).Font.Name = "Symbol"
         End If
 
-
-
     End Sub
+
     Private Sub EstiloTextoSimple(ByVal Rango As Excel.Range, Optional ByVal TamanoLetra As Integer = 8, Optional ByVal TipoLetra As String = "Arial")
         Rango.HorizontalAlignment = Excel.Constants.xlCenter
         Rango.VerticalAlignment = Excel.Constants.xlCenter
@@ -367,7 +325,5 @@ Public Class ExportExcel
         Rango.Borders.LineStyle = Excel.XlLineStyle.xlContinuous
         Rango.Borders.Weight = Excel.XlBorderWeight.xlThin
     End Sub
-
-
 
 End Class

@@ -525,7 +525,7 @@ Partial Class Form1
         Me.panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.panel3.Location = New System.Drawing.Point(0, 0)
         Me.panel3.Name = "panel3"
-        Me.panel3.Size = New System.Drawing.Size(1386, 28)
+        Me.panel3.Size = New System.Drawing.Size(1595, 28)
         Me.panel3.TabIndex = 24
         '
         'Label1
@@ -668,13 +668,14 @@ Partial Class Form1
         Me.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.button12.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.button12.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.button12.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Autocad_23637x16
+        Me.button12.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Editar_x16_2_
         Me.button12.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.button12.Location = New System.Drawing.Point(248, 3)
         Me.button12.Name = "button12"
         Me.button12.Size = New System.Drawing.Size(82, 24)
         Me.button12.TabIndex = 4
         Me.button12.Text = "     AutoCAD"
+        Me.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.button12.UseVisualStyleBackColor = True
         '
         'button13
@@ -734,7 +735,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gray
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1386, 760)
+        Me.ClientSize = New System.Drawing.Size(1595, 760)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

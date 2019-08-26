@@ -124,7 +124,7 @@ Partial Class Similar
         '
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
         Me.Muros.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Muros.HeaderText = "Muros"
+        Me.Muros.HeaderText = "Muro"
         Me.Muros.Name = "Muros"
         '
         'Similars
@@ -151,6 +151,8 @@ Partial Class Similar
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Similar"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Panel2.ResumeLayout(False)
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).EndInit()

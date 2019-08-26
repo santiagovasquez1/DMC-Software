@@ -56,6 +56,25 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn20 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Data_info = New System.Windows.Forms.DataGridView()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Data_ayuda = New System.Windows.Forms.DataGridView()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Data_Alzado = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.pb_Alzado = New System.Windows.Forms.PictureBox()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -76,10 +95,6 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn46 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn47 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn48 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Data_ayuda = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -96,21 +111,6 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn29 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn30 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn31 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Data_Alzado = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Panel8 = New System.Windows.Forms.Panel()
-        Me.pb_Alzado = New System.Windows.Forms.PictureBox()
-        Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -161,7 +161,7 @@ Partial Class f_alzado
         Me.Panel2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1386, 29)
+        Me.Panel2.Size = New System.Drawing.Size(1554, 29)
         Me.Panel2.TabIndex = 21
         '
         'Panel6
@@ -251,6 +251,7 @@ Partial Class f_alzado
         'button6
         '
         Me.button6.BackColor = System.Drawing.Color.Transparent
+        Me.button6.Enabled = False
         Me.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
         Me.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
@@ -281,6 +282,7 @@ Partial Class f_alzado
         'button5
         '
         Me.button5.BackColor = System.Drawing.Color.Transparent
+        Me.button5.Enabled = False
         Me.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(247, Byte), Integer))
         Me.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(201, Byte), Integer), CType(CType(222, Byte), Integer), CType(CType(245, Byte), Integer))
@@ -305,13 +307,14 @@ Partial Class f_alzado
         Me.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.button4.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.button4.ForeColor = System.Drawing.Color.White
-        Me.button4.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Autocad_23637x16
+        Me.button4.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Editar_x16_2_
         Me.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.button4.Location = New System.Drawing.Point(247, 3)
         Me.button4.Name = "button4"
         Me.button4.Size = New System.Drawing.Size(82, 24)
         Me.button4.TabIndex = 4
         Me.button4.Text = "     AutoCAD"
+        Me.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.button4.UseVisualStyleBackColor = False
         '
         'Button3
@@ -336,28 +339,28 @@ Partial Class f_alzado
         '
         Me.CopiarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CopiarToolStripMenuItem.Name = "CopiarToolStripMenuItem"
-        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CopiarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.CopiarToolStripMenuItem.Text = "Copiar"
         '
         'CortarToolStripMenuItem
         '
         Me.CortarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CortarToolStripMenuItem.Name = "CortarToolStripMenuItem"
-        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CortarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.CortarToolStripMenuItem.Text = "Cortar"
         '
         'PegarToolStripMenuItem
         '
         Me.PegarToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PegarToolStripMenuItem.Name = "PegarToolStripMenuItem"
-        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PegarToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.PegarToolStripMenuItem.Text = "Pegar"
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopiarToolStripMenuItem, Me.CortarToolStripMenuItem, Me.PegarToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 92)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(110, 70)
         '
         'DataGridView1
         '
@@ -476,6 +479,212 @@ Partial Class f_alzado
         Me.Data_info.Size = New System.Drawing.Size(547, 302)
         Me.Data_info.TabIndex = 13
         '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel10.Controls.Add(Me.Label9)
+        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel10.Location = New System.Drawing.Point(0, 0)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(561, 29)
+        Me.Panel10.TabIndex = 14
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label9.Location = New System.Drawing.Point(8, 7)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(124, 15)
+        Me.Label9.TabIndex = 1
+        Me.Label9.Text = "Información Refuerzo"
+        '
+        'Panel3
+        '
+        Me.Panel3.AutoSize = True
+        Me.Panel3.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.Data_ayuda)
+        Me.Panel3.Controls.Add(Me.Panel7)
+        Me.Panel3.Location = New System.Drawing.Point(7, 407)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(563, 343)
+        Me.Panel3.TabIndex = 23
+        '
+        'Data_ayuda
+        '
+        Me.Data_ayuda.AllowUserToAddRows = False
+        Me.Data_ayuda.AllowUserToDeleteRows = False
+        Me.Data_ayuda.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Data_ayuda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Data_ayuda.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn21, Me.DataGridViewTextBoxColumn22, Me.DataGridViewTextBoxColumn23, Me.DataGridViewTextBoxColumn24, Me.DataGridViewTextBoxColumn25, Me.DataGridViewTextBoxColumn26, Me.DataGridViewTextBoxColumn27, Me.DataGridViewTextBoxColumn28, Me.DataGridViewTextBoxColumn29, Me.DataGridViewTextBoxColumn30, Me.DataGridViewTextBoxColumn31})
+        Me.Data_ayuda.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
+        Me.Data_ayuda.Location = New System.Drawing.Point(8, 38)
+        Me.Data_ayuda.Name = "Data_ayuda"
+        Me.Data_ayuda.Size = New System.Drawing.Size(547, 296)
+        Me.Data_ayuda.TabIndex = 15
+        '
+        'Panel7
+        '
+        Me.Panel7.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel7.Controls.Add(Me.Label4)
+        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel7.Location = New System.Drawing.Point(0, 0)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(561, 29)
+        Me.Panel7.TabIndex = 16
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Location = New System.Drawing.Point(8, 7)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(93, 15)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "Ayuda Despiece"
+        '
+        'Panel4
+        '
+        Me.Panel4.AutoSize = True
+        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel4.Controls.Add(Me.Data_Alzado)
+        Me.Panel4.Controls.Add(Me.Panel5)
+        Me.Panel4.Location = New System.Drawing.Point(586, 53)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(374, 697)
+        Me.Panel4.TabIndex = 24
+        '
+        'Data_Alzado
+        '
+        Me.Data_Alzado.AllowUserToAddRows = False
+        Me.Data_Alzado.AllowUserToDeleteRows = False
+        Me.Data_Alzado.BackgroundColor = System.Drawing.Color.White
+        Me.Data_Alzado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.Data_Alzado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
+        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke
+        Me.Data_Alzado.GridColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Data_Alzado.Location = New System.Drawing.Point(7, 34)
+        Me.Data_Alzado.Name = "Data_Alzado"
+        Me.Data_Alzado.Size = New System.Drawing.Size(358, 654)
+        Me.Data_Alzado.TabIndex = 19
+        '
+        'Column1
+        '
+        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column1.Frozen = True
+        Me.Column1.HeaderText = "Pier"
+        Me.Column1.Name = "Column1"
+        Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Column1.Width = 31
+        '
+        'Column2
+        '
+        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.Column2.Frozen = True
+        Me.Column2.HeaderText = "Story"
+        Me.Column2.Name = "Column2"
+        Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Column2.Width = 37
+        '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel5.Controls.Add(Me.Label2)
+        Me.Panel5.Controls.Add(Me.PictureBox1)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(372, 29)
+        Me.Panel5.TabIndex = 18
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label2.Location = New System.Drawing.Point(8, 7)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(165, 15)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Alzado Refuerzo Longitudinal"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PictureBox1.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.close_button
+        Me.PictureBox1.Location = New System.Drawing.Point(388, 7)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(10, 10)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
+        'Panel8
+        '
+        Me.Panel8.AutoScroll = True
+        Me.Panel8.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel8.Controls.Add(Me.pb_Alzado)
+        Me.Panel8.Controls.Add(Me.Panel9)
+        Me.Panel8.Location = New System.Drawing.Point(974, 52)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(569, 698)
+        Me.Panel8.TabIndex = 25
+        '
+        'pb_Alzado
+        '
+        Me.pb_Alzado.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.pb_Alzado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pb_Alzado.Location = New System.Drawing.Point(8, 38)
+        Me.pb_Alzado.Name = "pb_Alzado"
+        Me.pb_Alzado.Size = New System.Drawing.Size(1207, 634)
+        Me.pb_Alzado.TabIndex = 12
+        Me.pb_Alzado.TabStop = False
+        '
+        'Panel9
+        '
+        Me.Panel9.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel9.Controls.Add(Me.Label5)
+        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel9.Location = New System.Drawing.Point(0, 0)
+        Me.Panel9.Name = "Panel9"
+        Me.Panel9.Size = New System.Drawing.Size(1215, 29)
+        Me.Panel9.TabIndex = 19
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Location = New System.Drawing.Point(8, 7)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(43, 15)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "Alzado"
+        '
+        'Panel11
+        '
+        Me.Panel11.BackColor = System.Drawing.Color.Gray
+        Me.Panel11.Controls.Add(Me.Button1)
+        Me.Panel11.Location = New System.Drawing.Point(0, 25)
+        Me.Panel11.Name = "Panel11"
+        Me.Panel11.Size = New System.Drawing.Size(1611, 800)
+        Me.Panel11.TabIndex = 26
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(626, 3)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
         'DataGridViewTextBoxColumn10
         '
         Me.DataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -517,6 +726,7 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn33.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn33.HeaderText = "LI"
         Me.DataGridViewTextBoxColumn33.Name = "DataGridViewTextBoxColumn33"
+        Me.DataGridViewTextBoxColumn33.ReadOnly = True
         Me.DataGridViewTextBoxColumn33.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn33.Width = 22
         '
@@ -525,6 +735,7 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn34.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn34.HeaderText = "LD"
         Me.DataGridViewTextBoxColumn34.Name = "DataGridViewTextBoxColumn34"
+        Me.DataGridViewTextBoxColumn34.ReadOnly = True
         Me.DataGridViewTextBoxColumn34.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn34.Width = 27
         '
@@ -643,52 +854,6 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn48.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn48.Width = 32
         '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel10.Controls.Add(Me.Label9)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel10.Location = New System.Drawing.Point(0, 0)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(561, 29)
-        Me.Panel10.TabIndex = 14
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label9.Location = New System.Drawing.Point(8, 7)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(124, 15)
-        Me.Label9.TabIndex = 1
-        Me.Label9.Text = "Información Refuerzo"
-        '
-        'Panel3
-        '
-        Me.Panel3.AutoSize = True
-        Me.Panel3.BackColor = System.Drawing.SystemColors.Control
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.Data_ayuda)
-        Me.Panel3.Controls.Add(Me.Panel7)
-        Me.Panel3.Location = New System.Drawing.Point(7, 407)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(563, 343)
-        Me.Panel3.TabIndex = 23
-        '
-        'Data_ayuda
-        '
-        Me.Data_ayuda.AllowUserToAddRows = False
-        Me.Data_ayuda.AllowUserToDeleteRows = False
-        Me.Data_ayuda.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Data_ayuda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Data_ayuda.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn21, Me.DataGridViewTextBoxColumn22, Me.DataGridViewTextBoxColumn23, Me.DataGridViewTextBoxColumn24, Me.DataGridViewTextBoxColumn25, Me.DataGridViewTextBoxColumn26, Me.DataGridViewTextBoxColumn27, Me.DataGridViewTextBoxColumn28, Me.DataGridViewTextBoxColumn29, Me.DataGridViewTextBoxColumn30, Me.DataGridViewTextBoxColumn31})
-        Me.Data_ayuda.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2
-        Me.Data_ayuda.Location = New System.Drawing.Point(8, 38)
-        Me.Data_ayuda.Name = "Data_ayuda"
-        Me.Data_ayuda.Size = New System.Drawing.Size(547, 296)
-        Me.Data_ayuda.TabIndex = 15
-        '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -721,6 +886,7 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn8.HeaderText = "LI"
         Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
         Me.DataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn8.Width = 22
         '
@@ -729,6 +895,7 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.DataGridViewTextBoxColumn9.HeaderText = "LD"
         Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
         Me.DataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn9.Width = 27
         '
@@ -820,172 +987,13 @@ Partial Class f_alzado
         Me.DataGridViewTextBoxColumn31.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.DataGridViewTextBoxColumn31.Width = 32
         '
-        'Panel7
-        '
-        Me.Panel7.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel7.Controls.Add(Me.Label4)
-        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel7.Location = New System.Drawing.Point(0, 0)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(561, 29)
-        Me.Panel7.TabIndex = 16
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label4.Location = New System.Drawing.Point(8, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(93, 15)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "Ayuda Despiece"
-        '
-        'Panel4
-        '
-        Me.Panel4.AutoSize = True
-        Me.Panel4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Controls.Add(Me.Data_Alzado)
-        Me.Panel4.Controls.Add(Me.Panel5)
-        Me.Panel4.Location = New System.Drawing.Point(586, 53)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(374, 697)
-        Me.Panel4.TabIndex = 24
-        '
-        'Data_Alzado
-        '
-        Me.Data_Alzado.AllowUserToAddRows = False
-        Me.Data_Alzado.AllowUserToDeleteRows = False
-        Me.Data_Alzado.BackgroundColor = System.Drawing.Color.White
-        Me.Data_Alzado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.Data_Alzado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
-        Me.Data_Alzado.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke
-        Me.Data_Alzado.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Data_Alzado.Location = New System.Drawing.Point(7, 34)
-        Me.Data_Alzado.Name = "Data_Alzado"
-        Me.Data_Alzado.Size = New System.Drawing.Size(358, 654)
-        Me.Data_Alzado.TabIndex = 19
-        '
-        'Column1
-        '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column1.Frozen = True
-        Me.Column1.HeaderText = "Pier"
-        Me.Column1.Name = "Column1"
-        Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column1.Width = 31
-        '
-        'Column2
-        '
-        Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Column2.Frozen = True
-        Me.Column2.HeaderText = "Story"
-        Me.Column2.Name = "Column2"
-        Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column2.Width = 37
-        '
-        'Panel5
-        '
-        Me.Panel5.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.Label2)
-        Me.Panel5.Controls.Add(Me.PictureBox1)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(372, 29)
-        Me.Panel5.TabIndex = 18
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(8, 7)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(165, 15)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "Alzado Refuerzo Longitudinal"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox1.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.close_button
-        Me.PictureBox1.Location = New System.Drawing.Point(388, 7)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(10, 10)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
-        '
-        'Panel8
-        '
-        Me.Panel8.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel8.Controls.Add(Me.pb_Alzado)
-        Me.Panel8.Controls.Add(Me.Panel9)
-        Me.Panel8.Location = New System.Drawing.Point(974, 52)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(569, 698)
-        Me.Panel8.TabIndex = 25
-        '
-        'pb_Alzado
-        '
-        Me.pb_Alzado.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.pb_Alzado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pb_Alzado.Location = New System.Drawing.Point(8, 35)
-        Me.pb_Alzado.Name = "pb_Alzado"
-        Me.pb_Alzado.Size = New System.Drawing.Size(551, 654)
-        Me.pb_Alzado.TabIndex = 12
-        Me.pb_Alzado.TabStop = False
-        '
-        'Panel9
-        '
-        Me.Panel9.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel9.Controls.Add(Me.Label5)
-        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel9.Location = New System.Drawing.Point(0, 0)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(567, 29)
-        Me.Panel9.TabIndex = 19
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.Label5.Location = New System.Drawing.Point(8, 7)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(43, 15)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = "Alzado"
-        '
-        'Panel11
-        '
-        Me.Panel11.BackColor = System.Drawing.Color.Gray
-        Me.Panel11.Controls.Add(Me.Button1)
-        Me.Panel11.Location = New System.Drawing.Point(0, 25)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1611, 800)
-        Me.Panel11.TabIndex = 26
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(626, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
         'f_alzado
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1386, 760)
+        Me.ClientSize = New System.Drawing.Size(1554, 760)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel4)
@@ -995,6 +1003,7 @@ Partial Class f_alzado
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
         Me.Name = "f_alzado"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Diseño Muros de Concreto"
@@ -1070,6 +1079,12 @@ Partial Class f_alzado
     Friend WithEvents Panel9 As Panel
     Friend WithEvents Label5 As Label
     Friend WithEvents Data_info As DataGridView
+    Friend WithEvents Panel11 As Panel
+    Private WithEvents Label10 As Label
+    Friend WithEvents cb_cuantiavol As Button
+    Friend WithEvents Panel10 As Panel
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Button1 As Button
     Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
@@ -1106,10 +1121,4 @@ Partial Class f_alzado
     Friend WithEvents DataGridViewTextBoxColumn29 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn30 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn31 As DataGridViewTextBoxColumn
-    Friend WithEvents Panel11 As Panel
-    Private WithEvents Label10 As Label
-    Friend WithEvents cb_cuantiavol As Button
-    Friend WithEvents Panel10 As Panel
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Button1 As Button
 End Class

@@ -22,12 +22,10 @@ namespace Diseno_muros_concreto_fc
     {
         public string Pier, Story, Loc, Pier_Leg;
         public double Spacing, Rho_l;
-
     }
 
-    class Generador_de_piers
+    internal class Generador_de_piers
     {
-
         private static List<Geometria_Piers> Lista_Geometria;
         private static List<Fuerza_Piers> Datos_Fuerza;
         private static List<Datos_Diseno> Lista_Diseno;
@@ -54,7 +52,6 @@ namespace Diseno_muros_concreto_fc
                 {
                     sline = Lector.ReadLine();
                     Lineas_Geometria.Add(sline);
-
                 } while (!(sline == null));
                 Lector.Close();
 
@@ -74,10 +71,8 @@ namespace Diseno_muros_concreto_fc
                     };
                     Lista_Geometria.Add(Geometria_i);
                 }
-
             }
             catch { }
-
         }
 
         public static void Lector_Fuerza()
@@ -101,7 +96,6 @@ namespace Diseno_muros_concreto_fc
                 {
                     sline = Lector.ReadLine();
                     Lineas_Fuerza.Add(sline);
-
                 } while (!(sline == null));
                 Lector.Close();
 
@@ -122,11 +116,8 @@ namespace Diseno_muros_concreto_fc
                     };
                     Datos_Fuerza.Add(Fuerza_i);
                 }
-
             }
-
             catch { }
-
         }
 
         public static void Lectura_Diseno()
@@ -150,7 +141,6 @@ namespace Diseno_muros_concreto_fc
                 {
                     sline = Lector.ReadLine();
                     Lineas_diseno.Add(sline);
-
                 } while (!(sline == null));
                 Lector.Close();
 
@@ -169,7 +159,6 @@ namespace Diseno_muros_concreto_fc
 
                     Lista_Diseno.Add(diseno_i);
                 }
-
             }
             catch { }
         }

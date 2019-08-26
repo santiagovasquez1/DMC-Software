@@ -1,4 +1,5 @@
 ﻿Module Load_Areas_Refuerzo
+
     Sub Cargar_areas_refuerzo()
         If areas_refuerzo.Count = 0 Then
 
@@ -159,4 +160,5 @@
 
         End If
     End Sub
+
 End Module

@@ -48,6 +48,7 @@ Module DibujoAutocad
     Private minpoint(2), maxpoint(2) As Double
     Private menc, menc1 As Integer
     Private multileader As AcadMLeader
+
     Public Class puntos_lineas
         Public x As Double
         Public y As Double
@@ -77,8 +78,6 @@ Module DibujoAutocad
         Public cantidad As Integer
         Public tipo_traslapo As String
     End Class
-
-
 
     Private Function Extraer_Nums(ByVal Cadena As String) As Object
         Dim solonumero As String = ""
@@ -111,6 +110,7 @@ Module DibujoAutocad
         End If
         Return Tipo_gancho
     End Function
+
     Private Function position(ByVal tipo_gancho As String) As Integer
         Dim pos As Integer = 0
         If tipo_gancho = "Gancho izquierda" Then
@@ -130,6 +130,7 @@ Module DibujoAutocad
         End If
         Return pos
     End Function
+
     Private Sub Find_Bloque_Malla()
         Dim prueba = AcadDoc.ModelSpace
 
@@ -152,7 +153,6 @@ Module DibujoAutocad
         Dim color1 As AcadAcCmColor
         Dim mirror As Integer '0 indica que no se le hace mirror, 1 indica que si se hace mirror
         Dim indice, Indice2 As Integer
-
 
         mirror = 0
         If Nombre_muro <> Nothing Then
@@ -185,7 +185,6 @@ Module DibujoAutocad
 
             Hviga = f_variables.T_Hviga.Text
 
-
             altura = 0
             j = 0
 
@@ -193,7 +192,7 @@ Module DibujoAutocad
             Dim Longitudes As List(Of Single) = datos_muros.lw.Distinct.ToList
             Dim Resistencias As List(Of Single) = datos_muros.fc.Distinct.ToList
 
-            'Dibujo de Viga de fundacion 
+            'Dibujo de Viga de fundacion
             Hfunda = f_variables.T_Vf.Text
             profundidad = prof
             pl1(0) = -0.5 + coordX : pl1(1) = altura : pl1(2) = 0
@@ -264,7 +263,6 @@ Module DibujoAutocad
             Else
                 p1c(0) = coordX + datos_muros.lw(0) / 100 + 0.8 : p1c(1) = altura - Hfunda / 2 : p1c(2) = 0
             End If
-
 
             Refbloc = AcadDoc.ModelSpace.InsertBlock(p1c, Ref_bloc_name, 1, 1, 1, 0)
             Refbloc.XScaleFactor = 50
@@ -415,9 +413,9 @@ Module DibujoAutocad
                 'Agregar Texto para definir el rango de pisos de los espesores
 
                 If Espesores.Count > 1 Then
-                    Texto = Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(indice2))) & " a " & Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(indice)))
+                    Texto = Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(Indice2))) & " a " & Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(indice)))
                 Else
-                    Texto = Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(indice2)))
+                    Texto = Nombre_Nivel & " " & Val(Extraer_Nums(datos_muros.Stories(Indice2)))
                 End If
 
                 p1c = {coordX + datos_muros.lw(indice) / 100 + 0.1, Polyline.Coordinates(10), 0}
@@ -441,8 +439,7 @@ Module DibujoAutocad
             p1c(0) = coordX + datos_muros.lw(0) / 200 : p1c(1) = minpoint(1) - 0.75 : p1c(2) = 0
             Bloque_Info_alzado(p1c, 0.175)
 
-
-            'Escribir información acerca del muro 
+            'Escribir información acerca del muro
             If Espesores.Count = 1 Then
                 Texto = "Espesor de muro e=" & Format(Espesores(0) / 100, "##,0.00") & vbNewLine & "Es 1"
             Else
@@ -463,7 +460,7 @@ Module DibujoAutocad
             p1_resistencia(0) = datos_muros.lw(0) / 100 + coordX : p1_resistencia(1) = altura : p1_resistencia(2) = 0
 
             If Espesores.Count > 1 Then
-                'punto inicial para adicionar cota de cambio de sección 
+                'punto inicial para adicionar cota de cambio de sección
                 p1_seccion = {datos_muros.lw(0) / 100 + coordX, altura, 0}
             End If
 
@@ -489,7 +486,7 @@ Module DibujoAutocad
                 Add_Polilineas("FC_BORDES", puntos, 0.9)
                 Add_Polilineas("FC_BORDES", puntos_vigas, 0.9)
 
-                'Agregar Cotas 
+                'Agregar Cotas
                 p1c(0) = coordX : p1c(1) = altura : p1c(2) = 0
                 p2c(0) = coordX : p2c(1) = altura + datos_muros.Hw(i) / 100 - Hviga : p2c(2) = 0
                 location(0) = coordX - 0.3 : location(1) = altura + ((datos_muros.Hw(i) / 100) - Hviga) / 2 : location(2) = 0
@@ -659,7 +656,7 @@ Module DibujoAutocad
         Refbloc.Visible = True
         Refbloc.Update()
 
-        'Texto para identificar el Alzado 
+        'Texto para identificar el Alzado
 
         Texto = "%%UALZADO DE REFUERZO"
         Ref_bloc_name = "FC_B_Titulo 6"
@@ -723,7 +720,6 @@ Module DibujoAutocad
                 p1c(0) = Min_x - 0.55 : p1c(1) = altura + Muros_lista_2(Indice).Hw(indice2) / 100 : p1c(2) = 0
                 p2c(0) = Min_x - 2.05 : p2c(1) = altura + Muros_lista_2(Indice).Hw(indice2) / 100 : p2c(2) = 0
                 Add_Linea(p1c, p2c, "FC_LINEA CORTE")
-
             Else
                 Exit For
             End If
@@ -778,6 +774,7 @@ Module DibujoAutocad
         Asignar_refuerzo_piso(Muro_i)
 
     End Sub
+
     Private Sub Asignar_refuerzo_piso(ByVal Muro_i As Datos_Refuerzo)
 
         Dim Limite_Sup, Limite_inf As Single
@@ -879,7 +876,6 @@ Module DibujoAutocad
         Return Max
 
     End Function
-
 
     Private Function Find_min_x(ByVal Lista_Coordenadas As List(Of List(Of Double()))) As Single
 
@@ -996,7 +992,7 @@ Module DibujoAutocad
                 Texto = "#" & datos_muros.Ref_htal(i) & " a " & Format(datos_muros.sep_htal(i) / 100, "##0.00") & vbNewLine & " L= X.XX"
             End If
 
-        ElseIf datos_muros.capas_htal(i) = 2 Then
+        ElseIf datos_muros.Capas_htal(i) = 2 Then
 
             If InStr(datos_muros.Ref_htal(i), "mm") Then
                 Texto = "2%%C" & datos_muros.Ref_htal(i) & " a" & vbNewLine & Format(datos_muros.sep_htal(i) / 100, "##0.00") & " L= X.XX"
@@ -1093,7 +1089,6 @@ Module DibujoAutocad
                 mirror = 0
                 Agregar_estribos(datos_muros, puntos_leader_2, mirror, i) ''Metodo para agregar leader en las zonas de confinamiento y de elementos especiales de borde
 
-
                 'Agregar cota que define el espesor de la zona de confinamiento
 
                 p1c(0) = coordX : p1c(1) = altura + (datos_muros.Hw(i) / 100) * (2 / 3) : p2c(2) = 0
@@ -1121,7 +1116,6 @@ Module DibujoAutocad
 
                 p1c(0) = datos_muros.lw(i) / 100 + coordX : p1c(1) = altura + (datos_muros.Hw(i) / 100) * (2 / 3) : p2c(2) = 0
                 Add_Long_Ebe("FC_B_Espesor Horizontal", p1c, L_Der, 1)
-
             Else
 
                 With datos_muros
@@ -1194,7 +1188,6 @@ Module DibujoAutocad
             Puntos_malla(6) = coordX + 0.05
             Delta_I = 0.05
         End If
-
 
         If L_Der >= 0.45 Then
             Puntos_malla(2) = coordX + datos_muros.lw(i) / 100 - 0.15
@@ -1428,7 +1421,6 @@ Module DibujoAutocad
             multileader.Delete()
         End If
 
-
     End Sub
 
     Private Sub Hatch_Back(ByVal Acad_object As AcadObject)
@@ -1447,7 +1439,6 @@ Module DibujoAutocad
         sentityObj.MoveToBottom(arr.ToArray)
 
     End Sub
-
 
     Private Sub Bloque_Info_alzado(ByRef coordenadas() As Double, ByVal Alto_texto As Double)
 

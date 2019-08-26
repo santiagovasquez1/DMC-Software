@@ -1,5 +1,4 @@
-﻿
-Module Variables_Publicas
+﻿Module Variables_Publicas
     Public list_muros() As String
     Public piername() As String
     Public Muros_lista_2 As List(Of Muros_Consolidados)
@@ -36,7 +35,7 @@ Module Variables_Publicas
     Public Ruta_1, Capacidad As String
     Public Lista_Auxiliar As Object
     Public data_info_f3 As DataGridView
-
+    Public Lista_graficar As New List(Of Muros_alzados_C)
 
     Public Ruta_Carpeta As String
 

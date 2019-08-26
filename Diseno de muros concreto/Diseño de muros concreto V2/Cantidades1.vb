@@ -1,6 +1,6 @@
 ﻿Imports System.IO
-Module Cantidades1
 
+Module Cantidades1
 
     Sub GenerarCantidades(ByVal Lista_Alzado As List(Of alzado_muro), ByVal Lista_Muros As List(Of Muros_Consolidados))
 
@@ -19,10 +19,6 @@ Module Cantidades1
             End If
         Next
 
-
-
-
-
         For i = 0 To Lista_Muros_Refuerzo.Count - 1
             Lista_Muros_Refuerzo(i).ActivarNuevasFunciones()
         Next
@@ -30,8 +26,6 @@ Module Cantidades1
         For i = 0 To Lista_Muros.Count - 1
             Lista_Muros(i).CantidadMallas_()
         Next
-
-
 
         For i = 0 To Lista_Muros_Refuerzo.Count - 1
             If i = 0 Then
@@ -41,7 +35,6 @@ Module Cantidades1
             Dim CantidadMuros As Integer = 1
             ArchivoTexto.Add(CantidadMuros)
 
-
             With Lista_Muros_Refuerzo(i)
                 Dim ListaAuxiliarMuro = Lista_Muros.Find(Function(x) x.Pier_name = Lista_Muros_Refuerzo(i).Nombre_muro)
                 ArchivoTexto.Add(.ListaRefuerzo_DllNet.Count + ListaAuxiliarMuro.CantidadMallasDllNet.Count)
@@ -49,7 +42,6 @@ Module Cantidades1
                 For j = 0 To .ListaRefuerzo_DllNet.Count - 1
                     ArchivoTexto.Add(.ListaRefuerzo_DllNet(j))
                 Next
-
 
                 For j = 0 To ListaAuxiliarMuro.CantidadMallasDllNet.Count - 1
                     ArchivoTexto.Add(ListaAuxiliarMuro.CantidadMallasDllNet(j))
@@ -59,17 +51,9 @@ Module Cantidades1
 
         Next
 
-
-
-
         EscrbirTexto(ArchivoTexto)
 
-
-
     End Sub
-
-
-
 
     Sub EscrbirTexto(ByVal TextoAEscribir As List(Of String))
         Dim RutaTxt As String
@@ -84,31 +68,12 @@ Module Cantidades1
         Dim Escritor As StreamWriter
         Escritor = New StreamWriter(RutaTxt)
 
-
         For i = 0 To TextoAEscribir.Count - 1
             Escritor.WriteLine(TextoAEscribir(i))
-
         Next
-
-
-
 
         Escritor.Close()
 
-
-
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
 
 End Module

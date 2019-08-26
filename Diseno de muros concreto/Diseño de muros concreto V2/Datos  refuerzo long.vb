@@ -3,6 +3,7 @@
 Module Datos__refuerzo_long
     Public Pesos_Refuerzos As New List(Of Refuerzo_procesar)
     Public Lista_texto_refuerzo As List(Of String)
+
     Public Class Refuerzo_procesar
 
         Public Pier, Story As String
@@ -41,7 +42,6 @@ Module Datos__refuerzo_long
         Catch ex As Exception
             Traslapo = 0
         End Try
-
 
     End Function
 
@@ -140,4 +140,5 @@ Module Datos__refuerzo_long
         End Try
 
     End Sub
+
 End Module

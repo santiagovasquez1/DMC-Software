@@ -14,12 +14,14 @@ Public Class Guardar_Archivo
 
             Try
                 Add_Refuerzoi(data_info_f3)
+                Actualizar_Resumen()
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
                 Sobre_Escribir(Borrar)
                 NuevosArchivo()
             Catch ex As Exception
+                Actualizar_Resumen()
                 Actualizar_Info_ref()
                 Actualizar_Alzado()
                 Actualizar_long_Alzados()
@@ -36,10 +38,33 @@ Public Class Guardar_Archivo
         Lista_Texto = New List(Of String)
         Dim Texto As String
 
-        For Each muro_i As Muros_Consolidados In Muros_lista_2
+        For i = 0 To Muros_lista_2.Count - 1
 
-            For i = 0 To muro_i.Stories.Count - 1
-                Texto = muro_i.Stories(i) & vbTab & muro_i.Pier_name & vbTab & muro_i.lw(i) & vbTab & muro_i.Bw(i) & vbTab & muro_i.fc(i) & vbTab & muro_i.Rho_T(i) & vbTab & muro_i.Rho_l(i) & vbTab & muro_i.Malla(i) & vbTab & muro_i.C_Def(i) & vbTab & muro_i.Lebe_Izq(i) & vbTab & muro_i.Lebe_Der(i) & vbTab & muro_i.Lebe_Centro(i) & vbTab & muro_i.Zc_Izq(i) & vbTab & muro_i.Zc_Der(i) & vbTab & muro_i.Hw(i) & vbTab & muro_i.Est_ebe(i) & vbTab & muro_i.Sep_ebe(i) & vbTab & muro_i.Est_Zc(i) & vbTab & muro_i.Sep_Zc(i) & vbTab & muro_i.As_Long(i) & vbTab & muro_i.ramas_izq(i) & vbTab & muro_i.ramas_der(i) & vbTab & muro_i.ramas_centro(i) & vbTab & muro_i.As_htal(i) & vbTab & muro_i.Ref_htal(i) & vbTab & muro_i.Capas_htal(i) & vbTab & muro_i.sep_htal(i) & vbTab & muro_i.As_Htal_Total(i)
+            If IsNothing(Muros_lista_2(i).MuroSimilar) = False Then
+
+                Muros_lista_2(i).lw = Muros_lista_2(i).MuroSimilar.lw
+                Muros_lista_2(i).Malla = Muros_lista_2(i).MuroSimilar.Malla
+                Muros_lista_2(i).As_Long = Muros_lista_2(i).MuroSimilar.As_Long
+                Muros_lista_2(i).As_htal = Muros_lista_2(i).MuroSimilar.As_htal
+                Muros_lista_2(i).Lebe_Izq = Muros_lista_2(i).MuroSimilar.Lebe_Izq
+                Muros_lista_2(i).Lebe_Der = Muros_lista_2(i).MuroSimilar.Lebe_Der
+                Muros_lista_2(i).Lebe_Centro = Muros_lista_2(i).MuroSimilar.Lebe_Centro
+                Muros_lista_2(i).Est_ebe = Muros_lista_2(i).MuroSimilar.Est_ebe
+                Muros_lista_2(i).Sep_ebe = Muros_lista_2(i).MuroSimilar.Sep_ebe
+                Muros_lista_2(i).ramas_izq = Muros_lista_2(i).MuroSimilar.ramas_izq
+                Muros_lista_2(i).ramas_der = Muros_lista_2(i).MuroSimilar.ramas_der
+                Muros_lista_2(i).ramas_centro = Muros_lista_2(i).MuroSimilar.ramas_centro
+                Muros_lista_2(i).Zc_Izq = Muros_lista_2(i).MuroSimilar.Zc_Izq
+                Muros_lista_2(i).Zc_Der = Muros_lista_2(i).MuroSimilar.Zc_Der
+                Muros_lista_2(i).Est_Zc = Muros_lista_2(i).MuroSimilar.Est_Zc
+                Muros_lista_2(i).Sep_Zc = Muros_lista_2(i).MuroSimilar.Sep_Zc
+                Muros_lista_2(i).Ref_htal = Muros_lista_2(i).MuroSimilar.Ref_htal
+                Muros_lista_2(i).Capas_htal = Muros_lista_2(i).MuroSimilar.Capas_htal
+                Muros_lista_2(i).sep_htal = Muros_lista_2(i).MuroSimilar.sep_htal
+            End If
+
+            For j = 0 To Muros_lista_2(i).Stories.Count - 1
+                Texto = Muros_lista_2(i).Stories(j) & vbTab & Muros_lista_2(i).Pier_name & vbTab & Muros_lista_2(i).lw(j) & vbTab & Muros_lista_2(i).Bw(j) & vbTab & Muros_lista_2(i).fc(j) & vbTab & Muros_lista_2(i).Rho_T(j) & vbTab & Muros_lista_2(i).Rho_l(j) & vbTab & Muros_lista_2(i).Malla(j) & vbTab & Muros_lista_2(i).C_Def(j) & vbTab & Muros_lista_2(i).Lebe_Izq(j) & vbTab & Muros_lista_2(i).Lebe_Der(j) & vbTab & Muros_lista_2(i).Lebe_Centro(j) & vbTab & Muros_lista_2(i).Zc_Izq(j) & vbTab & Muros_lista_2(i).Zc_Der(j) & vbTab & Muros_lista_2(i).Hw(j) & vbTab & Muros_lista_2(i).Est_ebe(j) & vbTab & Muros_lista_2(i).Sep_ebe(j) & vbTab & Muros_lista_2(i).Est_Zc(j) & vbTab & Muros_lista_2(i).Sep_Zc(j) & vbTab & Muros_lista_2(i).As_Long(j) & vbTab & Muros_lista_2(i).ramas_izq(j) & vbTab & Muros_lista_2(i).ramas_der(j) & vbTab & Muros_lista_2(i).ramas_centro(j) & vbTab & Muros_lista_2(i).As_htal(j) & vbTab & Muros_lista_2(i).Ref_htal(j) & vbTab & Muros_lista_2(i).Capas_htal(j) & vbTab & Muros_lista_2(i).sep_htal(j) & vbTab & Muros_lista_2(i).As_Htal_Total(j)
                 Lista_Texto.Add(Texto)
             Next
 
@@ -162,7 +187,6 @@ Public Class Guardar_Archivo
 
         For Each Alzado_i As alzado_muro In alzado_lista
 
-
             texto = Alzado_i.pier & vbTab & Alzado_i.story & vbTab
             For j = 0 To Alzado_i.alzado.Count - 1
                 If j < Alzado_i.alzado.Count - 1 Then
@@ -209,8 +233,6 @@ Public Class Guardar_Archivo
             Next
             Lista_Texto.Add(texto)
         Next
-
-
 
     End Sub
 
@@ -286,7 +308,6 @@ Public Class Guardar_Archivo
             Escritor.WriteLine(Vector_Texto_aux(i))
         Next
 
-
         Escritor.Close()
 
     End Sub
@@ -300,7 +321,6 @@ Public Class Guardar_Archivo
 
             If muro_i.MuroSimilar IsNot Nothing Then
                 NombreMuroSimilar = muro_i.MuroSimilar.Pier_name
-
             Else
                 NombreMuroSimilar = "SinSimilar"
             End If
@@ -323,7 +343,6 @@ Public Class Guardar_Archivo
             Escritor.WriteLine(muro_i.Pier_name & vbTab & Maestro & vbTab & NombreMuroSimilar & vbTab & CreadoDespues)
         Next
 
-
         Escritor.Close()
 
     End Sub
@@ -333,7 +352,6 @@ Public Class Guardar_Archivo
         If Muro_i.isMuroMaestro = True Then
 
         End If
-
 
     End Sub
 

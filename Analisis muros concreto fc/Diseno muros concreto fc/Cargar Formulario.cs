@@ -2,7 +2,7 @@
 
 namespace Diseno_muros_concreto_fc
 {
-    class Cargar_Formulario
+    internal class Cargar_Formulario
     {
         public static void Open_From_Panel(Panel Formulario_Madre, Form Formulario)
         {
@@ -22,23 +22,20 @@ namespace Diseno_muros_concreto_fc
             FM.Tag = FH;
             FH.Show();
         }
+
         public static void Open_From_Panel2(Panel Formulario_Madre, Panel Formulario)
         {
             Panel FM = Formulario_Madre;
             Panel FH = Formulario;
-
-
 
             if (FM.Controls.Count > 0)
             {
                 FM.Controls.Clear();
             }
 
-
             FM.Controls.Add(FH);
             FM.Tag = FH;
             FH.Show();
         }
-
     }
 }

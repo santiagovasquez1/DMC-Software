@@ -29,11 +29,11 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.BarraPersonalizada = New System.Windows.Forms.Panel()
         Me.Label_BarraProgreso = New System.Windows.Forms.Label()
         Me.BarraPersonalizada2 = New System.Windows.Forms.Panel()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
@@ -113,6 +113,17 @@ Partial Class Form1
         Me.Panel2.Size = New System.Drawing.Size(308, 158)
         Me.Panel2.TabIndex = 23
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.CheckBox1.Location = New System.Drawing.Point(94, 62)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(121, 19)
+        Me.CheckBox1.TabIndex = 26
+        Me.CheckBox1.Text = "Tablas de Estribos"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.Color.White
@@ -160,17 +171,6 @@ Partial Class Form1
         Me.BarraPersonalizada2.TabIndex = 24
         Me.BarraPersonalizada2.Visible = False
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.CheckBox1.Location = New System.Drawing.Point(94, 62)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(121, 19)
-        Me.CheckBox1.TabIndex = 26
-        Me.CheckBox1.Text = "Tablas de Estribos"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -181,6 +181,8 @@ Partial Class Form1
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Form1"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()

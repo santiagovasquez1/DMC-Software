@@ -15,7 +15,6 @@ namespace Diseno_muros_concreto_fc
         private DataGridView D_Flexion = new DataGridView();
         private DataGridView D_Resumen = new DataGridView();
 
-
         public void Cargar_Lista()
         {
             if (Listas_Programa.Lista_Muros != null)
@@ -33,7 +32,6 @@ namespace Diseno_muros_concreto_fc
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
             }
-
         }
 
         private void SetupDataGridView(string Nombre_Data, DataGridView Formulario, DataTable Origen_datos)
@@ -64,9 +62,6 @@ namespace Diseno_muros_concreto_fc
             Formulario.ColumnHeadersHeight = 40;
             Formulario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             Formulario.ReadOnly = true;
-
-
-
         }
 
         public Fase1()
@@ -92,7 +87,6 @@ namespace Diseno_muros_concreto_fc
                     Tabla = Convert.ChangeType(Controles, typeof(DataGridView)) as DataGridView;
                     break;
                 }
-
             }
             try
 
@@ -147,11 +141,9 @@ namespace Diseno_muros_concreto_fc
                     SetupDataGridView("Resumen muros", D_Resumen, Bases_de_datos.Ds_Shear.Tables[pos]);
                     D_Shear.Visible = true;
                 }
-
             }
             catch
             {
-
             }
         }
 
@@ -189,7 +181,6 @@ namespace Diseno_muros_concreto_fc
             D_Shear.Visible = true;
             LabelCambio.Text = "Shear Desing";
             panel2.Visible = true;
-
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -218,12 +209,29 @@ namespace Diseno_muros_concreto_fc
 
         private void Fase1_Load(object sender, EventArgs e)
         {
-            Strops.main();
+            if (Listas_Programa.Muros_Consolidados_Listos != null)
+            {
+                button10.Enabled = true;
+            }
         }
 
         private void Panel4_Paint(object sender, PaintEventArgs e)
         {
+        }
 
+        private void button10_Click(object sender, EventArgs e)
+        {
+            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            {
+                muro_i.Peso_Long.Clear();
+                muro_i.Peso_malla.Clear();
+                muro_i.Peso_Transv.Clear();
+                muro_i.Volumen.Clear();
+                muro_i.Calculo_Peso_Aprox();
+            }
+
+            CantidadesAproximadas formCantidades = new CantidadesAproximadas();
+            formCantidades.ShowDialog();
         }
     }
 }

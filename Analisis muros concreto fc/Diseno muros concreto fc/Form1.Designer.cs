@@ -48,6 +48,7 @@
             this.variablesDeDibujoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.murosSimilaresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listasDeMurosAGraficarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeDiseñoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -59,13 +60,14 @@
             this.label7 = new System.Windows.Forms.Label();
             this.LMuros = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.Generar = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.Label_Inicial = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Radio_Des = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
@@ -153,7 +155,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -177,15 +179,17 @@
             // 
             this.nuevoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.nuevoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
-            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.NuevoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -193,7 +197,8 @@
             // 
             this.guardarToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
@@ -201,7 +206,9 @@
             // 
             this.guardarComoToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
-            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.guardarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.guardarComoToolStripMenuItem.Text = "Guardar como";
             this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
@@ -210,16 +217,18 @@
             this.exportarMemoriasToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.exportarMemoriasToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.exportarMemoriasToolStripMenuItem.Name = "exportarMemoriasToolStripMenuItem";
-            this.exportarMemoriasToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.exportarMemoriasToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.exportarMemoriasToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.exportarMemoriasToolStripMenuItem.Text = "Exportar memorias";
+            this.exportarMemoriasToolStripMenuItem.Click += new System.EventHandler(this.ExportarMemoriasToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
@@ -230,7 +239,8 @@
             this.dibujoSeccionToolStripMenuItem,
             this.variablesDeDibujoToolStripMenuItem,
             this.murosSimilaresToolStripMenuItem,
-            this.direcciónDeCambioDeEspesorToolStripMenuItem});
+            this.direcciónDeCambioDeEspesorToolStripMenuItem,
+            this.listasDeMurosAGraficarToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -239,35 +249,40 @@
             // analisisEstructuralToolStripMenuItem
             // 
             this.analisisEstructuralToolStripMenuItem.Name = "analisisEstructuralToolStripMenuItem";
-            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.analisisEstructuralToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.analisisEstructuralToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.analisisEstructuralToolStripMenuItem.Text = "Analisis Estructural";
             this.analisisEstructuralToolStripMenuItem.Click += new System.EventHandler(this.analisisEstructuralToolStripMenuItem_Click);
             // 
             // infoGeneralToolStripMenuItem
             // 
             this.infoGeneralToolStripMenuItem.Name = "infoGeneralToolStripMenuItem";
-            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.infoGeneralToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.infoGeneralToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.infoGeneralToolStripMenuItem.Text = "Info General";
             this.infoGeneralToolStripMenuItem.Click += new System.EventHandler(this.InfoGeneralToolStripMenuItem_Click);
             // 
             // alzadoRefuerzoToolStripMenuItem
             // 
             this.alzadoRefuerzoToolStripMenuItem.Name = "alzadoRefuerzoToolStripMenuItem";
-            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.alzadoRefuerzoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.alzadoRefuerzoToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.alzadoRefuerzoToolStripMenuItem.Text = "Alzado refuerzo";
             this.alzadoRefuerzoToolStripMenuItem.Click += new System.EventHandler(this.AlzadoRefuerzoToolStripMenuItem_Click);
             // 
             // dibujoSeccionToolStripMenuItem
             // 
             this.dibujoSeccionToolStripMenuItem.Name = "dibujoSeccionToolStripMenuItem";
-            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.dibujoSeccionToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.dibujoSeccionToolStripMenuItem.Text = "Dibujo Seccion";
             this.dibujoSeccionToolStripMenuItem.Click += new System.EventHandler(this.DibujoSeccionToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
             // 
             this.variablesDeDibujoToolStripMenuItem.Name = "variablesDeDibujoToolStripMenuItem";
-            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.variablesDeDibujoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.variablesDeDibujoToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.variablesDeDibujoToolStripMenuItem.Text = "Variables de Dibujo";
             this.variablesDeDibujoToolStripMenuItem.Click += new System.EventHandler(this.VariablesDeDibujoToolStripMenuItem_Click);
             // 
@@ -275,7 +290,8 @@
             // 
             this.murosSimilaresToolStripMenuItem.Enabled = false;
             this.murosSimilaresToolStripMenuItem.Name = "murosSimilaresToolStripMenuItem";
-            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.murosSimilaresToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.murosSimilaresToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.murosSimilaresToolStripMenuItem.Text = "Muros Iguales";
             this.murosSimilaresToolStripMenuItem.Click += new System.EventHandler(this.MurosSimilaresToolStripMenuItem_Click);
             // 
@@ -283,9 +299,19 @@
             // 
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Name = "direcciónDeCambioDeEspesorToolStripMenuItem";
-            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.direcciónDeCambioDeEspesorToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Text = "D. Cambio Espesor";
             this.direcciónDeCambioDeEspesorToolStripMenuItem.Click += new System.EventHandler(this.DirecciónDeCambioDeEspesorToolStripMenuItem_Click);
+            // 
+            // listasDeMurosAGraficarToolStripMenuItem
+            // 
+            this.listasDeMurosAGraficarToolStripMenuItem.Enabled = false;
+            this.listasDeMurosAGraficarToolStripMenuItem.Name = "listasDeMurosAGraficarToolStripMenuItem";
+            this.listasDeMurosAGraficarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.listasDeMurosAGraficarToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.listasDeMurosAGraficarToolStripMenuItem.Text = "Listas de muros a graficar";
+            this.listasDeMurosAGraficarToolStripMenuItem.Click += new System.EventHandler(this.listasDeMurosAGraficarToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -299,7 +325,8 @@
             // acercaDeDiseñoToolStripMenuItem
             // 
             this.acercaDeDiseñoToolStripMenuItem.Name = "acercaDeDiseñoToolStripMenuItem";
-            this.acercaDeDiseñoToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.acercaDeDiseñoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
+            this.acercaDeDiseñoToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
             this.acercaDeDiseñoToolStripMenuItem.Text = "Acerca de Diseño de Muros";
             this.acercaDeDiseñoToolStripMenuItem.Click += new System.EventHandler(this.AcercaDeDiseñoToolStripMenuItem_Click);
             // 
@@ -323,7 +350,7 @@
             this.Panel6.Controls.Add(this.label7);
             this.Panel6.Controls.Add(this.LMuros);
             this.Panel6.Controls.Add(this.label10);
-            this.Panel6.Controls.Add(this.button6);
+            this.Panel6.Controls.Add(this.Generar);
             this.Panel6.Controls.Add(this.label11);
             this.Panel6.Controls.Add(this.button5);
             this.Panel6.Controls.Add(this.button4);
@@ -418,23 +445,23 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "|";
             // 
-            // button6
+            // Generar
             // 
-            this.button6.Enabled = false;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
-            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
-            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button6.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Crearx16;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button6.Location = new System.Drawing.Point(501, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(82, 24);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "     Generar";
-            this.button6.UseVisualStyleBackColor = true;
+            this.Generar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
+            this.Generar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
+            this.Generar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
+            this.Generar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Generar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Generar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Generar.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Crearx16;
+            this.Generar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Generar.Location = new System.Drawing.Point(501, 2);
+            this.Generar.Name = "Generar";
+            this.Generar.Size = new System.Drawing.Size(82, 24);
+            this.Generar.TabIndex = 7;
+            this.Generar.Text = "     Generar";
+            this.Generar.UseVisualStyleBackColor = true;
+            this.Generar.Click += new System.EventHandler(this.Generar_Click);
             // 
             // label11
             // 
@@ -474,14 +501,16 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Autocad_23637x16;
+            this.button4.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Editar_x16_2_;
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(247, 3);
+            this.button4.Location = new System.Drawing.Point(248, 3);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(82, 24);
             this.button4.TabIndex = 4;
-            this.button4.Text = "     AutoCAD";
+            this.button4.Text = "      AutoCAD";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -514,6 +543,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.Label_Inicial);
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Controls.Add(this.Radio_Des);
             this.panel3.Controls.Add(this.B_Report);
@@ -527,6 +557,19 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(193, 621);
             this.panel3.TabIndex = 69;
+            // 
+            // Label_Inicial
+            // 
+            this.Label_Inicial.AutoSize = true;
+            this.Label_Inicial.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Label_Inicial.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label_Inicial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_Inicial.Location = new System.Drawing.Point(0, 606);
+            this.Label_Inicial.Name = "Label_Inicial";
+            this.Label_Inicial.Size = new System.Drawing.Size(16, 13);
+            this.Label_Inicial.TabIndex = 70;
+            this.Label_Inicial.Text = "...";
+            this.Label_Inicial.Visible = false;
             // 
             // pictureBox1
             // 
@@ -670,7 +713,7 @@
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button9.ForeColor = System.Drawing.Color.Black;
-            this.button9.Image = global::Diseno_muros_concreto_fc.Properties.Resources.icons8_ms_excel_48X18;
+            this.button9.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Exportarx16C;
             this.button9.Location = new System.Drawing.Point(155, 2);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(24, 22);
@@ -720,7 +763,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(995, 26);
             this.panel5.TabIndex = 23;
-            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel5_Paint);
             this.panel5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel5_MouseDown);
             // 
             // button11
@@ -774,11 +816,14 @@
             this.Controls.Add(this.panel5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Diseno muros de concreto";
             this.Activated += new System.EventHandler(this.Form1_Activated);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -830,7 +875,7 @@
         internal System.Windows.Forms.Label label7;
         internal System.Windows.Forms.ComboBox LMuros;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button Generar;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
@@ -850,6 +895,9 @@
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeDiseñoToolStripMenuItem;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.ToolStripMenuItem listasDeMurosAGraficarToolStripMenuItem;
+        private System.Windows.Forms.Label Label_Inicial;
+
     }
 }
 
