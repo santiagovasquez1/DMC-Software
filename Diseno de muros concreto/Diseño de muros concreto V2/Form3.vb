@@ -398,21 +398,6 @@
 
     End Sub
 
-<<<<<<< HEAD
-=======
-    Public Sub cb_Ayuda_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Public Sub cb_autocad_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Public Sub Button1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
->>>>>>> b509d35538fce3be5f9906cc30d9b81d7642510a
     Public Sub CopyToClipboard(datos As DataGridView)
         Dim dataObj As DataObject = datos.GetClipboardContent
         If Not IsNothing(dataObj) Then
