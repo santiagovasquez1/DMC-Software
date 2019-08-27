@@ -12,14 +12,12 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        '   AutoScroll = True
         DoubleBuffered = True
-
         Dim prueba As String
         Dim Muros_Distintos As New List(Of String)
+        Dim Lista_i As New Listas_serializadas
 
         prueba = Ruta_1
-
         Cargar_areas_refuerzo()
 
         Dim style, style2 As New DataGridViewCellStyle
@@ -35,12 +33,15 @@ Public Class Form1
 
         Data_muros.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
         Data_muros.DefaultCellStyle.Font = style2.Font
+
         If Muros_lista_2 Is Nothing Then
             Muros_lista_2 = New List(Of Muros_Consolidados)
-            Cargar_Lista_Texto()
+            Serializador.Deserializar(Ruta_1, Lista_i)
             cb_cuantiavol.Enabled = True
         End If
+
         Muros_Distintos = Muros_lista_2.Select(Function(X) X.Pier_name).Distinct().OrderBy(Function(x2) x2).ToList()
+
         If Muros_lista_2.Count > 0 Then
             LMuros.Enabled = True
             LMuros.Items.Clear()
@@ -49,6 +50,7 @@ Public Class Form1
         End If
 
         ''Crear lista vacia de alzado y refuerzos
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
         Listas_Vacias()
 
     End Sub

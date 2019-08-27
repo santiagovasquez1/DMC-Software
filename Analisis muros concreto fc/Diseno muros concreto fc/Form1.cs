@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -317,7 +318,7 @@ namespace Diseno_muros_concreto_fc
             if (Listas_Programa.Ruta_archivo is null == true | Listas_Programa.Ruta_archivo == "")
             {
                 //Serializador.Serializar(ref Listas_Programa.Ruta_archivo, Listas);
-                Diseño_de_muros_concreto_V2.Serializador Serializar = new Diseño_de_muros_concreto_V2.Serializador(Listas_Programa.Ruta_archivo, true, Listas);
+                Diseño_de_muros_concreto_V2.Serializador Serializar = new Diseño_de_muros_concreto_V2.Serializador(Listas_Programa.Ruta_archivo, true,  Listas);
                 //Guardar_archivo.Crear_Archivo_Texto();
                 //Guardar_archivo.Generar_texto();
                 //Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
@@ -465,14 +466,14 @@ namespace Diseno_muros_concreto_fc
         }
 
         private void AbrirProyecto(Listas_Serializadas_i Lista_i)
-        {            
-            Serializador.Deserializar(Listas_Programa.Ruta_archivo,ref Lista_i);
-            //Cargar_archivo.Cargar_Lista_Texto();
+        {
+            Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
+            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo,ref Lista_i);
 
             #region Cargar_Datos
+            
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
             Listas_Programa.Lista_Muros = Lista_i.Muros_generales;
-            Listas_Programa.Muros_Consolidados_Listos =Lista_i.Lista_Muros;
             #endregion
 
             B_Flexural.Enabled = false;
@@ -492,6 +493,7 @@ namespace Diseno_muros_concreto_fc
                 Radio_Des.Checked = true;
             }
             Generar.Enabled = true;
+
         }
 
         private void Button8_Click(object sender, EventArgs e)
@@ -513,10 +515,6 @@ namespace Diseno_muros_concreto_fc
         {
             Diseño_de_muros_concreto_V2.Similar VentanaSimilares = new Diseño_de_muros_concreto_V2.Similar();
             VentanaSimilares.ShowDialog();
-        }
-
-        private void Form1_Activated(object sender, EventArgs e)
-        {
         }
 
         private void MenuStrip1_MouseDown(object sender, MouseEventArgs e)

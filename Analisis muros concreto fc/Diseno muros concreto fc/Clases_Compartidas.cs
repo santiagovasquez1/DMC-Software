@@ -45,9 +45,8 @@ namespace Diseno_muros_concreto_fc
     [Serializable]
     public class Listas_Serializadas_i :Listas_serializadas
     {
-        public new List<Muros_Consolidados> Lista_Muros;        
+        public List<Muro> Muros_generales;     
         public string Capacidad_proyecto;
-        public List<Muro> Muros_generales;
 
         public override bool Equals(object obj)
         {

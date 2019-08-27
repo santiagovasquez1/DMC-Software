@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
@@ -21,16 +23,15 @@ namespace Diseno_muros_concreto_fc
                 Myfile.ShowDialog();
                 ruta = Myfile.FileName;
             }
-
+            
             Stream Escritor = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(Escritor, Lista_i);
             Escritor.Close();
         }
 
-        public static void Deserializar(string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
+        public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
         {
             BinaryFormatter Formatter = new BinaryFormatter();
-
             OpenFileDialog Myfile = new OpenFileDialog
             {
                 Filter = "Archivo de muros|*.dmc",
@@ -43,6 +44,11 @@ namespace Diseno_muros_concreto_fc
             Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);
             Lista_i = (Listas_Serializadas_i)Formatter.Deserialize(Lector);
             Lector.Close();
+
+            foreach (Muros_Consolidados_1 prueba in (IEnumerable)Lista_i.Lista_Muros)
+            {
+                Listas_Programa.Muros_Consolidados_Listos.Add(prueba);
+            }
         }
     }
 }

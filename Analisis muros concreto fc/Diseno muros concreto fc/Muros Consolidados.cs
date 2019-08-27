@@ -5,7 +5,7 @@ using System.Linq;
 namespace Diseno_muros_concreto_fc
 {
     [Serializable]
-    public class Muros_Consolidados : Diseño_de_muros_concreto_V2.Muros_Consolidados
+    public class Muros_Consolidados_1 : Diseño_de_muros_concreto_V2.Muros_Consolidados
     {
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
@@ -289,6 +289,26 @@ namespace Diseno_muros_concreto_fc
             Ramas = Convert.ToInt32(Math.Round(Ash / As_t, 0));
             return Ramas;
         }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public static implicit operator List<object>(Muros_Consolidados_1 v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
@@ -302,10 +322,10 @@ namespace Diseno_muros_concreto_fc
             int indice;
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
-            Muros_Consolidados Muro_i;
+            Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
-            Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados>();
+            Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
 
             if (Listas_Programa.Capacidad == "DMO")
             {
@@ -324,7 +344,7 @@ namespace Diseno_muros_concreto_fc
             {
                 List<Muro> Auxiliar = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Muros_distintos[i]).ToList();
 
-                Muro_i = new Muros_Consolidados();
+                Muro_i = new Muros_Consolidados_1();
                 Muro_i.Pier_name = Muros_distintos[i];
                 Muro_i.Stories.AddRange(Auxiliar.Select(x => x.Story).Distinct().ToList());
                 Muro_i.fc.AddRange(Auxiliar.Select(x => x.Fc));
@@ -440,7 +460,7 @@ namespace Diseno_muros_concreto_fc
             return Auxiliar;
         }
 
-        private static void Determinacion_EBE(Muros_Consolidados Muro_i, double Limite1, double Limite2)
+        private static void Determinacion_EBE(Muros_Consolidados_1 Muro_i, double Limite1, double Limite2)
         {
             for (int j = Muro_i.Stories.Count - 1; j >= 0; j--)
             {
@@ -457,7 +477,7 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Determinacion_Lado(Muros_Consolidados Muro_i, double Limite)
+        private static void Determinacion_Lado(Muros_Consolidados_1 Muro_i, double Limite)
 
         {
             for (int i = 0; i < Muro_i.Confinamiento.Count; i++)
@@ -522,7 +542,7 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_As_Long(Muros_Consolidados Muro_i)
+        private static void Det_As_Long(Muros_Consolidados_1 Muro_i)
         {
             double Aux_As_Long, Acero_malla, Aux_Long;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
@@ -538,7 +558,7 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_At(Muros_Consolidados Muro_i)
+        private static void Det_At(Muros_Consolidados_1 Muro_i)
         {
             double Aux_As_t, Aux_As_tm;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
