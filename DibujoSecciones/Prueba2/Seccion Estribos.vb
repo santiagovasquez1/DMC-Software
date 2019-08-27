@@ -7,4 +7,5 @@ Public Class Seccion_Estribos
     Public Property Cantidad As Integer
     Public Property Story As String
     Public Property Pier As String
+
 End Class
