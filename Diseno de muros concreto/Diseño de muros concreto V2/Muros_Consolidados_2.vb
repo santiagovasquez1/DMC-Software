@@ -57,6 +57,11 @@ Public Class Muros_Consolidados
     Public Desperdicio As New List(Of Single)
     Public CantidadMallasDllNet As New List(Of String)
 
+    Public Peso_Long As List(Of Double) = New List(Of Double)
+    Public Peso_Transv As List(Of Double) = New List(Of Double)
+    Public Peso_malla As List(Of Double) = New List(Of Double)
+    Public ReadOnly Volumen As List(Of Double) = New List(Of Double)
+
     Sub CantidadMallas_()
 
         Dim b_ME As Single = 2.35

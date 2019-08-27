@@ -1,26 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
-    class Serializador : Diseño_de_muros_concreto_V2.Serializador
+    internal class Serializador
     {
-        public override bool Equals(object obj)
+        public static void Serializar(ref string ruta, Listas_Serializadas_i Lista_i)
         {
-            return base.Equals(obj);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            if (ruta == "")
+            {
+                SaveFileDialog Myfile = new SaveFileDialog
+                {
+                    Title = "Información Muros",
+                    Filter = "Guardar Archivo |*.dmc"
+                };
+
+                Myfile.ShowDialog();
+                ruta = Myfile.FileName;
+            }
+
+            Stream Escritor = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None);
+            formatter.Serialize(Escritor, Lista_i);
+            Escritor.Close();
         }
 
-        public override int GetHashCode()
+        public static void Deserializar(string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
         {
-            return base.GetHashCode();
-        }
+            BinaryFormatter Formatter = new BinaryFormatter();
 
-        public override string ToString()
-        {
-            return base.ToString();
+            OpenFileDialog Myfile = new OpenFileDialog
+            {
+                Filter = "Archivo de muros|*.dmc",
+                Title = "Abrir archivo"
+            };
+
+            Myfile.ShowDialog();
+            Ruta_archivo = Myfile.FileName;
+
+            Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);
+            Lista_i = (Listas_Serializadas_i)Formatter.Deserialize(Lector);
+            Lector.Close();
         }
     }
 }

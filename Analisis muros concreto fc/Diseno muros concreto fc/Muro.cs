@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Diseno_muros_concreto_fc
 {
+    [Serializable]
     public class Muro
     {
         public string Pier, Story;
@@ -36,7 +37,6 @@ namespace Diseno_muros_concreto_fc
 
         //Datos para el analisis a flexo compresion
         public List<double> C_def;
-
         public List<double> L_Conf;
         public List<double> Fa;
         public List<double> Fv;

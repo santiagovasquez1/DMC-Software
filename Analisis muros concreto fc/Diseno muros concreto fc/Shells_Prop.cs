@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace Diseno_muros_concreto_fc
 {
+    [Serializable]
     public class Shells_Prop
     {
         public string Label;

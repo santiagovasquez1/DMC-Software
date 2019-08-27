@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
+    [Serializable]
     public class Material
     {
         public string Nombre;

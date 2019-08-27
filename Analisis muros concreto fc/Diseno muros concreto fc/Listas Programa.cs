@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Diseno_muros_concreto_fc
 {
+    [Serializable]
     internal class Listas_Programa
     {
         public static List<Puntos_Modelo> Lista_Puntos;

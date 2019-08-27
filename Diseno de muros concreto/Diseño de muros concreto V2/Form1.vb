@@ -554,7 +554,7 @@ Public Class Form1
         Listas_serializar.Lista_Alzados = alzado_lista
         Listas_serializar.lista_refuerzo = refuerzo_lista
 
-        Serializador.Serializar(Listas_serializar)
+        Serializador.Serializar(Ruta_archivo, Listas_serializar)
 
     End Sub
 
