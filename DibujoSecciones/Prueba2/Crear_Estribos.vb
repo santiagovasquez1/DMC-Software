@@ -1,5 +1,4 @@
-﻿Imports Autodesk.AutoCAD.Interop
-Imports Autodesk.AutoCAD.Interop.Common
+﻿Imports Autodesk.AutoCAD.Interop.Common
 
 Public Class Crear_Estribos
 
@@ -22,7 +21,6 @@ Public Class Crear_Estribos
         Dim bw_vecino_izq, bw_Vecino_der As Single
 
         Distancia_Maxima = 2.0
-
 
         For i = 0 To ListaOrdenada.Count - 1
             Puntos_Limites = New List(Of Double())
@@ -169,7 +167,6 @@ Public Class Crear_Estribos
 
                 End If
 
-
                 If Muro_i.Lebe_Der(indice) > 0 And Muro_i.Lebe_Der(indice) <= Muro_i.lw(indice) OrElse Muro_i.Zc_Der(indice) > 0 Then
 
                     Dim prueba1, prueba2 As List(Of Double)
@@ -225,7 +222,6 @@ Public Class Crear_Estribos
 
                 End If
 
-
                 'Agregar ganchos en la seccion
                 Dim flip_State As Short = 0
                 For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
@@ -246,7 +242,6 @@ Public Class Crear_Estribos
 
                     End If
                 Next
-
             Else
 
                 Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = ListaOrdenada(i).NombreMuro)
@@ -338,7 +333,6 @@ Public Class Crear_Estribos
 
                     End If
 
-
                 End If
 
                 If Muro_i.Lebe_Der(indice) > 0 OrElse Muro_i.Zc_Der(indice) > 0 Then
@@ -404,7 +398,6 @@ Public Class Crear_Estribos
             End If
         Next
 
-
     End Sub
 
     Private Shared Sub Escalado_Vertical_1(ByVal Punto_inicial As Double, ByVal Punto_final As Double, ByRef indice2 As Integer, ByRef Delta_Escalado As Double, Puntos_Limites As List(Of Double()), i As Integer, prueba3 As List(Of Double), j As Integer)
@@ -428,7 +421,6 @@ Public Class Crear_Estribos
         End If
 
     End Sub
-
 
     Private Shared Sub Escalado_Vertical_2(ByVal Punto_inicial As Double, ByVal Punto_final As Double, ByRef indice2 As Integer, ByRef Delta_Escalado As Double, Puntos_Limites As List(Of Double()), i As Integer, prueba3 As List(Of Double), j As Integer)
 
@@ -523,7 +515,6 @@ Public Class Crear_Estribos
                     Suma_Long = 0
                     Exit For
                 End If
-
             Else
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
                 Exit For
@@ -629,7 +620,6 @@ Public Class Crear_Estribos
                     Suma_Long = 0
                     Exit For
                 End If
-
             Else
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = True
                 Exit For
@@ -699,7 +689,6 @@ Public Class Crear_Estribos
 
         'Mover el hacth hacia atras
         Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
-
 
         sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
         sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")

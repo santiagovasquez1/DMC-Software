@@ -1,5 +1,4 @@
-﻿
-Module Variables_Publicas
+﻿Module Variables_Publicas
     Public list_muros() As String
     Public piername() As String
     Public Muros_lista_2 As List(Of Muros_Consolidados)
@@ -22,6 +21,7 @@ Module Variables_Publicas
     Public NoBarraADiametro As New Dictionary(Of Integer, String)
     Public As_malla As New Dictionary(Of String, Single)
     Public refuerzo_lista As New List(Of Refuerzo_muros)
+    Public Muros_generales As New List(Of Muro)
     Public contador As Integer = 1
     Public contador1 As Integer = 0
     Public alzado_lista As New List(Of alzado_muro)

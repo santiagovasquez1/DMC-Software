@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
-    class Cargar_archivo
+    internal class Cargar_archivo
     {
         private static List<string> Lista_texto;
-
+       
         public static void Cargar_Lista_Texto()
         {
             string sline;
@@ -23,7 +23,6 @@ namespace Diseno_muros_concreto_fc
             Listas_Programa.Ruta_archivo = Myfile.FileName;
             try
             {
-
                 int FinPunto = 0;
                 int FinSla = 0;
                 string Ruta_Carpeta = "";
@@ -36,12 +35,7 @@ namespace Diseno_muros_concreto_fc
             }
             catch
             {
-
-
             }
-
-
-
 
             try
             {
@@ -50,7 +44,6 @@ namespace Diseno_muros_concreto_fc
                 {
                     sline = Lector.ReadLine();
                     Lista_texto.Add(sline);
-
                 } while (!(sline == null));
 
                 Lector.Close();
@@ -63,9 +56,9 @@ namespace Diseno_muros_concreto_fc
             }
             catch
             {
-
             }
         }
+
         private static void Cargar_Capacidad()
         {
             int inicio, Fin;
@@ -76,10 +69,8 @@ namespace Diseno_muros_concreto_fc
             for (int i = inicio; i <= Fin; i++)
             {
                 Vector_Texto = Lista_texto[i].Split('\t');
-
             }
             Listas_Programa.Capacidad = Vector_Texto[0];
-
         }
 
         private static void Generar_muros()
@@ -117,8 +108,6 @@ namespace Diseno_muros_concreto_fc
                 };
                 Listas_Programa.Lista_Muros.Add(Muro_i);
             }
-
-
         }
 
         private static void Cargar_Fuerzas()
@@ -175,7 +164,6 @@ namespace Diseno_muros_concreto_fc
                 Listas_Programa.Lista_Muros[indice].pt_definitivo.Add(Convert.ToDouble(Vector_Texto[16]));
                 Listas_Programa.Lista_Muros[indice].Cortinas.Add(Convert.ToInt16(Vector_Texto[18]));
                 Listas_Programa.Lista_Muros[indice].Error_Cortante.Add(Vector_Texto[19]);
-
             }
         }
 
@@ -202,7 +190,6 @@ namespace Diseno_muros_concreto_fc
                     Listas_Programa.Lista_Muros[indice].C_def = new List<double>();
                     Listas_Programa.Lista_Muros[indice].L_Conf = new List<double>();
                     Listas_Programa.Lista_Muros[indice].Error_Flexion = new List<string>();
-
                 }
 
                 Listas_Programa.Lista_Muros[indice].Fa.Add(Convert.ToDouble(Vector_Texto[9]));
@@ -213,9 +200,7 @@ namespace Diseno_muros_concreto_fc
                 Listas_Programa.Lista_Muros[indice].C_def.Add(Convert.ToDouble(Vector_Texto[14]));
                 Listas_Programa.Lista_Muros[indice].L_Conf.Add(Convert.ToDouble(Vector_Texto[15]));
                 Listas_Programa.Lista_Muros[indice].Error_Flexion.Add(Vector_Texto[16]);
-
             }
-
         }
 
         private static void Cargar_resumen()
@@ -224,7 +209,7 @@ namespace Diseno_muros_concreto_fc
             string[] Vector_Texto;
             List<List<string>> Auxiliar = new List<List<string>>();
             List<string> Muros_distintos;
-            Muros_Consolidados Muro_i;
+            Muros_Consolidados_1 Muro_i;
 
             inicio = Lista_texto.FindIndex(x => x.Contains("5.Reporte")) + 2;
 
@@ -243,7 +228,7 @@ namespace Diseno_muros_concreto_fc
             }
             else
             {
-                Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados>();
+                Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             }
 
             for (int i = inicio; i <= Fin; i++)
@@ -258,7 +243,7 @@ namespace Diseno_muros_concreto_fc
             {
                 List<List<string>> Auxiliar_2 = Auxiliar.FindAll(x => x[1] == Muros_distintos[i]).ToList();
 
-                Muro_i = new Muros_Consolidados();
+                Muro_i = new Muros_Consolidados_1();
                 Muro_i.Pier_name = Muros_distintos[i];
                 Muro_i.Stories.AddRange(Auxiliar_2.Select(x => x[0]));
                 Muro_i.lw.AddRange(Auxiliar_2.Select(x => Convert.ToSingle(x[2])));
@@ -290,7 +275,6 @@ namespace Diseno_muros_concreto_fc
 
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
-
         }
     }
 }

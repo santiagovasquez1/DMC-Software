@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+
 Module Cargar_Archivos
 
     Private Lista_texto As List(Of String)
@@ -17,14 +18,11 @@ Module Cargar_Archivos
 
             Carpeta = New DirectoryInfo(Ruta_Carpeta)
 
-
-
             For Each Archivo In Carpeta.GetFiles()
                 If Archivo.Name = "thesames.SDMC" Then
                     Ruta_Similares = Archivo.FullName
                 End If
             Next
-
 
             If Ruta_Similares <> "" Then
                 Dim Lector2 As New StreamReader(Ruta_Similares)
@@ -55,9 +53,7 @@ Module Cargar_Archivos
 
         End Try
 
-
     End Sub
-
 
     Sub Cargar_Similares()
         Dim ListaMuros As New List(Of String())
@@ -65,7 +61,6 @@ Module Cargar_Archivos
         For i = 0 To Lista_Similares.Count - 1
             Try
                 ListaMuros.Add(Lista_Similares(i).Split(vbTab))
-
             Catch
 
             End Try
@@ -226,7 +221,6 @@ Module Cargar_Archivos
             Next
         End If
 
-
     End Sub
 
     Sub Cargar_Long_Alzado()
@@ -271,8 +265,7 @@ Module Cargar_Archivos
 
         For i = 0 To ListaMaestroSimilares.Count - 1
 
-
-            'Confirmar Maestros 
+            'Confirmar Maestros
             If ListaMaestroSimilares(i)(1) = "True" Then
                 Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).isMuroMaestro = True
 
@@ -286,7 +279,6 @@ Module Cargar_Archivos
                         alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).isMuroMaestro = True
                     End If
                 Next
-
             Else
                 Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).isMuroMaestro = False
 
@@ -302,7 +294,6 @@ Module Cargar_Archivos
 
                 Next
 
-
             End If
 
             'Confirmar Similares
@@ -311,16 +302,13 @@ Module Cargar_Archivos
 
                 Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).MuroSimilar = Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(2))
 
-
                 Dim IndiceMuro As Integer = Muros_lista_2.FindIndex(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0))
 
                 For j = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                     If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                         refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(j))
 
-
                     ElseIf refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(0)) Is Nothing Then
-
 
                         For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                             If refuerzo_lista.Find(Function(x) x.piername = ListaMaestroSimilares(i)(2) And x.pierstory = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
@@ -337,13 +325,10 @@ Module Cargar_Archivos
 
                     End If
 
-
                     If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                         alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroSimilar = alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(2) And x.story = Muros_lista_2(IndiceMuro).Stories(j))
 
-
                     ElseIf alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0)) Is Nothing Then
-
 
                         For m = 0 To Muros_lista_2(IndiceMuro).Stories.Count - 1
                             If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(2) And x.story = Muros_lista_2(IndiceMuro).Stories(m)) IsNot Nothing Then
@@ -362,11 +347,7 @@ Module Cargar_Archivos
 
                     End If
 
-
-
-
                 Next
-
             Else
                 Muros_lista_2.Find(Function(x) x.Pier_name = ListaMaestroSimilares(i)(0)).MuroSimilar = Nothing
 
@@ -384,8 +365,6 @@ Module Cargar_Archivos
                         End If
                     End If
 
-
-
                     If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)) IsNot Nothing Then
                         If alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)).MuroCreadoDespues = True Then
                             alzado_lista.Remove(alzado_lista.Find(Function(x) x.pier = ListaMaestroSimilares(i)(0) And x.story = Muros_lista_2(IndiceMuro).Stories(j)))
@@ -396,24 +375,10 @@ Module Cargar_Archivos
 
                 Next
 
-
-
-
             End If
-
-
-
 
         Next
 
-
-
-
     End Sub
-
-
-
-
-
 
 End Module

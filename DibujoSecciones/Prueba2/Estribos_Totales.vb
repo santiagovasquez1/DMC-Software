@@ -1,5 +1,4 @@
-﻿Imports Autodesk.AutoCAD.Interop
-Imports Autodesk.AutoCAD.Interop.Common
+﻿Imports Autodesk.AutoCAD.Interop.Common
 Imports MathNet.Numerics.LinearAlgebra
 
 Public Class Estribos_Totales
@@ -13,9 +12,9 @@ Public Class Estribos_Totales
     Public Coord_Tabla As Double()
     Public Rectangulo As AcadLWPolyline
     Public Lista_Rect As New List(Of AcadLWPolyline)
+    Public Lista_Cantidades_i As Lista_Cantidades
 
-
-    Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single)
+    Sub Estribos_Pisos(ByRef Delta_X As Double, ByRef DeltaY As Single, ByVal Pos_Y As Single, ByRef Lista_Cantidades As Lista_Cantidades)
 
         Dim Suma_Long, delta As Single
         Dim Punto_inicial As Double()
@@ -31,11 +30,26 @@ Public Class Estribos_Totales
         Dim Pc As Double()
         Dim Coordenadas_Texto As Double()
         Dim Lista_ganchos As List(Of Boolean)
+        Dim Lista_sep_Ganchos As List(Of Double)
+        Dim Diametro_gancho As List(Of Integer)
+
+        Lista_Cantidades_i = Lista_Cantidades
+
+        If Lista_Cantidades_i.Lista_Estribos Is Nothing = True Then
+            Lista_Cantidades_i.Lista_Estribos = New List(Of Seccion_Estribos)
+        End If
+
+        If Lista_Cantidades_i.Lista_Ganchos Is Nothing = True Then
+            Lista_Cantidades_i.Lista_Ganchos = New List(Of Seccion_Ganchos)
+        End If
+
         Distancia_Maxima = 2
 
         For i = 0 To ListaOrdenada.Count - 1
 
             Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = ListaOrdenada(i).NombreMuro)
+            Lista_Cantidades_i.Lista_Estribos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
+            Lista_Cantidades_i.Lista_Ganchos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
 
             If Muro_i.Lebe_Izq.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Lebe_Der.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Zc_Izq.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Zc_Der.FindAll(Function(x) x > 0).Count > 0 Then
 
@@ -57,7 +71,7 @@ Public Class Estribos_Totales
 
                 If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
 
-                    ''Primer paso para el inicio del dibujo 
+                    ''Primer paso para el inicio del dibujo
                     Determinacion_Vecinos(Vecino_izquierda, Vecino_Derecha, i, Muro_vecino_izquierda, Muro_Vecino_derecha, ListaOrdenada(i).DireccionMuro)
                     Ordenar_Refuerzo_H(ListaOrdenada(i), Delta_X, DeltaY)
                     Longitud_Real = ListaOrdenada(i).XmaxE - ListaOrdenada(i).XminE
@@ -68,9 +82,13 @@ Public Class Estribos_Totales
                         Pos = 0
                         Suma_Long = 0
                         Lista_ganchos = New List(Of Boolean)
+                        Lista_sep_Ganchos = New List(Of Double)
+                        Diametro_gancho = New List(Of Integer)
 
                         For k = 0 To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1
                             Lista_ganchos.Add(False)
+                            Lista_sep_Ganchos.Add(0)
+                            Diametro_gancho.Add(0)
                         Next
 
                         If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
@@ -97,11 +115,10 @@ Public Class Estribos_Totales
                             Separacion_Estribo = Muro_i.Sep_ebe(j) / 100
 
                             If Vecino_Derecha = True Then
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, Muro_Vecino_derecha.Bw(j) / 100, Num_Estribos)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, Muro_Vecino_derecha.Bw(j) / 100, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                             Else
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                             End If
-
 
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -123,7 +140,6 @@ Public Class Estribos_Totales
                             Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
                             Texto_Estribos = Muro_i.Stories(j)
                             Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
-
                         Else
 
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
@@ -142,11 +158,10 @@ Public Class Estribos_Totales
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
 
                                 If Vecino_Derecha = True Then
-                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, Muro_Vecino_derecha.Bw(j) / 100, Num_Estribos)
+                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, Muro_Vecino_derecha.Bw(j) / 100, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                                 Else
-                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos)
+                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_izquierda, Vecino_Derecha, 0, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                                 End If
-
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -183,7 +198,7 @@ Public Class Estribos_Totales
                                 End If
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
-                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Derecha, Num_Estribos)
+                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Derecha, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -210,7 +225,14 @@ Public Class Estribos_Totales
                         End If
 
                         Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
-                        Add_Ganchos(Lista_ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25)
+                        Add_Ganchos(Lista_ganchos, Lista_sep_Ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25, Muro_i.Pier_name, Muro_i.Stories(j), Muro_i.Bw(j), Diametro_gancho, Muro_i.Hw(i))
+
+                        Dim prueba = Lista_Cantidades_i.Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
+                        Dim prueba2 = prueba.Select(Function(x) x.Separacion).Distinct().ToList
+
+                        ''Dibujo de numero de ganchos totales en el piso por separacion
+                        Ganchos_Totales_piso(prueba, prueba2, Delta_X + Longitud_Real + 0.25, DeltaY)
+
                         DeltaY += 0.65
                     Next
 
@@ -228,9 +250,13 @@ Public Class Estribos_Totales
                         Pos = 0
                         Suma_Long = 0
                         Lista_ganchos = New List(Of Boolean)
+                        Lista_sep_Ganchos = New List(Of Double)
+                        Diametro_gancho = New List(Of Integer)
 
                         For k = 0 To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1
                             Lista_ganchos.Add(False)
+                            Lista_sep_Ganchos.Add(0)
+                            Diametro_gancho.Add(0)
                         Next
 
                         If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Lebe_Der(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Or Muro_i.Zc_Der(j) > 0 Then
@@ -252,14 +278,13 @@ Public Class Estribos_Totales
                             End If
 
                             Diametro_Estribo = Muro_i.Est_ebe(j)
-                            Separacion_Estribo = Muro_i.Sep_ebe(j)
+                            Separacion_Estribo = Muro_i.Sep_ebe(j) / 100
 
                             If Vecino_Arriba = True Then
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, Muro_Vecino_Arriba.Bw(j) / 100, Num_Estribos)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, Muro_Vecino_Arriba.Bw(j) / 100, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                             Else
-                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, 0, Num_Estribos)
+                                Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, 0, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                             End If
-
 
                             ''Agregar texto
                             Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -280,7 +305,6 @@ Public Class Estribos_Totales
                             Coordenadas_Texto = {Lista_Rect.Last.Coordinates(0) + (Lista_Rect.Last.Coordinates(2) - Lista_Rect.Last.Coordinates(0)) / 2, Lista_Rect.Last.Coordinates(1) + (Lista_Rect.Last.Coordinates(7) - Lista_Rect.Last.Coordinates(1)) / 2, 0}
                             Texto_Estribos = Muro_i.Stories(j)
                             Add_Texto(Texto_Estribos, Coordenadas_Texto, "FC_R-80", "FC_TEXT1", 0, 0, AcAttachmentPoint.acAttachmentPointMiddleCenter)
-
                         Else
                             If Muro_i.Lebe_Izq(j) > 0 Or Muro_i.Zc_Izq(j) > 0 Then
 
@@ -298,9 +322,9 @@ Public Class Estribos_Totales
                                 Punto_final = {Punto_inicial(0) + Distancia_Confinada, Punto_inicial(1), 0}
 
                                 If Vecino_Arriba = True Then
-                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, Muro_Vecino_Arriba.Bw(j) / 100, Num_Estribos)
+                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, Muro_Vecino_Arriba.Bw(j) / 100, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                                 Else
-                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, 0, Num_Estribos)
+                                    Estribos_Izquierda(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Abajo, Vecino_Arriba, 0, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
                                 End If
 
                                 ''Agregar texto
@@ -338,7 +362,7 @@ Public Class Estribos_Totales
 
                                 Punto_inicial = {Punto_final(0) - Distancia_Confinada, Punto_final(1), 0}
                                 Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
-                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Arriba, Num_Estribos)
+                                Estribos_Derecha(Suma_Long, delta, Punto_inicial, Punto_final, Muro_i, Pos, Distancia_Limite, i, j, 0, DeltaY, Diametro_Estribo, Lista_ganchos, Vecino_Arriba, Num_Estribos, Lista_sep_Ganchos, Diametro_gancho)
 
                                 ''Agregar texto
                                 Texto_Estribos = "Ganchos y estribos suplementarios #" & Diametro_Estribo & " a " & Format(Separacion_Estribo, "##,0.000")
@@ -365,7 +389,14 @@ Public Class Estribos_Totales
                         End If
 
                         Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
-                        Add_Ganchos(Lista_ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25)
+                        Add_Ganchos(Lista_ganchos, Lista_sep_Ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25, Muro_i.Pier_name, Muro_i.Stories(j), Muro_i.Bw(i), Diametro_gancho, Muro_i.Hw(i))
+
+                        Dim prueba = Lista_Cantidades_i.Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
+                        Dim prueba2 = prueba.Select(Function(x) x.Separacion).Distinct().ToList
+
+                        ''Dibujo de numero de ganchos totales en el piso por separacion
+                        Ganchos_Totales_piso(prueba, prueba2, Delta_X + Longitud_Real + 0.25, DeltaY)
+
                         DeltaY += 0.65
                     Next
 
@@ -382,6 +413,42 @@ Public Class Estribos_Totales
 
         Next
         AcadDoc.Regen(AcRegenType.acActiveViewport)
+    End Sub
+
+    Private Sub Ganchos_Totales_piso(prueba As List(Of Seccion_Ganchos), prueba2 As List(Of Double), ByVal Pos_X As Double, ByVal Pos_Y As Double)
+        Dim Totales As Integer
+        Dim Texto As String
+        Dim delta_x As Double
+        Dim Coord_Gancho As Double()
+        Dim Pc As Double()
+        Dim Pr As Double()
+        Dim dynamic_property1 As Object
+        Dim editar_property1 As AcadDynamicBlockReferenceProperty
+        Dim Long_Gancho As Double
+
+        delta_x = Pos_X
+        Long_Gancho = 0.174
+        If prueba.Count > 0 Then
+            Pr = {Pos_X, Pos_Y - 0.4, Pos_X + 1.1, Pos_Y - 0.4, Pos_X + 1.1, Pos_Y + 0.25, Pos_X, Pos_Y + 0.25}
+            Add_Rectangulo(Rectangulo, Pr, "FC_BORDES", True, Lista_Rect)
+        End If
+
+        For k = 0 To prueba2.Count - 1
+            Totales = prueba.FindAll(Function(X) X.Separacion = prueba2(k)).Count
+            Texto = Totales & " Ganchos #" & prueba.Find(Function(X) X.Separacion = prueba2(k)).Diametro & " a " & prueba2(k)
+#Region "VariablesDibujo"
+            If prueba2.Count > 1 Then
+                Coord_Gancho = {delta_x + 0.25, Pos_Y - 0.087, 0}
+            Else
+                Coord_Gancho = {Pos_X + 0.55, Pos_Y - 0.087, 0}
+            End If
+
+            Pc = {Coord_Gancho(0), Coord_Gancho(1) - 0.2, 0}
+            Dibujar_Gancho(Coord_Gancho, Long_Gancho, "FC_B_Gancho Tipo 5", dynamic_property1, editar_property1, 0)
+            Add_Texto(Texto, Pc, "FC_R-80", "FC_TEXT1", 0, 0.45, AcAttachmentPoint.acAttachmentPointMiddleCenter)
+            delta_x += 0.5
+#End Region
+        Next
     End Sub
 
     Private Shared Function Determinacion_Confinamiento_Ld(Muro_i As Muros_Consolidados, Vecino_dir As Boolean, Muro_Vecino_dir As Muros_Consolidados, j As Integer, ByRef Diametro_Estribo As Integer, ByRef Sep As Single, ByRef Pattern As String, ByRef Layer As String) As Double
@@ -430,7 +497,6 @@ Public Class Estribos_Totales
 
             Pattern = "SOLID"
             Layer = "FC_HATCH MUROS"
-
         Else
 
             Distancia_Confinada = (Bw_izq + Muro_i.Zc_Izq(j)) / 100
@@ -476,18 +542,18 @@ Public Class Estribos_Totales
     Private Shared Sub Determinacion_Punto_Arranque_Horizontal(ByRef Punto_inicial() As Double, Muro_i As Muros_Consolidados, Vecino_izquierda As Boolean, ByRef Delta_reduccion As Double, i As Integer, Muro_vecino_izquierda As Muros_Consolidados, j As Integer, ByVal Delta_Y As Double, ByVal Delta_X As Double)
 
         If Vecino_izquierda = True Then
-            If Muro_vecino_izquierda.Reduccion = "Der" Or Muro_vecino_izquierda.Reduccion = "Sin Reducc" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Derecha Or Muro_vecino_izquierda.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino_izquierda.Reduccion = "Izq" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Izquierda Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_izquierda.Bw(j) - Muro_vecino_izquierda.Bw(j + 1)) / 100
                 End If
             End If
 
-            If Muro_vecino_izquierda.Reduccion = "Centro" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_izquierda.Bw(j) - Muro_vecino_izquierda.Bw(j + 1)) / 200
                 End If
@@ -503,11 +569,11 @@ Public Class Estribos_Totales
 
         If Vecino_Abajo = True Then
 
-            If Muro_vecino_Abajo.Reduccion = "Abajo" Or Muro_vecino_Abajo.Reduccion = "Sin Reducc" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Abajo Or Muro_vecino_Abajo.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino_Abajo.Reduccion = "Arriba" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Arriba Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_Abajo.Bw(j) - Muro_vecino_Abajo.Bw(j + 1)) / 100
@@ -515,7 +581,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino_Abajo.Reduccion = "Centro" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_Abajo.Bw(j) - Muro_vecino_Abajo.Bw(j + 1)) / 200
                 End If
@@ -531,17 +597,15 @@ Public Class Estribos_Totales
 
         Dim Longitud_Muro As Double
 
-
         Longitud_Muro = Muro_D.XmaxE - Muro_D.XminE
-
 
         If Vecino_derecha = True Then
 
-            If Muro_vecino.Reduccion = "Izq" Or Muro_vecino.Reduccion = "Sin Reducc" Then
+            If Muro_vecino.Reduccion = Reduccion.Izquierda Or Muro_vecino.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino.Reduccion = "Der" Then
+            If Muro_vecino.Reduccion = Reduccion.Derecha Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 100
@@ -549,7 +613,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino.Reduccion = "Centro" Then
+            If Muro_vecino.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 200
                 End If
@@ -570,11 +634,11 @@ Public Class Estribos_Totales
 
         If Vecino_arriba = True Then
 
-            If Muro_vecino.Reduccion = "Arriba" Or Muro_vecino.Reduccion = "Sin Reducc" Then
+            If Muro_vecino.Reduccion = Reduccion.Arriba Or Muro_vecino.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino.Reduccion = "Abajo" Then
+            If Muro_vecino.Reduccion = Reduccion.Abajo Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 100
@@ -582,7 +646,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino.Reduccion = "Centro" Then
+            If Muro_vecino.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 200
                 End If
@@ -594,7 +658,7 @@ Public Class Estribos_Totales
 
     End Sub
 
-    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Izq As Boolean, ByVal Vecino_Der As Boolean, ByVal Bw_Der As Double, ByVal Num_Estribos As Integer)
+    Private Sub Estribos_Izquierda(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByVal Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Izq As Boolean, ByVal Vecino_Der As Boolean, ByVal Bw_Der As Double, ByVal Num_Estribos As Integer, ByRef lista_sep As List(Of Double), ByRef Diametros_gancho As List(Of Integer))
 
         Dim Condicion, Condicion2 As Boolean
         delta = 0
@@ -619,10 +683,11 @@ Public Class Estribos_Totales
 
                 If j <> Pos Or Pos = 0 Then
                     Lista_Ganchos(j + 1) = True
+                    lista_sep(j + 1) = Separacion_Estribo
+                    Diametros_gancho(j + 1) = Diametro
                 End If
 
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
-
 
                     If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 Then
                         Condicion = False
@@ -631,13 +696,19 @@ Public Class Estribos_Totales
                         End If
                     End If
 
-                    Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False)
+                    Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False, Muro_i.Stories(k), Muro_i.Hw(k), Muro_i.Pier_name)
                     Lista_Ganchos(j + 1) = False
+                    lista_sep(j + 1) = 0
+                    Diametros_gancho(j + 1) = 0
 
                     If Condicion2 = False Then
                         Lista_Ganchos(Pos) = False
+                        lista_sep(Pos) = 0
+                        Diametros_gancho(Pos) = 0
                     Else
                         Lista_Ganchos(Pos) = True
+                        lista_sep(Pos) = Separacion_Estribo
+                        Diametros_gancho(Pos) = Diametro
                         Condicion2 = False
                     End If
 
@@ -648,14 +719,22 @@ Public Class Estribos_Totales
 
                     If Condicion = False Then
                         Lista_Ganchos(Pos) = True
+                        lista_sep(Pos) = Separacion_Estribo
+                        Diametros_gancho(Pos) = Diametro
                     Else
                         Lista_Ganchos(Pos) = False
+                        lista_sep(Pos) = 0
+                        Diametros_gancho(Pos) = 0
                     End If
 
                     If Pos + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Vecino_Der = True Then
                         Lista_Ganchos(Pos + 1) = True
+                        lista_sep(Pos + 1) = Separacion_Estribo
+                        Diametros_gancho(Pos + 1) = Diametro
                     Else
                         Lista_Ganchos(Pos + 1) = False
+                        lista_sep(Pos + 1) = 0
+                        Diametros_gancho(Pos + 1) = 0
                     End If
 
                     Suma_Long = 0
@@ -663,6 +742,8 @@ Public Class Estribos_Totales
                     If Num_Estribos = 1 Then
                         If Lista_Ganchos(Pos) = False Then
                             Lista_Ganchos(Pos) = True
+                            lista_sep(Pos) = Separacion_Estribo
+                            Diametros_gancho(Pos) = Diametro
                         End If
                         Exit For
                     End If
@@ -672,13 +753,19 @@ Public Class Estribos_Totales
                 If j + 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.038 * 2) < Distancia_Limite And Condicion = True Then
 
                     Lista_Ganchos(j + 1) = False
+                    lista_sep(j + 1) = 0
+                    Diametros_gancho(j + 1) = 0
                     Lista_Ganchos(Pos) = False
-                    Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False)
+                    lista_sep(Pos) = 0
+                    Diametros_gancho(Pos) = 0
+                    Add_Estribos("FC_ESTRIBOS", 0, Punto_inicial, Suma_Long, Muro_i.Bw(k) / 100, Diametro, False, Muro_i.Stories(k), Muro_i.Hw(k), Muro_i.Pier_name)
                     Suma_Long = 0
                     Exit For
                 End If
             Else
                 Lista_Ganchos(j - 1) = True
+                lista_sep(j - 1) = Separacion_Estribo
+                Diametros_gancho(j - 1) = Diametro
                 Exit For
             End If
 
@@ -686,7 +773,7 @@ Public Class Estribos_Totales
 
     End Sub
 
-    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, ByVal DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Der As Boolean, ByVal Num_Estribos As Integer)
+    Private Sub Estribos_Derecha(ByRef Suma_Long As Single, ByRef delta As Single, ByRef Punto_inicial() As Double, ByRef Punto_final() As Double, Muro_i As Muros_Consolidados, ByRef Pos As Integer, Distancia_Limite As Double, i As Integer, k As Integer, ByVal Direccion As Integer, ByVal DeltaY As Double, ByVal Diametro As Integer, ByRef Lista_Ganchos As List(Of Boolean), ByVal Vecino_Der As Boolean, ByVal Num_Estribos As Integer, ByRef lista_sep_ganchos As List(Of Double), Diametros_gancho As List(Of Integer))
 
         Dim condicion, condicion2 As Boolean
         condicion = True
@@ -710,17 +797,23 @@ Public Class Estribos_Totales
 
                 If j <> Pos Or Pos = 0 Then
                     Lista_Ganchos(j + 1) = True
+                    lista_sep_ganchos(j + 1) = Separacion_Estribo
+                    Diametros_gancho(j + 1) = Diametro
                 End If
 
                 If Suma_Long + (0.038 * 2) >= Distancia_Limite Then
 
-                    Add_Estribos("FC_ESTRIBOS", 0, Punto_final, Suma_Long, Muro_i.Bw(k) / 100, Diametro, True)
+                    Add_Estribos("FC_ESTRIBOS", 0, Punto_final, Suma_Long, Muro_i.Bw(k) / 100, Diametro, True, Muro_i.Stories(k), Muro_i.Hw(k), Muro_i.Pier_name)
 
                     Lista_Ganchos(j - 1) = False
                     If condicion2 = False Then
                         Lista_Ganchos(Pos) = False
+                        lista_sep_ganchos(Pos) = 0
+                        Diametros_gancho(Pos) = 0
                     Else
                         Lista_Ganchos(Pos) = True
+                        lista_sep_ganchos(Pos) = Separacion_Estribo
+                        Diametros_gancho(Pos) = Diametro
                         condicion2 = False
                     End If
 
@@ -734,15 +827,23 @@ Public Class Estribos_Totales
                     Punto_final = {ListaOrdenada(i).Lista_Refuerzos_Original(Pos)(Direccion), DeltaY, 0}
                     If condicion = False Then
                         Lista_Ganchos(Pos) = True
+                        lista_sep_ganchos(Pos) = Separacion_Estribo
+                        Diametros_gancho(Pos) = Diametro
                     Else
                         Lista_Ganchos(Pos) = False
+                        lista_sep_ganchos(Pos) = 0
+                        Diametros_gancho(Pos) = 0
                     End If
                     Lista_Ganchos(Pos - 1) = False
+                    lista_sep_ganchos(Pos - 1) = 0
+                    Diametros_gancho(Pos - 1) = 0
                     Suma_Long = 0
 
                     If Num_Estribos = 1 Then
                         If Lista_Ganchos(Pos) = False Then
                             Lista_Ganchos(Pos) = True
+                            lista_sep_ganchos(Pos) = Separacion_Estribo
+                            Diametros_gancho(Pos) = Diametro
                         End If
                         Exit For
                     End If
@@ -751,24 +852,28 @@ Public Class Estribos_Totales
 
                 If j - 1 = ListaOrdenada(i).Lista_Refuerzos_Original.Count - 1 And Suma_Long + (0.02 * 2) < Distancia_Limite And condicion = True Then
                     Lista_Ganchos(j - 2) = True
+                    lista_sep_ganchos(j - 2) = Separacion_Estribo
+                    Diametros_gancho(j - 2) = Diametro
                     Exit For
                 End If
-
             Else
                 Lista_Ganchos(j + 1) = True
+                lista_sep_ganchos(j + 1) = Separacion_Estribo
+                Diametros_gancho(j + 1) = Diametro
                 Exit For
             End If
 
         Next
     End Sub
 
-    Private Sub Add_Estribos(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Espesor_Doble As Double, ByVal Diametro As Integer, ByVal Mover As Boolean)
+    Private Sub Add_Estribos(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Espesor_Doble As Double, ByVal Diametro As Integer, ByVal Mover As Boolean, ByVal Story As String, ByVal H_piso As Single, ByVal Pier_name As String)
 
         Dim Nombre_Bloque As String
         Dim dynamic_property1 As Object
         Dim editar_property1 As AcadDynamicBlockReferenceProperty
         Dim Point_aux As Double()
-
+        Dim Estribo_i As Seccion_Estribos
+        Dim Hlibre As Double
         Nombre_Bloque = "FC_B_Estribo tipo 6"
 
         If Mover = False Then
@@ -792,8 +897,22 @@ Public Class Estribos_Totales
         editar_property1 = dynamic_property1(6)
         editar_property1.Value = Find_Long_Ganchos(Diametro)
 
+        Hlibre = (H_piso / 100) - 0.1
+
+        Estribo_i = New Seccion_Estribos With
+        {
+            .Diametro = Diametro,
+            .Separacion = Math.Round(Separacion_Estribo, 3),
+            .Longitdud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
+            .Story = Story,
+            .Pier = Pier_name,
+            .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
+        }
+        Lista_Cantidades_i.Lista_Estribos.Add(Estribo_i)
+
         Bloque_Estribo.Layer = Layer
         Bloque_Estribo.Update()
+
     End Sub
 
     Public Function Find_Long_Ganchos(ByVal Diametro As Integer) As Double
@@ -966,7 +1085,6 @@ Public Class Estribos_Totales
         'Mover el hacth hacia atras
         Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
 
-
         sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
         sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
 
@@ -975,7 +1093,7 @@ Public Class Estribos_Totales
 
     End Sub
 
-    Private Sub Add_Ganchos(ByVal Lista_Ganchos As List(Of Boolean), ByVal Lista_Coord As List(Of Double()), ByVal Delta_Y As Double, ByVal Delta_X As Double)
+    Private Sub Add_Ganchos(ByVal Lista_Ganchos As List(Of Boolean), ByVal Lista_sep_ganchos As List(Of Double), ByVal Lista_Coord As List(Of Double()), ByVal Delta_Y As Double, ByVal Delta_X As Double, ByVal Pier_name As String, ByVal Story As String, ByVal bw As Double, ByVal diametro As List(Of Integer), ByVal Hw As Double)
 
         Dim Coord_Gancho As Double()
         Dim Long_Gancho As Double
@@ -985,8 +1103,11 @@ Public Class Estribos_Totales
         Dim Contador As Integer = 0
         Dim Texto As String = ""
         Dim pos_ini As Short = 0
-
+        Dim gancho_i As Seccion_Ganchos
+        Dim Hlibre As Double
         Nombre_Bloque = "FC_B_Gancho Tipo 5"
+
+        Hlibre = (Hw / 100) - 0.1
 
         For i = 0 To Lista_Ganchos.Count - 1
 
@@ -995,6 +1116,17 @@ Public Class Estribos_Totales
                 Coord_Gancho = {Lista_Coord(i)(0), Delta_Y - 0.087, 0}
                 Long_Gancho = 0.174
                 Dibujar_Gancho(Coord_Gancho, Long_Gancho, Nombre_Bloque, dynamic_property1, editar_property1, pos_ini)
+
+                gancho_i = New Seccion_Ganchos With
+                {
+                    .Longitud = (bw / 100) - 0.04 + 2 * Ganchos_180(diametro(i)),
+                    .Diametro = diametro(i),
+                    .Separacion = Math.Round(Lista_sep_ganchos(i), 3),
+                    .Pier = Pier_name,
+                    .Story = Story,
+                    .Cantidad = Math.Round((Hlibre / Lista_sep_ganchos(i)) + 1, 0)
+                }
+                Lista_Cantidades_i.Lista_Ganchos.Add(gancho_i)
 
                 If pos_ini = 0 Then
                     pos_ini = 1
@@ -1010,6 +1142,7 @@ Public Class Estribos_Totales
     End Sub
 
     Private Sub Dibujar_Gancho(Coord_Gancho() As Double, Long_Gancho As Double, Nombre_Bloque As String, ByRef dynamic_property1 As Object, ByRef editar_property1 As AcadDynamicBlockReferenceProperty, ByVal Flip_State As Short)
+
         Bloque_Gancho = AcadDoc.ModelSpace.InsertBlock(Coord_Gancho, Nombre_Bloque, 1, 1, 1, Math.PI / 2)
         dynamic_property1 = Bloque_Gancho.GetDynamicBlockProperties
 
@@ -1022,4 +1155,5 @@ Public Class Estribos_Totales
         Bloque_Gancho.Layer = "FC_GANCHOS"
         Bloque_Gancho.Update()
     End Sub
+
 End Class

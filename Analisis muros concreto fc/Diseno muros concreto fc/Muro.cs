@@ -1,48 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diseño_de_muros_concreto_V2;
 
 namespace Diseno_muros_concreto_fc
 {
-    public class Muro
+    [Serializable]
+    public class Muro:Diseño_de_muros_concreto_V2.Muro
     {
-        public string Pier, Story;
-        public float bw, lw, hw, Fc, dw, h_acumulado;
-        public double Rho_l_Inicial, Spacing, Rho_l_Def;
-        public List<string> Loc = new List<string>();
-        public List<string> Load = new List<string>();
-        public List<double> P = new List<double>();
-        public List<double> V2 = new List<double>();
-        public List<double> V3 = new List<double>();
-        public List<double> M2 = new List<double>();
-        public List<double> M3 = new List<double>();
+        //public string Pier, Story;
+        //public float bw, lw, hw, Fc, dw, h_acumulado;
+        //public double Rho_l_Inicial, Spacing, Rho_l_Def;
+        //public List<string> Loc = new List<string>();
+        //public List<string> Load = new List<string>();
+        //public List<double> P = new List<double>();
+        //public List<double> V2 = new List<double>();
+        //public List<double> V3 = new List<double>();
+        //public List<double> M2 = new List<double>();
+        //public List<double> M3 = new List<double>();
         public List<Shells_Prop> Shells_Muro = new List<Shells_Prop>();
 
-        //Datos para el diseño a cortante de los muros en concreto
-        public List<double> Phi_Vc;
-        public List<double> Phi_Vs;
-        public List<double> Pt_min;
-        public List<double> pl_min;
-        public List<double> pt_requerido1;                      //Según C.11.9.91
-        public List<double> ptt;                                //Cuantia transversal requerida por C.21.9.4.1
-        public List<double> pt_definitivo;
-        public double Phi_Vn_Max1;                              //Capacidad maxima de la sección segun C11.9.3
-        public List<double> Phi_Vn_Max2 = new List<double>();   //Capacidad maxima de la sección segun C21.9.4.1
-        public double Phi_Vs_Max;                               //Capacidad maxima del acero según C.11.4.7.9
-        public double Pt_max;                                   //Cuantia maxima de acero según C.11.4.7.9
-        public List<int> Cortinas;
-        public List<string> Error_Cortante;
+        ////Datos para el diseño a cortante de los muros en concreto
+        //public List<double> Phi_Vc;
 
-        //Datos para el analisis a flexo compresion
-        public List<double> C_def;
-        public List<double> L_Conf;
-        public List<double> Fa;
-        public List<double> Fv;
-        public List<double> Sigma_Max;
-        public List<double> Sigma_Min;
-        public List<double> Relacion;
-        public List<string> Error_Flexion;
-        public double C_balanceado, P_balanceado;
+        //public List<double> Phi_Vs;
+        //public List<double> Pt_min;
+        //public List<double> pl_min;
+        //public List<double> pt_requerido1;                      //Según C.11.9.91
+        //public List<double> ptt;                                //Cuantia transversal requerida por C.21.9.4.1
+        //public List<double> pt_definitivo;
+        //public double Phi_Vn_Max1;                              //Capacidad maxima de la sección segun C11.9.3
+        //public List<double> Phi_Vn_Max2 = new List<double>();   //Capacidad maxima de la sección segun C21.9.4.1
+        //public double Phi_Vs_Max;                               //Capacidad maxima del acero según C.11.4.7.9
+        //public double Pt_max;                                   //Cuantia maxima de acero según C.11.4.7.9
+        //public List<int> Cortinas;
+        //public List<string> Error_Cortante;
+
+        ////Datos para el analisis a flexo compresion
+        //public List<double> C_def;
+        //public List<double> L_Conf;
+        //public List<double> Fa;
+        //public List<double> Fv;
+        //public List<double> Sigma_Max;
+        //public List<double> Sigma_Min;
+        //public List<double> Relacion;
+        //public List<string> Error_Flexion;
+        //public double C_balanceado, P_balanceado;
 
         public void Diseno_Cortante()
         {
@@ -58,7 +61,7 @@ namespace Diseno_muros_concreto_fc
             Cortinas = new List<int>();
             Error_Cortante = new List<string>();
 
-            double Fy = 4220; //[kgf/cm2]            
+            double Fy = 4220; //[kgf/cm2]
             float Phi = 0.75F; //Definir si sera variable de entrada o un valor fijo
             double pt_auxiliar;
             List<double> Rango_Auxiliar;
@@ -115,15 +118,13 @@ namespace Diseno_muros_concreto_fc
                 Error_Cortante.Add("Ok");
                 if (V2[i] > Phi_Vn_Max1 ^ V2[i] > Phi_Vn_Max2[i]) Error_Cortante[i] = "V2 mayor que Phi Vn max";
                 if (Phi_Vs[i] > Phi_Vs_Max) Error_Cortante[i] = "Phi Vs mayor a Phi Vs max";
-
             }
             Rho_l_Def = Math.Max(Rho_l_Inicial, pl_min.Max());
-
         }
 
         public void Flexural_Analisis()
         {
-            double Fy = 4220;           //[kgf/cm2]  
+            double Fy = 4220;           //[kgf/cm2]
             double es = 2000000;        //[kgf/cm2]
             double recubrimiento = 2.5; //[cm]
             int ramas, x;
@@ -246,7 +247,7 @@ namespace Diseno_muros_concreto_fc
                     L_Conf.Add(0);
                 }
 
-                //Calculo de esfuerzos en el muro 
+                //Calculo de esfuerzos en el muro
 
                 Numerador = 6 * M3[i] * Math.Pow(10, 5);
                 Denominador = bw * Math.Pow(lw, 2);
@@ -258,11 +259,10 @@ namespace Diseno_muros_concreto_fc
                 Relacion.Add(Math.Max(Sigma_Max.Last(), Math.Abs(Sigma_Min.Last())) / Fc);
                 Error_Flexion.Add("Ok");
                 if (Relacion.Last() >= 0.40) Error_Flexion[i] = "Cambiar espesor";
-
             }
         }
 
-        double Calculo_Pn_Balanceado(double As_long, double Beta, List<double> As_i, List<double> d_i, double Fy, double es)
+        private double Calculo_Pn_Balanceado(double As_long, double Beta, List<double> As_i, List<double> d_i, double Fy, double es)
         {
             double ey = Fy / es;
             double ab, Pc_b, Pn_b, Ps_b;
@@ -276,7 +276,7 @@ namespace Diseno_muros_concreto_fc
             return Pn_b;
         }
 
-        double Fuerza_As(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
+        private double Fuerza_As(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
             double Ps, fsl;
             List<double> Ps_i = new List<double>();
@@ -294,7 +294,7 @@ namespace Diseno_muros_concreto_fc
             return Ps;
         }
 
-        double Fs_prima(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
+        private double Fs_prima(double ecu, double es, List<double> As_i, double Ci, List<double> d_i)
         {
             double fs_prima, Ps_prima;
             List<double> Psi_prima = new List<double>();
@@ -308,7 +308,7 @@ namespace Diseno_muros_concreto_fc
             return Ps_prima;
         }
 
-        double Calc_Vc(double Vu, double Mu, double Pu)
+        private double Calc_Vc(double Vu, double Mu, double Pu)
         {
             double Vc1, Vc2, Vc3;
             double Numerador, Denominador, Ag;
@@ -340,10 +340,9 @@ namespace Diseno_muros_concreto_fc
                 if (Vtraccion < 0) Vtraccion = 0;
                 return Vtraccion;
             }
-
         }
 
-        double Calc_alpah(float Htotal)
+        private double Calc_alpah(float Htotal)
         {
             double alpha, Relacion, m;
 
@@ -358,13 +357,11 @@ namespace Diseno_muros_concreto_fc
             return alpha;
         }
 
-        double Calc_ptt(double alpha, double Vu, double Phi, double Fy)
+        private double Calc_ptt(double alpha, double Vu, double Phi, double Fy)
         {
             double Rho_tt;
             Rho_tt = (Vu / (Phi * bw * lw) - alpha * Math.Sqrt(Fc)) / Fy;
             if (Rho_tt < 0) return 0; else return Rho_tt;
-
         }
-
     }
 }

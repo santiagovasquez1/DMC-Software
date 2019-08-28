@@ -58,7 +58,6 @@ namespace Diseno_muros_concreto_fc
                     T_Fuerzas.Rows.Add(dr);
                 }
             }
-
         }
 
         public static void Datos_Geometria()
@@ -78,7 +77,6 @@ namespace Diseno_muros_concreto_fc
 
             if (Pos > -1)
             {
-
                 Ds_Shear.Tables.Clear();
                 Ds_Shear.Tables.Add(T_Geometria);
             }
@@ -135,7 +133,6 @@ namespace Diseno_muros_concreto_fc
 
             if (Pos > -1)
             {
-
                 Ds_Shear.Tables.Clear();
                 Ds_Shear.Tables.Add(T_Shear);
             }
@@ -195,7 +192,6 @@ namespace Diseno_muros_concreto_fc
                     T_Shear.Rows.Add(dr);
                 }
             }
-
         }
 
         public static void Datos_Flexion()
@@ -270,14 +266,13 @@ namespace Diseno_muros_concreto_fc
                     T_Flexion.Rows.Add(dr);
                 }
             }
-
         }
 
         public static void Datos_resumen()
         {
             List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "rho t", "rho l","Malla", "C" + Environment.NewLine+"(cm)","Lebe_Izq"+Environment.NewLine+"(cm)",
                 "Lebe_Der"+Environment.NewLine+"(cm)","Zc_Izq"+Environment.NewLine+"(cm)" ,"Zc_der"+Environment.NewLine+"(cm)"};
-            List<Muros_Consolidados> Lista_ordenada = Listas_Programa.Muros_Consolidados_Listos.FindAll(x => x.Pier_name == Listas_Programa.Texto_combo).ToList();
+            List<Muros_Consolidados_1> Lista_ordenada = Listas_Programa.Muros_Consolidados_Listos.FindAll(x => x.Pier_name == Listas_Programa.Texto_combo).ToList();
 
             DataTable T_Resumen = new DataTable("Resumen");
             int Pos, X;
@@ -328,9 +323,6 @@ namespace Diseno_muros_concreto_fc
                     T_Resumen.Rows.Add(dr);
                 }
             }
-
         }
-
-
     }
 }

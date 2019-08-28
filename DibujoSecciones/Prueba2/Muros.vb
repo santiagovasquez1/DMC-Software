@@ -1,8 +1,27 @@
-﻿Imports netDxf
-Imports netDxf.Entities
-Imports netDxf.Tables
-Imports netDxf.Header
-Imports netDxf.Units
+﻿<Serializable>
+Public Enum Reduccion
+
+    Arriba
+    Abajo
+    Izquierda
+    Derecha
+    Centro
+    NoAplica
+
+End Enum
+
+Public Enum TipoRefuerzo
+
+    Ninguno
+    R  'Recto
+    R1G 'Recto con 1 Gancho
+    R2G 'Recto con 2 Ganchos
+    L  ' En L
+    L1G  ' En L con un gancho
+    C ' En C
+
+End Enum
+
 Public Class Muros
 
     Public NombreMuro As String
@@ -17,7 +36,6 @@ Public Class Muros
     Public Lista_Refuerzos_Fila_Max As New List(Of RefuerzoCirculo)
     Public RecubrimientoRefuerzo As Double
 
-
     Public Lista_NoBarras As New List(Of String)
     Public Lista_LongitudBarras As New List(Of Double)
     Public Malla As String
@@ -31,7 +49,6 @@ Public Class Muros
     Public MurosVecinosArriba As New List(Of Muros)
     Public MurosVecinosAbajo As New List(Of Muros)
 
-
     Public CentroideX As Double
     Public CentroideY As Double
     Public Property Xmax As Double
@@ -42,7 +59,6 @@ Public Class Muros
     Public Property XminE As Double
     Public Property YminE As Double
     Public Property YmaxE As Double
-
 
     Public LEB_Iz As Double
     Public LEB_Dr As Double
@@ -57,7 +73,6 @@ Public Class Muros
     Public Hatch_Layer_Izq As String
     Public Hatch_Layer_Der As String
 
-
     Public Longitud As Double
     Public DireccionMuro As String
     Public EspesorEscalado As Double
@@ -69,12 +84,23 @@ Public Class Muros
     Public CoordenadasaGraficas As New List(Of Double)
     Public PuntosHatchIz As New List(Of Double)
     Public PuntosHatchDer As New List(Of Double)
-
+    Public CambioDireccion As Reduccion
+    Public EspesorePorPiso As New List(Of Single)
 
     Public Recubrimiento_Malla As Double = 0.02
     Public LongMallaHoriz As Double = 0
 
+    'Nuevas Propiedades
 
+    Public FormaRefuerzoHorizontal As TipoRefuerzo
+    Public LongMallaHorziPorPiso As New List(Of Single)
+    Public Leb_Dr_PorPiso As New List(Of Single)
+    Public Leb_Izq_PorPiso As New List(Of Single)
+    Public FormaRefuerzoHorizontal_PorPiso As New List(Of TipoRefuerzo)
+    Public Sep_RefuerzoHorizontal_PorPiso As New List(Of Single)
+    Public Hw As New List(Of Single)
+    Public Capas_RefuerzoHorizontalPorPiso As List(Of Integer)
+    Public RefuerzoHorizontalLabelPorPiso As List(Of String)
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -94,16 +120,13 @@ Public Class Muros
 
     End Sub
 
-
     Sub ActualizarCoordenadas()
         XmaxM = Xmax
         XminM = Xmin
         YmaxM = Ymax
         YminM = Ymin
 
-
     End Sub
-
 
     Sub PutosHatchFuc()
 
@@ -115,15 +138,12 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymax)
 
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymax)
-
             Else
-
 
                 'ELEMENTO IZQUIERDO
                 PuntosHatchIz.Add(Xmin)
@@ -131,7 +151,6 @@ Public Class Muros
 
                 PuntosHatchIz.Add(Xmin + LEB_Iz)
                 PuntosHatchIz.Add(Ymin)
-
 
                 PuntosHatchIz.Add(Xmin + LEB_Iz)
                 PuntosHatchIz.Add(Ymax)
@@ -160,7 +179,6 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymax)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymax)
 
@@ -175,13 +193,11 @@ Public Class Muros
                 PuntosHatchIz.Add(Xmin)
                 PuntosHatchIz.Add(Ymin + LEB_Iz)
 
-
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin + LEB_Iz)
 
                 PuntosHatchIz.Add(Xmax)
                 PuntosHatchIz.Add(Ymin)
-
 
                 'ELEMENTO DERECHO
 
@@ -223,14 +239,11 @@ Public Class RefuerzoCirculo
 
 End Class
 
-
 Public Class TextoRefuerzo
     Public CoordenasdasXyY(2) As Double
     Public NombreTexto As Double
 
-
 End Class
-
 
 Public Class CircunferenciaBloque
 
@@ -255,54 +268,62 @@ Public Class MuroArana
 
 End Class
 
-
-
+<Serializable>
 Public Class Muros_Consolidados
 
-    Public Pier_name As String
-    Public Stories As List(Of String) = New List(Of String)
-    Public Reduccion As String = "Sin Reducc"
-
-    Public Bw As List(Of Single) = New List(Of Single)
-    Public lw As List(Of Single) = New List(Of Single)
-    Public Hw As List(Of Single) = New List(Of Single)
-    Public fc As List(Of Single) = New List(Of Single)
-    Public Rho_T As List(Of Double) = New List(Of Double)
-    Public Rho_l As List(Of Double) = New List(Of Double)
-    Public Malla As List(Of String) = New List(Of String)
-    Public Sigma_piso As List(Of Double) = New List(Of Double)
-    Public Confinamiento As List(Of String) = New List(Of String)
-    Public C_max As List(Of Double) = New List(Of Double)
-    Public C_min As List(Of Double) = New List(Of Double)
-    Public C_esfuerzo As List(Of Double) = New List(Of Double)
-    Public C_Def As List(Of Double) = New List(Of Double)
-    Public L_esfuerzo As List(Of Double) = New List(Of Double)
-    Public L_Conf_Max As List(Of Double) = New List(Of Double)
-    Public L_Conf_Min As List(Of Double) = New List(Of Double)
-    Public Lebe_Izq As List(Of Double) = New List(Of Double)
-    Public Lebe_Der As List(Of Double) = New List(Of Double)
-    Public Lebe_Centro As List(Of Double) = New List(Of Double)
-    Public Zc_Izq As List(Of Double) = New List(Of Double)
-    Public Zc_Der As List(Of Double) = New List(Of Double)
-    'Nuevas variables
-    Public Est_ebe As List(Of Integer) = New List(Of Integer)
-    Public Sep_ebe As List(Of Double) = New List(Of Double)
-    Public Est_Zc As List(Of Integer) = New List(Of Integer)
-    Public Sep_Zc As List(Of Double) = New List(Of Double)
-    Public As_Long As List(Of Double) = New List(Of Double)
-    '
-    Public ramas_der As List(Of Integer) = New List(Of Integer)
-    Public ramas_izq As List(Of Integer) = New List(Of Integer)
-    Public ramas_centro As List(Of Integer) = New List(Of Integer)
-    Public As_htal As List(Of Double) = New List(Of Double)
-    Public Ref_htal As List(Of String) = New List(Of String)
-    Public Capas_htal As List(Of Integer) = New List(Of Integer)
-    Public sep_htal As List(Of Double) = New List(Of Double)
-    Public As_Htal_Total As List(Of Double) = New List(Of Double)
-
-    Public NoBarras As List(Of Double) = New List(Of Double)
-
+    Inherits Diseño_de_muros_concreto_V2.Muros_Consolidados
+    Public Reduccion As Reduccion
     Public NombreBarras As New List(Of List(Of String))
-
     Public LongitudBarras As New List(Of List(Of Double))
+    Public NoBarras As New List(Of Double)
+
+    'Public Pier_name As String
+    'Public Stories As List(Of String) = New List(Of String)
+    'Public Bw As List(Of Single) = New List(Of Single)
+    'Public lw As List(Of Single) = New List(Of Single)
+    'Public Hw As List(Of Single) = New List(Of Single)
+    'Public H_acumulado As List(Of Single) = New List(Of Single)
+    'Public fc As List(Of Single) = New List(Of Single)
+    'Public Rho_T As List(Of Double) = New List(Of Double)
+    'Public Rho_l As List(Of Double) = New List(Of Double)
+    'Public Malla As List(Of String) = New List(Of String)
+    'Public Sigma_piso As List(Of Double) = New List(Of Double)
+    'Public Confinamiento As List(Of String) = New List(Of String)
+    'Public C_max As List(Of Double) = New List(Of Double)
+    'Public C_min As List(Of Double) = New List(Of Double)
+    'Public C_esfuerzo As List(Of Double) = New List(Of Double)
+    'Public C_Def As List(Of Double) = New List(Of Double)
+    'Public L_esfuerzo As List(Of Double) = New List(Of Double)
+    'Public L_Conf_Max As List(Of Double) = New List(Of Double)
+    'Public L_Conf_Min As List(Of Double) = New List(Of Double)
+    'Public Lebe_Izq As List(Of Double) = New List(Of Double)
+    'Public Lebe_Der As List(Of Double) = New List(Of Double)
+    'Public Lebe_Centro As List(Of Double) = New List(Of Double)
+    'Public Zc_Izq As List(Of Double) = New List(Of Double)
+    'Public Zc_Der As List(Of Double) = New List(Of Double)
+
+    ''Nuevas variables
+    'Public Est_ebe As List(Of Integer) = New List(Of Integer)
+    'Public Sep_ebe As List(Of Double) = New List(Of Double)
+    'Public Est_Zc As List(Of Integer) = New List(Of Integer)
+    'Public Sep_Zc As List(Of Double) = New List(Of Double)
+    'Public As_Long As List(Of Double) = New List(Of Double)
+    ''
+    'Public ramas_der As List(Of Integer) = New List(Of Integer)
+    'Public ramas_izq As List(Of Integer) = New List(Of Integer)
+    'Public ramas_centro As List(Of Integer) = New List(Of Integer)
+    'Public As_htal As List(Of Double) = New List(Of Double)
+    'Public Ref_htal As List(Of String) = New List(Of String)
+    'Public Capas_htal As List(Of Integer) = New List(Of Integer)
+    'Public sep_htal As List(Of Double) = New List(Of Double)
+    'Public As_Htal_Total As List(Of Double) = New List(Of Double)
+    'Nuevas Propiedades
+    'Public isMuroMaestro As Boolean = False
+    'Public MuroSimilar As Muros_Consolidados
+    'Public CantidaddeMallas_Fic As New List(Of Single)
+    'Public MallasIndv As New List(Of String)
+    'Public MallasConCantidad As New List(Of String)
+    'Public Desperdicio As New List(Of Single)
+    'Public CantidadMallasDllNet As New List(Of String)
+    'Public Reduccion As Reduccion
 End Class

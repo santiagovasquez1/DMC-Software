@@ -1,5 +1,5 @@
-﻿Imports System.Runtime.InteropServices
-Public Class f_alzado
+﻿Public Class f_alzado
+
     Public Class refuerzo_piso
         Public cantidad As Integer
         Public diametro As Integer
@@ -28,23 +28,23 @@ Public Class f_alzado
 
         Return lapiz
     End Function
+
     Public ActivarTablas As Boolean
+
     Public Sub f_alzado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
         Dim Tooltip As New ToolTip
+        Dim Lista_i As New Listas_serializadas
 
         Tooltip.SetToolTip(Button3, "Agregar columna de alzado (Ctrl + Q)")
         Tooltip.SetToolTip(button4, "Dibujar Alzado de Muros en AutoCAD (Ctrl + W)")
-
-
 
         Dim Muros_Distintos As New List(Of String)
         Cargar_areas_refuerzo()
 
         If Muros_lista_2 Is Nothing Then
             Muros_lista_2 = New List(Of Muros_Consolidados)
-            Cargar_Lista_Texto()
+            Serializador.Deserializar(Ruta_1, Lista_i)
             ActivarTablas = False
         End If
 
@@ -56,11 +56,11 @@ Public Class f_alzado
             LMuros.Text = Muros_lista_2(0).Pier_name
         End If
 
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
         Listas_Vacias()
 
         Me.AutoScroll = False
         Me.DoubleBuffered = True
-
 
     End Sub
 
@@ -80,7 +80,6 @@ Public Class f_alzado
 
     End Sub
 
-
     Sub CargarTablas(ByVal Nombre_Muro As String)
 
         Data_Alzado.Rows.Clear()
@@ -99,7 +98,6 @@ Public Class f_alzado
             Tabla_Data_Ayuda(Nombre_Muro, Data_ayuda, i, True)
         Next
         Alzado_info(Nombre_Muro, Data_Alzado)
-
 
     End Sub
 
@@ -130,7 +128,6 @@ Public Class f_alzado
                     Catch ex As Exception
                         refuerzo.diametro = 0
                     End Try
-
                 Else
                     Try
                         refuerzo.diametro = Mid(vector_texto(1), pos1 + 1)
@@ -189,7 +186,6 @@ Public Class f_alzado
         Public traslapo As String
     End Class
 
-
     Public Sub Pb_Alzado_Paint(sender As Object, e As PaintEventArgs) Handles pb_Alzado.Paint
 
         Dim alzado As Graphics = e.Graphics
@@ -205,8 +201,6 @@ Public Class f_alzado
         Dim pos As Integer
         Dim texto2 As String
         Dim constante As Single
-
-
 
         With lapiz1
             .Width = 1.0
@@ -260,7 +254,7 @@ Public Class f_alzado
             End If
             menc = 0
             'CAMBIO 11111--------------
-            'Dibujo de barras de refuerzo 
+            'Dibujo de barras de refuerzo
             For j = dato_alzado.Count - 1 To 0 Step -1
                 If j < dato_alzado.Count - 1 Then
                     If dato_alzado(j) <> Nothing And dato_alzado(j) <> "Error" Then
@@ -406,31 +400,6 @@ Public Class f_alzado
 
     End Sub
 
-
-
-    Public Sub cb_Ayuda_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-    Public Sub cb_autocad_Click(sender As Object, e As EventArgs)
-
-
-
-    End Sub
-
-    Public Sub Button1_Click(sender As Object, e As EventArgs)
-
-
-    End Sub
-
-
-
-
-
-
-
-
     Public Sub CopyToClipboard(datos As DataGridView)
         Dim dataObj As DataObject = datos.GetClipboardContent
         If Not IsNothing(dataObj) Then
@@ -449,9 +418,11 @@ Public Class f_alzado
             data_grid.SelectedCells(counter).Value = String.Empty
         Next
     End Sub
+
     Public Sub CortarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CortarToolStripMenuItem.Click
         Cortar()
     End Sub
+
     Private Sub Pegar()
         PasteClipboard(data_grid)
 
@@ -466,6 +437,7 @@ Public Class f_alzado
 
         End If
     End Sub
+
     Public Sub PegarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PegarToolStripMenuItem.Click
         Pegar()
     End Sub
@@ -498,12 +470,10 @@ Public Class f_alzado
                     iRow = iRow + 1
                 End If
             Next
-
         Catch ex As Exception
 
         End Try
     End Sub
-
 
     Public Sub f_alzado_Click(sender As Object, e As EventArgs) Handles MyBase.Click
 
@@ -512,15 +482,11 @@ Public Class f_alzado
         Data_Alzado.ClearSelection()
     End Sub
 
-
-
     Public Sub Button2_Click(sender As Object, e As EventArgs)
         Procesar_info(datos_alzado)
         Procesar_Info_2()
         Generar_informe()
     End Sub
-
-
 
     Public Sub Data_Alzado_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Data_Alzado.CellEndEdit
         Dim indice, Columna As Integer
@@ -532,8 +498,6 @@ Public Class f_alzado
         pb_Alzado.CreateGraphics.Clear(Color.White)
         pb_Alzado.Invalidate()
     End Sub
-
-
 
     Public Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
@@ -559,7 +523,11 @@ Public Class f_alzado
         Dim alzado_lista_aux As List(Of alzado_muro) = New List(Of alzado_muro)
         Dim Num_cols As Integer
         Dim indice As Integer
-        Dim prueba As List(Of String)
+        Dim prueba As List(Of String) = New List(Of String)
+        Dim Lista_i As New Listas_serializadas
+
+        Guardar_Archivo.Actualizar_Resumen()
+        Guardar_Archivo.Add_Refuerzoi(data_info_f3)
 
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
@@ -574,24 +542,33 @@ Public Class f_alzado
                     If alzado_lista.Count > 0 And alzado_lista.Exists(Function(x) x.pier = Lista_graficar(i).Nombre) = True Then
 
                         alzado_lista_aux = alzado_lista.FindAll(Function(x) x.pier = Lista_graficar(i).Nombre)
-                        prueba = alzado_lista_aux.Select(Function(x) x.alzado(0)).Distinct().ToList
                         Num_cols = alzado_lista_aux.Select(Function(x) x.alzado.Count).ToList().Max
 
-                        If Num_cols > 0 And prueba.Exists(Function(x) x <> "") = True Then
+                        If Num_cols > 0 Then
 
                             For j = 0 To alzado_lista_aux.Count - 1
+
+                                For k = 0 To alzado_lista_aux(j).alzado.Count - 1
+                                    If alzado_lista_aux(j).alzado(k) = Nothing Then
+                                        alzado_lista_aux(j).alzado(k) = ""
+                                    End If
+                                Next
+
                                 If alzado_lista_aux(j).alzado.Count < Num_cols Then
                                     For k = alzado_lista_aux(j).alzado.Count To Num_cols - 1
                                         indice = alzado_lista.FindIndex(Function(x) x.pier = alzado_lista_aux(j).pier And x.story = alzado_lista_aux(j).story)
                                         alzado_lista(indice).alzado.Add("")
                                     Next
                                 End If
+
                             Next
 
                             Auxiliar = New Datos_Refuerzo
                             Auxiliar.Nombre_muro = Lista_graficar(i).Nombre
                             Auxiliar.Load_Coordinates(Lista_graficar(i).Nombre, coordX)
-                            Dibujar_Refuerzo(Auxiliar)
+                            If Auxiliar.Barra.Count > 0 Then
+                                Dibujar_Refuerzo(Auxiliar)
+                            End If
                         End If
                     End If
                 End If
@@ -599,8 +576,8 @@ Public Class f_alzado
 
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
     End Sub
+
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Agregar()
     End Sub
@@ -625,14 +602,6 @@ Public Class f_alzado
             Data_Alzado.Columns.Add(columnas)
         End If
     End Sub
-
-
-
-
-
-
-
-
 
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
@@ -705,7 +674,6 @@ Public Class f_alzado
 
         Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
 
-
     End Sub
 
     Private Sub Panel11_Paint(sender As Object, e As PaintEventArgs) Handles Panel11.Paint
@@ -763,4 +731,5 @@ Public Class f_alzado
             Cortar()
         End If
     End Sub
+
 End Class

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Diseno_muros_concreto_fc
 {
-    class Listas_Programa
+    [Serializable]
+    internal class Listas_Programa
     {
         public static List<Puntos_Modelo> Lista_Puntos;
         public static List<Shells_Prop> Lista_shells;
@@ -14,8 +16,7 @@ namespace Diseno_muros_concreto_fc
         public static string Capacidad;
         public static string Ruta_archivo;
         public static string Ruta_Carpeta;
-        public static List<Muros_Consolidados> Muros_Consolidados_Listos;
-        public static string Area_ParaTenorApprox="";
-
+        public static List<Muros_Consolidados_1> Muros_Consolidados_Listos;
+        public static string Area_ParaTenorApprox = "";
     }
 }
