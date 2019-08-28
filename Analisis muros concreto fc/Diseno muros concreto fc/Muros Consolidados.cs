@@ -343,9 +343,13 @@ namespace Diseno_muros_concreto_fc
             for (int i = 0; i < Muros_distintos.Count; i++)
             {
                 List<Muro> Auxiliar = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Muros_distintos[i]).ToList();
-
-                Muro_i = new Muros_Consolidados_1();
-                Muro_i.Pier_name = Muros_distintos[i];
+               
+                Muro_i = new Muros_Consolidados_1
+                {
+                    Pier_name = Muros_distintos[i],
+                    //Shells_piso_der = new List<List<Shells_Prop>>(),
+                    //Shells_piso_Izq = new List<List<Shells_Prop>>()
+                };
                 Muro_i.Stories.AddRange(Auxiliar.Select(x => x.Story).Distinct().ToList());
                 Muro_i.fc.AddRange(Auxiliar.Select(x => x.Fc));
                 Muro_i.Bw.AddRange(Auxiliar.Select(x => x.bw));

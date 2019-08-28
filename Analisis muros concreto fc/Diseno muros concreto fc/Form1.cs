@@ -366,7 +366,10 @@ namespace Diseno_muros_concreto_fc
             this.Width = 995;
             this.Height = 675;
             Fase1 Formulario1 = new Fase1();
+
+            //Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Listas);
             Formulario1.Cargar_Lista();
+
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1,Listas);
             murosSimilaresToolStripMenuItem.Enabled = false;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
@@ -468,13 +471,10 @@ namespace Diseno_muros_concreto_fc
         private void AbrirProyecto(Listas_Serializadas_i Lista_i)
         {
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
+            Listas_Programa.Lista_Muros = new List<Muro>();
+            Listas_Programa.Lista_shells = new List<Shells_Prop>();
             Serializador.Deserializar(ref Listas_Programa.Ruta_archivo,ref Lista_i);
-
-            #region Cargar_Datos
-            
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
-            Listas_Programa.Lista_Muros = Lista_i.Muros_generales;
-            #endregion
 
             B_Flexural.Enabled = false;
             B_Report.Enabled = false;

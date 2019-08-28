@@ -149,6 +149,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Listas_serializadas.vb" />
+    <Compile Include="Muro.vb" />
     <Compile Include="Muros_Alzados.Designer.vb">
       <DependentUpon>Muros_Alzados.vb</DependentUpon>
     </Compile>
@@ -158,6 +159,7 @@
     <Compile Include="Muros_alzados_C.vb" />
     <Compile Include="Organizar_alzados.vb" />
     <Compile Include="Serializador.vb" />
+    <Compile Include="Shells_Prop.vb" />
     <Compile Include="Similar.Designer.vb">
       <DependentUpon>Similar.vb</DependentUpon>
     </Compile>

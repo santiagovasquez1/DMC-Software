@@ -34,6 +34,7 @@
     Public Sub f_alzado_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim Tooltip As New ToolTip
+        Dim Lista_i As New Listas_serializadas
 
         Tooltip.SetToolTip(Button3, "Agregar columna de alzado (Ctrl + Q)")
         Tooltip.SetToolTip(button4, "Dibujar Alzado de Muros en AutoCAD (Ctrl + W)")
@@ -43,7 +44,7 @@
 
         If Muros_lista_2 Is Nothing Then
             Muros_lista_2 = New List(Of Muros_Consolidados)
-            Cargar_Lista_Texto()
+            Serializador.Deserializar(Ruta_1, Lista_i)
             ActivarTablas = False
         End If
 
@@ -55,6 +56,7 @@
             LMuros.Text = Muros_lista_2(0).Pier_name
         End If
 
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
         Listas_Vacias()
 
         Me.AutoScroll = False

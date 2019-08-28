@@ -45,9 +45,6 @@ namespace Diseno_muros_concreto_fc
     [Serializable]
     public class Listas_Serializadas_i :Listas_serializadas
     {
-        public List<Muro> Muros_generales;     
-        public string Capacidad_proyecto;
-
         public override bool Equals(object obj)
         {
             return base.Equals(obj);

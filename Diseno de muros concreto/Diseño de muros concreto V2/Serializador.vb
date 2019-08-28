@@ -14,7 +14,9 @@ Public Class Serializador
                 Serializar_aux = New Listas_serializadas With {
                     .Lista_Muros = Muros_lista_2,
                     .Lista_Alzados = alzado_lista,
-                    .lista_refuerzo = refuerzo_lista
+                    .lista_refuerzo = refuerzo_lista,
+                    .Capacidad_proyecto = Capacidad,
+                    .Muros_generales = Muros_generales
                 }
                 Serializar(Ruta, Serializar_aux)
             End If
@@ -72,6 +74,7 @@ Public Class Serializador
     End Sub
 
     Private Shared Sub Convert_listas(Lista_Serializadas As Listas_serializadas)
+
         For Each prueba As Muros_Consolidados In CType(Lista_Serializadas.Lista_Muros, IEnumerable)
             Muros_lista_2.Add(prueba)
         Next
@@ -83,5 +86,10 @@ Public Class Serializador
         For Each prueba As Refuerzo_muros In CType(Lista_Serializadas.lista_refuerzo, IEnumerable)
             refuerzo_lista.Add(prueba)
         Next
+
+        For Each prueba As Muro In CType(Lista_Serializadas.Muros_generales, IEnumerable)
+            Muros_generales.Add(prueba)
+        Next
+
     End Sub
 End Class
