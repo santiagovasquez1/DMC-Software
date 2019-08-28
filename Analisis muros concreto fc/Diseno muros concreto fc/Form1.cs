@@ -280,7 +280,7 @@ namespace Diseno_muros_concreto_fc
             {
                 Capacidad_proyecto = Listas_Programa.Capacidad,
                 Lista_Alzados = new List<Alzado_muro>(),
-                lista_refuerzo = new List<refuerzo_muros>(),
+                lista_refuerzo = new List<Refuerzo_muros>(),
                 Lista_Muros = Listas_Programa.Muros_Consolidados_Listos,
                 Muros_generales=Listas_Programa.Lista_Muros,                
             };

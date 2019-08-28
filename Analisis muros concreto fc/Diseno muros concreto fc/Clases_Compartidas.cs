@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Diseno_muros_concreto_fc
 {
     [Serializable]
-    public class refuerzo_muros : Refuerzo_muros
+    public class Refuerzo_muros : Diseño_de_muros_concreto_V2.Refuerzo_muros
     {
         public override bool Equals(object obj)
         {
