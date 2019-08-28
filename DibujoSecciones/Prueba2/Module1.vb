@@ -1,5 +1,4 @@
-﻿
-Imports Autodesk.AutoCAD.Interop
+﻿Imports Autodesk.AutoCAD.Interop
 Imports Autodesk.AutoCAD.Interop.Common
 Imports MathNet.Numerics.LinearAlgebra
 
@@ -376,15 +375,12 @@ Module Module1
                             ListaOrdenada(i).Sep_RefuerzoHorizontal_PorPiso.Add((Muros_lista_2(j).sep_htal(m)) / 100)
                         Next
 
-
                         For m = 0 To Muros_lista_2(j).Lebe_Der.Count - 1
                             ListaOrdenada(i).Leb_Dr_PorPiso.Add(Muros_lista_2(j).Lebe_Der(m) / 100)
                         Next
                         For m = 0 To Muros_lista_2(j).Lebe_Izq.Count - 1
                             ListaOrdenada(i).Leb_Izq_PorPiso.Add(Muros_lista_2(j).Lebe_Izq(m) / 100)
                         Next
-
-
 
                         For m = 0 To ListaOrdenada(i).Leb_Dr_PorPiso.Count - 1
                             If ListaOrdenada(i).Leb_Dr_PorPiso(m) = 0 Then
@@ -396,8 +392,6 @@ Module Module1
                                 ListaOrdenada(i).Leb_Izq_PorPiso(m) = Muros_lista_2(j).Zc_Izq(m) / 100
                             End If
                         Next
-
-
 
                         Try
                             ListaOrdenada(i).Lista_NoBarras = Muros_lista_2(j).NombreBarras(Indice)
@@ -1381,12 +1375,9 @@ Module Module1
             Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_cantidades)
         End If
 
-
-
         For Each Muro_ListaOrdenada In ListaOrdenada
             CalcularLongitudRefuerzoHorizontal(Muro_ListaOrdenada)
         Next
-
 
         Dim ListaCantidades As Lista_Cantidades
 
@@ -1413,8 +1404,6 @@ Module Module1
             MuroRefuerzo.CalcularCantidadPorPiso(0.1)
         Next
 
-
-
         Muros_V.Clear()
         ListaOrdenada.Clear()
         Selecccionar.Clear()
@@ -1425,13 +1414,11 @@ Module Module1
 
     End Sub
 
-
     Sub CalcularLongitudRefuerzoHorizontal(ByVal Muro As Muros)
         For i = 0 To Muro.Capas_RefuerzoHorizontalPorPiso.Count - 1
             Muro.LongMallaHorziPorPiso.Add(0)
             Muro.FormaRefuerzoHorizontal_PorPiso.Add(TipoRefuerzo.Ninguno)
         Next
-
 
         With Muro
             For i = 0 To .Capas_RefuerzoHorizontalPorPiso.Count - 1
@@ -1443,18 +1430,12 @@ Module Module1
 
 #Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
 
-
-
-
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
-
 
                             If .MurosVecinosDerecha.Count <> 0 And .MurosVecinosIzquierda.Count <> 0 Then
 
-
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
                                 LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosDerecha(0).EspesorReal + .MurosVecinosIzquierda(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
-
 
                                 If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
@@ -1482,18 +1463,14 @@ Module Module1
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
 
-
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
-
                             End If
-
 
                             If .MurosVecinosDerecha.Count = 0 And .MurosVecinosIzquierda.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosIzquierda(0).EspesorReal - R_1 + Long_Gan_V)
-
 
                                 If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
                                     Try
@@ -1517,7 +1494,6 @@ Module Module1
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosDerecha(0).EspesorReal - R_1 + Long_Gan_V)
 
-
                                 If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
                                         Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
@@ -1531,9 +1507,7 @@ Module Module1
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
 
-
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
-
 
                             End If
 
@@ -1545,12 +1519,12 @@ Module Module1
 
                             End If
 
-
                         End If
 
 #End Region
 
 #Region "Caso 2 -----> Zc_Dere>=0.45 y Zc_Izqu<0.45"
+
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
                             'I.1-----Caso Cuando Hay Gancho a la Izquierda y anclaje en la Derecha
@@ -1571,10 +1545,8 @@ Module Module1
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             End Try
 
-
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                             ' ----FIN I.1
-
 
                             If .MurosVecinosIzquierda.Count <> 0 Then
 
@@ -1610,10 +1582,10 @@ Module Module1
                             End If
 
                         End If
+
 #End Region
 
 #Region "Caso 3 -----> Zc_Der<0.45 y Zc_Izqu>=0.45"
-
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
@@ -1633,9 +1605,6 @@ Module Module1
                             Catch : End Try
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
-
-
-
 
                             If .MurosVecinosDerecha.Count <> 0 Then
 
@@ -1663,12 +1632,7 @@ Module Module1
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                             End If
 
-
                         End If
-
-
-
-
 
 #End Region
 
@@ -1705,28 +1669,20 @@ Module Module1
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
-
                         End If
+
 #End Region
 
                     Else
 
-
-
 #Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
-
-
-
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
-
                             If .MurosVecinosArriba.Count <> 0 And .MurosVecinosAbajo.Count <> 0 Then
-
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
                                 LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosArriba(0).EspesorReal + .MurosVecinosAbajo(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
-
 
                                 If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
@@ -1741,7 +1697,6 @@ Module Module1
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
-
 
                                 If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
@@ -1760,17 +1715,12 @@ Module Module1
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                                 'Cambio1-----OK!
 
-
-
-
                             End If
-
 
                             If .MurosVecinosArriba.Count = 0 And .MurosVecinosAbajo.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosAbajo(0).EspesorReal - R_1 + Long_Gan_V)
-
 
                                 If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
@@ -1786,7 +1736,6 @@ Module Module1
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
 
-
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                                 'Cambio2-----OK!
                             End If
@@ -1794,7 +1743,6 @@ Module Module1
                             If .MurosVecinosArriba.Count <> 0 And .MurosVecinosAbajo.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosArriba(0).EspesorReal - R_1 + Long_Gan_V)
-
 
                                 If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
@@ -1822,12 +1770,12 @@ Module Module1
                                 'Cambio4-----OK!
                             End If
 
-
                         End If
 
 #End Region 'OK!
 
 #Region "Caso 2 -----> Zc_Dere>=0.45 y Zc_Izqu<0.45"
+
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
                             'I.1-----Caso Cuando Hay Gancho a la Abajo y anclaje en la Arriba
@@ -1889,10 +1837,10 @@ Module Module1
                             End If
                             'Cambio 5----- OK!
                         End If
+
 #End Region 'OK!
 
 #Region "Caso 3 -----> Zc_Der<0.45 y Zc_Izqu>=0.45"
-
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
@@ -1911,7 +1859,6 @@ Module Module1
                             Catch : End Try
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
-
 
                             If .MurosVecinosArriba.Count <> 0 Then
 
@@ -1939,12 +1886,7 @@ Module Module1
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                             End If
 
-
                         End If
-
-
-
-
 
 #End Region  'OK!
 
@@ -1981,10 +1923,9 @@ Module Module1
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
-
                         End If
-#End Region ' OK!
 
+#End Region ' OK!
 
                     End If
                 End If
@@ -1993,35 +1934,7 @@ Module Module1
 
         '  Muros_lista_2(0)
 
-
-
-
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     Sub AddBloqueLabelRefuerzoMalla(ByVal MuroI As Muros, ByVal No_Capas As Integer, ByVal Layer As String)
 
@@ -3024,6 +2937,7 @@ Module Module1
                 If .DireccionMuro = "Horizontal" Then
 
 #Region "Muros Horziontales"
+
                     '----------------------MUROS HORIZONTALES ---------------------------------
                     Dim MurosaExtenderMalla As Integer = 0
                     Dim XaExtender1 As Double = 0 : Dim XaExtender2 As Double = 0 : Dim R1 As Double = 0 : Dim R2 As Double = 0
@@ -3425,7 +3339,9 @@ Module Module1
                         End If
 
                     End If
+
 #End Region
+
                 Else
 
                     '----------------------MUROS VERTICALES ---------------------------------
@@ -3836,7 +3752,22 @@ Module Module1
 
     End Sub
 
+    Sub AddBloqueNomenc(ByVal Mensaje As String, ByVal Coord() As Double)
 
+        BloquePiso = AcadDoc.ModelSpace.InsertBlock(Coord, "FC_B_Titulo 6", 25, 25, 25, 0)
+        BloquePiso.Layer = "FC_R-140"
 
+        Dim Distance1 As Double = (Len(Mensaje) - 3) * 0.0572
+
+        Dim Propiedades_Dinamicas As Object = BloquePiso.GetDynamicBlockProperties
+        Dim Editar_Propiedades2 As AcadDynamicBlockReferenceProperty
+        Editar_Propiedades2 = Propiedades_Dinamicas(0)
+        Editar_Propiedades2.Value = Distance1
+
+        Dim AtibutosBloque As Object = BloquePiso.GetAttributes()
+        Dim Atributo As Object = AtibutosBloque(0)
+        Atributo.TextString = Mensaje
+
+    End Sub
 
 End Module
