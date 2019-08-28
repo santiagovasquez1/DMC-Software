@@ -468,18 +468,18 @@ Public Class Estribos_Totales
     Private Shared Sub Determinacion_Punto_Arranque_Horizontal(ByRef Punto_inicial() As Double, Muro_i As Muros_Consolidados, Vecino_izquierda As Boolean, ByRef Delta_reduccion As Double, i As Integer, Muro_vecino_izquierda As Muros_Consolidados, j As Integer, ByVal Delta_Y As Double, ByVal Delta_X As Double)
 
         If Vecino_izquierda = True Then
-            If Muro_vecino_izquierda.Reduccion = "Der" Or Muro_vecino_izquierda.Reduccion = "Sin Reducc" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Derecha Or Muro_vecino_izquierda.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino_izquierda.Reduccion = "Izq" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Izquierda Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_izquierda.Bw(j) - Muro_vecino_izquierda.Bw(j + 1)) / 100
                 End If
             End If
 
-            If Muro_vecino_izquierda.Reduccion = "Centro" Then
+            If Muro_vecino_izquierda.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_izquierda.Bw(j) - Muro_vecino_izquierda.Bw(j + 1)) / 200
                 End If
@@ -495,11 +495,11 @@ Public Class Estribos_Totales
 
         If Vecino_Abajo = True Then
 
-            If Muro_vecino_Abajo.Reduccion = "Abajo" Or Muro_vecino_Abajo.Reduccion = "Sin Reducc" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Abajo Or Muro_vecino_Abajo.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino_Abajo.Reduccion = "Arriba" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Arriba Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_Abajo.Bw(j) - Muro_vecino_Abajo.Bw(j + 1)) / 100
@@ -507,7 +507,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino_Abajo.Reduccion = "Centro" Then
+            If Muro_vecino_Abajo.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino_Abajo.Bw(j) - Muro_vecino_Abajo.Bw(j + 1)) / 200
                 End If
@@ -527,11 +527,11 @@ Public Class Estribos_Totales
 
         If Vecino_derecha = True Then
 
-            If Muro_vecino.Reduccion = "Izq" Or Muro_vecino.Reduccion = "Sin Reducc" Then
+            If Muro_vecino.Reduccion = Reduccion.Izquierda Or Muro_vecino.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino.Reduccion = "Der" Then
+            If Muro_vecino.Reduccion = Reduccion.Derecha Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 100
@@ -539,7 +539,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino.Reduccion = "Centro" Then
+            If Muro_vecino.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 200
                 End If
@@ -560,11 +560,11 @@ Public Class Estribos_Totales
 
         If Vecino_arriba = True Then
 
-            If Muro_vecino.Reduccion = "Arriba" Or Muro_vecino.Reduccion = "Sin Reducc" Then
+            If Muro_vecino.Reduccion = Reduccion.Arriba Or Muro_vecino.Reduccion = Reduccion.NoAplica Then
                 Delta_reduccion = 0
             End If
 
-            If Muro_vecino.Reduccion = "Abajo" Then
+            If Muro_vecino.Reduccion = Reduccion.Abajo Then
 
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 100
@@ -572,7 +572,7 @@ Public Class Estribos_Totales
 
             End If
 
-            If Muro_vecino.Reduccion = "Centro" Then
+            If Muro_vecino.Reduccion = Reduccion.Centro Then
                 If j < Muro_i.Stories.Count - 1 Then
                     Delta_reduccion = (Muro_vecino.Bw(j) - Muro_vecino.Bw(j + 1)) / 200
                 End If
