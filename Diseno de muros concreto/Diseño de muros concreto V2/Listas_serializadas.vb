@@ -1,5 +1,4 @@
-﻿Imports System.Collections.Generic
-<Serializable>
+﻿<Serializable>
 Public Class Listas_serializadas
 
     Public Lista_Muros = New List(Of Muros_Consolidados)

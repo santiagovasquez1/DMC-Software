@@ -33,13 +33,9 @@ Public Class Guardar_Archivo
 
     End Sub
 
-    Sub Actualizar_Resumen()
-
-        Lista_Texto = New List(Of String)
-        Dim Texto As String
+    Public Shared Sub Actualizar_Resumen()
 
         For i = 0 To Muros_lista_2.Count - 1
-
             If IsNothing(Muros_lista_2(i).MuroSimilar) = False Then
 
                 Muros_lista_2(i).lw = Muros_lista_2(i).MuroSimilar.lw
@@ -63,16 +59,11 @@ Public Class Guardar_Archivo
                 Muros_lista_2(i).sep_htal = Muros_lista_2(i).MuroSimilar.sep_htal
             End If
 
-            For j = 0 To Muros_lista_2(i).Stories.Count - 1
-                Texto = Muros_lista_2(i).Stories(j) & vbTab & Muros_lista_2(i).Pier_name & vbTab & Muros_lista_2(i).lw(j) & vbTab & Muros_lista_2(i).Bw(j) & vbTab & Muros_lista_2(i).fc(j) & vbTab & Muros_lista_2(i).Rho_T(j) & vbTab & Muros_lista_2(i).Rho_l(j) & vbTab & Muros_lista_2(i).Malla(j) & vbTab & Muros_lista_2(i).C_Def(j) & vbTab & Muros_lista_2(i).Lebe_Izq(j) & vbTab & Muros_lista_2(i).Lebe_Der(j) & vbTab & Muros_lista_2(i).Lebe_Centro(j) & vbTab & Muros_lista_2(i).Zc_Izq(j) & vbTab & Muros_lista_2(i).Zc_Der(j) & vbTab & Muros_lista_2(i).Hw(j) & vbTab & Muros_lista_2(i).Est_ebe(j) & vbTab & Muros_lista_2(i).Sep_ebe(j) & vbTab & Muros_lista_2(i).Est_Zc(j) & vbTab & Muros_lista_2(i).Sep_Zc(j) & vbTab & Muros_lista_2(i).As_Long(j) & vbTab & Muros_lista_2(i).ramas_izq(j) & vbTab & Muros_lista_2(i).ramas_der(j) & vbTab & Muros_lista_2(i).ramas_centro(j) & vbTab & Muros_lista_2(i).As_htal(j) & vbTab & Muros_lista_2(i).Ref_htal(j) & vbTab & Muros_lista_2(i).Capas_htal(j) & vbTab & Muros_lista_2(i).sep_htal(j) & vbTab & Muros_lista_2(i).As_Htal_Total(j)
-                Lista_Texto.Add(Texto)
-            Next
-
         Next
 
     End Sub
 
-    Sub Add_Refuerzoi(ByVal Data_info As DataGridView)
+    Public Shared Sub Add_Refuerzoi(ByVal Data_info As DataGridView)
 
         Dim Datos_refuerzo, datos_refuerzo_hijo As Refuerzo_muros
         Dim indice, indice2 As Integer

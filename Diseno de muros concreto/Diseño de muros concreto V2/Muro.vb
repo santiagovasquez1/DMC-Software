@@ -14,6 +14,7 @@ Public Class Muro
 
     'Datos para el diseño a cortante de los muros en concreto
     Public Phi_Vc As List(Of Double)
+
     Public Phi_Vs As List(Of Double)
     Public Pt_min As List(Of Double)
     Public pl_min As List(Of Double)
@@ -29,6 +30,7 @@ Public Class Muro
 
     'Datos para el analisis a flexo compresion
     Public C_def As List(Of Double)
+
     Public L_Conf As List(Of Double)
     Public Fa As List(Of Double)
     Public Fv As List(Of Double)

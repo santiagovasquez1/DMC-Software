@@ -20,7 +20,6 @@ Public Class Serializador
                 }
                 Serializar(Ruta, Serializar_aux)
             End If
-
         Else
             Deserializar(Ruta, Lista_serializadas)
         End If
@@ -92,4 +91,5 @@ Public Class Serializador
         Next
 
     End Sub
+
 End Class

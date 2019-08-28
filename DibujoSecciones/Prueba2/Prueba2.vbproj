@@ -114,6 +114,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListaRefuerzoHorziontal.vb" />
+    <Compile Include="Listas_Serializadas.vb" />
     <Compile Include="Lista_Cantidades.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="Muros.vb" />
@@ -135,6 +136,7 @@
     </Compile>
     <Compile Include="Seccion Estribos.vb" />
     <Compile Include="Seccion_Ganchos.vb" />
+    <Compile Include="Serializador.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">

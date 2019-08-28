@@ -355,6 +355,7 @@ namespace Diseno_muros_concreto_fc
                 Muro_i.Bw.AddRange(Auxiliar.Select(x => x.bw));
                 Muro_i.lw.AddRange(Auxiliar.Select(x => x.lw));
                 Muro_i.Hw.AddRange(Auxiliar.Select(x => x.hw));
+                Muro_i.Calculo_H_acumulado();
                 Muro_i.Rho_l.AddRange(Auxiliar.Select(x => x.Rho_l_Def));
 
                 for (int j = 0; j < Auxiliar.Count; j++)

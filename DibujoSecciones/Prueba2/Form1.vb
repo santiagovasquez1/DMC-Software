@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 
 Public Class Form1
+
     Public RutaArchivo As String
     Public Lista_Cantidades As New Lista_Cantidades
 
@@ -10,27 +11,30 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Try
-            Ganchos_180.Clear()
-            ArchivoTexto(Me)
-            Cargar_Resumen()
+        'Try
+        Dim Lista_i As New Listas_Serializadas
+        Ganchos_180.Clear()
+        Serializador.Deserializar(RutaArchivo, Lista_i)
 
-            CargarRefuerzo()
+        'ArchivoTexto(Me)
 
-            Ganchos_180.Add("4.5mm", 0.116)
-            Ganchos_180.Add("2", 0.116)
-            Ganchos_180.Add("3", 0.14)
-            Ganchos_180.Add("4", 0.167)
-            Ganchos_180.Add("5", 0.192)
-            Ganchos_180.Add("6", 0.228)
-            Ganchos_180.Add("7", 0.266)
-            Ganchos_180.Add("8", 0.305)
-            Ganchos_180.Add("10", 0.457)
-        Catch
+        'Cargar_Resumen()
+        'CargarRefuerzo()
 
-            MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
-            Me.Close()
-        End Try
+        Ganchos_180.Add("4.5mm", 0.116)
+        Ganchos_180.Add("2", 0.116)
+        Ganchos_180.Add("3", 0.14)
+        Ganchos_180.Add("4", 0.167)
+        Ganchos_180.Add("5", 0.192)
+        Ganchos_180.Add("6", 0.228)
+        Ganchos_180.Add("7", 0.266)
+        Ganchos_180.Add("8", 0.305)
+        Ganchos_180.Add("10", 0.457)
+        ' Catch
+
+        'MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
+        '    Me.Close()
+        ' End Try
 
     End Sub
 

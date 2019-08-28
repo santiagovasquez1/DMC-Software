@@ -524,6 +524,10 @@
         Dim Num_cols As Integer
         Dim indice As Integer
         Dim prueba As List(Of String) = New List(Of String)
+        Dim Lista_i As New Listas_serializadas
+
+        Guardar_Archivo.Actualizar_Resumen()
+        Guardar_Archivo.Add_Refuerzoi(data_info_f3)
 
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
@@ -543,12 +547,20 @@
                         If Num_cols > 0 Then
 
                             For j = 0 To alzado_lista_aux.Count - 1
+
+                                For k = 0 To alzado_lista_aux(j).alzado.Count - 1
+                                    If alzado_lista_aux(j).alzado(k) = Nothing Then
+                                        alzado_lista_aux(j).alzado(k) = ""
+                                    End If
+                                Next
+
                                 If alzado_lista_aux(j).alzado.Count < Num_cols Then
                                     For k = alzado_lista_aux(j).alzado.Count To Num_cols - 1
                                         indice = alzado_lista.FindIndex(Function(x) x.pier = alzado_lista_aux(j).pier And x.story = alzado_lista_aux(j).story)
                                         alzado_lista(indice).alzado.Add("")
                                     Next
                                 End If
+
                             Next
 
                             Auxiliar = New Datos_Refuerzo
@@ -564,7 +576,6 @@
 
         End If
 
-        Dim Guardar As New Guardar_Archivo(Ruta_archivo, True)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
