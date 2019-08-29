@@ -670,6 +670,11 @@ Public Class Estribos_Totales
         Condicion2 = False
         Suma_Long = 0
 
+        If Separacion_Estribo = 0 Then
+            MsgBox("Estribos en zonas de confinamiento sin separacion definida", MsgBoxStyle.Critical, "efe Prima ce")
+            Exit Sub
+        End If
+
         For j = Pos To ListaOrdenada(i).Lista_Refuerzos_Original.Count - 2
 
             If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Original(j + 1)(Direccion), 2) <= Math.Round(Punto_final(0), 2) Then
@@ -784,6 +789,12 @@ Public Class Estribos_Totales
         condicion2 = False
         Suma_Long = 0
         delta = 0
+
+        If Separacion_Estribo = 0 Then
+            MsgBox("Estribos en zonas de confinamiento sin separacion definida", MsgBoxStyle.Critical, "efe Prima ce")
+            Exit Sub
+        End If
+
         For j = Pos To 1 Step -1
 
             If Math.Round(ListaOrdenada(i).Lista_Refuerzos_Original(j - 1)(Direccion), 2) >= Math.Round(Punto_inicial(Direccion), 2) Then
@@ -915,7 +926,8 @@ Public Class Estribos_Totales
             }
             Lista_Cantidades_i.Lista_Estribos.Add(Estribo_i)
         Else
-            MsgBox("Estribos en zonas de confinamiento sin separacion definida")
+            MsgBox("Estribos en zonas de confinamiento sin separacion definida", MsgBoxStyle.Critical, "efe Prima ce")
+            Exit Sub
         End If
 
         Bloque_Estribo.Layer = Layer
@@ -1125,6 +1137,11 @@ Public Class Estribos_Totales
                 Long_Gancho = 0.174
                 Dibujar_Gancho(Coord_Gancho, Long_Gancho, Nombre_Bloque, dynamic_property1, editar_property1, pos_ini)
 
+                If Lista_sep_ganchos(i) = 0 Then
+                    MsgBox("Estribos en zonas de confinamiento sin separacion definida", MsgBoxStyle.Critical, "efe Prima ce")
+                    Exit Sub
+                End If
+
                 gancho_i = New Seccion_Ganchos With
                 {
                     .Longitud = (bw / 100) - 0.04 + 2 * ganchos_180(diametro(i)),
@@ -1136,14 +1153,15 @@ Public Class Estribos_Totales
                 }
                 Lista_Cantidades_i.Lista_Ganchos.Add(gancho_i)
 
-                If pos_ini = 0 Then
-                    pos_ini = 1
-                Else
-                    pos_ini = 0
-                End If
 
-                Contador += 1
-            End If
+                If pos_ini = 0 Then
+                        pos_ini = 1
+                    Else
+                        pos_ini = 0
+                    End If
+
+                    Contador += 1
+                End If
 
         Next
 
