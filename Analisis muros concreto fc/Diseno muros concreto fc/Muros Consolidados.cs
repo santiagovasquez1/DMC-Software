@@ -4,6 +4,17 @@ using System.Linq;
 
 namespace Diseno_muros_concreto_fc
 {
+
+    public enum Reduccion
+    {
+        Arriba,
+        Abajo,
+        Izquierda,
+        Derecha,
+        Centro,
+        NoAplica
+    }
+
     [Serializable]
     public class Muros_Consolidados_1 : Diseño_de_muros_concreto_V2.Muros_Consolidados
     {
@@ -12,6 +23,7 @@ namespace Diseno_muros_concreto_fc
 
         public void Calculo_Peso_Aprox()
         {
+           
             double Traslapo, Peso_long_i, Peso_malla_i;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
@@ -356,6 +368,7 @@ namespace Diseno_muros_concreto_fc
                 Muro_i.lw.AddRange(Auxiliar.Select(x => x.lw));
                 Muro_i.Hw.AddRange(Auxiliar.Select(x => x.hw));
                 Muro_i.Calculo_H_acumulado();
+                Muro_i.Reduccion = Diseño_de_muros_concreto_V2.Reduccion.NoAplica;
                 Muro_i.Rho_l.AddRange(Auxiliar.Select(x => x.Rho_l_Def));
 
                 for (int j = 0; j < Auxiliar.Count; j++)

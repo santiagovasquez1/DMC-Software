@@ -50,7 +50,6 @@ Public Class Muros_Consolidados
     Public isMuroMaestro As Boolean = False
     Public MuroSimilar As Muros_Consolidados
 
-    Public DireccionCambioEspesor As String = "No Aplica"
     Public CantidaddeMallas_Fic As New List(Of Single)
     Public MallasIndv As New List(Of String)
     Public MallasConCantidad As New List(Of String)
@@ -62,7 +61,7 @@ Public Class Muros_Consolidados
     Public Peso_malla As List(Of Double) = New List(Of Double)
     Public ReadOnly Volumen As List(Of Double) = New List(Of Double)
 
-    Public Reduccion As Reduccion
+    Public Reduccion As Reduccion = Reduccion.NoAplica
     Public NombreBarras As New List(Of List(Of String))
     Public LongitudBarras As New List(Of List(Of Double))
     Public NoBarras As New List(Of Double)

@@ -3,7 +3,18 @@
 Public Class Form_DireccionCambiodeEspesor
 
     Private Sub Form_DireccionCambiodeEspesor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim Lista_i As New Listas_serializadas
+
+        If Muros_lista_2 Is Nothing Then
+            Muros_lista_2 = New List(Of Muros_Consolidados)
+            Serializador.Deserializar(Ruta_1, Lista_i)
+        End If
+
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
+        Listas_Vacias()
         CrearDataGrid(DataGrid_Muros, Muros_lista_2)
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
