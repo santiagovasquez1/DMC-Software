@@ -10,9 +10,7 @@ Public Class Seccion
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
         Cargar_areas_refuerzo()
-
 
     End Sub
 
@@ -95,4 +93,5 @@ Public Class Seccion
         Me.ResumeLayout(False)
 
     End Sub
+
 End Class

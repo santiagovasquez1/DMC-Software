@@ -1,9 +1,5 @@
-﻿Imports System.IO
-
-Module CargarArchivos
+﻿Module CargarArchivos
     Private Lista_texto As New List(Of String)
-
-
 
     Sub Cargar_Resumen()
 

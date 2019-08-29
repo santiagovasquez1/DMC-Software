@@ -1,12 +1,7 @@
-﻿
-
-
-
-
-Public Class RefuerzoHorizontal
-
+﻿Public Class RefuerzoHorizontal
 
     Private nombreMuro_ As String
+
     Public Property NombreMuro() As String
         Get
             Return nombreMuro_
@@ -16,8 +11,8 @@ Public Class RefuerzoHorizontal
         End Set
     End Property
 
-
     Private longitud_ As New List(Of Single)
+
     Public Property Longitud() As List(Of Single)
         Get
             Return longitud_
@@ -27,8 +22,8 @@ Public Class RefuerzoHorizontal
         End Set
     End Property
 
-
     Private no_barra_ As List(Of String)
+
     Public Property No_Barra() As List(Of String)
         Get
             Return no_barra_
@@ -38,8 +33,8 @@ Public Class RefuerzoHorizontal
         End Set
     End Property
 
-
     Private capas_ As List(Of Integer)
+
     Public Property No_Capas() As List(Of Integer)
         Get
             Return capas_
@@ -49,8 +44,8 @@ Public Class RefuerzoHorizontal
         End Set
     End Property
 
-
     Private separacion_ As List(Of Single)
+
     Public Property Separacion() As List(Of Single)
         Get
             Return separacion_
@@ -60,8 +55,8 @@ Public Class RefuerzoHorizontal
         End Set
     End Property
 
-
     Private formaRefuerzo_ As List(Of TipoRefuerzo)
+
     Public Property FormaRefuerzo() As List(Of TipoRefuerzo)
         Get
             Return formaRefuerzo_
@@ -72,6 +67,7 @@ Public Class RefuerzoHorizontal
     End Property
 
     Private hw_ As List(Of Single)
+
     Public Property Hw() As List(Of Single)
         Get
             Return hw_
@@ -82,6 +78,7 @@ Public Class RefuerzoHorizontal
     End Property
 
     Private cantidad_ As New List(Of Integer)
+
     Public Property Cantidad() As List(Of Integer)
         Get
             Return cantidad_
@@ -92,6 +89,7 @@ Public Class RefuerzoHorizontal
     End Property
 
     Private nomenclaturaRefuerzo_ As New List(Of String)
+
     Public Property NomenclaturaRefuerzo() As List(Of String)
         Get
             Return nomenclaturaRefuerzo_
@@ -100,6 +98,7 @@ Public Class RefuerzoHorizontal
             nomenclaturaRefuerzo_ = value
         End Set
     End Property
+
     Sub CalcularCantidadPorPiso(ByVal e_Losa As Single, Optional R As Single = 0.05)
         Cantidad.Clear() : NomenclaturaRefuerzo.Clear()
         For i = 0 To Hw.Count - 1
@@ -118,9 +117,6 @@ Public Class RefuerzoHorizontal
             End If
         Next
 
-
-
     End Sub
-
 
 End Class
