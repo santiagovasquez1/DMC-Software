@@ -527,7 +527,7 @@
         Dim Lista_i As New Listas_serializadas
 
         Guardar_Archivo.Actualizar_Resumen()
-        Guardar_Archivo.Add_Refuerzoi(data_info_f3)
+        'Guardar_Archivo.Add_Refuerzoi(data_info_f3)
 
         If Hviga = 0 Or prof = 0 Or Hfunda = 0 Then
             f_variables.Show()
@@ -566,7 +566,7 @@
                             Auxiliar = New Datos_Refuerzo
                             Auxiliar.Nombre_muro = Lista_graficar(i).Nombre
                             Auxiliar.Load_Coordinates(Lista_graficar(i).Nombre, coordX)
-                            If Auxiliar.Barra.Count > 0 Then
+                            If Auxiliar.Lista_Coordenadas.Count > 0 Then
                                 Dibujar_Refuerzo(Auxiliar)
                             End If
                         End If

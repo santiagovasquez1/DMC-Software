@@ -903,16 +903,20 @@ Public Class Estribos_Totales
 
         Hlibre = (H_piso / 100) - 0.1
 
-        Estribo_i = New Seccion_Estribos With
-        {
-            .Diametro = Diametro,
-            .Separacion = Math.Round(Separacion_Estribo, 3),
-            .Longitdud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
-            .Story = Story,
-            .Pier = Pier_name,
-            .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
-        }
-        Lista_Cantidades_i.Lista_Estribos.Add(Estribo_i)
+        If Separacion_Estribo > 0 Then
+            Estribo_i = New Seccion_Estribos With
+            {
+                .Diametro = Diametro,
+                .Separacion = Math.Round(Separacion_Estribo, 3),
+                .Longitdud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
+                .Story = Story,
+                .Pier = Pier_name,
+                .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
+            }
+            Lista_Cantidades_i.Lista_Estribos.Add(Estribo_i)
+        Else
+            MsgBox("Estribos en zonas de confinamiento sin separacion definida")
+        End If
 
         Bloque_Estribo.Layer = Layer
         Bloque_Estribo.Update()

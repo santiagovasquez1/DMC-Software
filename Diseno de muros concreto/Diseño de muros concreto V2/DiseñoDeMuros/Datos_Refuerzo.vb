@@ -526,6 +526,8 @@
 
         End If
 
+        Pos1 = Math.Round(Pos1, 2)
+        Pos2 = Math.Round(Pos2, 2)
     End Sub
 
     Private Function Find_Diametro(col As Integer, i As Integer, Pos_T1 As Integer, Pos_T2 As Integer) As Integer
@@ -642,6 +644,9 @@
             Pos1 = Pos2 - suma
             Add_Text_Point(Posx, Pos1 + 0.9)
         End If
+
+        Pos1 = Math.Round(Pos1, 2)
+        Pos2 = Math.Round(Pos2, 2)
 
     End Sub
 

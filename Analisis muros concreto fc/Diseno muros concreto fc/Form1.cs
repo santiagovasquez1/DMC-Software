@@ -552,8 +552,11 @@ namespace Diseno_muros_concreto_fc
         private void DibujoSeccionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Diseño_de_muros_concreto_V2.Seccion Formulario = new Diseño_de_muros_concreto_V2.Seccion();
-       
-           
+            if (Listas_Programa.Muros_Consolidados_Listos != null)
+            {
+                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad, Listas_Programa.Ruta_Carpeta);
+            }
+
             Formulario.ShowDialog();
         }
 
