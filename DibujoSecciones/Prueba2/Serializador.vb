@@ -64,12 +64,16 @@ Public Class Serializador
         End If
 
         Dim Lector As Stream = New FileStream(Ruta, FileMode.Open, FileAccess.Read, FileShare.None)
-        Dim Aux As Object = Formatter.Deserialize(Lector)
-        'Lista_Serializadas = CType(Formatter.Deserialize(Lector), Listas_serializadas)
+        Dim Aux2 As Diseño_de_muros_concreto_V2.Listas_serializadas = Formatter.Deserialize(Lector)
+
+        Dim List_MurosConsolidados
+
+        List_MurosConsolidados = CType(Aux2.Lista_Muros, List(Of Diseño_de_muros_concreto_V2.Muros_Consolidados))
+
         Lector.Close()
 
         ''Conversion de listas
-        Convert_listas(Aux)
+        Convert_listas(Lista_Serializadas)
 
     End Sub
 

@@ -12,15 +12,8 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'Try
-        Dim Lista_i As New Listas_Serializadas
+        'Dim Lista_i As New Listas_Serializadas
         Ganchos_180.Clear()
-        Serializador.Deserializar(RutaArchivo, Lista_i)
-
-        'ArchivoTexto(Me)
-
-        'Cargar_Resumen()
-        'CargarRefuerzo()
-
         Ganchos_180.Add("4.5mm", 0.116)
         Ganchos_180.Add("2", 0.116)
         Ganchos_180.Add("3", 0.14)
@@ -30,6 +23,13 @@ Public Class Form1
         Ganchos_180.Add("7", 0.266)
         Ganchos_180.Add("8", 0.305)
         Ganchos_180.Add("10", 0.457)
+
+        'ArchivoTexto(Me)
+
+        Cargar_Resumen()
+        'CargarRefuerzo()
+
+
         ' Catch
 
         'MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
