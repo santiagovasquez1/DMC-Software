@@ -23,8 +23,9 @@ Module Module1
 
     Public Linea As AcadLine
     Public ListaOrdenada As List(Of Muros)
+    Public Lista_Cantidades1 As Lista_Cantidades
 
-    Sub IniciarAplicacion(ByVal Formulario As Seccion, ByRef Lista_cantidades As Lista_Cantidades)
+    Sub IniciarAplicacion(ByVal Formulario As Seccion)
 
         Dim rnd As New Random
 
@@ -1386,23 +1387,17 @@ Module Module1
             Dim Delta_X, Delta_Y As Double
             Delta_X = Xmax + 4.6
             Delta_Y = A(1) + 1
-            Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_cantidades)
+            Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_Cantidades1)
         End If
 
         For Each Muro_ListaOrdenada In ListaOrdenada
             CalcularLongitudRefuerzoHorizontal(Muro_ListaOrdenada)
         Next
 
-        Dim ListaCantidades As Lista_Cantidades
 
-        If ListaCantidades Is Nothing Then
-            ListaCantidades = New Lista_Cantidades
-            ListaCantidades.ListaRefuerzoHorzontal = New List(Of RefuerzoHorizontal)
-        End If
 
         For i = 0 To ListaOrdenada.Count - 1
-            ListaCantidades.ListaRefuerzoHorzontal.RemoveAll(Function(x) x.NombreMuro = ListaOrdenada(i).NombreMuro)
-
+            Lista_Cantidades1.ListaRefuerzoHorzontal.RemoveAll(Function(x) x.NombreMuro = ListaOrdenada(i).NombreMuro)
             Dim MuroRefuerzoHorizontal As New RefuerzoHorizontal
             MuroRefuerzoHorizontal.NombreMuro = ListaOrdenada(i).NombreMuro.ToString
             MuroRefuerzoHorizontal.Longitud = ListaOrdenada(i).LongMallaHorziPorPiso.ToList
@@ -1411,10 +1406,10 @@ Module Module1
             MuroRefuerzoHorizontal.FormaRefuerzo = ListaOrdenada(i).FormaRefuerzoHorizontal_PorPiso.ToList
             MuroRefuerzoHorizontal.Separacion = ListaOrdenada(i).Sep_RefuerzoHorizontal_PorPiso.ToList
             MuroRefuerzoHorizontal.Hw = ListaOrdenada(i).Hw.ToList
-            ListaCantidades.ListaRefuerzoHorzontal.Add(MuroRefuerzoHorizontal)
+            Lista_Cantidades1.ListaRefuerzoHorzontal.Add(MuroRefuerzoHorizontal)
         Next
 
-        For Each MuroRefuerzo In ListaCantidades.ListaRefuerzoHorzontal
+        For Each MuroRefuerzo In Lista_Cantidades1.ListaRefuerzoHorzontal
             MuroRefuerzo.CalcularCantidadPorPiso(0.1)
         Next
 

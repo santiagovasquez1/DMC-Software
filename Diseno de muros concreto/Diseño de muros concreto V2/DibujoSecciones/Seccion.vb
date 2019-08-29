@@ -2,13 +2,18 @@
 
 Public Class Seccion
 
-    Public Lista_Cantidades As New Lista_Cantidades
+
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        If Lista_Cantidades1 Is Nothing Then
+            Lista_Cantidades1 = New Lista_Cantidades
+            Lista_Cantidades1.ListaRefuerzoHorzontal = New List(Of RefuerzoHorizontal)
+        End If
 
         Cargar_areas_refuerzo()
 
@@ -31,7 +36,7 @@ Public Class Seccion
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        IniciarAplicacion(Me, Lista_Cantidades)
+        IniciarAplicacion(Me)
     End Sub
 
     'Mover Pestaña

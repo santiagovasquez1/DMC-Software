@@ -32,6 +32,7 @@ namespace Diseno_muros_concreto_fc
 
         public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
         {
+         
             BinaryFormatter Formatter = new BinaryFormatter();
             OpenFileDialog Myfile = new OpenFileDialog
             {
@@ -42,7 +43,9 @@ namespace Diseno_muros_concreto_fc
             Myfile.ShowDialog();
             Ruta_archivo = Myfile.FileName;
 
-            Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);
+            if (Ruta_archivo != "")
+            {
+                Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);
             var aux = Formatter.Deserialize(Lector);
             Lector.Close();
 
@@ -64,7 +67,7 @@ namespace Diseno_muros_concreto_fc
             }
 
             Convertir_Listas(Lista_i);
-
+            }
         }
 
         private static void Convertir_Listas(Listas_Serializadas_i Lista_i)

@@ -63,13 +63,14 @@ Public Class Serializador
             Ruta = Myfile.FileName
         End If
         Ruta_archivo = Ruta
-        Dim Lector As Stream = New FileStream(Ruta, FileMode.Open, FileAccess.Read, FileShare.None)
+        If Ruta <> "" Then
+            Dim Lector As Stream = New FileStream(Ruta, FileMode.Open, FileAccess.Read, FileShare.None)
         Lista_Serializadas = CType(Formatter.Deserialize(Lector), Listas_serializadas)
         Lector.Close()
 
         ''Conversion de listas
         Convert_listas(Lista_Serializadas)
-
+        End If
     End Sub
 
     Private Shared Sub Convert_listas(Lista_Serializadas As Listas_serializadas)

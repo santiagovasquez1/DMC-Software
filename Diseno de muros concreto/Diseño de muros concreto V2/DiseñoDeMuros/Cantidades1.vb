@@ -51,6 +51,11 @@ Module Cantidades1
 
         Next
 
+
+
+
+
+
         EscrbirTexto(ArchivoTexto)
 
     End Sub

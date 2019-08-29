@@ -85,18 +85,18 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo-vertical-bmp-ConvertImage.ico</ApplicationIcon>
+    <ApplicationIcon>DiseñoDeMuros\logo-vertical-bmp-ConvertImage.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.AutoCAD.Interop">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2020\Autodesk.AutoCAD.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop.Common">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2020\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -137,9 +137,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="alzado_muro.vb" />
-    <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Cantidades1.vb" />
+    <Compile Include="DiseñoDeMuros\alzado_muro.vb" />
+    <Compile Include="DiseñoDeMuros\ApplicationEvents.vb" />
+    <Compile Include="DiseñoDeMuros\Cantidades1.vb" />
     <Compile Include="DibujoSecciones\CargarArchivos.vb" />
     <Compile Include="DibujoSecciones\Crear_Estribos.vb" />
     <Compile Include="DibujoSecciones\Estribos_Totales.vb" />
@@ -155,62 +155,62 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DibujoSecciones\Seccion_Ganchos.vb" />
-    <Compile Include="DireccionCambioMuro.vb" />
-    <Compile Include="ExportExcel.vb" />
-    <Compile Include="Form_DireccionCambiodeEspesor.Designer.vb">
+    <Compile Include="DiseñoDeMuros\DireccionCambioMuro.vb" />
+    <Compile Include="DiseñoDeMuros\ExportExcel.vb" />
+    <Compile Include="DiseñoDeMuros\Form_DireccionCambiodeEspesor.Designer.vb">
       <DependentUpon>Form_DireccionCambiodeEspesor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form_DireccionCambiodeEspesor.vb">
+    <Compile Include="DiseñoDeMuros\Form_DireccionCambiodeEspesor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listas_serializadas.vb" />
-    <Compile Include="Muro.vb" />
-    <Compile Include="Muros_Alzados.Designer.vb">
+    <Compile Include="DiseñoDeMuros\Listas_serializadas.vb" />
+    <Compile Include="DiseñoDeMuros\Muro.vb" />
+    <Compile Include="DiseñoDeMuros\Muros_Alzados.Designer.vb">
       <DependentUpon>Muros_Alzados.vb</DependentUpon>
     </Compile>
-    <Compile Include="Muros_Alzados.vb">
+    <Compile Include="DiseñoDeMuros\Muros_Alzados.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Muros_alzados_C.vb" />
-    <Compile Include="Organizar_alzados.vb" />
-    <Compile Include="Serializador.vb" />
-    <Compile Include="Shells_Prop.vb" />
-    <Compile Include="Similar.Designer.vb">
+    <Compile Include="DiseñoDeMuros\Muros_alzados_C.vb" />
+    <Compile Include="DiseñoDeMuros\Organizar_alzados.vb" />
+    <Compile Include="DiseñoDeMuros\Serializador.vb" />
+    <Compile Include="DiseñoDeMuros\Shells_Prop.vb" />
+    <Compile Include="DiseñoDeMuros\Similar.Designer.vb">
       <DependentUpon>Similar.vb</DependentUpon>
     </Compile>
-    <Compile Include="Similar.vb">
+    <Compile Include="DiseñoDeMuros\Similar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cantidades_Muro_Mallas.vb" />
-    <Compile Include="Cargar_Archivos.vb" />
-    <Compile Include="Crear_tablas.vb" />
-    <Compile Include="Datos  refuerzo long.vb" />
-    <Compile Include="Datos_Refuerzo.vb" />
-    <Compile Include="DibujoAutocad.vb" />
-    <Compile Include="Form1.vb">
+    <Compile Include="DiseñoDeMuros\Cantidades_Muro_Mallas.vb" />
+    <Compile Include="DiseñoDeMuros\Cargar_Archivos.vb" />
+    <Compile Include="DiseñoDeMuros\Crear_tablas.vb" />
+    <Compile Include="DiseñoDeMuros\Datos  refuerzo long.vb" />
+    <Compile Include="DiseñoDeMuros\Datos_Refuerzo.vb" />
+    <Compile Include="DiseñoDeMuros\DibujoAutocad.vb" />
+    <Compile Include="DiseñoDeMuros\Form1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
+    <Compile Include="DiseñoDeMuros\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.Designer.vb">
+    <Compile Include="DiseñoDeMuros\Form3.Designer.vb">
       <DependentUpon>Form3.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form3.vb">
+    <Compile Include="DiseñoDeMuros\Form3.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form5.Designer.vb">
+    <Compile Include="DiseñoDeMuros\Form5.Designer.vb">
       <DependentUpon>Form5.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form5.vb">
+    <Compile Include="DiseñoDeMuros\Form5.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar_Ayuda.vb" />
-    <Compile Include="Guardar_Archivo.vb" />
-    <Compile Include="Load_Areas_Refuerzo.vb" />
-    <Compile Include="Modulo1.vb" />
-    <Compile Include="Muros_Consolidados_2.vb" />
+    <Compile Include="DiseñoDeMuros\Generar_Ayuda.vb" />
+    <Compile Include="DiseñoDeMuros\Guardar_Archivo.vb" />
+    <Compile Include="DiseñoDeMuros\Load_Areas_Refuerzo.vb" />
+    <Compile Include="DiseñoDeMuros\Modulo1.vb" />
+    <Compile Include="DiseñoDeMuros\Muros_Consolidados_2.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -226,30 +226,30 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Objetos_Compartidos.vb" />
-    <Compile Include="Refuerzo_muros.vb" />
-    <Compile Include="Variables Publicas.vb" />
+    <Compile Include="DiseñoDeMuros\Objetos_Compartidos.vb" />
+    <Compile Include="DiseñoDeMuros\Refuerzo_muros.vb" />
+    <Compile Include="DiseñoDeMuros\Variables Publicas.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DibujoSecciones\Seccion.resx">
       <DependentUpon>Seccion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_DireccionCambiodeEspesor.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Form_DireccionCambiodeEspesor.resx">
       <DependentUpon>Form_DireccionCambiodeEspesor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Muros_Alzados.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Muros_Alzados.resx">
       <DependentUpon>Muros_Alzados.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Similar.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Similar.resx">
       <DependentUpon>Similar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Form3.resx">
       <DependentUpon>Form3.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
+    <EmbeddedResource Include="DiseñoDeMuros\Form5.resx">
       <DependentUpon>Form5.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -285,7 +285,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="logo-vertical-bmp-ConvertImage.ico" />
+    <Content Include="DiseñoDeMuros\logo-vertical-bmp-ConvertImage.ico" />
     <None Include="Resources\Editar x16%282%29.png" />
     <None Include="Resources\editarx16.png" />
     <None Include="packages.config" />
@@ -325,5 +325,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
