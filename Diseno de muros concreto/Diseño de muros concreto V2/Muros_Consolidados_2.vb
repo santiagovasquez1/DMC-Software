@@ -62,6 +62,12 @@ Public Class Muros_Consolidados
     Public Peso_malla As List(Of Double) = New List(Of Double)
     Public ReadOnly Volumen As List(Of Double) = New List(Of Double)
 
+    Public Reduccion As Reduccion
+    Public NombreBarras As New List(Of List(Of String))
+    Public LongitudBarras As New List(Of List(Of Double))
+    Public NoBarras As New List(Of Double)
+
+
     Sub CantidadMallas_()
 
         Dim b_ME As Single = 2.35

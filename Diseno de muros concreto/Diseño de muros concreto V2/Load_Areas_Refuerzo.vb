@@ -145,10 +145,16 @@
             ganchos_90.Add(11, 0.5)
             ganchos_90.Add(14, 0.63)
 
-            ganchos_180.Add("4.5mm", 0.135)
-            ganchos_180.Add("2", 0.135)
-            ganchos_180.Add("3", 0.169)
-            ganchos_180.Add("4", 0.151)
+            ganchos_180.Add("4.5mm", 0.116)
+            ganchos_180.Add("2", 0.116)
+            ganchos_180.Add("3", 0.14)
+            ganchos_180.Add("4", 0.167)
+            ganchos_180.Add("5", 0.192)
+            ganchos_180.Add("6", 0.228)
+            ganchos_180.Add("7", 0.266)
+            ganchos_180.Add("8", 0.305)
+            ganchos_180.Add("10", 0.457)
+
 
             NoBarraADiametro.Add(2, "1/4¨")
             NoBarraADiametro.Add(3, "3/8¨")

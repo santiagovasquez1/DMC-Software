@@ -1,6 +1,6 @@
 ﻿<Serializable>
 Public Class Listas_Serializadas
-
-    Public Lista_Muros_Consolidados = New List(Of Muros_Consolidados)
+    Inherits Diseño_de_muros_concreto_V2.Listas_serializadas
+    Public Shared Lista_Muros_Consolidados As New List(Of Muros_Consolidados)
 
 End Class
