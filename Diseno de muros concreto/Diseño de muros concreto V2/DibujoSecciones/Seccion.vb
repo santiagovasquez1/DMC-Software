@@ -10,6 +10,15 @@ Public Class Seccion
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Dim Lista_i As New Listas_serializadas
+        If Muros_lista_2 Is Nothing Then
+            Muros_lista_2 = New List(Of Muros_Consolidados)
+            Serializador.Deserializar(Ruta_1, Lista_i)
+        End If
+
+        ''Crear lista vacia de alzado y refuerzos
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
+        Listas_Vacias()
         Cargar_areas_refuerzo()
 
     End Sub

@@ -573,8 +573,4 @@ Public Class Form22
 
     End Sub
 
-    Private Sub button10_Click(sender As Object, e As EventArgs) Handles button10.Click
-
-    End Sub
-
 End Class
