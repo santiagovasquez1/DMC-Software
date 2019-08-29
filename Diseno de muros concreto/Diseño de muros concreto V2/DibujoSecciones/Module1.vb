@@ -410,7 +410,6 @@ Module Module1
                                 ListaOrdenada(i).Lista_NoBarras.Add(String1.Substring(0, No_Letras - 1))
                                 ListaOrdenada(i).Lista_LongitudBarras.Add(String1.Substring(No_Letras2))
                             Next
-
                         Catch EX As Exception
 
                         End Try
@@ -745,12 +744,12 @@ Module Module1
             With ListaOrdenada(i)
 
                 For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                        AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
-                    Next
-                    For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
+                    AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
+                Next
+                For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
 
-                        AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
-                    Next
+                    AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
+                Next
 
             End With
         Next
@@ -1485,7 +1484,7 @@ Module Module1
                             If .MurosVecinosDerecha.Count = 0 And .MurosVecinosIzquierda.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosIzquierda(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosIzquierda(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
                                     Try
@@ -1507,7 +1506,7 @@ Module Module1
 
                             If .MurosVecinosDerecha.Count <> 0 And .MurosVecinosIzquierda.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosDerecha(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosDerecha(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
@@ -1528,7 +1527,7 @@ Module Module1
 
                             If .MurosVecinosDerecha.Count = 0 And .MurosVecinosIzquierda.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R2G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
 
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
@@ -1544,7 +1543,7 @@ Module Module1
 
                             'I.1-----Caso Cuando Hay Gancho a la Izquierda y anclaje en la Derecha
                             Try : EspesorVecino = .MurosVecinosDerecha(0).EspesorePorPiso(i) : Catch : End Try
-                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
@@ -1605,7 +1604,7 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
                             Try : EspesorVecino = .MurosVecinosIzquierda(0).EspesorePorPiso(i) : Catch : End Try
-                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
@@ -1735,7 +1734,7 @@ Module Module1
                             If .MurosVecinosArriba.Count = 0 And .MurosVecinosAbajo.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosAbajo(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosAbajo(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
@@ -1757,7 +1756,7 @@ Module Module1
 
                             If .MurosVecinosArriba.Count <> 0 And .MurosVecinosAbajo.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosArriba(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosArriba(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
@@ -1780,7 +1779,7 @@ Module Module1
 
                             If .MurosVecinosArriba.Count = 0 And .MurosVecinosAbajo.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R2G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                                 'Cambio4-----OK!
                             End If
@@ -1795,7 +1794,7 @@ Module Module1
 
                             'I.1-----Caso Cuando Hay Gancho a la Abajo y anclaje en la Arriba
                             Try : EspesorVecino = .MurosVecinosArriba(0).EspesorePorPiso(i) : Catch : End Try
-                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
@@ -1860,7 +1859,7 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
                             Try : EspesorVecino = .MurosVecinosAbajo(0).EspesorePorPiso(i) : Catch : End Try
-                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + Ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
+                            LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try

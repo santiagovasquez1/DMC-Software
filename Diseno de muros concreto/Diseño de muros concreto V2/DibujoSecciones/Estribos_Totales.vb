@@ -436,7 +436,9 @@ Public Class Estribos_Totales
         For k = 0 To prueba2.Count - 1
             Totales = prueba.FindAll(Function(X) X.Separacion = prueba2(k)).Count
             Texto = Totales & " Ganchos #" & prueba.Find(Function(X) X.Separacion = prueba2(k)).Diametro & " a " & prueba2(k)
+
 #Region "VariablesDibujo"
+
             If prueba2.Count > 1 Then
                 Coord_Gancho = {delta_x + 0.25, Pos_Y - 0.087, 0}
             Else
@@ -447,7 +449,9 @@ Public Class Estribos_Totales
             Dibujar_Gancho(Coord_Gancho, Long_Gancho, "FC_B_Gancho Tipo 5", dynamic_property1, editar_property1, 0)
             Add_Texto(Texto, Pc, "FC_R-80", "FC_TEXT1", 0, 0.45, AcAttachmentPoint.acAttachmentPointMiddleCenter)
             delta_x += 0.5
+
 #End Region
+
         Next
     End Sub
 
@@ -1119,7 +1123,7 @@ Public Class Estribos_Totales
 
                 gancho_i = New Seccion_Ganchos With
                 {
-                    .Longitud = (bw / 100) - 0.04 + 2 * Ganchos_180(diametro(i)),
+                    .Longitud = (bw / 100) - 0.04 + 2 * ganchos_180(diametro(i)),
                     .Diametro = diametro(i),
                     .Separacion = Math.Round(Lista_sep_ganchos(i), 3),
                     .Pier = Pier_name,
