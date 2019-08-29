@@ -1,25 +1,5 @@
-﻿Imports System.IO
-
-Module CargarArchivos
+﻿Module CargarArchivos
     Private Lista_texto As New List(Of String)
-
-    Sub ArchivoTexto(ByVal Form As Form1)
-
-        Dim sline As String
-
-        Lista_texto.Clear()
-
-        Dim Lector As New StreamReader(Form.RutaArchivo)
-
-        Do
-            sline = Lector.ReadLine()
-            Lista_texto.Add(sline)
-
-        Loop Until sline Is Nothing
-
-        Lector.Close()
-
-    End Sub
 
     Sub Cargar_Resumen()
 

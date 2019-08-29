@@ -5,7 +5,7 @@ Public Class Crear_Estribos
     Public Bloque_Estribo As AcadBlockReference
     Public Bloque_Gancho As AcadBlockReference
 
-    Sub Determinar_Estribos(ByVal Formulario As Form1)
+    Sub Determinar_Estribos(ByVal Formulario As Seccion)
 
         Dim Suma_Long, delta As Single
         Dim Punto_inicial As Double()

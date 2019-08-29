@@ -280,7 +280,7 @@ namespace Diseno_muros_concreto_fc
             {
                 Capacidad_proyecto = Listas_Programa.Capacidad,
                 Lista_Alzados = new List<Alzado_muro>(),
-                lista_refuerzo = new List<refuerzo_muros>(),
+                lista_refuerzo = new List<Refuerzo_muros>(),
                 Lista_Muros = Listas_Programa.Muros_Consolidados_Listos,
                 Muros_generales=Listas_Programa.Lista_Muros,                
             };
@@ -353,7 +353,7 @@ namespace Diseno_muros_concreto_fc
                 Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad, Listas_Programa.Ruta_Carpeta);
             }
 
-            Diseño_de_muros_concreto_V2.Form1 Formulario1 = new Diseño_de_muros_concreto_V2.Form1();
+            Diseño_de_muros_concreto_V2.Form22 Formulario1 = new Diseño_de_muros_concreto_V2.Form22();
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1,Listas);
             murosSimilaresToolStripMenuItem.Enabled = true;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = true;
@@ -551,8 +551,9 @@ namespace Diseno_muros_concreto_fc
 
         private void DibujoSeccionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Prueba2.Form1 Formulario = new Prueba2.Form1();
-            Formulario.RutaArchivo = Listas_Programa.Ruta_archivo;
+            Diseño_de_muros_concreto_V2.Seccion Formulario = new Diseño_de_muros_concreto_V2.Seccion();
+       
+           
             Formulario.ShowDialog();
         }
 

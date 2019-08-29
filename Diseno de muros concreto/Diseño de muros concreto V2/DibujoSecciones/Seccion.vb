@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 
 Public Class Seccion
-    Public RutaArchivo As String
+
     Public Lista_Cantidades As New Lista_Cantidades
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
@@ -10,9 +10,7 @@ Public Class Seccion
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
         Cargar_areas_refuerzo()
-
 
     End Sub
 
@@ -95,4 +93,5 @@ Public Class Seccion
         Me.ResumeLayout(False)
 
     End Sub
+
 End Class

@@ -24,7 +24,7 @@ Module Module1
     Public Linea As AcadLine
     Public ListaOrdenada As List(Of Muros)
 
-    Sub IniciarAplicacion(ByVal Formulario As Form1, ByRef Lista_cantidades As Lista_Cantidades)
+    Sub IniciarAplicacion(ByVal Formulario As Seccion, ByRef Lista_cantidades As Lista_Cantidades)
 
         Dim rnd As New Random
 
@@ -392,8 +392,25 @@ Module Module1
                         Next
 
                         Try
-                            ListaOrdenada(i).Lista_NoBarras = Muros_lista_2(j).NombreBarras(Indice)
-                            ListaOrdenada(i).Lista_LongitudBarras = Muros_lista_2(j).LongitudBarras(Indice)
+
+                            Dim Sstring_Longtiud As List(Of String)
+                            Sstring_Longtiud = alzado_lista.Find(Function(x) x.pier = ListaOrdenada(i).NombreMuro And x.story = "Story" & No_Piso).Alzado_Longitud.ToList
+                            For m = 0 To Sstring_Longtiud.Count - 1
+                                Dim String1 As String = Sstring_Longtiud(m)
+                                Dim No_Letras, No_Letras2 As Integer
+                                For s = 0 To Len(String1) - 1
+                                    If String1.Chars(s) = "#" Then
+                                        No_Letras = s
+                                    End If
+                                    If String1.Chars(s) = "=" Then
+                                        No_Letras2 = s
+                                    End If
+                                Next
+
+                                ListaOrdenada(i).Lista_NoBarras.Add(String1.Substring(0, No_Letras - 1))
+                                ListaOrdenada(i).Lista_LongitudBarras.Add(String1.Substring(No_Letras2))
+                            Next
+
                         Catch EX As Exception
 
                         End Try
@@ -726,22 +743,22 @@ Module Module1
             Dim LabelAux As Integer
             LabelAux = Str(1 + i)
             With ListaOrdenada(i)
-                If .Lista_LongitudBarras.Count <> 0 Then
-                    For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
+
+                For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
                         AddRefuerzo(.Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                     Next
                     For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
 
                         AddRefuerzo(.Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, LabelAux, 1, "FC_REFUERZO 2")
                     Next
-                End If
+
             End With
         Next
 
         'COTAS Y NUMERO DE REFUERZO
         For i = 0 To ListaOrdenada.Count - 1
             With ListaOrdenada(i)
-                If .Lista_LongitudBarras.Count <> 0 Then
+                If .Lista_Refuerzos_Fila_Min.Count <> 0 Or .Lista_Refuerzos_Fila_Max.Count <> 0 Then
                     If .DireccionMuro = "Vertical" Then
                         Dim RangoEspesorLista As New List(Of Double())
                         Dim RangoEspesorListaX As New List(Of Double())
@@ -1339,7 +1356,7 @@ Module Module1
         For Each Muro In ListaOrdenada
             If Muro.RefuerzoHorizontalLabel <> "" Then
 
-                MALLAOREFUERZOHORIZONTAL("FC_REFUERZO HORIZONTAL 2", Muro, Muro.Capas_RefuerzoHorizontal, Muro.RecubrimientoRefuerzo, (Muro.RecubrimientoRefuerzo - Muro.Xmin), (Muro.RecubrimientoRefuerzo - Muro.Ymin), Muro.RecubrimientoRefuerzo, Ganchos_180(Muro.RefuerzoHorizontalLabel))
+                MALLAOREFUERZOHORIZONTAL("FC_REFUERZO HORIZONTAL 2", Muro, Muro.Capas_RefuerzoHorizontal, Muro.RecubrimientoRefuerzo, (Muro.RecubrimientoRefuerzo - Muro.Xmin), (Muro.RecubrimientoRefuerzo - Muro.Ymin), Muro.RecubrimientoRefuerzo, ganchos_180(Muro.RefuerzoHorizontalLabel))
             End If
         Next
 
