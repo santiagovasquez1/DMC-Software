@@ -16,7 +16,6 @@ Public Class Seccion
             Serializador.Deserializar(Ruta_1, Lista_i)
         End If
 
-        ''Crear lista vacia de alzado y refuerzos
         Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
 
         If Lista_Cantidades1 Is Nothing Then
@@ -24,6 +23,13 @@ Public Class Seccion
             Lista_Cantidades1.ListaRefuerzoHorzontal = New List(Of RefuerzoHorizontal)
         End If
         Cargar_areas_refuerzo()
+
+        If Ruta_1 = "" Then
+            Me.Close()
+            MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
+        End If
+
+
 
     End Sub
 

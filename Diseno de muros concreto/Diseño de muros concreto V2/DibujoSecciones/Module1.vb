@@ -1410,7 +1410,7 @@ Module Module1
         Next
 
         For Each MuroRefuerzo In Lista_Cantidades1.ListaRefuerzoHorzontal
-            MuroRefuerzo.CalcularCantidadPorPiso(0.1)
+            MuroRefuerzo.Nomenclatura(0.1)
         Next
 
         Muros_V.Clear()
@@ -1436,38 +1436,59 @@ Module Module1
                     Dim R_1 As Single = 0.02 : Dim R_2 As Single = 0.15 : Dim Long_Gan_V As Single = 0.3 : Dim Delta As Single = 0
                     Dim EspesorVecino As Single = 0
                     If .DireccionMuro = "Horizontal" Then
+                        Dim MuroAExtender1 As New List(Of Muros) : Dim MuroAExtender2 As New List(Of Muros) : Dim MuroL1, MuroL2 As String
 
+                        For j = 0 To .MurosVecinosClase.Count - 1
+                            If Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XminE, 2) Or Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XminE, 2) Then
+
+                                MuroAExtender1.Add(.MurosVecinosClase(j))
+                                If Math.Round(.MurosVecinosClase(j).YmaxE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(.MurosVecinosClase(j).YmaxE, 2) = Math.Round(.YminE, 2) Then
+                                    MuroL1 = "MuroLArriba"
+                                ElseIf Math.Round(.MurosVecinosClase(j).YminE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(.MurosVecinosClase(j).YminE, 2) = Math.Round(.YminE, 2) Then
+                                    MuroL1 = "MuroLAbajo"
+                                End If
+                            End If
+                            If Math.Round(.XmaxE, 2) = Math.Round(.MurosVecinosClase(j).XminE, 2) Or Math.Round(.XmaxE, 2) = Math.Round(.MurosVecinosClase(j).XmaxE, 2) Then
+                                MuroAExtender2.Add(.MurosVecinosClase(j))
+
+                                If Math.Round(.MurosVecinosClase(j).YmaxE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(.MurosVecinosClase(j).YmaxE, 2) = Math.Round(.YminE, 2) Then
+                                    MuroL2 = "MuroLArriba"
+                                ElseIf Math.Round(.MurosVecinosClase(j).YminE, 2) = Math.Round(.YmaxE, 2) Or Math.Round(.MurosVecinosClase(j).YminE, 2) = Math.Round(.YminE, 2) Then
+                                    MuroL2 = "MuroLAbajo"
+                                End If
+                            End If
+                        Next
 #Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
+
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
-                            If .MurosVecinosDerecha.Count <> 0 And .MurosVecinosIzquierda.Count <> 0 Then
-
+                            If MuroAExtender2.Count <> 0 And MuroAExtender1.Count <> 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosDerecha(0).EspesorReal + .MurosVecinosIzquierda(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroAExtender2(0).EspesorReal + MuroAExtender1(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
 
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1476,21 +1497,21 @@ Module Module1
 
                             End If
 
-                            If .MurosVecinosDerecha.Count = 0 And .MurosVecinosIzquierda.Count <> 0 Then
+                            If MuroAExtender2.Count = 0 And MuroAExtender1.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosIzquierda(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroAExtender1(0).EspesorReal - R_1 + Long_Gan_V)
 
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1499,19 +1520,19 @@ Module Module1
 
                             End If
 
-                            If .MurosVecinosDerecha.Count <> 0 And .MurosVecinosIzquierda.Count = 0 Then
+                            If MuroAExtender2.Count <> 0 And MuroAExtender1.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosDerecha(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroAExtender2(0).EspesorReal - R_1 + Long_Gan_V)
 
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1520,7 +1541,7 @@ Module Module1
 
                             End If
 
-                            If .MurosVecinosDerecha.Count = 0 And .MurosVecinosIzquierda.Count = 0 Then
+                            If MuroAExtender2.Count = 0 And MuroAExtender1.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R2G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
 
@@ -1537,16 +1558,16 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
                             'I.1-----Caso Cuando Hay Gancho a la Izquierda y anclaje en la Derecha
-                            Try : EspesorVecino = .MurosVecinosDerecha(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroAExtender2(0).EspesorePorPiso(i) : Catch : End Try
                             LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
-                                    Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1))
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
+                                    Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch
@@ -1557,16 +1578,16 @@ Module Module1
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
                             ' ----FIN I.1
 
-                            If .MurosVecinosIzquierda.Count <> 0 Then
+                            If MuroAExtender1.Count <> 0 Then
 
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosIzquierda(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroAExtender1(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L
                                 Try
-                                    If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1))
+                                    If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 Catch
@@ -1575,11 +1596,11 @@ Module Module1
                                 End Try
 
                                 Try
-                                    If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1))
+                                    If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 Catch
@@ -1598,16 +1619,16 @@ Module Module1
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
-                            Try : EspesorVecino = .MurosVecinosIzquierda(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroAExtender1(0).EspesorePorPiso(i) : Catch : End Try
                             LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
-                                    Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1))
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
+                                    Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) / 2
                                 End If
 
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
@@ -1615,26 +1636,26 @@ Module Module1
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
-                            If .MurosVecinosDerecha.Count <> 0 Then
+                            If MuroAExtender2.Count <> 0 Then
 
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosDerecha(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroAExtender2(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L
                                 Try
-                                    If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1))
+                                    If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 Catch : End Try
 
                                 Try
-                                    If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1))
+                                    If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta : Catch : End Try
 
@@ -1650,28 +1671,28 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 OrElse .Leb_Dr_PorPiso(i) >= .Longitud And .Leb_Izq_PorPiso(i) = 0 OrElse .Leb_Izq_PorPiso(i) >= .Longitud And .Leb_Dr_PorPiso(i) = 0 Then
 
                             Dim EspesorVecino2 As Single = 0
-                            Try : EspesorVecino = .MurosVecinosIzquierda(0).EspesorePorPiso(i) : Catch : End Try
-                            Try : EspesorVecino2 = .MurosVecinosDerecha(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroAExtender1(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino2 = MuroAExtender2(0).EspesorePorPiso(i) : Catch : End Try
 
                             LongitudRefuerzoHorizontal = .Longitud + EspesorVecino + EspesorVecino2 - 2 * R_2
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R
 
                             Try
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Derecha Then
-                                    Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1))
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
+                                    Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosIzquierda(0).EspesorePorPiso(i) - .MurosVecinosIzquierda(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroAExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroAExtender1(0).EspesorePorPiso(i) - MuroAExtender1(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch : End Try
 
                             Try
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Izquierda Then
-                                    Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1))
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
+                                    Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosDerecha(0).EspesorePorPiso(i) - .MurosVecinosDerecha(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroAExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroAExtender2(0).EspesorePorPiso(i) - MuroAExtender2(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch : End Try
@@ -1684,39 +1705,73 @@ Module Module1
 
                     Else
 
+
+                        '------------------------------Verticales------------------"
+
+
+                        Dim MurosaExtenderMalla As Integer = 0
+                        Dim MuroYaExtender1 As New List(Of Muros) : Dim MuroYaExtender2 As New List(Of Muros) : Dim R1 As Double = 0 : Dim R2 As Double = 0
+                        Dim MuroL1 As String = "" : Dim MuroL2 As String = "" : Dim DireccGancho1 As Integer = 0 : Dim DireccGancho2 As Integer = 0
+
+                        For j = 0 To .MurosVecinosClase.Count - 1
+
+                            If Math.Round(.MurosVecinosClase(j).YmaxE, 2) = Math.Round(.YminE, 2) Or Math.Round(.MurosVecinosClase(j).YminE, 2) = Math.Round(.YminE, 2) Then
+                                MurosaExtenderMalla = MurosaExtenderMalla + 1
+                                MuroYaExtender1.Add(.MurosVecinosClase(j))
+                                If Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XminE, 2) Then
+                                    MuroL1 = "MuroLIzquierda"
+                                ElseIf Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XminE, 2) Then
+                                    MuroL1 = "MuroLDerecha"
+                                End If
+
+                            End If
+
+                            If Math.Round(.YmaxE, 2) = Math.Round(.MurosVecinosClase(j).YminE, 2) Or Math.Round(.YmaxE, 2) = Math.Round(.MurosVecinosClase(j).YmaxE, 2) Then
+
+                                MuroYaExtender2.Add(.MurosVecinosClase(j))
+                                If Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XminE, 2) Then
+                                    MuroL2 = "MuroLIzquierda"
+                                ElseIf Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XmaxE, 2) Or Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XminE, 2) Then
+                                    MuroL2 = "MuroLDerecha"
+                                End If
+                            End If
+
+                        Next
+
+
 #Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
-                            If .MurosVecinosArriba.Count <> 0 And .MurosVecinosAbajo.Count <> 0 Then
+                            If MuroYaExtender2.Count <> 0 And MuroYaExtender1.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosArriba(0).EspesorReal + .MurosVecinosAbajo(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroYaExtender2(0).EspesorReal + MuroYaExtender1(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
 
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
 
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1726,21 +1781,21 @@ Module Module1
 
                             End If
 
-                            If .MurosVecinosArriba.Count = 0 And .MurosVecinosAbajo.Count <> 0 Then
+                            If MuroYaExtender2.Count = 0 And MuroYaExtender1.Count <> 0 Then
 
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosAbajo(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroYaExtender1(0).EspesorReal - R_1 + Long_Gan_V)
 
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1749,20 +1804,20 @@ Module Module1
                                 'Cambio2-----OK!
                             End If
 
-                            If .MurosVecinosArriba.Count <> 0 And .MurosVecinosAbajo.Count = 0 Then
+                            If MuroYaExtender2.Count <> 0 And MuroYaExtender1.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
-                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (.MurosVecinosArriba(0).EspesorReal - R_1 + Long_Gan_V)
+                                LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroYaExtender2(0).EspesorReal - R_1 + Long_Gan_V)
 
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 End If
 
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) : Catch : Delta = 0
                                     End Try
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta / 2
                                 End If
@@ -1772,7 +1827,7 @@ Module Module1
 
                             End If
 
-                            If .MurosVecinosArriba.Count = 0 And .MurosVecinosAbajo.Count = 0 Then
+                            If MuroYaExtender2.Count = 0 And MuroYaExtender1.Count = 0 Then
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R2G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 * 2 + 2 * ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
@@ -1788,16 +1843,16 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
                             'I.1-----Caso Cuando Hay Gancho a la Abajo y anclaje en la Arriba
-                            Try : EspesorVecino = .MurosVecinosArriba(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroYaExtender2(0).EspesorePorPiso(i) : Catch : End Try
                             LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
-                                    Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1))
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
+                                    Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) / 2
                                 End If
 
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
@@ -1811,16 +1866,16 @@ Module Module1
 
                             'Cambio4 --- OK!
 
-                            If .MurosVecinosAbajo.Count <> 0 Then
+                            If MuroYaExtender1.Count <> 0 Then
 
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosAbajo(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroYaExtender1(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L
                                 Try
-                                    If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1))
+                                    If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 Catch
@@ -1829,11 +1884,11 @@ Module Module1
                                 End Try
 
                                 Try
-                                    If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1))
+                                    If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) / 2
                                     End If
 
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
@@ -1853,42 +1908,42 @@ Module Module1
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 Then
 
-                            Try : EspesorVecino = .MurosVecinosAbajo(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroYaExtender1(0).EspesorePorPiso(i) : Catch : End Try
                             LongitudRefuerzoHorizontal = .Longitud - R_1 + EspesorVecino - R_2 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i))
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R1G
 
                             Try
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
-                                    Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1))
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
+                                    Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch : End Try
 
                             .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
 
-                            If .MurosVecinosArriba.Count <> 0 Then
+                            If MuroYaExtender2.Count <> 0 Then
 
-                                LongitudRefuerzoHorizontal = .Longitud + .MurosVecinosArriba(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
+                                LongitudRefuerzoHorizontal = .Longitud + MuroYaExtender2(0).EspesorePorPiso(i) + Long_Gan_V - R_1 + EspesorVecino - R_2
                                 .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L
                                 Try
-                                    If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1))
+                                    If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                                 Catch : End Try
 
                                 Try
-                                    If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1))
+                                    If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1))
                                     End If
-                                    If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
-                                        Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) / 2
+                                    If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                        Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) / 2
                                     End If
                                     LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta : Catch : End Try
 
@@ -1904,28 +1959,28 @@ Module Module1
                         If .Leb_Dr_PorPiso(i) >= 0.45 And .Leb_Izq_PorPiso(i) >= 0.45 OrElse .Leb_Dr_PorPiso(i) >= .Longitud And .Leb_Izq_PorPiso(i) = 0 OrElse .Leb_Izq_PorPiso(i) >= .Longitud And .Leb_Dr_PorPiso(i) = 0 Then
 
                             Dim EspesorVecino2 As Single = 0
-                            Try : EspesorVecino = .MurosVecinosAbajo(0).EspesorePorPiso(i) : Catch : End Try
-                            Try : EspesorVecino2 = .MurosVecinosArriba(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino = MuroYaExtender1(0).EspesorePorPiso(i) : Catch : End Try
+                            Try : EspesorVecino2 = MuroYaExtender2(0).EspesorePorPiso(i) : Catch : End Try
 
                             LongitudRefuerzoHorizontal = .Longitud + EspesorVecino + EspesorVecino2 - 2 * R_2
                             .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.R
 
                             Try
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Arriba Then
-                                    Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1))
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
+                                    Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosAbajo(0).EspesorePorPiso(i) - .MurosVecinosAbajo(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroYaExtender1(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroYaExtender1(0).EspesorePorPiso(i) - MuroYaExtender1(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch : End Try
 
                             Try
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Abajo Then
-                                    Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1))
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then
+                                    Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1))
                                 End If
-                                If .MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
-                                    Delta = Math.Abs(.MurosVecinosArriba(0).EspesorePorPiso(i) - .MurosVecinosArriba(0).EspesorePorPiso(i + 1)) / 2
+                                If MuroYaExtender2(0).CambioDireccion = Reduccion.Centro Then
+                                    Delta = Math.Abs(MuroYaExtender2(0).EspesorePorPiso(i) - MuroYaExtender2(0).EspesorePorPiso(i + 1)) / 2
                                 End If
                                 LongitudRefuerzoHorizontal = LongitudRefuerzoHorizontal - Delta
                             Catch : End Try

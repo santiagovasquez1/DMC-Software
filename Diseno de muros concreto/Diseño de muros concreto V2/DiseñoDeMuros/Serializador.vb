@@ -41,10 +41,11 @@ Public Class Serializador
             ruta = Myfile.FileName
         End If
         Ruta_archivo = ruta
-        Dim Escritor As Stream = New FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None)
+        If ruta <> "" Then
+            Dim Escritor As Stream = New FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None)
         Formatter.Serialize(Escritor, Lista_serializadas)
         Escritor.Close()
-
+        End If
     End Sub
 
     Public Shared Sub Deserializar(ByVal Ruta As String, ByRef Lista_Serializadas As Listas_serializadas)

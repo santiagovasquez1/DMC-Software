@@ -24,10 +24,11 @@ namespace Diseno_muros_concreto_fc
                 Myfile.ShowDialog();
                 ruta = Myfile.FileName;
             }
-
+            if(ruta!= "") { 
             Stream Escritor = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None);
             formatter.Serialize(Escritor, Lista_i);
             Escritor.Close();
+            }
         }
 
         public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
