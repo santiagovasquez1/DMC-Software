@@ -31,8 +31,8 @@ Partial Class Seccion
         Me.Label_BarraProgreso = New System.Windows.Forms.Label()
         Me.BarraPersonalizada2 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel2.SuspendLayout()
         Me.BarraPersonalizada.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -142,18 +142,6 @@ Partial Class Seccion
         Me.Panel1.Size = New System.Drawing.Size(306, 23)
         Me.Panel1.TabIndex = 24
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.Black
-        Me.Label6.Location = New System.Drawing.Point(3, 4)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(89, 15)
-        Me.Label6.TabIndex = 21
-        Me.Label6.Text = "Dibujar Sección"
-        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
@@ -166,6 +154,18 @@ Partial Class Seccion
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.Black
+        Me.Label6.Location = New System.Drawing.Point(3, 4)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(89, 15)
+        Me.Label6.TabIndex = 21
+        Me.Label6.Text = "Dibujar Sección"
+        '
         'Seccion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -175,6 +175,8 @@ Partial Class Seccion
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Seccion"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.Text = "Seccion"
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()

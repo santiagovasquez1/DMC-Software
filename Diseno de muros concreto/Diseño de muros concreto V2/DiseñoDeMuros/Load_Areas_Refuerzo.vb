@@ -145,6 +145,7 @@
             ganchos_90.Add(11, 0.5)
             ganchos_90.Add(14, 0.63)
 
+            ganchos_180.Add("4.5M", 0.116)
             ganchos_180.Add("4.5mm", 0.116)
             ganchos_180.Add("2", 0.116)
             ganchos_180.Add("3", 0.14)

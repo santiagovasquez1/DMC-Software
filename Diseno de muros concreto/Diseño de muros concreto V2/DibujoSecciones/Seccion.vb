@@ -2,7 +2,7 @@
 
 Public Class Seccion
 
-    Public Lista_Cantidades As New Lista_Cantidades
+
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
 
@@ -16,10 +16,20 @@ Public Class Seccion
             Serializador.Deserializar(Ruta_1, Lista_i)
         End If
 
-        ''Crear lista vacia de alzado y refuerzos
         Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
-        Listas_Vacias()
+
+        If Lista_Cantidades1 Is Nothing Then
+            Lista_Cantidades1 = New Lista_Cantidades
+            Lista_Cantidades1.ListaRefuerzoHorzontal = New List(Of RefuerzoHorizontal)
+        End If
         Cargar_areas_refuerzo()
+
+        If Ruta_1 = "" Then
+            Me.Close()
+            MsgBox("Sin Información", MsgBoxStyle.Exclamation, "efe Prima Ce")
+        End If
+
+
 
     End Sub
 
@@ -40,7 +50,7 @@ Public Class Seccion
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        IniciarAplicacion(Me, Lista_Cantidades)
+        IniciarAplicacion(Me)
     End Sub
 
     'Mover Pestaña

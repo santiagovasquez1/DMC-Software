@@ -19,6 +19,7 @@ Public Enum TipoRefuerzo
     L  ' En L
     L1G  ' En L con un gancho
     C ' En C
+    S
 
 End Enum
 
