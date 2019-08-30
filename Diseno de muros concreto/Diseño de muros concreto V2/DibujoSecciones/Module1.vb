@@ -1379,22 +1379,9 @@ Module Module1
             End If
         Next
 
-        Dim Estribos As New Crear_Estribos
-        Estribos.Determinar_Estribos(Formulario)
-
-        If Formulario.CheckBox1.Checked = True Then
-            Dim Aux As New Estribos_Totales
-            Dim Delta_X, Delta_Y As Double
-            Delta_X = Xmax + 4.6
-            Delta_Y = A(1) + 1
-            Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_Cantidades1)
-        End If
-
         For Each Muro_ListaOrdenada In ListaOrdenada
             CalcularLongitudRefuerzoHorizontal(Muro_ListaOrdenada)
         Next
-
-
 
         For i = 0 To ListaOrdenada.Count - 1
             Lista_Cantidades1.ListaRefuerzoHorzontal.RemoveAll(Function(x) x.NombreMuro = ListaOrdenada(i).NombreMuro)
@@ -1412,6 +1399,17 @@ Module Module1
         For Each MuroRefuerzo In Lista_Cantidades1.ListaRefuerzoHorzontal
             MuroRefuerzo.Nomenclatura(0.1)
         Next
+
+        Dim Estribos As New Crear_Estribos
+        Estribos.Determinar_Estribos(Formulario)
+
+        If Formulario.CheckBox1.Checked = True Then
+            Dim Aux As New Estribos_Totales
+            Dim Delta_X, Delta_Y As Double
+            Delta_X = Xmax + 4.6
+            Delta_Y = A(1) + 1
+            Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_Cantidades1)
+        End If
 
         Muros_V.Clear()
         ListaOrdenada.Clear()

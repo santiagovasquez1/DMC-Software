@@ -12,9 +12,8 @@ Public Class Muro
     Public M3 As List(Of Double) = New List(Of Double)()
     Public Shells_Muro As List(Of Shells_Prop) = New List(Of Shells_Prop)()
 
-    'Datos para el diseño a cortante de los muros en concreto
+#Region "Cortante muros"
     Public Phi_Vc As List(Of Double)
-
     Public Phi_Vs As List(Of Double)
     Public Pt_min As List(Of Double)
     Public pl_min As List(Of Double)
@@ -27,10 +26,10 @@ Public Class Muro
     Public Pt_max As Double 'Cuantia maxima de acero según C.11.4.7.9
     Public Cortinas As List(Of Integer)
     Public Error_Cortante As List(Of String)
+#End Region
 
-    'Datos para el analisis a flexo compresion
+#Region "Flexo Compresion"
     Public C_def As List(Of Double)
-
     Public L_Conf As List(Of Double)
     Public Fa As List(Of Double)
     Public Fv As List(Of Double)
@@ -39,4 +38,5 @@ Public Class Muro
     Public Relacion As List(Of Double)
     Public Error_Flexion As List(Of String)
     Public C_balanceado, P_balanceado As Double
+#End Region
 End Class

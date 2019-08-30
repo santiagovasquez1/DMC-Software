@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports Excel = Microsoft.Office.Interop.Excel
+﻿Imports Excel = Microsoft.Office.Interop.Excel
 
 Public Class ExportExcel
     Private Lista_TextoPlano As New List(Of String)
@@ -9,52 +8,27 @@ Public Class ExportExcel
     Private objLibroExcel As Excel.Workbook
     Private objHojaExcel As Excel.Worksheet
 
-    Sub CargarDatos()
+    Sub Deserializar()
+        Dim Lista_i As New Listas_serializadas
 
-        Dim Lector As New StreamReader(Ruta_archivo_1)
-        Dim LineText As String
+        If Muros_lista_2 Is Nothing Then
+            Muros_lista_2 = New List(Of Muros_Consolidados)
+            Serializador.Deserializar(Ruta_1, Lista_i)
+        End If
 
-        Do
-            LineText = Lector.ReadLine()
-            Lista_TextoPlano.Add(LineText)
-        Loop Until LineText Is Nothing
+        Muros_lista_2 = Muros_lista_2.OrderBy(Function(x) x.Pier_name).ToList()
+        Muros_generales = Muros_generales.OrderBy(Function(x) x.Pier).ToList()
 
-        Lector.Close()
-
-        Dim Inicio_ShearDesing, Final_ShearDesing, Inicio_FlexuralStress, Final_FlexuralStress, Inicio_Reporte, Final_Reporte As Integer
-
-        Inicio_ShearDesing = Lista_TextoPlano.FindIndex(Function(x) x.Contains("3.Shear Design")) + 2
-        Final_ShearDesing = Lista_TextoPlano.FindIndex(Function(x) x.Contains("4.Flexural Stress")) - 2
-
-        Inicio_FlexuralStress = Lista_TextoPlano.FindIndex(Function(x) x.Contains("4.Flexural Stress")) + 2
-        Final_FlexuralStress = Lista_TextoPlano.FindIndex(Function(x) x.Contains("5.Reporte")) - 2
-
-        Inicio_Reporte = Lista_TextoPlano.FindIndex(Function(x) x.Contains("5.Reporte")) + 2
-        Try
-            Final_Reporte = Lista_TextoPlano.FindIndex(Function(x) x.Contains("6.Datos de Refuerzo Adicional")) - 2
-        Catch
-            Final_Reporte = Lista_TextoPlano.FindIndex(Function(x) x.Contains("Fin")) - 2
-
-        End Try
-
-        For i = Inicio_ShearDesing To Final_ShearDesing : Lista_ShearDesing.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
-        For i = Inicio_FlexuralStress To Final_FlexuralStress : Lista_FlexuralStress.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
-        For i = Inicio_Reporte To Final_Reporte : Lista_Reporte.Add(Lista_TextoPlano(i).Split(vbTab).ToList) : Next
-
-        Lista_ShearDesing = Lista_ShearDesing.OrderBy(Function(x) x(1)).ToList
-        Lista_FlexuralStress = Lista_FlexuralStress.OrderBy(Function(x) x(1)).ToList
-        Lista_Reporte = Lista_Reporte.OrderBy(Function(x) x(1)).ToList
     End Sub
 
     Sub Exportar(ByVal Route_File As String)
         Ruta_archivo_1 = Route_File
         If Ruta_archivo_1 <> "" Then
 
+            Deserializar()
             m_Excel = New Excel.Application
             objLibroExcel = m_Excel.Workbooks.Add()
             objHojaExcel = objLibroExcel.Worksheets(1)
-
-            CargarDatos()
 
             ExportarExcel_Reporte()
             objHojaExcel = objLibroExcel.Worksheets.Add()
@@ -90,39 +64,59 @@ Public Class ExportExcel
         objHojaExcel.Columns(13).ColumnWidth = 6.29
         objHojaExcel.Columns(14).ColumnWidth = 6.29
 
-        EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
-        EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
-        EstioTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
-        EstioTexto(objHojaExcel.Range("F1:F2"), "rt", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("G1:G2"), "rl", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("H1:H2"), "Malla", TLT)
-        EstioTexto(objHojaExcel.Range("I1:I2"), "C (m)", TLT)
-        EstioTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
+        EstiloTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
+        EstiloTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
+        EstiloTexto(objHojaExcel.Range("F1:F2"), "rt", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("G1:G2"), "rl", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("H1:H2"), "Malla", TLT)
+        EstiloTexto(objHojaExcel.Range("I1:I2"), "C (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
 
-        Dim ArregloDatos3(Lista_Reporte.Count - 1, Lista_Reporte(0).Count - 13) As Object
+        Dim x As Integer = 0
 
-        For i = 0 To Lista_Reporte.Count - 1
-            For j = 0 To Lista_Reporte(i).Count - 13
-                If j = 2 Or j = 3 Then
-                    ArregloDatos3(i, j) = Val(Lista_Reporte(i)(j)) / 100
-                ElseIf j = 0 Or j = 1 Or j = 7 Or j = 5 Or j = 6 Then
-
-                    ArregloDatos3(i, j) = (Lista_Reporte(i)(j))
-                Else
-                    ArregloDatos3(i, j) = Format(Math.Round(Val(Lista_Reporte(i)(j)), 2), "#0.00")
-                End If
+        For i = 0 To Muros_lista_2.Count - 1
+            For j = 0 To Muros_lista_2(i).Stories.Count - 1
+                x += 1
             Next
         Next
 
-        objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14).Value = ArregloDatos3
+        Dim ArregloDatos3(x - 1, 13) As Object
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_Reporte.Count, Lista_Reporte(0).Count - 14))
+        x = 0
+        For j = 0 To Muros_lista_2.Count - 1
+            For k = 0 To Muros_lista_2(j).Stories.Count - 1
+                With Muros_lista_2(j)
+
+                    ArregloDatos3(x, 0) = .Stories(k)
+                    ArregloDatos3(x, 1) = .Pier_name
+                    ArregloDatos3(x, 2) = Format(Math.Round(.lw(k) / 100, 2), "#0.00")
+                    ArregloDatos3(x, 3) = Format(Math.Round(.Bw(k) / 100, 2), "#0.00")
+                    ArregloDatos3(x, 4) = Format(Math.Round(.fc(k), 2), "#0.00")
+                    ArregloDatos3(x, 5) = Format(Math.Round(.Rho_T(k), 4), "#0.0000")
+                    ArregloDatos3(x, 6) = Format(Math.Round(.Rho_l(k), 4), "#0.0000")
+                    ArregloDatos3(x, 7) = .Malla(k)
+                    ArregloDatos3(x, 8) = Format(Math.Round(.C_Def(k), 2), "#0.00")
+                    ArregloDatos3(x, 9) = Format(Math.Round(.Lebe_Izq(k), 2), "#0.00")
+                    ArregloDatos3(x, 10) = Format(Math.Round(.Lebe_Der(k), 2), "#0.00")
+                    ArregloDatos3(x, 11) = Format(Math.Round(.Lebe_Centro(k), 2), "#0.00")
+                    ArregloDatos3(x, 12) = Format(Math.Round(.Zc_Izq(k), 2), "#0.00")
+                    ArregloDatos3(x, 13) = Format(Math.Round(.Zc_Der(k), 2), "#0.00")
+                End With
+
+                x += 1
+            Next
+        Next
+
+        objHojaExcel.Range("A3").Resize(x, 14).Value = ArregloDatos3
+
+        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(x, 14))
 
         objHojaExcel.Visible = True
 
@@ -156,45 +150,71 @@ Public Class ExportExcel
 
         Dim TLT = "Arial"
 
-        EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
-        EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
-        EstioTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
-        EstioTexto(objHojaExcel.Range("F1:F2"), "Ht (m)", TLT)
-        EstioTexto(objHojaExcel.Range("G1:G2"), "Load", TLT)
-        EstioTexto(objHojaExcel.Range("H1:H2"), "P (Tonf)", TLT)
-        EstioTexto(objHojaExcel.Range("I1:I2"), "V2 (Tonf)", TLT)
-        EstioTexto(objHojaExcel.Range("J1:J2"), "M3     (Tonf-m)", TLT)
-        EstioTexto(objHojaExcel.Range("K1:K2"), "f Vc(Tonf) (C.11.9.5)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("L1:L2"), "f Vn(Tonf) (C.11.9.3)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("M1:M2"), "f Vn(Tonf) (C.21.9.4.1)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("N1:N2"), "f Vs(Tonf) Requerido", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("O1:O2"), "f Vs max(Tonf) (C.11.4.7.9)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("P1:P2"), "rtmax (cm" & Chr(178) & "/m)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("Q1:Q2"), "rt-col (cm" & Chr(178) & "/m)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("R1:R2"), "rl-col (cm" & Chr(178) & "/m)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("S1:S2"), "# Cortinas (C.21.9.2.3)", TLT)
-        EstioTexto(objHojaExcel.Range("T1:T2"), "Sección OK?", TLT)
+        EstiloTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
+        EstiloTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
+        EstiloTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
+        EstiloTexto(objHojaExcel.Range("F1:F2"), "Ht (m)", TLT)
+        EstiloTexto(objHojaExcel.Range("G1:G2"), "Load", TLT)
+        EstiloTexto(objHojaExcel.Range("H1:H2"), "P (Tonf)", TLT)
+        EstiloTexto(objHojaExcel.Range("I1:I2"), "V2 (Tonf)", TLT)
+        EstiloTexto(objHojaExcel.Range("J1:J2"), "M3     (Tonf-m)", TLT)
+        EstiloTexto(objHojaExcel.Range("K1:K2"), "f Vc(Tonf) (C.11.9.5)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("L1:L2"), "f Vn(Tonf) (C.11.9.3)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("M1:M2"), "f Vn(Tonf) (C.21.9.4.1)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("N1:N2"), "f Vs(Tonf) Requerido", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("O1:O2"), "f Vs max(Tonf) (C.11.4.7.9)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("P1:P2"), "rtmax (cm" & Chr(178) & "/m)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("Q1:Q2"), "rt-col (cm" & Chr(178) & "/m)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("R1:R2"), "rl-col (cm" & Chr(178) & "/m)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("S1:S2"), "# Cortinas (C.21.9.2.3)", TLT)
+        EstiloTexto(objHojaExcel.Range("T1:T2"), "Sección OK?", TLT)
 
-        Dim ArregloDatos(Lista_ShearDesing.Count - 1, Lista_ShearDesing(0).Count - 1) As Object
-        For i = 0 To Lista_ShearDesing.Count - 1
-            For j = 0 To Lista_ShearDesing(i).Count - 1
-                If j = 2 Or j = 3 Or j = 5 Then
-                    ArregloDatos(i, j) = Val(Lista_ShearDesing(i)(j)) / 100
-                ElseIf j = 7 Or j = 8 Or j = 9 Or j = 10 Or j = 11 Or j = 12 Or j = 13 Or j = 14 Then
-                    ArregloDatos(i, j) = Format(Math.Round(Val(Lista_ShearDesing(i)(j)), 2), "#0.00")
-                ElseIf j = 15 Or j = 16 Or j = 17 Then
-                    ArregloDatos(i, j) = Format(Math.Round(Val(Lista_ShearDesing(i)(j)), 3), "#0.0000")
-                Else
-                    ArregloDatos(i, j) = Lista_ShearDesing(i)(j)
-                End If
+        Dim x As Integer = 0
+
+        For i = 0 To Muros_generales.Count - 1
+            For j = 0 To Muros_generales(i).Load.Count - 1
+                x += 1
             Next
         Next
-        objHojaExcel.Range("A3").Resize(Lista_ShearDesing.Count, Lista_ShearDesing(0).Count).Value = ArregloDatos
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_ShearDesing.Count, Lista_ShearDesing(0).Count))
+        Dim ArregloDatos(x - 1, 19) As Object
+        x = 0
 
+        For i = 0 To Muros_generales.Count - 1
+            For j = 0 To Muros_generales(i).Load.Count - 1
+
+                With Muros_generales(i)
+
+                    ArregloDatos(x, 0) = .Story
+                    ArregloDatos(x, 1) = .Pier
+                    ArregloDatos(x, 2) = Format(Math.Round(.lw / 100, 2), "#0.00")
+                    ArregloDatos(x, 3) = Format(Math.Round(.bw / 100, 2), "#0.00")
+                    ArregloDatos(x, 4) = Format(Math.Round(.Fc, 2), "#0.00")
+                    ArregloDatos(x, 5) = Format(Math.Round(.h_acumulado / 100, 2), "#0.00")
+                    ArregloDatos(x, 6) = .Load(j)
+                    ArregloDatos(x, 7) = Format(Math.Round(.P(j), 2), "#0.00")
+                    ArregloDatos(x, 8) = Format(Math.Round(.V2(j), 2), "#0.00")
+                    ArregloDatos(x, 9) = Format(Math.Round(.M3(j), 2), "#0.00")
+                    ArregloDatos(x, 10) = Format(Math.Round(.Phi_Vc(j), 2), "#0.00")
+                    ArregloDatos(x, 11) = Format(Math.Round(.Phi_Vn_Max1, 2), "#0.00")
+                    ArregloDatos(x, 12) = Format(Math.Round(.Phi_Vn_Max2(j), 2), "#0.00")
+                    ArregloDatos(x, 13) = Format(Math.Round(.Phi_Vs(j), 2), "#0.00")
+                    ArregloDatos(x, 14) = Format(Math.Round(.Phi_Vs_Max, 2), "#0.00")
+                    ArregloDatos(x, 15) = Format(Math.Round(.Pt_max, 4), "#0.0000")
+                    ArregloDatos(x, 16) = Format(Math.Round(.pt_definitivo(j), 4), "#0.0000")
+                    ArregloDatos(x, 17) = Format(Math.Round(.Rho_l_Def, 4), "#0.0000")
+                    ArregloDatos(x, 18) = .Cortinas(j)
+                    ArregloDatos(x, 19) = .Error_Cortante(j)
+                End With
+
+                x += 1
+            Next
+        Next
+
+        objHojaExcel.Range("A3").Resize(x, 20).Value = ArregloDatos
+        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(x, 20))
         objHojaExcel.Visible = True
 
     End Sub
@@ -226,43 +246,64 @@ Public Class ExportExcel
 
         Dim TLT = "Arial"
 
-        EstioTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
-        EstioTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
-        EstioTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
-        EstioTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
-        EstioTexto(objHojaExcel.Range("F1:F2"), "Ht(m)", TLT)
-        EstioTexto(objHojaExcel.Range("G1:G2"), "Load", TLT)
-        EstioTexto(objHojaExcel.Range("H1:H2"), "P(Tonf)", TLT)
-        EstioTexto(objHojaExcel.Range("I1:I2"), "M3     (Tonf-m)", TLT)
-        EstioTexto(objHojaExcel.Range("J1:J2"), "Fa (kgf/cm²)", TLT)
-        EstioTexto(objHojaExcel.Range("K1:K2"), "Fv(kgf/cm", TLT)
-        EstioTexto(objHojaExcel.Range("L1:L2"), "smax (kgf/cm²)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("M1:M2"), "smin (kgf/cm²)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("N1:N2"), "smax / f'c (%)", TLT, True, 1)
-        EstioTexto(objHojaExcel.Range("O1:O2"), "C (m)", TLT)
-        EstioTexto(objHojaExcel.Range("P1:P2"), "L_conf (cm)", TLT)
-        EstioTexto(objHojaExcel.Range("Q1:Q2"), "smax > f'c OK?", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
+        EstiloTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
+        EstiloTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
+        EstiloTexto(objHojaExcel.Range("F1:F2"), "Ht(m)", TLT)
+        EstiloTexto(objHojaExcel.Range("G1:G2"), "Load", TLT)
+        EstiloTexto(objHojaExcel.Range("H1:H2"), "P(Tonf)", TLT)
+        EstiloTexto(objHojaExcel.Range("I1:I2"), "M3     (Tonf-m)", TLT)
+        EstiloTexto(objHojaExcel.Range("J1:J2"), "Fa (kgf/cm²)", TLT)
+        EstiloTexto(objHojaExcel.Range("K1:K2"), "Fv(kgf/cm", TLT)
+        EstiloTexto(objHojaExcel.Range("L1:L2"), "smax (kgf/cm²)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("M1:M2"), "smin (kgf/cm²)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("N1:N2"), "smax / f'c (%)", TLT, True, 1)
+        EstiloTexto(objHojaExcel.Range("O1:O2"), "C (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("P1:P2"), "L_conf (cm)", TLT)
+        EstiloTexto(objHojaExcel.Range("Q1:Q2"), "smax > f'c OK?", TLT, True, 1)
 
-        Dim ArregloDatos1(Lista_FlexuralStress.Count - 1, Lista_FlexuralStress(0).Count - 1) As Object
-        For i = 0 To Lista_FlexuralStress.Count - 1
-            For j = 0 To Lista_FlexuralStress(i).Count - 1
-                If j = 2 Or j = 3 Or j = 5 Then
-                    ArregloDatos1(i, j) = Val(Lista_FlexuralStress(i)(j)) / 100
-                ElseIf j = 6 Or j = 16 Or j = 0 Or j = 1 Then
-                    ArregloDatos1(i, j) = Lista_FlexuralStress(i)(j)
-                ElseIf j = 13 Then
-                    ArregloDatos1(i, j) = Format(Math.Round(Val(Lista_FlexuralStress(i)(j)) * 100, 2), "#0.00")
-                Else
-                    ArregloDatos1(i, j) = Format(Math.Round(Val(Lista_FlexuralStress(i)(j)), 2), "#0.00")
-                End If
+        Dim x As Integer = 0
 
+        For i = 0 To Muros_generales.Count - 1
+            For j = 0 To Muros_generales(i).Load.Count - 1
+                x += 1
             Next
         Next
-        objHojaExcel.Range("A3").Resize(Lista_FlexuralStress.Count, Lista_FlexuralStress(0).Count).Value = ArregloDatos1
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(Lista_FlexuralStress.Count, Lista_FlexuralStress(0).Count))
+        Dim ArregloDatos1(x - 1, 16) As Object
+        x = 0
 
+        For i = 0 To Muros_generales.Count - 1
+            For j = 0 To Muros_generales(i).Load.Count - 1
+
+                With Muros_generales(i)
+
+                    ArregloDatos1(x, 0) = .Story
+                    ArregloDatos1(x, 1) = .Pier
+                    ArregloDatos1(x, 2) = Format(Math.Round(.lw / 100, 2), "#0.00")
+                    ArregloDatos1(x, 3) = Format(Math.Round(.bw / 100, 2), "#0.00")
+                    ArregloDatos1(x, 4) = Format(Math.Round(.Fc, 2), "#0.00")
+                    ArregloDatos1(x, 5) = Format(Math.Round(.h_acumulado / 100, 2), "#0.00")
+                    ArregloDatos1(x, 6) = .Load(j)
+                    ArregloDatos1(x, 7) = Format(Math.Round(.P(j), 2), "#0.00")
+                    ArregloDatos1(x, 8) = Format(Math.Round(.M3(j), 2), "#0.00")
+                    ArregloDatos1(x, 9) = Format(Math.Round(.Fa(j), 2), "#0.00")
+                    ArregloDatos1(x, 10) = Format(Math.Round(.Fv(j), 2), "#0.00")
+                    ArregloDatos1(x, 11) = Format(Math.Round(.Sigma_Max(j), 2), "#0.00")
+                    ArregloDatos1(x, 12) = Format(Math.Round(.Sigma_Min(j), 2), "#0.00")
+                    ArregloDatos1(x, 13) = Format(Math.Round(.Relacion(j), 2), "#0.00")
+                    ArregloDatos1(x, 14) = Format(Math.Round(.C_def(j), 2), "#0.00")
+                    ArregloDatos1(x, 15) = Format(Math.Round(.L_Conf(j), 2), "#0.00")
+                    ArregloDatos1(x, 16) = .Error_Flexion(j)
+                End With
+                x += 1
+            Next
+        Next
+
+        objHojaExcel.Range("A3").Resize(x, 17).Value = ArregloDatos1
+        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(x, 17))
         objHojaExcel.Visible = True
 
     End Sub
@@ -293,7 +334,7 @@ Public Class ExportExcel
 
     End Sub
 
-    Private Sub EstioTexto(ByVal Rango As Excel.Range, ByVal Text As String, ByVal TipoLetra As String, Optional ByVal LetrasGrigas As Boolean = False, Optional ByVal NoLetra As Integer = 0, Optional ByVal isInteriorColor As Boolean = False, Optional ByVal Color As Tuple(Of Integer, Integer, Integer) = Nothing, Optional ByVal EspesorCelda As Excel.XlBorderWeight = Excel.XlBorderWeight.xlThin, Optional ByVal TamanoLetra As Integer = 8)
+    Private Sub EstiloTexto(ByVal Rango As Excel.Range, ByVal Text As String, ByVal TipoLetra As String, Optional ByVal LetrasGrigas As Boolean = False, Optional ByVal NoLetra As Integer = 0, Optional ByVal isInteriorColor As Boolean = False, Optional ByVal Color As Tuple(Of Integer, Integer, Integer) = Nothing, Optional ByVal EspesorCelda As Excel.XlBorderWeight = Excel.XlBorderWeight.xlThin, Optional ByVal TamanoLetra As Integer = 8)
 
         Rango.Merge()
         Rango.Value = Text

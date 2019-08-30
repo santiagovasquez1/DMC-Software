@@ -99,8 +99,8 @@
         End Set
     End Property
 
-
     Private refuerzoHPreFinal As New List(Of String)
+
     Public Property RefuerzoHNomenPreFinal() As List(Of String)
         Get
             Return refuerzoHPreFinal
@@ -110,8 +110,8 @@
         End Set
     End Property
 
-
     Private refuerzoHorzontalDllnet_ As New List(Of String)
+
     Public Property RefuerzoHorzontalDllnet() As List(Of String)
         Get
             Return refuerzoHorzontalDllnet_
@@ -121,8 +121,27 @@
         End Set
     End Property
 
+    Private lista_Estribos_ As New List(Of Seccion_Estribos)
 
+    Public Property Lista_Estribos() As List(Of Seccion_Estribos)
+        Get
+            Return lista_Estribos_
+        End Get
+        Set(ByVal value As List(Of Seccion_Estribos))
+            lista_Estribos_ = value
+        End Set
+    End Property
 
+    Private lista_ganchos_ As New List(Of Seccion_Ganchos)
+
+    Public Property Lista_Ganchos() As List(Of Seccion_Ganchos)
+        Get
+            Return lista_ganchos_
+        End Get
+        Set(ByVal value As List(Of Seccion_Ganchos))
+            lista_ganchos_ = value
+        End Set
+    End Property
 
     Sub Nomenclatura(ByVal e_Losa As Single, Optional R As Single = 0.05)
         CalcularCantidadPorPiso(e_Losa, R)
@@ -179,6 +198,7 @@
             Dim Nomenclatura = RefuerzoHNomenPreFinal(i)
             Dim Cantidad1 As Integer = 0 : Dim PosiciF_Canti As Integer = 0
             Dim No_Barra_ As Single = 0 : Dim PosiciF_No_Barra As Integer = 0
+            Dim Nom_barra As String = ""
             Dim Longitud_Barra As Single = 0 : Dim PisicF__ As Integer = 0
             Dim FormaRefuerzo As String : Dim NomenclaturaFinal As String
             Dim LongitudGancho As Single
@@ -189,7 +209,9 @@
                         PosiciF_Canti = n
                     End If
                     If Nomenclatura.Chars(n) = "L" Then
-                        PosiciF_No_Barra = n
+                        If PosiciF_No_Barra = 0 Then
+                            PosiciF_No_Barra = n
+                        End If
                     End If
                     If Nomenclatura.Chars(n) = "-" Then
                         PisicF__ = n
@@ -202,12 +224,12 @@
                 FormaRefuerzo = (Nomenclatura.Substring(PisicF__ + 1))
 
                 If No_Barra_ = 4.5 Then
-                    No_Barra_ = No_Barra_ & "M"
+                    Nom_barra = No_Barra_ & "M"
                 Else
-                    '  No_Barra_ = "#" & No_Barra_
+                    Nom_barra = No_Barra_.ToString
                 End If
 
-                LongitudGancho = ganchos_180(No_Barra_)
+                LongitudGancho = ganchos_180(Nom_barra)
                 If FormaRefuerzo = "R" Then
                     NomenclaturaFinal = $"{Cantidad1} {No_Barra_} {Longitud_Barra}"
                 End If
@@ -218,23 +240,10 @@
                     NomenclaturaFinal = $"{Cantidad1} {No_Barra_} {Longitud_Barra - 2 * LongitudGancho} U{LongitudGancho} U{LongitudGancho}"
                 End If
 
-
-
-
-
                 'RefuerzoHorzontalDllnet.Add(NomenclaturaFinal)
-
-
-
-
-
-
 
             End If
         Next
     End Sub
-
-
-
 
 End Class

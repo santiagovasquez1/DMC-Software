@@ -208,7 +208,7 @@
     <Compile Include="DiseñoDeMuros\Guardar_Archivo.vb" />
     <Compile Include="DiseñoDeMuros\Load_Areas_Refuerzo.vb" />
     <Compile Include="DiseñoDeMuros\Modulo1.vb" />
-    <Compile Include="DiseñoDeMuros\Muros_Consolidados_2.vb" />
+    <Compile Include="DiseñoDeMuros\Muros_Consolidados.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

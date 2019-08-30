@@ -597,6 +597,11 @@ namespace Diseno_muros_concreto_fc
 
         private void ExportMemorias()
         {
+            if (Listas_Programa.Muros_Consolidados_Listos != null)
+            {
+                Diseño_de_muros_concreto_V2.Objetos_Compartidos Prueba = new Diseño_de_muros_concreto_V2.Objetos_Compartidos(Listas_Programa.Ruta_archivo, Listas_Programa.Capacidad, Listas_Programa.Ruta_Carpeta);
+            }
+
             Label_Inicial.Visible = true;
             Label_Inicial.Text = "Exportando...";
             Diseño_de_muros_concreto_V2.ExportExcel exportExcel = new Diseño_de_muros_concreto_V2.ExportExcel();
@@ -610,6 +615,7 @@ namespace Diseno_muros_concreto_fc
 
         private void ExportarMemoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             ExportMemorias();
         }
 

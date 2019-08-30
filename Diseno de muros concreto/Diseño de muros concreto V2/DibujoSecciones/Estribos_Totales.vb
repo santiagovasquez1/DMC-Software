@@ -35,21 +35,23 @@ Public Class Estribos_Totales
 
         Lista_Cantidades_i = Lista_Cantidades
 
-        If Lista_Cantidades_i.Lista_Estribos Is Nothing = True Then
-            Lista_Cantidades_i.Lista_Estribos = New List(Of Seccion_Estribos)
-        End If
-
-        If Lista_Cantidades_i.Lista_Ganchos Is Nothing = True Then
-            Lista_Cantidades_i.Lista_Ganchos = New List(Of Seccion_Ganchos)
-        End If
-
         Distancia_Maxima = 2
 
         For i = 0 To ListaOrdenada.Count - 1
 
             Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = ListaOrdenada(i).NombreMuro)
-            Lista_Cantidades_i.Lista_Estribos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
-            Lista_Cantidades_i.Lista_Ganchos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
+
+            If Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Estribos Is Nothing = True Then
+                Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Estribos = New List(Of Seccion_Estribos)
+            Else
+                Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Estribos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
+            End If
+
+            If Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Ganchos Is Nothing = True Then
+                Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Ganchos = New List(Of Seccion_Ganchos)
+            Else
+                Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Ganchos.RemoveAll(Function(x) x.Pier = Muro_i.Pier_name)
+            End If
 
             If Muro_i.Lebe_Izq.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Lebe_Der.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Zc_Izq.FindAll(Function(x) x > 0).Count > 0 Or Muro_i.Zc_Der.FindAll(Function(x) x > 0).Count > 0 Then
 
@@ -227,12 +229,11 @@ Public Class Estribos_Totales
                         Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
                         Add_Ganchos(Lista_ganchos, Lista_sep_Ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25, Muro_i.Pier_name, Muro_i.Stories(j), Muro_i.Bw(j), Diametro_gancho, Muro_i.Hw(i))
 
-                        Dim prueba = Lista_Cantidades_i.Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
+                        Dim prueba = Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
                         Dim prueba2 = prueba.Select(Function(x) x.Separacion).Distinct().ToList
 
                         ''Dibujo de numero de ganchos totales en el piso por separacion
                         Ganchos_Totales_piso(prueba, prueba2, Delta_X + Longitud_Real + 0.25, DeltaY)
-
                         DeltaY += 0.65
                     Next
 
@@ -391,7 +392,7 @@ Public Class Estribos_Totales
                         Add_Rectangulo(Rectangulo, {Delta_X - 0.2, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) - 0.4, Delta_X + Longitud_Real + 0.25, Punto_inicial(1) + 0.25, Delta_X - 0.2, Punto_inicial(1) + 0.25}, "FC_BORDES", True, Lista_Rect)
                         Add_Ganchos(Lista_ganchos, Lista_sep_Ganchos, ListaOrdenada(i).Lista_Refuerzos_Original, DeltaY, Delta_X + Longitud_Real + 0.25, Muro_i.Pier_name, Muro_i.Stories(j), Muro_i.Bw(i), Diametro_gancho, Muro_i.Hw(i))
 
-                        Dim prueba = Lista_Cantidades_i.Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
+                        Dim prueba = Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Muro_i.Pier_name).Lista_Ganchos.FindAll(Function(x) x.Pier = Muro_i.Pier_name And x.Story = Muro_i.Stories(j)).ToList()
                         Dim prueba2 = prueba.Select(Function(x) x.Separacion).Distinct().ToList
 
                         ''Dibujo de numero de ganchos totales en el piso por separacion
@@ -924,7 +925,7 @@ Public Class Estribos_Totales
                 .Pier = Pier_name,
                 .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
             }
-            Lista_Cantidades_i.Lista_Estribos.Add(Estribo_i)
+            Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Pier_name).Lista_Estribos.Add(Estribo_i)
         Else
             MsgBox("Estribos en zonas de confinamiento sin separacion definida", MsgBoxStyle.Critical, "efe Prima ce")
             Exit Sub
@@ -1151,17 +1152,16 @@ Public Class Estribos_Totales
                     .Story = Story,
                     .Cantidad = Math.Round((Hlibre / Lista_sep_ganchos(i)) + 1, 0)
                 }
-                Lista_Cantidades_i.Lista_Ganchos.Add(gancho_i)
-
+                Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Pier_name).Lista_Ganchos.Add(gancho_i)
 
                 If pos_ini = 0 Then
-                        pos_ini = 1
-                    Else
-                        pos_ini = 0
-                    End If
-
-                    Contador += 1
+                    pos_ini = 1
+                Else
+                    pos_ini = 0
                 End If
+
+                Contador += 1
+            End If
 
         Next
 
