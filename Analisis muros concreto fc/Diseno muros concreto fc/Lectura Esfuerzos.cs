@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace Diseno_muros_concreto_fc
 {
+    [Serializable]
     public class Esfuerzos
     {
         public string Label, Story, Load;

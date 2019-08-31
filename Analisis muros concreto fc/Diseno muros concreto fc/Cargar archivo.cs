@@ -9,7 +9,7 @@ namespace Diseno_muros_concreto_fc
     internal class Cargar_archivo
     {
         private static List<string> Lista_texto;
-
+       
         public static void Cargar_Lista_Texto()
         {
             string sline;
@@ -209,7 +209,7 @@ namespace Diseno_muros_concreto_fc
             string[] Vector_Texto;
             List<List<string>> Auxiliar = new List<List<string>>();
             List<string> Muros_distintos;
-            Muros_Consolidados Muro_i;
+            Muros_Consolidados_1 Muro_i;
 
             inicio = Lista_texto.FindIndex(x => x.Contains("5.Reporte")) + 2;
 
@@ -228,7 +228,7 @@ namespace Diseno_muros_concreto_fc
             }
             else
             {
-                Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados>();
+                Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             }
 
             for (int i = inicio; i <= Fin; i++)
@@ -243,7 +243,7 @@ namespace Diseno_muros_concreto_fc
             {
                 List<List<string>> Auxiliar_2 = Auxiliar.FindAll(x => x[1] == Muros_distintos[i]).ToList();
 
-                Muro_i = new Muros_Consolidados();
+                Muro_i = new Muros_Consolidados_1();
                 Muro_i.Pier_name = Muros_distintos[i];
                 Muro_i.Stories.AddRange(Auxiliar_2.Select(x => x[0]));
                 Muro_i.lw.AddRange(Auxiliar_2.Select(x => Convert.ToSingle(x[2])));

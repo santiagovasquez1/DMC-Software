@@ -4,7 +4,7 @@ namespace Diseno_muros_concreto_fc
 {
     internal class Cargar_Formulario
     {
-        public static void Open_From_Panel(Panel Formulario_Madre, Form Formulario)
+        public static void Open_From_Panel(Panel Formulario_Madre, Form Formulario,Listas_Serializadas_i Lista_i)
         {
             Panel FM = Formulario_Madre;
             Form FH = Formulario;

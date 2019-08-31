@@ -110,9 +110,13 @@ namespace Diseno_muros_concreto_fc
                     MacAdress.Add(adapter.GetPhysicalAddress().ToString());
                 }
 
+
+
+
+
                 for (int i = 0; i < MacAdress.Count; i++)
                 {
-                    if (MacAdress[i] == "00D8610657A5")
+                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455")
                     {
                         ComprobarEntrada = "CORRECT";
                         break;

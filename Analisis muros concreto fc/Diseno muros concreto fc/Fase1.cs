@@ -27,7 +27,7 @@ namespace Diseno_muros_concreto_fc
 
                     if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
 
-                    comboBox1.Items.AddRange(Muros_distintos.ToArray());
+                    comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x=> x).ToArray());
                     comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
@@ -221,7 +221,7 @@ namespace Diseno_muros_concreto_fc
 
         private void button10_Click(object sender, EventArgs e)
         {
-            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
                 muro_i.Peso_Long.Clear();
                 muro_i.Peso_malla.Clear();

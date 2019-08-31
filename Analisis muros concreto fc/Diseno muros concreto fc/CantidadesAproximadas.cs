@@ -149,7 +149,7 @@ namespace Diseno_muros_concreto_fc
             Estilo.BackColor = Color.White;
 
             int count = 0;
-            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
                 foreach (DataGridViewColumn column in DataGrid.Columns) { column.HeaderCell.Style = Estilo; }
                 DataGrid.Rows.Add();
@@ -177,7 +177,7 @@ namespace Diseno_muros_concreto_fc
             foreach (DataGridViewColumn column in DataGrid.Columns) { column.HeaderCell.Style = Estilo; }
 
             double PesoLongitudinal = 0; double PesoTransversal = 0; double PesoMalla = 0;
-            foreach (Muros_Consolidados muro_i in Listas_Programa.Muros_Consolidados_Listos)
+            foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
                 PesoLongitudinal += muro_i.Peso_Long.Sum();
                 PesoTransversal += muro_i.Peso_Transv.Sum();
@@ -219,7 +219,7 @@ namespace Diseno_muros_concreto_fc
             DataGrid.DefaultCellStyle = Estilo;
         }
 
-        private void Resumen_Vol(List<Muros_Consolidados> Muros_lista, ref List<double> Fc_dif, ref List<double> Volumenes)
+        private void Resumen_Vol(List<Muros_Consolidados_1> Muros_lista, ref List<double> Fc_dif, ref List<double> Volumenes)
         {
             double suma;
 

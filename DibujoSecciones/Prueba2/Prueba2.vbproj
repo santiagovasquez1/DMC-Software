@@ -65,17 +65,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.AutoCAD.Interop">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD LT 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop.Common">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD LT 2018\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\Analisis muros concreto fc\packages\MathNet.Numerics.4.8.1\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -112,6 +113,9 @@
       <DependentUpon>Form1.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ListaRefuerzoHorziontal.vb" />
+    <Compile Include="Listas_Serializadas.vb" />
+    <Compile Include="Lista_Cantidades.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="Muros.vb" />
     <Compile Include="Muros_Auxiliares.vb" />
@@ -130,6 +134,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Seccion Estribos.vb" />
+    <Compile Include="Seccion_Ganchos.vb" />
+    <Compile Include="Serializador.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">

@@ -194,7 +194,7 @@ namespace Diseno_muros_concreto_fc
 
             if (Listas_Programa.Muros_Consolidados_Listos is null == false)
             {
-                foreach (Muros_Consolidados Muro_i in Listas_Programa.Muros_Consolidados_Listos)
+                foreach (Muros_Consolidados_1 Muro_i in Listas_Programa.Muros_Consolidados_Listos)
                 {
                     for (int i = 0; i < Muro_i.Stories.Count; i++)
                     {

@@ -1,50 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diseño_de_muros_concreto_V2;
 
 namespace Diseno_muros_concreto_fc
 {
-    public class Muro
+    [Serializable]
+    public class Muro:Diseño_de_muros_concreto_V2.Muro
     {
-        public string Pier, Story;
-        public float bw, lw, hw, Fc, dw, h_acumulado;
-        public double Rho_l_Inicial, Spacing, Rho_l_Def;
-        public List<string> Loc = new List<string>();
-        public List<string> Load = new List<string>();
-        public List<double> P = new List<double>();
-        public List<double> V2 = new List<double>();
-        public List<double> V3 = new List<double>();
-        public List<double> M2 = new List<double>();
-        public List<double> M3 = new List<double>();
+        //public string Pier, Story;
+        //public float bw, lw, hw, Fc, dw, h_acumulado;
+        //public double Rho_l_Inicial, Spacing, Rho_l_Def;
+        //public List<string> Loc = new List<string>();
+        //public List<string> Load = new List<string>();
+        //public List<double> P = new List<double>();
+        //public List<double> V2 = new List<double>();
+        //public List<double> V3 = new List<double>();
+        //public List<double> M2 = new List<double>();
+        //public List<double> M3 = new List<double>();
         public List<Shells_Prop> Shells_Muro = new List<Shells_Prop>();
 
-        //Datos para el diseño a cortante de los muros en concreto
-        public List<double> Phi_Vc;
+        ////Datos para el diseño a cortante de los muros en concreto
+        //public List<double> Phi_Vc;
 
-        public List<double> Phi_Vs;
-        public List<double> Pt_min;
-        public List<double> pl_min;
-        public List<double> pt_requerido1;                      //Según C.11.9.91
-        public List<double> ptt;                                //Cuantia transversal requerida por C.21.9.4.1
-        public List<double> pt_definitivo;
-        public double Phi_Vn_Max1;                              //Capacidad maxima de la sección segun C11.9.3
-        public List<double> Phi_Vn_Max2 = new List<double>();   //Capacidad maxima de la sección segun C21.9.4.1
-        public double Phi_Vs_Max;                               //Capacidad maxima del acero según C.11.4.7.9
-        public double Pt_max;                                   //Cuantia maxima de acero según C.11.4.7.9
-        public List<int> Cortinas;
-        public List<string> Error_Cortante;
+        //public List<double> Phi_Vs;
+        //public List<double> Pt_min;
+        //public List<double> pl_min;
+        //public List<double> pt_requerido1;                      //Según C.11.9.91
+        //public List<double> ptt;                                //Cuantia transversal requerida por C.21.9.4.1
+        //public List<double> pt_definitivo;
+        //public double Phi_Vn_Max1;                              //Capacidad maxima de la sección segun C11.9.3
+        //public List<double> Phi_Vn_Max2 = new List<double>();   //Capacidad maxima de la sección segun C21.9.4.1
+        //public double Phi_Vs_Max;                               //Capacidad maxima del acero según C.11.4.7.9
+        //public double Pt_max;                                   //Cuantia maxima de acero según C.11.4.7.9
+        //public List<int> Cortinas;
+        //public List<string> Error_Cortante;
 
-        //Datos para el analisis a flexo compresion
-        public List<double> C_def;
-
-        public List<double> L_Conf;
-        public List<double> Fa;
-        public List<double> Fv;
-        public List<double> Sigma_Max;
-        public List<double> Sigma_Min;
-        public List<double> Relacion;
-        public List<string> Error_Flexion;
-        public double C_balanceado, P_balanceado;
+        ////Datos para el analisis a flexo compresion
+        //public List<double> C_def;
+        //public List<double> L_Conf;
+        //public List<double> Fa;
+        //public List<double> Fv;
+        //public List<double> Sigma_Max;
+        //public List<double> Sigma_Min;
+        //public List<double> Relacion;
+        //public List<string> Error_Flexion;
+        //public double C_balanceado, P_balanceado;
 
         public void Diseno_Cortante()
         {
