@@ -27,7 +27,7 @@ namespace Diseno_muros_concreto_fc
 
                     if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
 
-                    comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x=> x).ToArray());
+                    comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x => x).ToArray());
                     comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }

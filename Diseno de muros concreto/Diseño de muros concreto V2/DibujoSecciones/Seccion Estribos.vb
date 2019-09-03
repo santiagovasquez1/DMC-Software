@@ -16,6 +16,7 @@ Public Class Seccion_Estribos
         End Set
     End Property
 
+    Public Property Longitud As Double
     Public Property Diametro As Double
         Get
             Return _Diametro
@@ -52,12 +53,18 @@ Public Class Seccion_Estribos
         End Set
     End Property
 
-    Public Property Pier As String
-        Get
-            Return _Pier
-        End Get
-        Set
-            _Pier = Value
-        End Set
-    End Property
+
+Public Property Pier As String
+    Get
+        Return _Pier
+    End Get
+    Set
+        _Pier = Value
+    End Set
+
+End Property
+
+    Public Property Espesor As Single
+    Public Property Distancia_B As Single
+
 End Class

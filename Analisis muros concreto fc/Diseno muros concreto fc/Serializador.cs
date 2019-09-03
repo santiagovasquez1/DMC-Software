@@ -1,5 +1,4 @@
 ﻿using Diseño_de_muros_concreto_V2;
-using System;
 using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -24,16 +23,17 @@ namespace Diseno_muros_concreto_fc
                 Myfile.ShowDialog();
                 ruta = Myfile.FileName;
             }
-            if(ruta!= "") { 
-            Stream Escritor = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None);
-            formatter.Serialize(Escritor, Lista_i);
-            Escritor.Close();
+            if (ruta != "")
+            {
+                Stream Escritor = new FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None);
+                formatter.Serialize(Escritor, Lista_i);
+                Escritor.Close();
             }
         }
 
         public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
         {
-         
+
             BinaryFormatter Formatter = new BinaryFormatter();
             OpenFileDialog Myfile = new OpenFileDialog
             {
@@ -47,27 +47,27 @@ namespace Diseno_muros_concreto_fc
             if (Ruta_archivo != "")
             {
                 Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);
-            var aux = Formatter.Deserialize(Lector);
-            Lector.Close();
+                var aux = Formatter.Deserialize(Lector);
+                Lector.Close();
 
-            if (aux.GetType().Namespace == "Diseño_de_muros_concreto_V2")
-            {
-                var aux2 = (Listas_serializadas)aux;
-                Lista_i = new Listas_Serializadas_i
+                if (aux.GetType().Namespace == "Diseño_de_muros_concreto_V2")
                 {
-                    Lista_Muros = aux2.Lista_Muros,
-                    Lista_Alzados = aux2.Lista_Alzados,
-                    lista_refuerzo = aux2.lista_refuerzo,
-                    Muros_generales = aux2.Muros_generales,
-                    Capacidad_proyecto = aux2.Capacidad_proyecto
-                };
-            }
-            else
-            {
-                Lista_i = (Listas_Serializadas_i)aux;
-            }
+                    var aux2 = (Listas_serializadas)aux;
+                    Lista_i = new Listas_Serializadas_i
+                    {
+                        Lista_Muros = aux2.Lista_Muros,
+                        Lista_Alzados = aux2.Lista_Alzados,
+                        lista_refuerzo = aux2.lista_refuerzo,
+                        Muros_generales = aux2.Muros_generales,
+                        Capacidad_proyecto = aux2.Capacidad_proyecto
+                    };
+                }
+                else
+                {
+                    Lista_i = (Listas_Serializadas_i)aux;
+                }
 
-            Convertir_Listas(Lista_i);
+                Convertir_Listas(Lista_i);
             }
         }
 

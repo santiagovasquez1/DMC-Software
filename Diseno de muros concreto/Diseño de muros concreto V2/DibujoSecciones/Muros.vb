@@ -9,7 +9,7 @@ Public Enum Reduccion
     NoAplica
 
 End Enum
-
+<Serializable>
 Public Enum TipoRefuerzo
 
     Ninguno
@@ -17,11 +17,14 @@ Public Enum TipoRefuerzo
     R1G 'Recto con 1 Gancho
     R2G 'Recto con 2 Ganchos
     L  ' En L
-    L1G  ' En L con un gancho
+    S1G  ' En S con un gancho
+    L1G ' En L con un gancho
     C ' En C
-    S
+    S  ' En S(C)
+
 
 End Enum
+
 
 Public Class Muros
 

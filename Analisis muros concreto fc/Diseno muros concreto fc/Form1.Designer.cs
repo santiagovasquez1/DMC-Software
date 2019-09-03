@@ -365,7 +365,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(586, 4);
+            this.label3.Location = new System.Drawing.Point(612, 4);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 19);
             this.label3.TabIndex = 15;
@@ -382,7 +382,7 @@
             this.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.cb_cuantiavol.Image = global::Diseno_muros_concreto_fc.Properties.Resources.image;
             this.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cb_cuantiavol.Location = new System.Drawing.Point(604, 1);
+            this.cb_cuantiavol.Location = new System.Drawing.Point(630, 1);
             this.cb_cuantiavol.Name = "cb_cuantiavol";
             this.cb_cuantiavol.Size = new System.Drawing.Size(152, 26);
             this.cb_cuantiavol.TabIndex = 14;
@@ -439,7 +439,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label10.Location = new System.Drawing.Point(483, 4);
+            this.label10.Location = new System.Drawing.Point(509, 3);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(16, 19);
             this.label10.TabIndex = 8;
@@ -455,7 +455,7 @@
             this.Generar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Generar.Image = global::Diseno_muros_concreto_fc.Properties.Resources.Crearx16;
             this.Generar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Generar.Location = new System.Drawing.Point(501, 2);
+            this.Generar.Location = new System.Drawing.Point(528, 3);
             this.Generar.Name = "Generar";
             this.Generar.Size = new System.Drawing.Size(82, 24);
             this.Generar.TabIndex = 7;
@@ -487,9 +487,9 @@
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button5.Location = new System.Drawing.Point(345, 1);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(136, 25);
+            this.button5.Size = new System.Drawing.Size(175, 25);
             this.button5.TabIndex = 5;
-            this.button5.Text = "     Procesar Información";
+            this.button5.Text = "    Generar Cantidades Reales";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // button4

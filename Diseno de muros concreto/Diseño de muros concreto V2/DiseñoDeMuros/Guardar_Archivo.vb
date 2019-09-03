@@ -304,7 +304,7 @@ Public Class Guardar_Archivo
     End Sub
 
     Sub NuevosArchivo()
-        Dim NombreArchivoIguales As String = "\thesames.SDMC"
+        Dim NombreArchivoIguales As String = "\Quantities.QDMC"
         Dim Escritor = New StreamWriter(Ruta_Carpeta & NombreArchivoIguales)
 
         For Each muro_i As Muros_Consolidados In Muros_lista_2

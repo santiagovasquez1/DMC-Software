@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Diseño_de_muros_concreto_V2;
 
 namespace Diseno_muros_concreto_fc
 {
     [Serializable]
-    public class Muro:Diseño_de_muros_concreto_V2.Muro
+    public class Muro : Diseño_de_muros_concreto_V2.Muro
     {
         //public string Pier, Story;
         //public float bw, lw, hw, Fc, dw, h_acumulado;

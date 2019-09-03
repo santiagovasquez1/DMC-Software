@@ -44,6 +44,7 @@ Public Class Seccion_Ganchos
     End Property
 
     Public Property Story As String
+
         Get
             Return _Story
         End Get
@@ -60,5 +61,9 @@ Public Class Seccion_Ganchos
             _Pier = Value
         End Set
     End Property
+
+
+
+    Public Property Espesor As Single
 
 End Class

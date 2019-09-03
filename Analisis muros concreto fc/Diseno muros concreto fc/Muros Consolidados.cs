@@ -23,7 +23,7 @@ namespace Diseno_muros_concreto_fc
 
         public void Calculo_Peso_Aprox()
         {
-           
+
             double Traslapo, Peso_long_i, Peso_malla_i;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
@@ -363,7 +363,7 @@ namespace Diseno_muros_concreto_fc
             for (int i = 0; i < Muros_distintos.Count; i++)
             {
                 List<Muro> Auxiliar = Listas_Programa.Lista_Muros.FindAll(x => x.Pier == Muros_distintos[i]).ToList();
-               
+
                 Muro_i = new Muros_Consolidados_1
                 {
                     Pier_name = Muros_distintos[i],

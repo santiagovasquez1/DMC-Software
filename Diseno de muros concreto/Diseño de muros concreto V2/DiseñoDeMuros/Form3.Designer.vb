@@ -110,7 +110,6 @@ Partial Class f_alzado
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -128,7 +127,6 @@ Partial Class f_alzado
         Me.Panel8.SuspendLayout()
         CType(Me.pb_Alzado, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel9.SuspendLayout()
-        Me.Panel11.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -188,7 +186,7 @@ Partial Class f_alzado
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label10.Location = New System.Drawing.Point(602, 4)
+        Me.Label10.Location = New System.Drawing.Point(619, 5)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(16, 19)
         Me.Label10.TabIndex = 13
@@ -205,7 +203,7 @@ Partial Class f_alzado
         Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
         Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cb_cuantiavol.Location = New System.Drawing.Point(626, 1)
+        Me.cb_cuantiavol.Location = New System.Drawing.Point(642, 2)
         Me.cb_cuantiavol.Name = "cb_cuantiavol"
         Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
         Me.cb_cuantiavol.TabIndex = 12
@@ -242,7 +240,7 @@ Partial Class f_alzado
         Me.label7.BackColor = System.Drawing.Color.Transparent
         Me.label7.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.label7.Location = New System.Drawing.Point(498, 6)
+        Me.label7.Location = New System.Drawing.Point(521, 6)
         Me.label7.Name = "label7"
         Me.label7.Size = New System.Drawing.Size(16, 19)
         Me.label7.TabIndex = 8
@@ -260,7 +258,7 @@ Partial Class f_alzado
         Me.button6.ForeColor = System.Drawing.Color.White
         Me.button6.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Crearx16
         Me.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button6.Location = New System.Drawing.Point(520, 3)
+        Me.button6.Location = New System.Drawing.Point(536, 4)
         Me.button6.Name = "button6"
         Me.button6.Size = New System.Drawing.Size(80, 24)
         Me.button6.TabIndex = 7
@@ -291,11 +289,11 @@ Partial Class f_alzado
         Me.button5.ForeColor = System.Drawing.Color.White
         Me.button5.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.yellow_information_icon_icons_com_59572x161
         Me.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button5.Location = New System.Drawing.Point(351, 3)
+        Me.button5.Location = New System.Drawing.Point(343, 3)
         Me.button5.Name = "button5"
-        Me.button5.Size = New System.Drawing.Size(143, 24)
+        Me.button5.Size = New System.Drawing.Size(177, 24)
         Me.button5.TabIndex = 5
-        Me.button5.Text = "     Procesar Información"
+        Me.button5.Text = "        Generar Cantidades Reales"
         Me.button5.UseVisualStyleBackColor = False
         '
         'button4
@@ -971,21 +969,10 @@ Partial Class f_alzado
         'Panel11
         '
         Me.Panel11.BackColor = System.Drawing.Color.Gray
-        Me.Panel11.Controls.Add(Me.Button1)
         Me.Panel11.Location = New System.Drawing.Point(0, 25)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(1611, 800)
         Me.Panel11.TabIndex = 26
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(626, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
         '
         'f_alzado
         '
@@ -1029,7 +1016,6 @@ Partial Class f_alzado
         CType(Me.pb_Alzado, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        Me.Panel11.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1084,7 +1070,6 @@ Partial Class f_alzado
     Friend WithEvents cb_cuantiavol As Button
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Label9 As Label
-    Friend WithEvents Button1 As Button
     Friend WithEvents DataGridViewTextBoxColumn10 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn11 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn12 As DataGridViewTextBoxColumn
