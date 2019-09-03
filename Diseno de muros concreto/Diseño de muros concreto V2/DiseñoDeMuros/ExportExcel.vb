@@ -1,8 +1,6 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 
 Public Class ExportExcel
-    Private Lista_TextoPlano As New List(Of String)
-    Private Lista_ShearDesing, Lista_FlexuralStress, Lista_Reporte As New List(Of List(Of String))
     Private Ruta_archivo_1 As String
     Private m_Excel As Excel.Application
     Private objLibroExcel As Excel.Workbook

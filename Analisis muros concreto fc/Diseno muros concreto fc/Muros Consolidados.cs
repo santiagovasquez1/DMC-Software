@@ -334,6 +334,14 @@ namespace Diseno_muros_concreto_fc
             int indice;
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
+
+            double Long_mayor, H_prom, Mu_Vu_mayor;
+            int Relacion1;
+
+            Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
+            H_prom = Listas_Programa.Lista_Muros.Select(x => x.hw).Sum() / Listas_Programa.Lista_Muros.Count;
+            Relacion1 = Convert.ToInt32(Long_mayor / H_prom) + 1;
+
             Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
@@ -359,8 +367,6 @@ namespace Diseno_muros_concreto_fc
                 Muro_i = new Muros_Consolidados_1
                 {
                     Pier_name = Muros_distintos[i],
-                    //Shells_piso_der = new List<List<Shells_Prop>>(),
-                    //Shells_piso_Izq = new List<List<Shells_Prop>>()
                 };
                 Muro_i.Stories.AddRange(Auxiliar.Select(x => x.Story).Distinct().ToList());
                 Muro_i.fc.AddRange(Auxiliar.Select(x => x.Fc));
@@ -451,10 +457,11 @@ namespace Diseno_muros_concreto_fc
                     Muro_i.As_Htal_Total.Add(0);
                     //
                 }
+
                 Determinacion_EBE(Muro_i, Factor1, Factor2);
                 Determinacion_Lado(Muro_i, Factor2);
-                Det_As_Long(Muro_i);
-                Det_At(Muro_i);
+                Det_As_Long(Muro_i,Relacion1);
+                Det_At(Muro_i,Relacion1);
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
         }
@@ -560,11 +567,31 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_As_Long(Muros_Consolidados_1 Muro_i)
+        private static void Det_As_Long(Muros_Consolidados_1 Muro_i,int Pisos_Sin_malla)
         {
             double Aux_As_Long, Acero_malla, Aux_Long;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
+                if (i>= Muro_i.Stories.Count - Pisos_Sin_malla)
+                {
+                    if (Muro_i.Malla[i]!="Sin Malla")
+                    {                        
+                        int Num_barras = Convert.ToInt32(Math.Round((Muro_i.lw[i] - 2 * 3.8) / 30, 0) + 1);
+                        double Rho_aux;
+
+                        if (Muro_i.Malla[i].Contains("DD") == true)
+                        {
+                            Rho_aux = Num_barras * 1.42 / (Muro_i.lw[i] * Muro_i.Bw[i]);
+                        }
+                        else
+                        {
+                            Rho_aux = Num_barras * 0.71 / (Muro_i.lw[i] * Muro_i.Bw[i]);
+                        }
+                        Muro_i.Malla[i] = "Sin Malla";
+                        if(Rho_aux > Muro_i.Rho_l[i]) Muro_i.Rho_l[i] = Rho_aux;
+                    }
+                }
+
                 Aux_As_Long = Muro_i.Bw[i] * Muro_i.lw[i] * Muro_i.Rho_l[i];
                 Aux_Long = Muro_i.lw[i] - Muro_i.Lebe_Izq[i] - Muro_i.Lebe_Der[i] - Muro_i.Lebe_Centro[i] - Muro_i.Zc_Izq[i] - Muro_i.Zc_Der[i];
                 Acero_malla = (Aux_Long / 100) * Al_Malla(Muro_i.Malla[i]);
@@ -576,11 +603,27 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_At(Muros_Consolidados_1 Muro_i)
+        private static void Det_At(Muros_Consolidados_1 Muro_i, int Pisos_Sin_malla)
         {
             double Aux_As_t, Aux_As_tm;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
+                if (i >= Muro_i.Stories.Count - Pisos_Sin_malla)
+                {
+                    int Num_barras = Convert.ToInt32((100 / 30) + 1);
+                    double Rho_aux;
+
+                    if (Muro_i.Rho_T[i]>=0.0020 | Muro_i.Bw[i] >= 20)
+                    {
+                        Rho_aux = (1.42 / 0.30) / (100 * Muro_i.Bw[i]);
+                    }
+                    else
+                    {
+                        Rho_aux = (.71 / 0.30) / (100 * Muro_i.Bw[i]);
+                    }
+                    if (Rho_aux > Muro_i.Rho_T[i]) Muro_i.Rho_T[i] = Rho_aux;
+                }               
+
                 if (Muro_i.Rho_T[i] < 0.0020) Muro_i.Rho_T[i] = 0.0020;
                 Aux_As_t = Muro_i.Bw[i] * 100 * Muro_i.Rho_T[i];
                 Aux_As_tm = Al_Malla(Muro_i.Malla[i]);

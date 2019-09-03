@@ -515,8 +515,17 @@ Public Class Crear_Estribos
                     Suma_Long = 0
                     Exit For
                 End If
+
             Else
+                If Direccion = 0 Then
+                    Add_Estribos("FC_ESTRIBOS", Math.PI / 2, Punto_final, Suma_Long, ListaOrdenada(i).EspesorEscalado, True)
+                Else
+                    Add_Estribos("FC_ESTRIBOS", 0, Punto_final, Suma_Long, ListaOrdenada(i).EspesorEscalado, False)
+                End If
+
+                ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Gancho = False
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).Gancho = True
+                ListaOrdenada(i).Lista_Refuerzos_Fila_Min(Pos).Gancho = False
                 Exit For
             End If
 
@@ -621,6 +630,14 @@ Public Class Crear_Estribos
                     Exit For
                 End If
             Else
+
+                If Direccion = 0 Then
+                    Add_Estribos("FC_ESTRIBOS", Math.PI / 2, Punto_inicial, Suma_Long, ListaOrdenada(i).EspesorEscalado, False)
+                Else
+                    Add_Estribos("FC_ESTRIBOS", 0, {Punto_inicial(0), Punto_inicial(1) + Suma_Long, 0}, Suma_Long, ListaOrdenada(i).EspesorEscalado, False)
+                End If
+
+                ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Gancho = False
                 ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j - 1).Gancho = True
                 Exit For
             End If

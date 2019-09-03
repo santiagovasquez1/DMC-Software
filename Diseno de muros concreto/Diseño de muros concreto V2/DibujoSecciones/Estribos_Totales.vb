@@ -920,7 +920,7 @@ Public Class Estribos_Totales
             {
                 .Diametro = Diametro,
                 .Separacion = Math.Round(Separacion_Estribo, 3),
-                .Longitdud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
+                .Longitud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
                 .Story = Story,
                 .Pier = Pier_name,
                 .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
