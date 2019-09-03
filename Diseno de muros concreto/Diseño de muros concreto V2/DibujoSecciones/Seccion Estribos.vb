@@ -16,7 +16,6 @@ Public Class Seccion_Estribos
         End Set
     End Property
 
-    Public Property Longitud As Double
     Public Property Diametro As Double
         Get
             Return _Diametro
