@@ -15,8 +15,11 @@ Public Class Serializador2
         If Guardar Then
             Serializar(Ruta, Lista_Cantidades_Seri)
         Else
-            Deserializar(Ruta)
+            Try
+                Deserializar(Ruta)
+            Catch ex As Exception
 
+            End Try
         End If
 
     End Sub

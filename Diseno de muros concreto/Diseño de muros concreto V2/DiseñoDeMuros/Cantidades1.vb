@@ -38,72 +38,74 @@ Module Cantidades1
             Dim Ca_Estribos As Integer = 0 : Dim Ca_Ganchos As Integer = 0
             Dim CantidadMuros As Integer = 1
             Dim CantidadMuros_Totales As Integer = 0
-
-
-            If MuroAnalizar.isMuroMaestro Then
-
-                For j = 0 To Muros_lista_2.Count - 1
-
-                    If Muros_lista_2(j).isMuroMaestro Then
-                        CantidadMuros_Totales = CantidadMuros_Totales + 1
-                    End If
-
-                    If MuroAnalizar.Pier_name <> Muros_lista_2(j).Pier_name And Muros_lista_2(j).MuroSimilar IsNot Nothing Then
-                        If Muros_lista_2(j).MuroSimilar.Pier_name = MuroAnalizar.Pier_name Then
-                            CantidadMuros = CantidadMuros + 1
-                        End If
-                    End If
-                Next
-
-                If i = 0 Then
+            For j = 0 To Muros_lista_2.Count - 1
+                If Muros_lista_2(j).isMuroMaestro Then
+                    CantidadMuros_Totales = CantidadMuros_Totales + 1
+                End If
+            Next
+            If i = 0 Then
                     ArchivoTexto.Add(CantidadMuros_Totales)
                 End If
-                ArchivoTexto.Add("Muro " & Lista_Muros_Refuerzo(i).Nombre_muro)
+                If MuroAnalizar.isMuroMaestro Then
+
+                    For j = 0 To Muros_lista_2.Count - 1
 
 
-                ArchivoTexto.Add(CantidadMuros)
-                With MuroAnalizar
 
-
-                    Dim ListaAuxiliarMuro = Lista_Muros_Refuerzo.Find(Function(x) x.Nombre_muro = .Pier_name)
-                    Dim ListaAuxiliarMuro2 = Lista_Cantidades1.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = .Pier_name)
-
-                    If ListaAuxiliarMuro2 IsNot Nothing Then
-                        Ca_RefuerzoHorizontal = ListaAuxiliarMuro2.RefuerzoHorzontalDllnet.Count
-                        Ca_Estribos = ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet.Count
-                        Ca_Ganchos = ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet.Count
-                    End If
-
-                    ArchivoTexto.Add(ListaAuxiliarMuro.ListaRefuerzo_DllNet.Count + .CantidadMallasDllNet.Count + Ca_RefuerzoHorizontal + Ca_Ganchos + Ca_Estribos)
-
-                    For j = 0 To ListaAuxiliarMuro.ListaRefuerzo_DllNet.Count - 1
-                        ArchivoTexto.Add(ListaAuxiliarMuro.ListaRefuerzo_DllNet(j))
+                        If MuroAnalizar.Pier_name <> Muros_lista_2(j).Pier_name And Muros_lista_2(j).MuroSimilar IsNot Nothing Then
+                            If Muros_lista_2(j).MuroSimilar.Pier_name = MuroAnalizar.Pier_name Then
+                                CantidadMuros = CantidadMuros + 1
+                            End If
+                        End If
                     Next
 
-                    For j = 0 To .CantidadMallasDllNet.Count - 1
-                        ArchivoTexto.Add(.CantidadMallasDllNet(j))
-                    Next
-                    If ListaAuxiliarMuro2 IsNot Nothing Then
-                        For j = 0 To Ca_RefuerzoHorizontal - 1
-                            ArchivoTexto.Add(ListaAuxiliarMuro2.RefuerzoHorzontalDllnet(j))
+
+                    ArchivoTexto.Add("Muro " & Lista_Muros_Refuerzo(i).Nombre_muro)
+
+
+                    ArchivoTexto.Add(CantidadMuros)
+                    With MuroAnalizar
+
+
+                        Dim ListaAuxiliarMuro = Lista_Muros_Refuerzo.Find(Function(x) x.Nombre_muro = .Pier_name)
+                        Dim ListaAuxiliarMuro2 = Lista_Cantidades1.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = .Pier_name)
+
+                        If ListaAuxiliarMuro2 IsNot Nothing Then
+                            Ca_RefuerzoHorizontal = ListaAuxiliarMuro2.RefuerzoHorzontalDllnet.Count
+                            Ca_Estribos = ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet.Count
+                            Ca_Ganchos = ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet.Count
+                        End If
+
+                        ArchivoTexto.Add(ListaAuxiliarMuro.ListaRefuerzo_DllNet.Count + .CantidadMallasDllNet.Count + Ca_RefuerzoHorizontal + Ca_Ganchos + Ca_Estribos)
+
+                        For j = 0 To ListaAuxiliarMuro.ListaRefuerzo_DllNet.Count - 1
+                            ArchivoTexto.Add(ListaAuxiliarMuro.ListaRefuerzo_DllNet(j))
                         Next
 
-                        For j = 0 To ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet.Count - 1
-                            ArchivoTexto.Add(ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet(j))
+                        For j = 0 To .CantidadMallasDllNet.Count - 1
+                            ArchivoTexto.Add(.CantidadMallasDllNet(j))
                         Next
-                        For j = 0 To ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet.Count - 1
-                            ArchivoTexto.Add(ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet(j))
-                        Next
-                    End If
+                        If ListaAuxiliarMuro2 IsNot Nothing Then
+                            For j = 0 To Ca_RefuerzoHorizontal - 1
+                                ArchivoTexto.Add(ListaAuxiliarMuro2.RefuerzoHorzontalDllnet(j))
+                            Next
+
+                            For j = 0 To ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet.Count - 1
+                                ArchivoTexto.Add(ListaAuxiliarMuro2.Lista_Ganchos_NomencDllNet(j))
+                            Next
+                            For j = 0 To ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet.Count - 1
+                                ArchivoTexto.Add(ListaAuxiliarMuro2.Lista_Nomeclatura_EstribosDllNet(j))
+                            Next
+                        End If
 
 
-                End With
-            End If
-        Next
+                    End With
+                End If
+            Next
 
 
 
-        EscrbirTexto(ArchivoTexto)
+            EscrbirTexto(ArchivoTexto)
 
     End Sub
 

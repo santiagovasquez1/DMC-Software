@@ -23,18 +23,23 @@ namespace Diseno_muros_concreto_fc
 
         public void Calculo_Peso_Aprox()
         {
-
-            double Traslapo, Peso_long_i, Peso_malla_i;
+            double b_Me = 2.35; double h_Me = 6;
+            double Traslapo, Peso_long_i, Peso_malla_i,Area_piso;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
             double P_Transversal;
             double suma_transv;
-
+            double num_mallas;
+            
             for (int i = 0; i < Stories.Count; i++)
             {
                 Traslapo = 1 + Factores_Traslapo(Bw[i] / 100, Rho_l[i]);
                 Peso_long_i = Traslapo * As_Long[i] * Hw[i] * 7850 / (Math.Pow(100, 3));
-                Peso_malla_i = Peso_unit_Malla(Malla[i]) * ((lw[i] - 10) * (Hw[i] + 0.30)) / Math.Pow(100, 2);
+
+                Area_piso = (lw[i] - 10) * (Hw[i] + 30) / Math.Pow(100, 2);
+                num_mallas = Math.Ceiling(Area_piso / (b_Me * h_Me));
+
+                Peso_malla_i = Peso_unit_Malla(Malla[i]) *num_mallas*(b_Me * h_Me);
 
                 Peso_Long.Add(Peso_long_i);
                 Peso_malla.Add(Peso_malla_i);

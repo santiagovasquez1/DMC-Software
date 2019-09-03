@@ -73,12 +73,16 @@ Public Class Muros_Consolidados
         Dim h_ME As Single = 6
         Dim Traslapo As Single = 0.3
         Dim R As Single = 0.02
+        Dim Area_piso As Double
 
         If CantidaddeMallas_Fic.Count = 0 Then
             For i = 0 To lw.Count - 1
-                If Hw(i) + 0.3 > h_ME Then
-                    CantidaddeMallas_Fic.Add((Math.Ceiling(((lw(i) / 100 - R - Traslapo) / b_ME) / 2)))
-                End If
+
+                Area_piso = (lw(i) / 100) * ((Hw(i) / 100) + Traslapo)
+                CantidaddeMallas_Fic.Add(Math.Ceiling(Area_piso / (b_ME * h_ME)))
+                'If Hw(i) + 0.3 > h_ME Then
+                '    CantidaddeMallas_Fic.Add((Math.Ceiling(((lw(i) / 100 - R - Traslapo) / b_ME) / 2)))
+                'End If
             Next
 
             For i = 0 To Malla.Count - 1
