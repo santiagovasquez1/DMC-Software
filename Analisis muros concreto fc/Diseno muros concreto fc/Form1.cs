@@ -340,7 +340,7 @@ namespace Diseno_muros_concreto_fc
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            AbrirProyecto(Listas);
+            AbrirProyecto(ref Listas);
         }
 
         private void InfoGeneralToolStripMenuItem_Click(object sender, EventArgs e)
@@ -465,10 +465,10 @@ namespace Diseno_muros_concreto_fc
 
         private void Button3_Click_1(object sender, EventArgs e)
         {
-            AbrirProyecto(Listas);
+            AbrirProyecto(ref Listas);
         }
 
-        private void AbrirProyecto(Listas_Serializadas_i Lista_i)
+        private void AbrirProyecto(ref Listas_Serializadas_i Lista_i)
         {
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             Listas_Programa.Lista_Muros = new List<Muro>();
