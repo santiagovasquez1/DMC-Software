@@ -36,6 +36,7 @@ Public Class Serializador
             With Myfile
                 .Title = "Información Muros"
                 .Filter = "Guardar Archivo |*.dmc"
+
             End With
 
             Myfile.ShowDialog()
@@ -44,8 +45,8 @@ Public Class Serializador
         Ruta_archivo = ruta
         If ruta <> "" Then
             Dim Escritor As Stream = New FileStream(ruta, FileMode.Create, FileAccess.Write, FileShare.None)
-        Formatter.Serialize(Escritor, Lista_serializadas)
-        Escritor.Close()
+            Formatter.Serialize(Escritor, Lista_serializadas)
+            Escritor.Close()
         End If
     End Sub
 
