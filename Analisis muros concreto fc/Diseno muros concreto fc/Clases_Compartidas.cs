@@ -1,6 +1,5 @@
 ﻿using Diseño_de_muros_concreto_V2;
 using System;
-using System.Collections.Generic;
 
 namespace Diseno_muros_concreto_fc
 {
@@ -43,7 +42,7 @@ namespace Diseno_muros_concreto_fc
     }
 
     [Serializable]
-    public class Listas_Serializadas_i :Listas_serializadas
+    public class Listas_Serializadas_i : Listas_serializadas
     {
         public override bool Equals(object obj)
         {

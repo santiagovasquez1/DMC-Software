@@ -6,4 +6,6 @@ Public Class Seccion_Ganchos
     Public Property Cantidad As Integer
     Public Property Pier As String
     Public Property Story As String
+
+    Public Property Espesor As Single
 End Class

@@ -1411,6 +1411,12 @@ Module Module1
             Aux.Estribos_Pisos(Delta_X, 0, A(1), Lista_Cantidades1)
         End If
 
+        For Each MuroRefuerzo In Lista_Cantidades1.ListaRefuerzoHorzontal
+            MuroRefuerzo.CalcularNomenclaturaGanchosyEstribos()
+        Next
+
+
+
         Muros_V.Clear()
         ListaOrdenada.Clear()
         Selecccionar.Clear()
@@ -1433,8 +1439,11 @@ Module Module1
                     Dim LongitudRefuerzoHorizontal As Single = 0
                     Dim R_1 As Single = 0.02 : Dim R_2 As Single = 0.15 : Dim Long_Gan_V As Single = 0.3 : Dim Delta As Single = 0
                     Dim EspesorVecino As Single = 0
+
+
+
                     If .DireccionMuro = "Horizontal" Then
-                        Dim MuroAExtender1 As New List(Of Muros) : Dim MuroAExtender2 As New List(Of Muros) : Dim MuroL1, MuroL2 As String
+                        Dim MuroAExtender1 As New List(Of Muros) : Dim MuroAExtender2 As New List(Of Muros) : Dim MuroL1 = "", MuroL2 = ""
 
                         For j = 0 To .MurosVecinosClase.Count - 1
                             If Math.Round(.MurosVecinosClase(j).XmaxE, 2) = Math.Round(.XminE, 2) Or Math.Round(.MurosVecinosClase(j).XminE, 2) = Math.Round(.XminE, 2) Then
@@ -1456,13 +1465,18 @@ Module Module1
                                 End If
                             End If
                         Next
-#Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
+                        If MuroL1 = "MuroLAbajo" And MuroL2 = "MuroLArriba" OrElse MuroL2 = "MuroLAbajo" And MuroL1 = "MuroLArriba" Then
+                            .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S
+                        Else
+                            .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
+                        End If
 
+#Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
 
                         If .Leb_Dr_PorPiso(i) < 0.45 And .Leb_Izq_PorPiso(i) < 0.45 Then
 
                             If MuroAExtender2.Count <> 0 And MuroAExtender1.Count <> 0 Then
-                                .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
+
                                 LongitudRefuerzoHorizontal = .Longitud + MuroAExtender2(0).EspesorReal + MuroAExtender1(0).EspesorReal - R_1 * 2 + Long_Gan_V * 2
 
                                 If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
@@ -1492,12 +1506,15 @@ Module Module1
                                 End If
 
                                 .LongMallaHorziPorPiso(i) = LongitudRefuerzoHorizontal
-
                             End If
 
                             If MuroAExtender2.Count = 0 And MuroAExtender1.Count <> 0 Then
+                                If MuroL1 = "MuroLAbajo" Or MuroL1 = "MuroLArriba" Then
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S1G
+                                Else
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                End If
 
-                                .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroAExtender1(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If MuroAExtender1(0).CambioDireccion = Reduccion.Derecha Then
@@ -1519,7 +1536,11 @@ Module Module1
                             End If
 
                             If MuroAExtender2.Count <> 0 And MuroAExtender1.Count = 0 Then
-                                .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                If MuroL2 = "MuroLAbajo" Or MuroL2 = "MuroLArriba" Then
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S1G
+                                Else
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                End If
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroAExtender2(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If MuroAExtender2(0).CambioDireccion = Reduccion.Izquierda Then
@@ -1703,9 +1724,7 @@ Module Module1
 
                     Else
 
-
                         '------------------------------Verticales------------------"
-
 
                         Dim MurosaExtenderMalla As Integer = 0
                         Dim MuroYaExtender1 As New List(Of Muros) : Dim MuroYaExtender2 As New List(Of Muros) : Dim R1 As Double = 0 : Dim R2 As Double = 0
@@ -1735,6 +1754,12 @@ Module Module1
                             End If
 
                         Next
+                        If MuroL1 = "MuroLIzquierda" And MuroL2 = "MuroLDerecha" OrElse MuroL2 = "MuroLIzquierda" And MuroL1 = "MuroLDerecha" Then
+                            .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S
+                        Else
+                            .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.C
+                        End If
+
 
 
 #Region "Caso 1 -----> Zc_Dere<0.45 y Zc_Izqu<0.45"
@@ -1781,7 +1806,11 @@ Module Module1
 
                             If MuroYaExtender2.Count = 0 And MuroYaExtender1.Count <> 0 Then
 
-                                .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                If MuroL1 = "MuroLIzquierda" Or MuroL1 = "MuroLDerecha" Then
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S1G
+                                Else
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                End If
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroYaExtender1(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If MuroYaExtender1(0).CambioDireccion = Reduccion.Arriba Then
@@ -1803,7 +1832,11 @@ Module Module1
                             End If
 
                             If MuroYaExtender2.Count <> 0 And MuroYaExtender1.Count = 0 Then
-                                .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                If MuroL1 = "MuroLIzquierda" Or MuroL1 = "MuroLDerecha" Then
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.S1G
+                                Else
+                                    .FormaRefuerzoHorizontal_PorPiso(i) = TipoRefuerzo.L1G
+                                End If
                                 LongitudRefuerzoHorizontal = .Longitud - R_1 + ganchos_180(.RefuerzoHorizontalLabelPorPiso(i)) + (MuroYaExtender2(0).EspesorReal - R_1 + Long_Gan_V)
 
                                 If MuroYaExtender2(0).CambioDireccion = Reduccion.Abajo Then

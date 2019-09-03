@@ -24,6 +24,7 @@ Public Class Serializador
             Deserializar(Ruta, Lista_serializadas)
         End If
 
+
     End Sub
 
     Public Shared Sub Serializar(ByRef ruta As String, ByVal Lista_serializadas As Listas_serializadas)

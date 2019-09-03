@@ -9,7 +9,7 @@ namespace Diseno_muros_concreto_fc
     internal class Cargar_archivo
     {
         private static List<string> Lista_texto;
-       
+
         public static void Cargar_Lista_Texto()
         {
             string sline;
