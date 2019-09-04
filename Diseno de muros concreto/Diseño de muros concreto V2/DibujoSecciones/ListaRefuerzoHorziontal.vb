@@ -1,4 +1,5 @@
-﻿Public Class RefuerzoHorizontal
+﻿<Serializable>
+Public Class RefuerzoHorizontal
 
     Private nombreMuro_ As String
 
@@ -143,6 +144,139 @@
         End Set
     End Property
 
+
+    Private lista_nomenclaturaprefinal1_ganchos_ As New List(Of String)
+    Public Property Lista_Ganchos_NomencDllNet() As List(Of String)
+        Get
+            Return lista_nomenclaturaprefinal1_ganchos_
+        End Get
+        Set(ByVal value As List(Of String))
+            lista_nomenclaturaprefinal1_ganchos_ = value
+        End Set
+    End Property
+
+    Private lista_nomenclatura_estribos_ As New List(Of String)
+    Public Property Lista_Nomeclatura_EstribosDllNet() As List(Of String)
+        Get
+            Return lista_nomenclatura_estribos_
+        End Get
+        Set(ByVal value As List(Of String))
+            lista_nomenclatura_estribos_ = value
+        End Set
+    End Property
+
+
+
+
+    Sub CalcularNomenclaturaGanchosyEstribos()
+        NomenclaturaPrefinalGanchos()
+        NomenclaturaEstribos()
+    End Sub
+
+
+    Sub NomenclaturaPrefinalGanchos()
+        Lista_Ganchos_NomencDllNet.Clear()
+
+        Dim VectoIndices As New List(Of Integer)
+
+
+        For i = 0 To Lista_Ganchos.Count - 1
+            Dim Cantidad1 As Integer = Lista_Ganchos(i).Cantidad
+            Dim Diametro1 As String = (Lista_Ganchos(i).Diametro)
+            Dim Long_Gancho1 = ganchos_180(Diametro1)
+            Dim Nomenclatura1 As String = $" G #{Lista_Ganchos(i).Diametro}  {Math.Round(Lista_Ganchos(i).Longitud - Long_Gancho1 * 2, 2)}   G{Long_Gancho1}   F0/0"
+            If VectoIndices.Exists(Function(x) x = i) = False Then
+
+                For j = i + 1 To Lista_Ganchos.Count - 1
+                    Dim Diametro2 As String = (Lista_Ganchos(j).Diametro)
+                    Dim Long_Gancho2 = ganchos_180(Diametro2)
+                    Dim Nomenclatura2 As String = $" G #{Lista_Ganchos(j).Diametro}  {Math.Round(Lista_Ganchos(j).Longitud - Long_Gancho2 * 2, 2)}   G{Long_Gancho2}   F0/0"
+
+                    If Nomenclatura1 = Nomenclatura2 Then
+                        Cantidad1 = Cantidad1 + Lista_Ganchos(j).Cantidad
+                        VectoIndices.Add(j)
+                    End If
+
+                Next
+                Lista_Ganchos_NomencDllNet.Add(Cantidad1 & Nomenclatura1)
+            End If
+
+        Next
+
+
+    End Sub
+
+    Sub NomenclaturaEstribos()
+
+        Lista_Nomeclatura_EstribosDllNet.Clear()
+
+        Dim VectoIndices As New List(Of Integer)
+
+        For i = 0 To Lista_Estribos.Count - 1
+            Dim Cantidad1 As Integer = Lista_Estribos(i).Cantidad
+            Dim Diametro1 As String = (Lista_Estribos(i).Diametro)
+            Dim B1 As Single = Math.Round(Lista_Estribos(i).Distancia_B, 2)
+            Dim H1 As Single = Math.Round(Lista_Estribos(i).Espesor - 2 * 0.02, 2)
+            Dim Long_Gancho1 = Find_Long_Ganchos(Diametro1)
+            Dim Nomenclatura1 As String = $" E #{Lista_Estribos(i).Diametro}  {B1}*{H1}  G{Long_Gancho1}   F0/45"
+            If VectoIndices.Exists(Function(x) x = i) = False Then
+
+                For j = i + 1 To Lista_Estribos.Count - 1
+                    Dim Diametro2 As String = (Lista_Estribos(j).Diametro)
+                    Dim B2 As Single = Math.Round(Lista_Estribos(j).Distancia_B, 2)
+                    Dim H2 As Single = Math.Round(Lista_Estribos(j).Espesor - 2 * 0.02, 2)
+                    Dim Long_Gancho2 = Find_Long_Ganchos(Diametro2)
+                    Dim Nomenclatura2 As String = $" E #{Lista_Estribos(j).Diametro}  {B2}*{H2}  G{Long_Gancho2}   F0/45"
+
+                    If Nomenclatura1 = Nomenclatura2 Then
+                        Cantidad1 = Cantidad1 + Lista_Estribos(j).Cantidad
+                        VectoIndices.Add(j)
+                    End If
+
+                Next
+                Lista_Nomeclatura_EstribosDllNet.Add(Cantidad1 & Nomenclatura1)
+            End If
+
+        Next
+
+
+    End Sub
+
+
+    Private Function Find_Long_Ganchos(ByVal Diametro As Integer) As Double
+        Dim Longitud As Double
+
+        Select Case Diametro
+            Case 3
+                Longitud = 0.094
+            Case 4
+                Longitud = 0.125
+            Case 5
+                Longitud = 0.157
+        End Select
+
+        Return Longitud
+    End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Sub Nomenclatura(ByVal e_Losa As Single, Optional R As Single = 0.05)
         CalcularCantidadPorPiso(e_Losa, R)
         RefuerzoPreFinal()
@@ -161,7 +295,7 @@
 
         For i = 0 To Cantidad.Count - 1
             If No_Capas(i) <> 0 Then
-                NomenclaturaRefuerzo.Add($"#{No_Barra(i)}L={Longitud(i)}-{FormaRefuerzo(i)} ")
+                NomenclaturaRefuerzo.Add($"#{No_Barra(i)}L={Longitud(i)}-{FormaRefuerzo(i)}")
             Else
                 NomenclaturaRefuerzo.Add("")
             End If
@@ -200,7 +334,7 @@
             Dim No_Barra_ As Single = 0 : Dim PosiciF_No_Barra As Integer = 0
             Dim Nom_barra As String = ""
             Dim Longitud_Barra As Single = 0 : Dim PisicF__ As Integer = 0
-            Dim FormaRefuerzo As String : Dim NomenclaturaFinal As String
+            Dim FormaRefuerzo As String : Dim NomenclaturaFinal As String = ""
             Dim LongitudGancho As Single
             If Nomenclatura.Chars(0) <> "0" Then
 
@@ -230,17 +364,40 @@
                 End If
 
                 LongitudGancho = ganchos_180(Nom_barra)
-                If FormaRefuerzo = "R" Then
-                    NomenclaturaFinal = $"{Cantidad1} {No_Barra_} {Longitud_Barra}"
-                End If
-                If FormaRefuerzo = "R1G" Then
-                    NomenclaturaFinal = $"{Cantidad1} {No_Barra_} {Longitud_Barra - LongitudGancho} U{LongitudGancho}"
-                End If
-                If FormaRefuerzo = "R2G" Then
-                    NomenclaturaFinal = $"{Cantidad1} {No_Barra_} {Longitud_Barra - 2 * LongitudGancho} U{LongitudGancho} U{LongitudGancho}"
+
+                If Nom_barra.Contains("M") = False Then
+                    Nom_barra = "#" & Nom_barra
                 End If
 
-                'RefuerzoHorzontalDllnet.Add(NomenclaturaFinal)
+                If FormaRefuerzo = "R" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra} {Math.Round(Longitud_Barra, 2)}"
+                End If
+                If FormaRefuerzo = "R1G" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra} {Math.Round(Longitud_Barra - LongitudGancho, 2)} U{LongitudGancho}"
+                End If
+                If FormaRefuerzo = "R2G" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra} {Math.Round(Longitud_Barra - 2 * LongitudGancho, 2)} U{LongitudGancho} U{LongitudGancho}"
+                End If
+
+                If FormaRefuerzo = "L" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra}  {Math.Round(Longitud_Barra - 0.3, 2)}   L{0.3}"
+                End If
+                If FormaRefuerzo = "L1G" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra}  {Math.Round(Longitud_Barra - 0.3 - LongitudGancho, 2)}   U{LongitudGancho}   L{0.3}"
+                End If
+                If FormaRefuerzo = "S1G" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra}  {Math.Round(Longitud_Barra - 0.3 - LongitudGancho, 2)}   U{LongitudGancho}   -L{0.3}"
+                End If
+
+                If FormaRefuerzo = "S" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra}  {Math.Round(Longitud_Barra - 0.3 - 0.3, 2)}   L{0.3}   -L{0.3}"
+                End If
+
+                If FormaRefuerzo = "C" Then
+                    NomenclaturaFinal = $"{Cantidad1} {Nom_barra}  {Math.Round(Longitud_Barra - 0.3 - 0.3, 2)}   L{0.3}   L{0.3}"
+                End If
+
+                RefuerzoHorzontalDllnet.Add(NomenclaturaFinal)
 
             End If
         Next

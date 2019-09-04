@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo-vertical-bmp-ConvertImage.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -275,6 +278,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\close-button2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo-vertical-bmp-ConvertImage.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

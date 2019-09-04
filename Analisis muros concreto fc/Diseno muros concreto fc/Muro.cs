@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Diseño_de_muros_concreto_V2;
 
 namespace Diseno_muros_concreto_fc
 {
     [Serializable]
-    public class Muro:Diseño_de_muros_concreto_V2.Muro
+    public class Muro : Diseño_de_muros_concreto_V2.Muro
     {
         //public string Pier, Story;
         //public float bw, lw, hw, Fc, dw, h_acumulado;
@@ -59,7 +58,7 @@ namespace Diseno_muros_concreto_fc
             ptt = new List<double>(); //Cuantia transversal requerida por C.21.9.4.1
             pt_definitivo = new List<double>();
             Cortinas = new List<int>();
-            Error_Cortante = new List<string>();
+            Error_Cortante = new List<string>();       
 
             double Fy = 4220; //[kgf/cm2]
             float Phi = 0.75F; //Definir si sera variable de entrada o un valor fijo
@@ -71,7 +70,6 @@ namespace Diseno_muros_concreto_fc
             Pt_max = Phi * 2.1 * Math.Sqrt(Fc) / Fy;
 
             for (int i = 0; i < V2.Count; i++)
-
             {
                 Phi_Vc.Add(Phi * Calc_Vc(Math.Abs(V2[i]), Math.Abs(M3[i]), -P[i]));
                 if (V2[i] - Phi_Vc[i] < 0)

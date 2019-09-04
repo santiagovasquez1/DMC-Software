@@ -920,10 +920,12 @@ Public Class Estribos_Totales
             {
                 .Diametro = Diametro,
                 .Separacion = Math.Round(Separacion_Estribo, 3),
-                .Longitdud = Math.Round((Espesor_Doble - 0.04) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
+                .Longitud = Math.Round((Espesor_Doble - 0.02) * 2 + (Distancia + 0.038) * 2 + (2 * Find_Long_Ganchos(Diametro)), 2),
                 .Story = Story,
+                .Distancia_B = Distancia + 0.038,
                 .Pier = Pier_name,
-                .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0)
+                .Cantidad = Math.Round((Hlibre / Separacion_Estribo) + 1, 0),
+                .Espesor = Espesor_Doble
             }
             Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Pier_name).Lista_Estribos.Add(Estribo_i)
         Else
@@ -1150,7 +1152,8 @@ Public Class Estribos_Totales
                     .Separacion = Math.Round(Lista_sep_ganchos(i), 3),
                     .Pier = Pier_name,
                     .Story = Story,
-                    .Cantidad = Math.Round((Hlibre / Lista_sep_ganchos(i)) + 1, 0)
+                    .Cantidad = Math.Round((Hlibre / Lista_sep_ganchos(i)) + 1, 0),
+                    .Espesor = bw / 100
                 }
                 Lista_Cantidades_i.ListaRefuerzoHorzontal.Find(Function(x) x.NombreMuro = Pier_name).Lista_Ganchos.Add(gancho_i)
 

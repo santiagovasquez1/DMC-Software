@@ -533,7 +533,7 @@ Partial Class Form22
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(590, 6)
+        Me.Label1.Location = New System.Drawing.Point(594, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(16, 19)
         Me.Label1.TabIndex = 11
@@ -549,7 +549,7 @@ Partial Class Form22
         Me.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.cb_cuantiavol.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.image
         Me.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.cb_cuantiavol.Location = New System.Drawing.Point(611, 2)
+        Me.cb_cuantiavol.Location = New System.Drawing.Point(615, 2)
         Me.cb_cuantiavol.Name = "cb_cuantiavol"
         Me.cb_cuantiavol.Size = New System.Drawing.Size(152, 26)
         Me.cb_cuantiavol.TabIndex = 5
@@ -606,7 +606,7 @@ Partial Class Form22
         Me.label5.AutoSize = True
         Me.label5.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.label5.Location = New System.Drawing.Point(493, 6)
+        Me.label5.Location = New System.Drawing.Point(497, 6)
         Me.label5.Name = "label5"
         Me.label5.Size = New System.Drawing.Size(16, 19)
         Me.label5.TabIndex = 8
@@ -623,7 +623,7 @@ Partial Class Form22
         Me.button10.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.button10.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.Crearx16
         Me.button10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button10.Location = New System.Drawing.Point(509, 3)
+        Me.button10.Location = New System.Drawing.Point(513, 3)
         Me.button10.Name = "button10"
         Me.button10.Size = New System.Drawing.Size(88, 24)
         Me.button10.TabIndex = 7
@@ -652,11 +652,11 @@ Partial Class Form22
         Me.button11.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.button11.Image = Global.Diseño_de_muros_concreto_V2.My.Resources.Resources.yellow_information_icon_icons_com_59572x161
         Me.button11.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.button11.Location = New System.Drawing.Point(341, 2)
+        Me.button11.Location = New System.Drawing.Point(340, 2)
         Me.button11.Name = "button11"
-        Me.button11.Size = New System.Drawing.Size(154, 25)
+        Me.button11.Size = New System.Drawing.Size(174, 25)
         Me.button11.TabIndex = 5
-        Me.button11.Text = "     Procesar Información"
+        Me.button11.Text = "    Generar Cantidades Reales"
         Me.button11.UseVisualStyleBackColor = True
         '
         'button12
@@ -729,7 +729,7 @@ Partial Class Form22
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "Información General"
         '
-        'Form1
+        'Form22
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -740,7 +740,7 @@ Partial Class Form22
         Me.Controls.Add(Me.panel3)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "Form1"
+        Me.Name = "Form22"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Informaciòn General "
         CType(Me.Data_muros, System.ComponentModel.ISupportInitialize).EndInit()

@@ -61,7 +61,7 @@
 
         Me.AutoScroll = False
         Me.DoubleBuffered = True
-
+        button5.Enabled = True
     End Sub
 
     Public Sub LMuros_SelectedIndexChanged(sender As Object, e As EventArgs) Handles LMuros.SelectedIndexChanged
@@ -699,8 +699,8 @@
         'Recurso_Excel(alzado_lista)
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
-        GenerarCantidades(alzado_lista, Muros_lista_2)
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs)
+
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs)
@@ -710,6 +710,8 @@
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
 
     End Sub
+
+
 
     Private Sub F_alzado_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyData = Keys.Control + Keys.Q Then
@@ -732,4 +734,7 @@
         End If
     End Sub
 
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles button5.Click
+        GenerarCantidades(alzado_lista, Muros_lista_2)
+    End Sub
 End Class

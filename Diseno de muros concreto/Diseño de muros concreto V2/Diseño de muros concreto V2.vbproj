@@ -137,6 +137,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DibujoSecciones\Serializador2.vb" />
     <Compile Include="DiseñoDeMuros\alzado_muro.vb" />
     <Compile Include="DiseñoDeMuros\ApplicationEvents.vb" />
     <Compile Include="DiseñoDeMuros\Cantidades1.vb" />
