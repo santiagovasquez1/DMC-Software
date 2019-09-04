@@ -25,18 +25,16 @@ Public Class Muros_Consolidados
     Public Lebe_Centro As List(Of Double) = New List(Of Double)
     Public Zc_Izq As List(Of Double) = New List(Of Double)
     Public Zc_Der As List(Of Double) = New List(Of Double)
+    ''Public Error_cuantia As List(Of String) = New List(Of String)
 
     'Nuevas variables
     Public Est_ebe As List(Of Integer) = New List(Of Integer)
-
     Public Sep_ebe As List(Of Double) = New List(Of Double)
     Public Est_Zc As List(Of Integer) = New List(Of Integer)
     Public Sep_Zc As List(Of Double) = New List(Of Double)
     Public As_Long As List(Of Double) = New List(Of Double)
 
-    '
     Public ramas_der As List(Of Integer) = New List(Of Integer)
-
     Public ramas_izq As List(Of Integer) = New List(Of Integer)
     Public ramas_centro As List(Of Integer) = New List(Of Integer)
     Public As_htal As List(Of Double) = New List(Of Double)

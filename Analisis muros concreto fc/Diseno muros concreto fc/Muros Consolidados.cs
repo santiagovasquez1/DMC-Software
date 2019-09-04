@@ -467,6 +467,7 @@ namespace Diseno_muros_concreto_fc
                 Determinacion_Lado(Muro_i, Factor2);
                 Det_As_Long(Muro_i,Relacion1);
                 Det_At(Muro_i,Relacion1);
+                Errores_muro(Muro_i);
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
         }
@@ -751,5 +752,22 @@ namespace Diseno_muros_concreto_fc
             }
             return Aux_acero;
         }
+
+        private static void Errores_muro (Muros_Consolidados_1 Muro_i)
+        {
+            string Mensaje="Ok";
+
+            for (int i = 0; i < Muro_i.Stories.Count; i++)
+            {
+                if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15)
+                {
+                    if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15) Mensaje = "Bw < 0.15m y Rho_l>=0.0066";
+                    if (Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15) Mensaje = "Bw<0.15m y Ebe>0";
+                }
+                else Mensaje = "Ok";
+                //Muro_i.Error_cuantia.Add(Mensaje);
+            }
+        }
+
     }
 }

@@ -26,12 +26,24 @@ namespace Diseno_muros_concreto_fc
                     Lista_ordenada.Clear();
 
                     if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
-
                     comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x => x).ToArray());
+                    //Find_Errores(Listas_Programa.Muros_Consolidados_Listos);
                     comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
             }
+        }
+
+        private void Find_Errores(List<Muros_Consolidados_1> Lista_i)
+        {
+            //for (int i = 0; i < Lista_i.Count; i++)
+            //{
+            //    if (Lista_i[i].Error_cuantia.Exists(x => x == "Bw < 0.15m y Ebe > 0" | x == "Bw < 0.15m y Rho_l>=0.0066") == true)
+            //    {
+            //        comboBox1.Items.Add("!REPORT¡");
+            //        break;
+            //    }
+            //}
         }
 
         private void SetupDataGridView(string Nombre_Data, DataGridView Formulario, DataTable Origen_datos)
@@ -221,8 +233,6 @@ namespace Diseno_muros_concreto_fc
 
         private void button10_Click(object sender, EventArgs e)
         {
-
-            
             foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
                 muro_i.Peso_Long.Clear();

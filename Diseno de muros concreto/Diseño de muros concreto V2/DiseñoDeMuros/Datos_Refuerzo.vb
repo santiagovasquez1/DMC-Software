@@ -681,7 +681,7 @@
                     PosicionDiametro = n + 1
                 End If
                 If Nomenclatura.Chars(n) = "=" Then
-                    PosicionInicalLongitud = n + 2
+                    PosicionInicalLongitud = n + 3
                 End If
             Next
             CantidadBarras = Val(Nomenclatura.Substring(0, PosicionFinalCantidad))
