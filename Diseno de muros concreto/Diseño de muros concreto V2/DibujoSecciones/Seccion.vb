@@ -50,7 +50,11 @@ Public Class Seccion
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        IniciarAplicacion(Me)
+        If Hviga <> 0 Then
+            IniciarAplicacion(Me)
+        Else
+            f_variables.Show()
+        End If
     End Sub
 
     'Mover Pestaña

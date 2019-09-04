@@ -663,7 +663,7 @@
     End Sub
 
     Sub RefuerzoDllNet()
-
+        ListaRefuerzo_DllNet.Clear()
         For i = 0 To ListaTotalRefuerzo_EspecificadoConCantidad.Count - 1
 
             Dim Nomenclatura As String = ListaTotalRefuerzo_EspecificadoConCantidad(i)
@@ -681,12 +681,15 @@
                     PosicionDiametro = n + 1
                 End If
                 If Nomenclatura.Chars(n) = "=" Then
-                    PosicionInicalLongitud = n + 3
+                    PosicionInicalLongitud = n + 1
                 End If
             Next
             CantidadBarras = Val(Nomenclatura.Substring(0, PosicionFinalCantidad))
-            Longitud = Val(Nomenclatura.Substring(PosicionInicalLongitud, 3))
-
+            Try
+                Longitud = Val(Nomenclatura.Substring(PosicionInicalLongitud, 4))
+            Catch
+                Longitud = Val(Nomenclatura.Substring(PosicionInicalLongitud, 3))
+            End Try
             Try
                 If Nomenclatura.Chars(PosicionDiametro + 1) = "-" Then
                     DiametroA = Val(Nomenclatura.Chars(PosicionDiametro))
@@ -718,7 +721,7 @@
     End Sub
 
     Sub RefuerzoFinal()
-
+        ListaTotalRefuerzo_EspecificadoConCantidad.Clear()
         Dim VectoIndices As New List(Of Integer)
 
         For i = 0 To ListaTotalRefuerzo_PorMuro.Count - 1
@@ -741,7 +744,7 @@
     End Sub
 
     Sub RefuerzoTotal()
-
+        ListaTotalRefuerzo_PorMuro_Cantidad.Clear()
         For i = 0 To ListaBarrasConcatenadas.Count - 1
             For j = 0 To ListaBarrasConcatenadas(i).Count - 1
                 ListaTotalRefuerzo_PorMuro.Add(ListaBarrasConcatenadas(i)(j))
@@ -752,11 +755,12 @@
     End Sub
 
     Sub ConcatenarBarras()
+        ListaBarrasConcatenadas.Clear()
         For i = 0 To ListaDiametros.Count - 1
             Dim ListaConcate As New List(Of String)
             For j = 0 To ListaDiametros(i).Count - 1
                 Dim TextConca As String
-                TextConca = "#" & ListaDiametros(i)(j) & "-" & "L=" & Str(Lista_Longitudes(i)(j)) & "-" & Lista_Figura(i)(j)
+                TextConca = "#" & ListaDiametros(i)(j) & "-" & "L=" & (Format(Lista_Longitudes(i)(j), "0.00") & "-" & Lista_Figura(i)(j))
                 ListaConcate.Add(TextConca)
             Next
             ListaBarrasConcatenadas.Add(ListaConcate)
@@ -765,7 +769,8 @@
     End Sub
 
     Sub DiametroBarras_CantidadBarras()
-
+        ListaCantidadBarras.Clear()
+        ListaDiametros.Clear()
         For j = 0 To Lista_Barras.Count - 1
             Dim ListaDiametros1 As New List(Of String)
             Dim ListaCantidadBarras1 As New List(Of Integer)
@@ -800,7 +805,7 @@
     End Sub
 
     Sub Barra_Recta_L_C()
-
+        Lista_Figura.Clear()
         For j = 0 To Lista_Coordenadas.Count - 1
             Dim ListaBarras As New List(Of String)
             For s = 0 To Lista_Coordenadas(j).Count - 1
@@ -821,6 +826,7 @@
     End Sub
 
     Sub CalcularLongitudesBarras()
+        Lista_Longitudes.Clear()
         For i = 0 To Lista_Coordenadas.Count - 1
             Dim ListaLong As New List(Of Single)
             For j = 0 To Lista_Coordenadas(i).Count - 1
