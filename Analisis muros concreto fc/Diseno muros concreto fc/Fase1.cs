@@ -26,12 +26,10 @@ namespace Diseno_muros_concreto_fc
                     Lista_ordenada.Clear();
 
                     if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
-                    comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x => x).ToArray());
-                    
-                    if (Listas_Programa.Error_Cortante!=" ") comboBox1.Items.Add(Listas_Programa.Error_Cortante);
-                    if (Listas_Programa.Error_Flexion != " ") comboBox1.Items.Add(Listas_Programa.Error_Flexion);
+                    if (Listas_Programa.Error_Cortante != "") comboBox1.Items.Add(Listas_Programa.Error_Cortante);
+                    if (Listas_Programa.Error_Flexion != "") comboBox1.Items.Add(Listas_Programa.Error_Flexion);
                     if (Listas_Programa.Muros_errores.Count > 0) comboBox1.Items.Add("¡REPORT!");
-
+                    comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x => x).ToArray());
                     comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
