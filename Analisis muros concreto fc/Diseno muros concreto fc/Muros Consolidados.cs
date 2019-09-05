@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace Diseno_muros_concreto_fc
 {
-
     public enum Reduccion
     {
         Arriba,
@@ -24,13 +23,13 @@ namespace Diseno_muros_concreto_fc
         public void Calculo_Peso_Aprox()
         {
             double b_Me = 2.35; double h_Me = 6;
-            double Traslapo, Peso_long_i, Peso_malla_i,Area_piso;
+            double Traslapo, Peso_long_i, Peso_malla_i, Area_piso;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
             double P_Transversal;
             double suma_transv;
             double num_mallas;
-            
+
             for (int i = 0; i < Stories.Count; i++)
             {
                 Traslapo = 1 + Factores_Traslapo(Bw[i] / 100, Rho_l[i]);
@@ -39,7 +38,7 @@ namespace Diseno_muros_concreto_fc
                 Area_piso = (lw[i] - 10) * (Hw[i] + 30) / Math.Pow(100, 2);
                 num_mallas = Math.Ceiling(Area_piso / (b_Me * h_Me));
 
-                Peso_malla_i = Peso_unit_Malla(Malla[i]) *num_mallas*(b_Me * h_Me);
+                Peso_malla_i = Peso_unit_Malla(Malla[i]) * num_mallas * (b_Me * h_Me);
 
                 Peso_Long.Add(Peso_long_i);
                 Peso_malla.Add(Peso_malla_i);
@@ -333,6 +332,8 @@ namespace Diseno_muros_concreto_fc
 {
     public class Procesar_info
     {
+        internal static List<Muros_Error> Muros_errores { get; set; } = new List<Muros_Error>();
+
         public static void Compilar_Datos()
         {
             var prueba = new List<double>();
@@ -340,7 +341,7 @@ namespace Diseno_muros_concreto_fc
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
 
-            double Long_mayor, H_prom, Mu_Vu_mayor;
+            double Long_mayor, H_prom;
             int Relacion1;
 
             Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
@@ -465,8 +466,8 @@ namespace Diseno_muros_concreto_fc
 
                 Determinacion_EBE(Muro_i, Factor1, Factor2);
                 Determinacion_Lado(Muro_i, Factor2);
-                Det_As_Long(Muro_i,Relacion1);
-                Det_At(Muro_i,Relacion1);
+                Det_As_Long(Muro_i, Relacion1);
+                Det_At(Muro_i, Relacion1);
                 Errores_muro(Muro_i);
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
@@ -573,15 +574,15 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_As_Long(Muros_Consolidados_1 Muro_i,int Pisos_Sin_malla)
+        private static void Det_As_Long(Muros_Consolidados_1 Muro_i, int Pisos_Sin_malla)
         {
             double Aux_As_Long, Acero_malla, Aux_Long;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
-                if (i>= Muro_i.Stories.Count - Pisos_Sin_malla)
+                if (i >= Muro_i.Stories.Count - Pisos_Sin_malla)
                 {
-                    if (Muro_i.Malla[i]!="Sin Malla")
-                    {                        
+                    if (Muro_i.Malla[i] != "Sin Malla")
+                    {
                         int Num_barras = Convert.ToInt32(Math.Round((Muro_i.lw[i] - 2 * 3.8) / 30, 0) + 1);
                         double Rho_aux;
 
@@ -594,7 +595,7 @@ namespace Diseno_muros_concreto_fc
                             Rho_aux = Num_barras * 0.71 / (Muro_i.lw[i] * Muro_i.Bw[i]);
                         }
                         Muro_i.Malla[i] = "Sin Malla";
-                        if(Rho_aux > Muro_i.Rho_l[i]) Muro_i.Rho_l[i] = Rho_aux;
+                        if (Rho_aux > Muro_i.Rho_l[i]) Muro_i.Rho_l[i] = Rho_aux;
                     }
                 }
 
@@ -619,7 +620,7 @@ namespace Diseno_muros_concreto_fc
                     int Num_barras = Convert.ToInt32((100 / 30) + 1);
                     double Rho_aux;
 
-                    if (Muro_i.Rho_T[i]>=0.0020 | Muro_i.Bw[i] >= 20)
+                    if (Muro_i.Rho_T[i] >= 0.0020 | Muro_i.Bw[i] >= 20)
                     {
                         Rho_aux = (1.42 / 0.30) / (100 * Muro_i.Bw[i]);
                     }
@@ -628,7 +629,7 @@ namespace Diseno_muros_concreto_fc
                         Rho_aux = (.71 / 0.30) / (100 * Muro_i.Bw[i]);
                     }
                     if (Rho_aux > Muro_i.Rho_T[i]) Muro_i.Rho_T[i] = Rho_aux;
-                }               
+                }
 
                 if (Muro_i.Rho_T[i] < 0.0020) Muro_i.Rho_T[i] = 0.0020;
                 Aux_As_t = Muro_i.Bw[i] * 100 * Muro_i.Rho_T[i];
@@ -753,21 +754,41 @@ namespace Diseno_muros_concreto_fc
             return Aux_acero;
         }
 
-        private static void Errores_muro (Muros_Consolidados_1 Muro_i)
+        public static void Errores_muro(Muros_Consolidados_1 Muro_i)
         {
-            string Mensaje="Ok";
+            string Mensaje;
+            Muros_Error Muro_1;
 
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
                 if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15)
                 {
-                    if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15) Mensaje = "Bw < 0.15m y Rho_l>=0.0066";
-                    if (Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15) Mensaje = "Bw<0.15m y Ebe>0";
+                    Muro_1 = new Muros_Error
+                    {
+                        Piername = Muro_i.Pier_name,
+                        Story = Muro_i.Stories[i]
+                    };
+
+                    if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15)
+                    {
+                        Mensaje = "Bw < 0.15m y Rho_l>=0.0066";
+                        Muro_1.Mensaje.Add(Mensaje);
+                    }
+                    if (Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15)
+                    {
+                        Mensaje = "Bw<0.15m y Ebe>0";
+                        Muro_1.Mensaje.Add(Mensaje);
+                    }
+                    Muros_errores.Add(Muro_1);
                 }
-                else Mensaje = "Ok";
-                //Muro_i.Error_cuantia.Add(Mensaje);
             }
         }
 
+        internal class Muros_Error
+        {
+            public string Piername { get; set; }
+            public string Story { get; set; }
+            public List<string> Mensaje { get; set; } = new List<string>();
+        }
     }
 }

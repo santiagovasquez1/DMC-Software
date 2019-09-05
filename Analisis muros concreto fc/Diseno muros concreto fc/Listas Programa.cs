@@ -19,5 +19,8 @@ namespace Diseno_muros_concreto_fc
         public static string Name_Proyecto;
         public static List<Muros_Consolidados_1> Muros_Consolidados_Listos;
         public static string Area_ParaTenorApprox = "";
+        [NonSerialized] public static List<Procesar_info.Muros_Error> Muros_errores=new List<Procesar_info.Muros_Error>();
+        [NonSerialized] public static string Error_Cortante = "";
+        [NonSerialized] public static string Error_Flexion = "";
     }
 }

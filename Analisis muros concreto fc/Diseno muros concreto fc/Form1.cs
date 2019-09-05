@@ -309,7 +309,7 @@ namespace Diseno_muros_concreto_fc
                                 Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
                             }
                         }
-
+                        Listas_Programa.Error_Cortante = "¡CORTANTE!";
                         Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
                         result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
                     }
@@ -332,6 +332,7 @@ namespace Diseno_muros_concreto_fc
             string Mensaje;
 
             Procesar_info.Compilar_Datos();
+            Listas_Programa.Muros_errores = Procesar_info.Muros_errores;
 
             Listas = new Listas_Serializadas_i
             {
@@ -471,6 +472,7 @@ namespace Diseno_muros_concreto_fc
                             }
                         }
 
+                        Listas_Programa.Error_Flexion = "¡FLEXION!";
                         Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
                         result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
                     }
@@ -551,6 +553,12 @@ namespace Diseno_muros_concreto_fc
             }
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
 
+            foreach(Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
+            {
+                Procesar_info.Errores_muro(muroi);
+            }
+            Listas_Programa.Muros_errores = Procesar_info.Muros_errores; 
+            
             B_Flexural.Enabled = false;
             B_Report.Enabled = false;
             B_Shear.Enabled = false;

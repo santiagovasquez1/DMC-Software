@@ -27,23 +27,15 @@ namespace Diseno_muros_concreto_fc
 
                     if (comboBox1.Items.Count > 0) comboBox1.Items.Clear();
                     comboBox1.Items.AddRange(Muros_distintos.ToArray().OrderBy(x => x).ToArray());
-                    //Find_Errores(Listas_Programa.Muros_Consolidados_Listos);
+                    
+                    if (Listas_Programa.Error_Cortante!=" ") comboBox1.Items.Add(Listas_Programa.Error_Cortante);
+                    if (Listas_Programa.Error_Flexion != " ") comboBox1.Items.Add(Listas_Programa.Error_Flexion);
+                    if (Listas_Programa.Muros_errores.Count > 0) comboBox1.Items.Add("¡REPORT!");
+
                     comboBox1.Text = Convert.ToString(comboBox1.Items[0]);
                     Listas_Programa.Texto_combo = comboBox1.Text;
                 }
             }
-        }
-
-        private void Find_Errores(List<Muros_Consolidados_1> Lista_i)
-        {
-            //for (int i = 0; i < Lista_i.Count; i++)
-            //{
-            //    if (Lista_i[i].Error_cuantia.Exists(x => x == "Bw < 0.15m y Ebe > 0" | x == "Bw < 0.15m y Rho_l>=0.0066") == true)
-            //    {
-            //        comboBox1.Items.Add("!REPORT¡");
-            //        break;
-            //    }
-            //}
         }
 
         private void SetupDataGridView(string Nombre_Data, DataGridView Formulario, DataTable Origen_datos)
