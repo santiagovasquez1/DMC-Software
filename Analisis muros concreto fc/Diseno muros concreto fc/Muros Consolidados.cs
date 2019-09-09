@@ -22,7 +22,6 @@ namespace Diseno_muros_concreto_fc
 
         public void Calculo_Peso_Aprox()
         {
-            double b_Me = 2.35; double h_Me = 6;
             double Traslapo, Peso_long_i, Peso_malla_i, Area_piso;
             double P_LD, P_LI;
             double P_ZD, P_ZI;
@@ -33,12 +32,10 @@ namespace Diseno_muros_concreto_fc
             for (int i = 0; i < Stories.Count; i++)
             {
                 Traslapo = 1 + Factores_Traslapo(Bw[i] / 100, Rho_l[i]);
-                Peso_long_i = Traslapo * As_Long[i] * Hw[i] * 7850 / (Math.Pow(100, 3));
+                Peso_long_i = Traslapo * As_Long[i] * Hw[i] * 7850 / Math.Pow(100, 3);
 
-                Area_piso = (lw[i] - 10) * (Hw[i] + 30) / Math.Pow(100, 2);
-                num_mallas = Math.Ceiling(Area_piso / (b_Me * h_Me));
-
-                Peso_malla_i = Peso_unit_Malla(Malla[i]) * num_mallas * (b_Me * h_Me);
+                Area_piso = Area_malla(lw[i], Hw[i]);
+                Peso_malla_i = Peso_unit_Malla(Malla[i]) * (Area_piso / Math.Pow(100, 2))*1.25;
 
                 Peso_Long.Add(Peso_long_i);
                 Peso_malla.Add(Peso_malla_i);
@@ -304,6 +301,19 @@ namespace Diseno_muros_concreto_fc
 
             Ramas = Convert.ToInt32(Math.Round(Ash / As_t, 0));
             return Ramas;
+        }
+
+        public double Area_malla(double Lw,double Hw)
+        {
+            int Num_traslapos;
+            float Long_Malla = 245f;
+            float traslapo = 30f;
+            double Area_i=0;
+
+            Num_traslapos = Lw > 245 ? Convert.ToInt32(Math.Ceiling((Lw - Long_Malla) / (Long_Malla-traslapo))) : 0;
+            Area_i = (Lw - 10 + (Num_traslapos * traslapo)) * (Hw+30);
+
+            return Area_i;
         }
 
         public override bool Equals(object obj)
