@@ -351,13 +351,15 @@ namespace Diseno_muros_concreto_fc
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
 
-            double Long_mayor, H_prom;
+            double Long_mayor, H_prom,Mu_Vu_max;
             int Relacion1;
 
             Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
             H_prom = Listas_Programa.Lista_Muros.Select(x => x.hw).Sum() / Listas_Programa.Lista_Muros.Count;
-            Relacion1 = Convert.ToInt32(Long_mayor / H_prom) + 1;
+            Mu_Vu_max = Relacion_Mu_Vu()*100;
 
+            Relacion1 = Long_mayor / H_prom >= Mu_Vu_max / H_prom ? Convert.ToInt32(Long_mayor / H_prom) : Convert.ToInt32(Mu_Vu_max / H_prom);
+                       
             Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
@@ -481,6 +483,31 @@ namespace Diseno_muros_concreto_fc
                 Errores_muro(Muro_i);
                 Listas_Programa.Muros_Consolidados_Listos.Add(Muro_i);
             }
+        }
+
+        public static double Relacion_Mu_Vu()
+        {
+            var Hmin = Listas_Programa.Lista_Muros.Select(x => x.h_acumulado).Min();
+            var Prueba = Listas_Programa.Lista_Muros.FindAll(x => x.h_acumulado == Hmin);
+            double Relacion_i;
+            double max=0;
+
+            List<double> Relacion = new List<double>();
+
+            foreach (var muro_i in Prueba)
+            {
+                for (int i = 0; i < muro_i.Load.Count; i++) 
+                {
+                    if (muro_i.Load[i].Contains("Max")==true| muro_i.Load[i].Contains("Min") == true)
+                    {
+                        Relacion_i = Math.Abs(muro_i.M3[i] / (4 * muro_i.V2[i]));
+                        Relacion.Add(Relacion_i);
+                    }
+                }
+
+            }
+            max = Relacion.Max();
+            return max;
         }
 
         private static List<Shells_Prop> Seleccion_Muros(List<Shells_Prop> Shells_i, double Parametro, int indice)

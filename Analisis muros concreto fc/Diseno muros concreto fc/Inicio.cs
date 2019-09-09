@@ -116,7 +116,7 @@ namespace Diseno_muros_concreto_fc
 
                 for (int i = 0; i < MacAdress.Count; i++)
                 {
-                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455")
+                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455" | MacAdress[i]=="64006AFC2C84")
                     {
                         ComprobarEntrada = "CORRECT";
                         break;

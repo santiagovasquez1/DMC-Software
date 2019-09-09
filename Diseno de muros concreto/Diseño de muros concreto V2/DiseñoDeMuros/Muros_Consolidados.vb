@@ -29,6 +29,7 @@ Public Class Muros_Consolidados
 
     'Nuevas variables
     Public Est_ebe As List(Of Integer) = New List(Of Integer)
+
     Public Sep_ebe As List(Of Double) = New List(Of Double)
     Public Est_Zc As List(Of Integer) = New List(Of Integer)
     Public Sep_Zc As List(Of Double) = New List(Of Double)
@@ -64,7 +65,6 @@ Public Class Muros_Consolidados
     Public LongitudBarras As New List(Of List(Of Double))
     Public NoBarras As New List(Of Double)
 
-
     Sub CantidadMallas_()
 
         Dim b_ME As Single = 2.35
@@ -75,7 +75,6 @@ Public Class Muros_Consolidados
         Dim Area_Malla As New List(Of Single)
         Dim Sum_Traslapo As Single = 0
 
-
         For i = 0 To lw.Count - 1
             If (lw(i) / 100) - 2.45 < 0 Then
                 Sum_Traslapo = 0
@@ -85,13 +84,11 @@ Public Class Muros_Consolidados
             Area_Malla.Add(((lw(i) / 100) + Sum_Traslapo) * ((Hw(i) / 100) + 0.3))
         Next
 
-
         For i = 0 To Malla.Count - 1
             Dim NoMallas As Integer = 0
             For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
             Area_Malla(i) = Area_Malla(i) * NoMallas
         Next
-
 
         For i = 0 To Malla.Count - 1
             Dim NoMallas As Integer = 0
@@ -126,19 +123,6 @@ Public Class Muros_Consolidados
             End If
 
         Next
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         'If CantidaddeMallas_Fic.Count = 0 Then
         '    For i = 0 To lw.Count - 1
