@@ -22,10 +22,15 @@ Module Module1
     Public NombreMuro As AcadBlockReference
 
     Public Linea As AcadLine
-    Public ListaOrdenada As List(Of Muros)
+    Public ListaOrdenada As New List(Of Muros)
     Public Lista_Cantidades1 As Lista_Cantidades
 
     Sub IniciarAplicacion(ByVal Formulario As Seccion)
+
+        Muros_V.Clear()
+        ListaOrdenada.Clear()
+        Lista_CirculoRefuerzos.Clear()
+        Lista_TextosRefuerzos.Clear()
 
         Dim rnd As New Random
 
@@ -45,6 +50,7 @@ Module Module1
             AcadDoc = AcadApp.Documents.Add(ruta.FileName)
         End Try
 
+        AcadDoc.SetVariable("CANNOSCALE", "1:25")
         Dim Seleccion_name As String = "Mi seleccion"
 
         For Each seleccion_i As AcadSelectionSet In AcadDoc.SelectionSets
@@ -1415,13 +1421,8 @@ Module Module1
             MuroRefuerzo.CalcularNomenclaturaGanchosyEstribos()
         Next
 
-
-
-        Muros_V.Clear()
-        ListaOrdenada.Clear()
         Selecccionar.Clear()
-        Lista_CirculoRefuerzos.Clear()
-        Lista_TextosRefuerzos.Clear()
+
 
         MsgBox("Dibujado con Éxito", MsgBoxStyle.Information, "efe Prima Ce")
 

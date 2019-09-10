@@ -245,7 +245,7 @@ namespace Diseno_muros_concreto_fc
                 {
                     for (int k = 0; k < Muros_lista[j].fc.Count; k++)
                     {
-                        if (Muros_lista[i].fc[k] == Fc_dif[i])
+                        if (Muros_lista[j].fc[k] == Fc_dif[i])
                         {
                             suma += Muros_lista[j].Volumen[k];
                         }

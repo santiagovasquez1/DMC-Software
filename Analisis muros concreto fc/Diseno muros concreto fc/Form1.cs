@@ -285,8 +285,7 @@ namespace Diseno_muros_concreto_fc
             if (Radio_Dmo.Checked == true | Radio_Des.Checked == true)
             {
                 try
-                {
-                    Listas_Programa.Muros_insuficientes = new List<Muro>();
+                {            
 
                     for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
@@ -449,8 +448,6 @@ namespace Diseno_muros_concreto_fc
             {
                 try
                 {
-                    Listas_Programa.Muros_insuficientes = new List<Muro>();
-
                     for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
                         Listas_Programa.Lista_Muros[i].Flexural_Analisis();
@@ -458,23 +455,27 @@ namespace Diseno_muros_concreto_fc
 
                     if (Listas_Programa.Muros_insuficientes.Count > 0)
                     {
-                        Mensaje = "Los muros :";
-
-                        for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                        var Flexion = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Flexion.Exists(x1 => x1 != "Ok") == true);
+                        
+                        if (Flexion.Count > 0)
                         {
-                            if (i < Listas_Programa.Muros_insuficientes.Count - 1)
+                            Mensaje = "Los muros :";
+                            for (int i = 0; i < Flexion.Count; i++)
                             {
-                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
+                                if (i < Flexion.Count - 1)
+                                {
+                                    Mensaje = Mensaje + Flexion[i].Pier + ",";
+                                }
+                                else
+                                {
+                                    Mensaje = Mensaje + Flexion[i].Pier;
+                                }
                             }
-                            else
-                            {
-                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
-                            }
-                        }
 
-                        Listas_Programa.Error_Flexion = "¡FLEXION!";
-                        Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
-                        result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                            Listas_Programa.Error_Flexion = "¡FLEXION!";
+                            Mensaje = Mensaje + " Presentan deficiencias en el diseño a flexion";
+                            result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                        }
                     }
                     B_Report.Enabled = true;
                 }

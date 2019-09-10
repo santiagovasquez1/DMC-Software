@@ -491,6 +491,8 @@ namespace Diseno_muros_concreto_fc
             var Prueba = Listas_Programa.Lista_Muros.FindAll(x => x.h_acumulado == Hmin);
             double Relacion_i;
             double max=0;
+            int pos = 0;
+            int Caso = 0;
 
             List<double> Relacion = new List<double>();
 
@@ -498,7 +500,13 @@ namespace Diseno_muros_concreto_fc
             {
                 for (int i = 0; i < muro_i.Load.Count; i++) 
                 {
-                    if (muro_i.Load[i].Contains("Max")==true| muro_i.Load[i].Contains("Min") == true)
+                    if (muro_i.Load[i].Contains("-") == true)
+                    {
+                        pos = muro_i.Load[i].IndexOf('-') + 1;
+                        Caso = Convert.ToInt32(muro_i.Load[i].Substring(pos));
+                    }
+
+                    if (muro_i.Load[i].Contains("Max")==true| muro_i.Load[i].Contains("Min") == true | Caso>1 )
                     {
                         Relacion_i = Math.Abs(muro_i.M3[i] / (4 * muro_i.V2[i]));
                         Relacion.Add(Relacion_i);

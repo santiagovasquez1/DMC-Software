@@ -74,6 +74,8 @@ Public Class Muros_Consolidados
         Dim Area_piso As Double = 0
         Dim Area_Malla As New List(Of Single)
         Dim Sum_Traslapo As Single = 0
+        MallasIndv.Clear()
+        MallasConCantidad.Clear()
 
         For i = 0 To lw.Count - 1
             If (lw(i) / 100) - 2.45 < 0 Then

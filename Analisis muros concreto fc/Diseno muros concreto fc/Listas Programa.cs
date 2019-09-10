@@ -10,7 +10,7 @@ namespace Diseno_muros_concreto_fc
         public static List<Shells_Prop> Lista_shells;
         public static List<Esfuerzos> Lista_Esfuerzos;
         public static List<Muro> Lista_Muros;
-        public static List<Muro> Muros_insuficientes;
+        public static List<Muro> Muros_insuficientes=new List<Muro>();
         public static List<Material> Lista_Materiales;
         public static string Texto_combo;
         public static string Capacidad;

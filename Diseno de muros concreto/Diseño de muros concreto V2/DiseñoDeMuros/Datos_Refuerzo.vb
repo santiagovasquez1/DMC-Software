@@ -324,12 +324,12 @@
             Diametro1 = Find_Diametro(col, fila, Pos_T1, Pos_T2)
 
             Pos2 = (Muros_lista_2(indice1).H_acumulado(indice2) / 100) - 0.5
-            If Pos2 - suma + 0.5 > 0 Then
+            If Math.Round(Pos2, 2) - suma + 0.5 > 0 Then
                 Pos1 = Pos2 - suma + 0.45
             Else
                 Pos1 = Pos2 - suma + 0.5 - prof
             End If
-
+            
             Coor_Aux = {Posx + ganchos_90(Diametro1), Pos1, Posx, Pos1, Posx, Pos2, Posx + ganchos_90(Diametro1), Pos2}
             Add_Text_Point(Posx, Pos1 + 0.9)
         End If
