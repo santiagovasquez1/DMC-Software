@@ -115,7 +115,7 @@ namespace Diseno_muros_concreto_fc
             if (Listas_Programa.Texto_combo == "¡CORTANTE!")
             {
                 var prueba = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Cortante.Exists(x1=>x1!= "Ok") ==true);
-                Lista_ordenada =prueba;
+                Lista_ordenada =prueba.OrderBy(x=>x.Pier).ToList();
             }
             else
             {
@@ -150,49 +150,66 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < Lista_ordenada.Count; i++)
             {
+
                 for (int j = 0; j < Lista_ordenada[i].P.Count; j++)
                 {
-                    DataRow dr = T_Shear.NewRow();
-                    dr[0] = Lista_ordenada[i].Story;
-                    dr[1] = Lista_ordenada[i].Pier;
-                    dr[2] = Math.Round(Lista_ordenada[i].lw / 100, 2);
-                    dr[3] = Math.Round(Lista_ordenada[i].bw / 100, 2);
-                    dr[4] = Lista_ordenada[i].Fc;
-                    dr[5] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
-                    dr[6] = Lista_ordenada[i].Load[j];
-                    dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);
-                    dr[8] = Math.Round(Lista_ordenada[i].V2[j], 2);
-                    dr[9] = Math.Round(Lista_ordenada[i].M3[j], 2);
-
-                    if (Lista_ordenada[i].Phi_Vc == null)
+                    if (Listas_Programa.Texto_combo == "¡CORTANTE!")
                     {
-                        dr[10] = 0;
-                        dr[11] = 0;
-                        dr[12] = 0;
-                        dr[13] = 0;
-                        dr[14] = 0;
-                        dr[15] = 0;
-                        dr[16] = 0;
-                        dr[17] = 0;
-                        dr[18] = 0;
-                        dr[19] = "N.A";
+                        if (Lista_ordenada[i].Error_Cortante[j] != "Ok")
+                        {
+                            Imprimir_Cortante(Lista_ordenada, T_Shear, i, j);
+                        }
                     }
                     else
                     {
-                        dr[10] = Math.Round(Lista_ordenada[i].Phi_Vc[j], 2);
-                        dr[11] = Math.Round(Lista_ordenada[i].Phi_Vn_Max1, 2);
-                        dr[12] = Math.Round(Lista_ordenada[i].Phi_Vn_Max2[j], 2);
-                        dr[13] = Math.Round(Lista_ordenada[i].Phi_Vs[j], 2);
-                        dr[14] = Math.Round(Lista_ordenada[i].Phi_Vs_Max, 2);
-                        dr[15] = Math.Round(Lista_ordenada[i].Pt_max, 5);
-                        dr[16] = Math.Round(Lista_ordenada[i].pt_definitivo[j], 5);
-                        dr[17] = Math.Round(Lista_ordenada[i].Rho_l_Def, 5);
-                        dr[18] = Lista_ordenada[i].Cortinas[j];
-                        dr[19] = Lista_ordenada[i].Error_Cortante[j];
+                        Imprimir_Cortante(Lista_ordenada, T_Shear, i, j);
                     }
-                    T_Shear.Rows.Add(dr);
+
                 }
             }
+        }
+
+        private static void Imprimir_Cortante(List<Muro> Lista_ordenada, DataTable T_Shear, int i, int j)
+        {
+            DataRow dr = T_Shear.NewRow();
+            dr[0] = Lista_ordenada[i].Story;
+            dr[1] = Lista_ordenada[i].Pier;
+            dr[2] = Math.Round(Lista_ordenada[i].lw / 100, 2);
+            dr[3] = Math.Round(Lista_ordenada[i].bw / 100, 2);
+            dr[4] = Lista_ordenada[i].Fc;
+            dr[5] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
+            dr[6] = Lista_ordenada[i].Load[j];
+            dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);
+            dr[8] = Math.Round(Lista_ordenada[i].V2[j], 2);
+            dr[9] = Math.Round(Lista_ordenada[i].M3[j], 2);
+
+            if (Lista_ordenada[i].Phi_Vc == null)
+            {
+                dr[10] = 0;
+                dr[11] = 0;
+                dr[12] = 0;
+                dr[13] = 0;
+                dr[14] = 0;
+                dr[15] = 0;
+                dr[16] = 0;
+                dr[17] = 0;
+                dr[18] = 0;
+                dr[19] = "N.A";
+            }
+            else
+            {
+                dr[10] = Math.Round(Lista_ordenada[i].Phi_Vc[j], 2);
+                dr[11] = Math.Round(Lista_ordenada[i].Phi_Vn_Max1, 2);
+                dr[12] = Math.Round(Lista_ordenada[i].Phi_Vn_Max2[j], 2);
+                dr[13] = Math.Round(Lista_ordenada[i].Phi_Vs[j], 2);
+                dr[14] = Math.Round(Lista_ordenada[i].Phi_Vs_Max, 2);
+                dr[15] = Math.Round(Lista_ordenada[i].Pt_max, 5);
+                dr[16] = Math.Round(Lista_ordenada[i].pt_definitivo[j], 5);
+                dr[17] = Math.Round(Lista_ordenada[i].Rho_l_Def, 5);
+                dr[18] = Lista_ordenada[i].Cortinas[j];
+                dr[19] = Lista_ordenada[i].Error_Cortante[j];
+            }
+            T_Shear.Rows.Add(dr);
         }
 
         public static void Datos_Flexion()
@@ -204,7 +221,7 @@ namespace Diseno_muros_concreto_fc
             if (Listas_Programa.Texto_combo == "¡FLEXION!")
             {
                 var prueba = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Flexion.Exists(x1 => x1 != "Ok") == true);
-                Lista_ordenada = prueba;
+                Lista_ordenada = prueba.OrderBy(x=>x.Pier).ToList();
             }
             else
             {
@@ -242,42 +259,59 @@ namespace Diseno_muros_concreto_fc
             {
                 for (int j = 0; j < Lista_ordenada[i].P.Count; j++)
                 {
-                    DataRow dr = T_Flexion.NewRow();
-                    dr[0] = Lista_ordenada[i].Story;
-                    dr[1] = Lista_ordenada[i].Pier;
-                    dr[2] = Math.Round(Lista_ordenada[i].lw / 100, 2);
-                    dr[3] = Math.Round(Lista_ordenada[i].bw / 100, 2);
-                    dr[4] = Lista_ordenada[i].Fc;
-                    dr[5] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
-                    dr[6] = Lista_ordenada[i].Load[j];
-                    dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);
-                    dr[8] = Math.Round(Lista_ordenada[i].M3[j], 2);
 
-                    if (Lista_ordenada[i].Fa == null)
+                    if (Listas_Programa.Texto_combo == "¡FLEXION!")
                     {
-                        dr[9] = 0;
-                        dr[10] = 0;
-                        dr[11] = 0;
-                        dr[12] = 0;
-                        dr[13] = 0;
-                        dr[14] = 0;
-                        dr[15] = 0;
-                        dr[16] = "N.A";
+                        if (Lista_ordenada[i].Error_Flexion[j] != "Ok")
+                        {
+                            Imprimir_Flexion(Lista_ordenada, T_Flexion, i, j);
+                        }
                     }
                     else
                     {
-                        dr[9] = Math.Round(Lista_ordenada[i].Fa[j], 2);
-                        dr[10] = Math.Round(Lista_ordenada[i].Fv[j], 2);
-                        dr[11] = Math.Round(Lista_ordenada[i].Sigma_Max[j], 2);
-                        dr[12] = Math.Round(Lista_ordenada[i].Sigma_Min[j], 2);
-                        dr[13] = Math.Round(Lista_ordenada[i].Relacion[j] * 100, 2);
-                        dr[14] = Math.Round(Lista_ordenada[i].C_def[j], 2);
-                        dr[15] = Math.Round(Lista_ordenada[i].L_Conf[j], 2);
-                        dr[16] = Lista_ordenada[i].Error_Flexion[j];
+                        Imprimir_Flexion(Lista_ordenada, T_Flexion, i, j);
                     }
-                    T_Flexion.Rows.Add(dr);
+                    
                 }
             }
+        }
+
+        private static void Imprimir_Flexion(List<Muro> Lista_ordenada, DataTable T_Flexion, int i, int j)
+        {
+            DataRow dr = T_Flexion.NewRow();
+            dr[0] = Lista_ordenada[i].Story;
+            dr[1] = Lista_ordenada[i].Pier;
+            dr[2] = Math.Round(Lista_ordenada[i].lw / 100, 2);
+            dr[3] = Math.Round(Lista_ordenada[i].bw / 100, 2);
+            dr[4] = Lista_ordenada[i].Fc;
+            dr[5] = Math.Round(Lista_ordenada[i].h_acumulado / 100, 2);
+            dr[6] = Lista_ordenada[i].Load[j];
+            dr[7] = Math.Round(Lista_ordenada[i].P[j], 2);
+            dr[8] = Math.Round(Lista_ordenada[i].M3[j], 2);
+
+            if (Lista_ordenada[i].Fa == null)
+            {
+                dr[9] = 0;
+                dr[10] = 0;
+                dr[11] = 0;
+                dr[12] = 0;
+                dr[13] = 0;
+                dr[14] = 0;
+                dr[15] = 0;
+                dr[16] = "N.A";
+            }
+            else
+            {
+                dr[9] = Math.Round(Lista_ordenada[i].Fa[j], 2);
+                dr[10] = Math.Round(Lista_ordenada[i].Fv[j], 2);
+                dr[11] = Math.Round(Lista_ordenada[i].Sigma_Max[j], 2);
+                dr[12] = Math.Round(Lista_ordenada[i].Sigma_Min[j], 2);
+                dr[13] = Math.Round(Lista_ordenada[i].Relacion[j] * 100, 2);
+                dr[14] = Math.Round(Lista_ordenada[i].C_def[j], 2);
+                dr[15] = Math.Round(Lista_ordenada[i].L_Conf[j], 2);
+                dr[16] = Lista_ordenada[i].Error_Flexion[j];
+            }
+            T_Flexion.Rows.Add(dr);
         }
 
         public static void Datos_resumen()

@@ -71,6 +71,11 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < V2.Count; i++)
             {
+                if (Pier=="2" & Story== "P1S" & Load[i]== "SU09-2")
+                {
+                    var pausa = true;
+                }
+
                 Phi_Vc.Add(Phi * Calc_Vc(Math.Abs(V2[i]), Math.Abs(M3[i]), -P[i]));
                 if (V2[i] - Phi_Vc[i] < 0)
                 {
@@ -334,7 +339,8 @@ namespace Diseno_muros_concreto_fc
             else
             {
                 double Vtraccion;
-                Vtraccion = (0.53 * Math.Sqrt(Fc) + 0.53 * Math.Sqrt(Fc) * Pu * 1000 / (35 * Ag)) / 1000;
+                Vtraccion = 0.53 * (1 + (Pu*1000 / (35 * Ag))) * Math.Sqrt(Fc) * bw * dw;
+                Vtraccion = Vtraccion/ 1000;
                 if (Vtraccion < 0) Vtraccion = 0;
                 return Vtraccion;
             }

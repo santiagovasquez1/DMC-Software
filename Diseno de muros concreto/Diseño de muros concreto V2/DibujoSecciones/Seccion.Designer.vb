@@ -23,6 +23,7 @@ Partial Class Seccion
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -33,7 +34,6 @@ Partial Class Seccion
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2.SuspendLayout()
         Me.BarraPersonalizada.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -54,6 +54,18 @@ Partial Class Seccion
         Me.Panel2.Size = New System.Drawing.Size(306, 161)
         Me.Panel2.TabIndex = 25
         '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.White
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(160, 96)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(121, 33)
+        Me.Button1.TabIndex = 27
+        Me.Button1.Text = "Diagrama P-M"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
@@ -70,7 +82,7 @@ Partial Class Seccion
         Me.Button2.BackColor = System.Drawing.Color.White
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(12, 96)
+        Me.Button2.Location = New System.Drawing.Point(33, 96)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(121, 33)
         Me.Button2.TabIndex = 23
@@ -167,18 +179,6 @@ Partial Class Seccion
         Me.Label6.Size = New System.Drawing.Size(89, 15)
         Me.Label6.TabIndex = 21
         Me.Label6.Text = "Dibujar Sección"
-        '
-        'Button1
-        '
-        Me.Button1.BackColor = System.Drawing.Color.White
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(173, 96)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(121, 33)
-        Me.Button1.TabIndex = 27
-        Me.Button1.Text = "Diagrama P-M"
-        Me.Button1.UseVisualStyleBackColor = False
         '
         'Seccion
         '

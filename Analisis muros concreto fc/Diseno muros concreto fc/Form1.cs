@@ -285,8 +285,7 @@ namespace Diseno_muros_concreto_fc
             if (Radio_Dmo.Checked == true | Radio_Des.Checked == true)
             {
                 try
-                {            
-
+                {
                     for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
                         Listas_Programa.Lista_Muros[i].Diseno_Cortante();
@@ -354,7 +353,7 @@ namespace Diseno_muros_concreto_fc
             this.Width = 995;
             this.Height = 675;
             Fase1 Formulario1 = new Fase1();
-            Formulario1.Cargar_Lista();           
+            Formulario1.Cargar_Lista();
 
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1, Listas);
             murosSimilaresToolStripMenuItem.Enabled = false;
@@ -456,7 +455,7 @@ namespace Diseno_muros_concreto_fc
                     if (Listas_Programa.Muros_insuficientes.Count > 0)
                     {
                         var Flexion = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Flexion.Exists(x1 => x1 != "Ok") == true);
-                        
+
                         if (Flexion.Count > 0)
                         {
                             Mensaje = "Los muros :";
@@ -554,12 +553,12 @@ namespace Diseno_muros_concreto_fc
             }
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
 
-            foreach(Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
+            foreach (Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
             {
                 Procesar_info.Errores_muro(muroi);
             }
-            Listas_Programa.Muros_errores = Procesar_info.Muros_errores; 
-            
+            Listas_Programa.Muros_errores = Procesar_info.Muros_errores;
+
             B_Flexural.Enabled = false;
             B_Report.Enabled = false;
             B_Shear.Enabled = false;
