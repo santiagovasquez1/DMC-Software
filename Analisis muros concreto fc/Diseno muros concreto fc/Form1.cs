@@ -738,5 +738,12 @@ namespace Diseno_muros_concreto_fc
         private void button4_Click(object sender, EventArgs e)
         {
         }
+
+        private void definirArañaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Diseño_de_muros_concreto_V2.Muros_Consolidados> L_Muro_aux = new List<Diseño_de_muros_concreto_V2.Muros_Consolidados>();
+            Diseño_de_muros_concreto_V2.Crear_arania Arañas = new Diseño_de_muros_concreto_V2.Crear_arania();
+            Arañas.ShowDialog();
+        }
     }
 }

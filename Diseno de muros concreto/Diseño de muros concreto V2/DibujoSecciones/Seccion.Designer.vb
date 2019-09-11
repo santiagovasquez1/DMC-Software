@@ -82,7 +82,7 @@ Partial Class Seccion
         Me.Button2.BackColor = System.Drawing.Color.White
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(33, 96)
+        Me.Button2.Location = New System.Drawing.Point(12, 96)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(121, 33)
         Me.Button2.TabIndex = 23

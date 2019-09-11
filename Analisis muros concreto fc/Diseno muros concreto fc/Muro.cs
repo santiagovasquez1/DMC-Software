@@ -84,7 +84,7 @@ namespace Diseno_muros_concreto_fc
                 }
                 else
                 {
-                    Phi_Vs.Add((V2[i] - Phi_Vc[i]) / Phi);
+                    Phi_Vs.Add(V2[i] - Phi_Vc[i]);
                     pt_auxiliar = (V2[i] - Phi_Vc[i]) * Math.Pow(10, 3) / (Phi * Fy * dw * bw);
                     pt_requerido1.Add(pt_auxiliar); //Según C.11.9.91
                 }
@@ -314,6 +314,7 @@ namespace Diseno_muros_concreto_fc
         private double Calc_Vc(double Vu, double Mu, double Pu)
         {
             double Vc1, Vc2, Vc3;
+            double Vc_def;
             double Numerador, Denominador, Ag;
 
             Ag = bw * lw;
@@ -334,16 +335,22 @@ namespace Diseno_muros_concreto_fc
 
             if (Pu > 0)
             {
-                return Math.Max(Vc1, Math.Min(Vc2, Vc3));
+                Vc_def= Math.Max(Vc1, Math.Min(Vc2, Vc3));
             }
             else
             {
                 double Vtraccion;
+
                 Vtraccion = 0.53 * (1 + (Pu*1000 / (35 * Ag))) * Math.Sqrt(Fc) * bw * dw;
+                Vc_def = Math.Max(Vc1, Math.Min(Vc2, Vc3));
                 Vtraccion = Vtraccion/ 1000;
-                if (Vtraccion < 0) Vtraccion = 0;
-                return Vtraccion;
+
+                if (Vc_def > Vtraccion) Vc_def = Vtraccion;
+                if (Vc_def < 0) Vtraccion = 0;
+
             }
+
+            return Vc_def;
         }
 
         private double Calc_alpah(float Htotal)

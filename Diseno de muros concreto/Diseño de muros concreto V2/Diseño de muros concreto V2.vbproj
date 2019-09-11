@@ -137,7 +137,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Diagrama iteraccion\Crear arania.Designer.vb">
+      <DependentUpon>Crear arania.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Diagrama iteraccion\Crear arania.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Diagrama iteraccion\Muros Diagrama.vb" />
+    <Compile Include="Diagrama iteraccion\Muros_Seccion.Designer.vb">
+      <DependentUpon>Muros_Seccion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Diagrama iteraccion\Muros_Seccion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DibujoSecciones\Serializador2.vb" />
     <Compile Include="DiseñoDeMuros\alzado_muro.vb" />
     <Compile Include="DiseñoDeMuros\ApplicationEvents.vb" />
@@ -231,6 +243,12 @@
     <Compile Include="DiseñoDeMuros\Variables Publicas.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Diagrama iteraccion\Crear arania.resx">
+      <DependentUpon>Crear arania.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagrama iteraccion\Muros_Seccion.resx">
+      <DependentUpon>Muros_Seccion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DibujoSecciones\Seccion.resx">
       <DependentUpon>Seccion.vb</DependentUpon>
     </EmbeddedResource>
