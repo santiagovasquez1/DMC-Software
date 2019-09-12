@@ -1,6 +1,8 @@
 ﻿Imports System.Runtime.InteropServices
 
-Public Class Muros_Seccion
+Public Class F_Lista_aranias
+
+    Public tabla As DataGridView
 
     'CREAR SOMBRA EN EL FORMULARIO
 
@@ -40,6 +42,13 @@ Public Class Muros_Seccion
     Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
     End Sub
 
+    Private Sub F_Lista_aranias_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+
+        ReleaseCapture()
+        SendMessage(Me.Handle, &H112&, &HF012&, 0)
+
+    End Sub
+
     Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
@@ -50,47 +59,27 @@ Public Class Muros_Seccion
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
 
-    Private Sub Muros_Seccion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub Load_CB(ByVal lista As String(), ByVal Tabla_externa As DataGridView)
 
-        CrearDataGrid(DataGrid_Muros, ListaOrdenada)
-
+        CBAranias.Items.Clear()
+        CBAranias.Items.AddRange(lista)
+        CBAranias.Text = CBAranias.Items(0).ToString
+        tabla = Tabla_externa
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
         Close()
     End Sub
 
-    Public Sub CrearDataGrid(ByVal DataGrid As DataGridView, ByVal ListaMuros As List(Of Muros))
-
-        Dim Estilo As New DataGridViewCellStyle
-        Dim Muros As List(Of String)
-
-        Estilo.Alignment = DataGridViewContentAlignment.MiddleCenter
-        Estilo.Font = New Font("Verdana", 8)
-        Estilo.BackColor = Color.White
-
-        DataGrid.Columns(0).HeaderCell.Style = Estilo
-        DataGrid.Columns(1).HeaderCell.Style = Estilo
-
-        Muros = ListaMuros.Select(Function(x) x.NombreMuro).ToList()
-
-        For i = 0 To Muros.Count - 1
-
-            DataGrid.Rows.Add()
-
-            With DataGrid.Rows(i)
-                .Cells(0).Value = Muros(i)
-                .Cells(0).ReadOnly = True
-                .Cells(1).Value = False
-            End With
-
-        Next
-
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Close()
     End Sub
 
-    Private Sub Muros_Seccion_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        ReleaseCapture()
-        SendMessage(Me.Handle, &H112&, &HF012&, 0)
-    End Sub
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        Crear_arania.Muros_Borrar = CBAranias.Text
+        Crear_arania.Eliminar_fila(tabla)
+        Close()
+
+    End Sub
 End Class

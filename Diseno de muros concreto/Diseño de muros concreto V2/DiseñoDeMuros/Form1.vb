@@ -266,7 +266,7 @@ Public Class Form22
                 'Calculo Cuantia Volumetrica EBE Izq
                 If Data_muros.Rows(i).Cells(10).Value > 0 Then
                     lebe = Data_muros.Rows(i).Cells(10).Value - r
-                    Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                    Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                     cantx = Math.Ceiling(Ash(0) / (areas_refuerzo(Diametro)))
                     canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
@@ -281,7 +281,7 @@ Public Class Form22
                 'Calculo Cuantia Volumetrica EBE der
                 If Data_muros.Rows(i).Cells(11).Value > 0 Then
                     lebe = Data_muros.Rows(i).Cells(11).Value - r
-                    Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                    Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                     cantx = Math.Ceiling(Ash(0) / (areas_refuerzo(Diametro)))
                     canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
@@ -296,7 +296,7 @@ Public Class Form22
                 'Calculo Cuantia Volumetrica EBE centro
                 If Data_muros.Rows(i).Cells(12).Value > 0 Then
                     lebe = Data_muros.Rows(i).Cells(12).Value
-                    Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                    Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                     cantx = Math.Ceiling(Ash(0) / (areas_refuerzo(Diametro)))
                     canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
@@ -344,7 +344,7 @@ Public Class Form22
                 lebe = Data_muros.Rows(indice).Cells(10).Value - r
 
                 ''''''Revisar
-                Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                 cantx = Data_muros.Rows(indice).Cells(15).Value
                 canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
@@ -359,7 +359,7 @@ Public Class Form22
             'Calculo Cuantia Volumetrica EBE der
             If Data_muros.Rows(indice).Cells(11).Value > 0 Then
                 lebe = Data_muros.Rows(indice).Cells(11).Value - r
-                Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                 cantx = Data_muros.Rows(indice).Cells(16).Value
                 canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
@@ -377,7 +377,7 @@ Public Class Form22
             If Data_muros.Rows(indice).Cells(12).Value > 0 Then
 
                 lebe = Data_muros.Rows(indice).Cells(12).Value - r
-                Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
+                Ash = Cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
                 cantx = Data_muros.Rows(indice).Cells(17).Value
                 canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
