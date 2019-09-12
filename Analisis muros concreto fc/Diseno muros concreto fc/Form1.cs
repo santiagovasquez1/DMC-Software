@@ -240,7 +240,7 @@ namespace Diseno_muros_concreto_fc
         private void Form1_Load(object sender, EventArgs e)
         {
             RegistrarDMC();
-
+            
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
             List<string> Lista_ToolTip = new List<string>();

@@ -270,12 +270,17 @@ Public Class Form22
 
                     cantx = Math.Ceiling(Ash(0) / (areas_refuerzo(Diametro)))
                     canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
+                    If canty > 2 Then
+                        Data_muros.Rows(i).Cells(15).Value = cantx & " 🔺"
+                    Else
+                        Data_muros.Rows(i).Cells(15).Value = cantx
+                    End If
 
-                    Data_muros.Rows(i).Cells(15).Value = cantx
                     texto = "AshX =" & Format(Ash(0) / (cantx), "##,0.00") & vbNewLine & "Ramas Y =" & canty
-                    Data_muros.Rows(i).Cells(15).ToolTipText = texto
-                Else
-                    Data_muros.Rows(i).Cells(15).Value = 0
+
+                        Data_muros.Rows(i).Cells(15).ToolTipText = texto
+                    Else
+                        Data_muros.Rows(i).Cells(15).Value = 0
                 End If
 
                 'Calculo Cuantia Volumetrica EBE der
@@ -285,8 +290,12 @@ Public Class Form22
 
                     cantx = Math.Ceiling(Ash(0) / (areas_refuerzo(Diametro)))
                     canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
+                    If canty > 2 Then
+                        Data_muros.Rows(i).Cells(16).Value = cantx & " 🔺"
+                    Else
+                        Data_muros.Rows(i).Cells(16).Value = cantx
+                    End If
 
-                    Data_muros.Rows(i).Cells(16).Value = cantx
                     texto = "AshX =" & Format(Ash(0) / (cantx), "##,0.00") & vbNewLine & "Ramas Y =" & canty
                     Data_muros.Rows(i).Cells(16).ToolTipText = texto
                 Else
@@ -346,7 +355,7 @@ Public Class Form22
                 ''''''Revisar
                 Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
-                cantx = Data_muros.Rows(indice).Cells(15).Value
+                cantx = Val(Data_muros.Rows(indice).Cells(15).Value)
                 canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
 
                 If Double.IsInfinity(Ash(0) / (cantx)) = False And Double.IsNaN(Ash(0) / (cantx)) = False Then
@@ -361,7 +370,7 @@ Public Class Form22
                 lebe = Data_muros.Rows(indice).Cells(11).Value - r
                 Ash = cuantia_volumetrica(sep, fc, fy, lebe, bw, Capacidad)
 
-                cantx = Data_muros.Rows(indice).Cells(16).Value
+                cantx = Val(Data_muros.Rows(indice).Cells(16).Value)
                 canty = Math.Ceiling(Ash(1) / (areas_refuerzo(Diametro)))
 
                 If Double.IsInfinity(Ash(0) / (cantx)) = False And Double.IsNaN(Ash(0) / (cantx)) = False Then
