@@ -4,3 +4,4 @@
     Public Graficar As Boolean
 
 End Class
+

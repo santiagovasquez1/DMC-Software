@@ -735,6 +735,11 @@
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles button5.Click
-        GenerarCantidades(alzado_lista, Muros_lista_2)
+
+        If Hviga <> 0 And prof <> 0 Then
+            GenerarCantidades(alzado_lista, Muros_lista_2)
+        Else
+            f_variables.Show()
+        End If
     End Sub
 End Class

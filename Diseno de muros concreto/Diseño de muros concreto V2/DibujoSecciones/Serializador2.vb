@@ -2,7 +2,7 @@
 Imports System.Runtime.Serialization.Formatters.Binary
 
 Public Class Serializador2
-    Public Sub New(ByVal Ruta_Carpeta_Clase As String, Optional Guardar As Boolean = True)
+    Public Sub New(ByVal Ruta_Carpeta_Clase As String, ByVal Name_Proyecto As String, Optional Guardar As Boolean = True)
         If Lista_Cantidades1 Is Nothing Then
             Lista_Cantidades1 = New Lista_Cantidades
             Lista_Cantidades1.ListaRefuerzoHorzontal = New List(Of RefuerzoHorizontal)
@@ -10,13 +10,16 @@ Public Class Serializador2
         Dim Lista_Cantidades_Seri As Lista_Cantidades = New Lista_Cantidades With {
             .ListaRefuerzoHorzontal = Lista_Cantidades1.ListaRefuerzoHorzontal}
 
-        Dim Ruta = Ruta_Carpeta_Clase & "\Quantities.qmdc"
+        Dim Ruta = Ruta_Carpeta_Clase & $"\Quantities_{Name_Proyecto}.qmdc"
 
         If Guardar Then
             Serializar(Ruta, Lista_Cantidades_Seri)
         Else
-            Deserializar(Ruta)
+            Try
+                Deserializar(Ruta)
+            Catch ex As Exception
 
+            End Try
         End If
 
     End Sub

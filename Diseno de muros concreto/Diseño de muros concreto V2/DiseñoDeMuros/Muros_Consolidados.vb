@@ -25,6 +25,7 @@ Public Class Muros_Consolidados
     Public Lebe_Centro As List(Of Double) = New List(Of Double)
     Public Zc_Izq As List(Of Double) = New List(Of Double)
     Public Zc_Der As List(Of Double) = New List(Of Double)
+    ''Public Error_cuantia As List(Of String) = New List(Of String)
 
     'Nuevas variables
     Public Est_ebe As List(Of Integer) = New List(Of Integer)
@@ -34,9 +35,7 @@ Public Class Muros_Consolidados
     Public Sep_Zc As List(Of Double) = New List(Of Double)
     Public As_Long As List(Of Double) = New List(Of Double)
 
-    '
     Public ramas_der As List(Of Integer) = New List(Of Integer)
-
     Public ramas_izq As List(Of Integer) = New List(Of Integer)
     Public ramas_centro As List(Of Integer) = New List(Of Integer)
     Public As_htal As List(Of Double) = New List(Of Double)
@@ -66,93 +65,150 @@ Public Class Muros_Consolidados
     Public LongitudBarras As New List(Of List(Of Double))
     Public NoBarras As New List(Of Double)
 
-
     Sub CantidadMallas_()
 
         Dim b_ME As Single = 2.35
         Dim h_ME As Single = 6
         Dim Traslapo As Single = 0.3
         Dim R As Single = 0.02
+        Dim Area_piso As Double = 0
+        Dim Area_Malla As New List(Of Single)
+        Dim Sum_Traslapo As Single = 0
+        MallasIndv.Clear()
+        MallasConCantidad.Clear()
 
-        If CantidaddeMallas_Fic.Count = 0 Then
-            For i = 0 To lw.Count - 1
-                If Hw(i) + 0.3 > h_ME Then
-                    CantidaddeMallas_Fic.Add((Math.Ceiling(((lw(i) / 100 - R - Traslapo) / b_ME) / 2)))
-                End If
-            Next
+        For i = 0 To lw.Count - 1
+            If (lw(i) / 100) - 2.45 < 0 Then
+                Sum_Traslapo = 0
+            Else
+                Sum_Traslapo = (Math.Ceiling((lw(i) / 100) - 2.45 / 2.05)) * Traslapo
+            End If
+            Area_Malla.Add(((lw(i) / 100) + Sum_Traslapo) * ((Hw(i) / 100) + 0.3))
+        Next
 
-            For i = 0 To Malla.Count - 1
-                Dim NoMallas As Integer = 0
-                For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
-                CantidaddeMallas_Fic(i) = CantidaddeMallas_Fic(i) * NoMallas
+        For i = 0 To Malla.Count - 1
+            Dim NoMallas As Integer = 0
+            For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+            Area_Malla(i) = Area_Malla(i) * NoMallas
+        Next
 
-            Next
+        For i = 0 To Malla.Count - 1
+            Dim NoMallas As Integer = 0
 
-            For i = 0 To Malla.Count - 1
-                Dim NoMallas As Integer = 0
+            For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+            Dim MallaStr As String = Malla(i)
+            If NoMallas = 0 Then
+                MallaStr = ""
+            End If
+            If NoMallas = 2 Then
+                MallaStr = Malla(i).Substring(NoMallas - 1)
+            End If
+            MallasIndv.Add(MallaStr)
 
-                For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
-                Dim MallaStr As String = Malla(i)
-                If NoMallas = 0 Then
-                    MallaStr = ""
-                End If
-                If NoMallas = 2 Then
-                    MallaStr = Malla(i).Substring(NoMallas - 1)
-                End If
-                MallasIndv.Add(MallaStr)
+        Next
 
-            Next
+        Dim VectoIndices As New List(Of Integer)
 
-            Dim VectoIndices As New List(Of Integer)
+        For i = 0 To MallasIndv.Count - 1
+            Dim AreaMalla As Single = Area_Malla(i)
 
-            For i = 0 To MallasIndv.Count - 1
-                Dim Cantidad As Integer = CantidaddeMallas_Fic(i)
+            If VectoIndices.Exists(Function(x) x = i) = False Then
 
-                If VectoIndices.Exists(Function(x) x = i) = False Then
+                For j = i + 1 To MallasIndv.Count - 1
 
-                    For j = i + 1 To MallasIndv.Count - 1
+                    If MallasIndv(i) = MallasIndv(j) Then
+                        AreaMalla = AreaMalla + Area_Malla(j)
+                        VectoIndices.Add(j)
+                    End If
+                Next
+                MallasConCantidad.Add(AreaMalla & "-" & MallasIndv(i))
+            End If
 
-                        If MallasIndv(i) = MallasIndv(j) Then
-                            Cantidad = Cantidad + CantidaddeMallas_Fic(j)
-                            VectoIndices.Add(j)
-                        End If
-                    Next
-                    MallasConCantidad.Add(Cantidad & "-" & MallasIndv(i))
-                End If
+        Next
 
-            Next
+        'If CantidaddeMallas_Fic.Count = 0 Then
+        '    For i = 0 To lw.Count - 1
 
-            For i = 0 To MallasConCantidad.Count - 1
+        '        Area_piso = (lw(i) / 100) * ((Hw(i) / 100) + Traslapo)
+        '        CantidaddeMallas_Fic.Add(Math.Ceiling(Area_piso / (b_ME * h_ME)))
 
-                If MallasConCantidad(i) <> "0-" Then
+        '        'If Hw(i) + 0.3 > h_ME Then
+        '        '    CantidaddeMallas_Fic.Add((Math.Ceiling(((lw(i) / 100 - R - Traslapo) / b_ME) / 2)))
+        '        'End If
+        '    Next
 
-                    Dim NomenclaturaInicial As String = MallasConCantidad(i)
-                    Dim NomenclaturaFinal As String = ""
-                    Dim Cantidad As Integer = 0 : Dim PosicionDeRaya As Integer : Dim PosiciondeD As Integer = 0
-                    Dim No_Malla As Integer
+        '    For i = 0 To Malla.Count - 1
+        '        Dim NoMallas As Integer = 0
+        '        For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+        '        CantidaddeMallas_Fic(i) = CantidaddeMallas_Fic(i) * NoMallas
 
-                    For n = 0 To Len(NomenclaturaInicial) - 1
+        '    Next
 
-                        If NomenclaturaInicial.Chars(n) = "-" Then
-                            PosicionDeRaya = n
-                        End If
-                        If NomenclaturaInicial.Chars(n) = "D" Then
-                            PosiciondeD = n
-                        End If
-                    Next
+        '    For i = 0 To Malla.Count - 1
+        '        Dim NoMallas As Integer = 0
 
-                    Cantidad = Val(NomenclaturaInicial.Substring(0, PosicionDeRaya))
-                    No_Malla = Val(NomenclaturaInicial.Substring(PosiciondeD + 1))
+        '        For n = 0 To Len(Malla(i)) - 1 : If Malla(i).Chars(n) = "D" Then : NoMallas = NoMallas + 1 : End If : Next
+        '        Dim MallaStr As String = Malla(i)
+        '        If NoMallas = 0 Then
+        '            MallaStr = ""
+        '        End If
+        '        If NoMallas = 2 Then
+        '            MallaStr = Malla(i).Substring(NoMallas - 1)
+        '        End If
+        '        MallasIndv.Add(MallaStr)
 
-                    NomenclaturaFinal = Cantidad & " " & "M" & " " & "D-" & No_Malla
+        '    Next
 
-                    CantidadMallasDllNet.Add(NomenclaturaFinal)
+        '    Dim VectoIndices As New List(Of Integer)
 
-                End If
+        '    For i = 0 To MallasIndv.Count - 1
+        '        Dim Cantidad As Integer = CantidaddeMallas_Fic(i)
 
-            Next
+        '        If VectoIndices.Exists(Function(x) x = i) = False Then
 
-        End If
+        '            For j = i + 1 To MallasIndv.Count - 1
+
+        '                If MallasIndv(i) = MallasIndv(j) Then
+        '                    Cantidad = Cantidad + CantidaddeMallas_Fic(j)
+        '                    VectoIndices.Add(j)
+        '                End If
+        '            Next
+        '            MallasConCantidad.Add(Cantidad & "-" & MallasIndv(i))
+        '        End If
+
+        '    Next
+
+        '    For i = 0 To MallasConCantidad.Count - 1
+
+        '        If MallasConCantidad(i) <> "0-" Then
+
+        '            Dim NomenclaturaInicial As String = MallasConCantidad(i)
+        '            Dim NomenclaturaFinal As String = ""
+        '            Dim Cantidad As Integer = 0 : Dim PosicionDeRaya As Integer : Dim PosiciondeD As Integer = 0
+        '            Dim No_Malla As Integer
+
+        '            For n = 0 To Len(NomenclaturaInicial) - 1
+
+        '                If NomenclaturaInicial.Chars(n) = "-" Then
+        '                    PosicionDeRaya = n
+        '                End If
+        '                If NomenclaturaInicial.Chars(n) = "D" Then
+        '                    PosiciondeD = n
+        '                End If
+        '            Next
+
+        '            Cantidad = Val(NomenclaturaInicial.Substring(0, PosicionDeRaya))
+        '            No_Malla = Val(NomenclaturaInicial.Substring(PosiciondeD + 1))
+
+        '            NomenclaturaFinal = Cantidad & " " & "M" & " " & "D-" & No_Malla
+
+        '            CantidadMallasDllNet.Add(NomenclaturaFinal)
+
+        '        End If
+
+        '    Next
+
+        'End If
 
     End Sub
 

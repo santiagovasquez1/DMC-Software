@@ -50,7 +50,11 @@ Public Class Seccion
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        IniciarAplicacion(Me)
+        If Hviga <> 0 Then
+            IniciarAplicacion(Me)
+        Else
+            f_variables.Show()
+        End If
     End Sub
 
     'Mover Pestaña
@@ -113,4 +117,11 @@ Public Class Seccion
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If ListaOrdenada.Count > 0 Then
+            Dim Diagrama_i As New Diagrama(ListaOrdenada)
+        End If
+
+    End Sub
 End Class

@@ -31,10 +31,11 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i)
+        public static void Deserializar(ref string Ruta_archivo, ref Listas_Serializadas_i Lista_i, bool Diferente=true)
         {
-
             BinaryFormatter Formatter = new BinaryFormatter();
+            if (Diferente) { 
+          
             OpenFileDialog Myfile = new OpenFileDialog
             {
                 Filter = "Archivo de muros|*.dmc",
@@ -43,7 +44,7 @@ namespace Diseno_muros_concreto_fc
 
             Myfile.ShowDialog();
             Ruta_archivo = Myfile.FileName;
-
+            }
             if (Ruta_archivo != "")
             {
                 Stream Lector = new FileStream(Ruta_archivo, FileMode.Open, FileAccess.Read, FileShare.None);

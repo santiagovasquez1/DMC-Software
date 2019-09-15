@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -189,8 +190,57 @@ namespace Diseno_muros_concreto_fc
             B_Flexural.Enabled = true;
         }
 
+        private void RegistrarDMC()
+        {
+            RegistryKey clave1 = Registry.CurrentUser.OpenSubKey("Software", true);
+            clave1.CreateSubKey("Classes");
+            clave1 = clave1.OpenSubKey("Classes", true);
+
+            clave1.CreateSubKey(".dmc");
+            clave1 = clave1.OpenSubKey(".dmc", true);
+            clave1.SetValue("", "archivo.dmc");
+
+            clave1.Close();
+            ////////////////////////////////////////
+            RegistryKey clave2 = Registry.CurrentUser.OpenSubKey("Software", true);
+            clave2.CreateSubKey("Classes");
+            clave2 = clave2.OpenSubKey("Classes", true);
+
+            clave2.CreateSubKey("archivo.dmc");
+            clave2 = clave2.OpenSubKey("archivo.dmc", true);
+            clave2.SetValue("", "File DMC");
+
+            clave2.CreateSubKey("DefaultIcon");
+            clave2 = clave2.OpenSubKey("DefaultIcon", true);
+            clave2.SetValue("", Application.StartupPath + "\\Icono\\icono.ico");
+
+            clave2.Close();
+            ////////////////////////////////////////
+            RegistryKey clave3 = Registry.CurrentUser.OpenSubKey("Software", true);
+            clave3.CreateSubKey("Classes");
+            clave3 = clave3.OpenSubKey("Classes", true);
+
+            clave3.CreateSubKey("archivo.dmc");
+            clave3 = clave3.OpenSubKey("archivo.dmc", true);
+            clave3.SetValue("", "File DMC");
+
+            clave3.CreateSubKey("shell");
+            clave3 = clave3.OpenSubKey("shell", true);
+
+            clave3.CreateSubKey("open");
+            clave3 = clave3.OpenSubKey("open", true);
+
+            clave3.CreateSubKey("command");
+            clave3 = clave3.OpenSubKey("command", true);
+            clave3.SetValue("", "\"" + Application.StartupPath + "\\Diseno muros concreto fc.exe\" \"%1\"");
+
+            clave3.Close();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            RegistrarDMC();
+
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
             List<string> Lista_ToolTip = new List<string>();
@@ -217,6 +267,13 @@ namespace Diseno_muros_concreto_fc
             Panel Panel_i = new Panel();
             Fase1 Formulario1 = new Fase1();
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1, Listas);
+
+            if (Environment.CommandLine.Contains("\" \""))
+            {
+                string ArchivoRuta = Environment.CommandLine.Split(new char[] { '"' })[3];
+                Listas_Programa.Ruta_archivo = ArchivoRuta;
+                AbrirProyecto(ref Listas, false);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -229,9 +286,6 @@ namespace Diseno_muros_concreto_fc
             {
                 try
                 {
-                    Listas_Programa.Muros_insuficientes = new List<Muro>();
-
-
                     for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
                         Listas_Programa.Lista_Muros[i].Diseno_Cortante();
@@ -253,7 +307,7 @@ namespace Diseno_muros_concreto_fc
                                 Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
                             }
                         }
-
+                        Listas_Programa.Error_Cortante = "¡CORTANTE!";
                         Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
                         result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
                     }
@@ -276,6 +330,7 @@ namespace Diseno_muros_concreto_fc
             string Mensaje;
 
             Procesar_info.Compilar_Datos();
+            Listas_Programa.Muros_errores = Procesar_info.Muros_errores;
 
             Listas = new Listas_Serializadas_i
             {
@@ -299,6 +354,7 @@ namespace Diseno_muros_concreto_fc
             this.Height = 675;
             Fase1 Formulario1 = new Fase1();
             Formulario1.Cargar_Lista();
+
             Cargar_Formulario.Open_From_Panel(this.panel1, Formulario1, Listas);
             murosSimilaresToolStripMenuItem.Enabled = false;
             direcciónDeCambioDeEspesorToolStripMenuItem.Enabled = false;
@@ -314,20 +370,16 @@ namespace Diseno_muros_concreto_fc
             Listas_Programa.Capacidad = "DES";
         }
 
-
-
-
-
         private void SaveFile()
         {
             if (Listas_Programa.Ruta_archivo is null == true | Listas_Programa.Ruta_archivo == "")
             {
                 //Serializador.Serializar(ref Listas_Programa.Ruta_archivo, Listas);
                 Diseño_de_muros_concreto_V2.Serializador Serializar = new Diseño_de_muros_concreto_V2.Serializador(Listas_Programa.Ruta_archivo, true, Listas);
-                if(Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo == "") { 
-                DeterminarRutaCarpeta(Listas_Programa.Ruta_archivo);
-                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, true);
-                    
+                if (Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo == "")
+                {
+                    DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
+                    Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, Listas_Programa.Name_Proyecto, true);
                 }
                 //Guardar_archivo.Crear_Archivo_Texto();
                 //Guardar_archivo.Generar_texto();
@@ -337,8 +389,8 @@ namespace Diseno_muros_concreto_fc
             {
                 //Serializador.Serializar(ref Listas_Programa.Ruta_archivo, Listas);
                 Diseño_de_muros_concreto_V2.Serializador Serializar = new Diseño_de_muros_concreto_V2.Serializador(Listas_Programa.Ruta_archivo, true, Listas);
-                DeterminarRutaCarpeta(Listas_Programa.Ruta_archivo);
-                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, true);
+                DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
+                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, Listas_Programa.Name_Proyecto, true);
                 //Guardar_archivo.Generar_texto();
                 //Diseño_de_muros_concreto_V2.Guardar_Archivo Guardado_Archivo = new Diseño_de_muros_concreto_V2.Guardar_Archivo(Listas_Programa.Ruta_archivo, false);
             }
@@ -347,15 +399,10 @@ namespace Diseno_muros_concreto_fc
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile();
-          
         }
 
-
-
-               
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             AbrirProyecto(ref Listas);
         }
 
@@ -400,8 +447,6 @@ namespace Diseno_muros_concreto_fc
             {
                 try
                 {
-                    Listas_Programa.Muros_insuficientes = new List<Muro>();
-
                     for (int i = 0; i < Listas_Programa.Lista_Muros.Count; i++)
                     {
                         Listas_Programa.Lista_Muros[i].Flexural_Analisis();
@@ -409,22 +454,27 @@ namespace Diseno_muros_concreto_fc
 
                     if (Listas_Programa.Muros_insuficientes.Count > 0)
                     {
-                        Mensaje = "Los muros :";
+                        var Flexion = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Flexion.Exists(x1 => x1 != "Ok") == true);
 
-                        for (int i = 0; i < Listas_Programa.Muros_insuficientes.Count; i++)
+                        if (Flexion.Count > 0)
                         {
-                            if (i < Listas_Programa.Muros_insuficientes.Count - 1)
+                            Mensaje = "Los muros :";
+                            for (int i = 0; i < Flexion.Count; i++)
                             {
-                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier + ",";
+                                if (i < Flexion.Count - 1)
+                                {
+                                    Mensaje = Mensaje + Flexion[i].Pier + ",";
+                                }
+                                else
+                                {
+                                    Mensaje = Mensaje + Flexion[i].Pier;
+                                }
                             }
-                            else
-                            {
-                                Mensaje = Mensaje + Listas_Programa.Muros_insuficientes[i].Pier;
-                            }
-                        }
 
-                        Mensaje = Mensaje + " Presentan deficiencias en el diseño a cortante";
-                        result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                            Listas_Programa.Error_Flexion = "¡FLEXION!";
+                            Mensaje = Mensaje + " Presentan deficiencias en el diseño a flexion";
+                            result = MessageBox.Show(Mensaje, "Efe prima Ce", buttons);
+                        }
                     }
                     B_Report.Enabled = true;
                 }
@@ -451,9 +501,8 @@ namespace Diseno_muros_concreto_fc
             Diseño_de_muros_concreto_V2.Serializador Serializar = new Diseño_de_muros_concreto_V2.Serializador(Listas_Programa.Ruta_archivo, true, Listas);
             if (Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo == "")
             {
-                DeterminarRutaCarpeta(Listas_Programa.Ruta_archivo);
-                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, true);
-
+                DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
+                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, Listas_Programa.Name_Proyecto, true);
             }
             //Guardar_archivo.Crear_Archivo_Texto();
             //Guardar_archivo.Generar_texto();
@@ -490,18 +539,25 @@ namespace Diseno_muros_concreto_fc
             AbrirProyecto(ref Listas);
         }
 
-        private void AbrirProyecto(ref Listas_Serializadas_i Lista_i)
+        private void AbrirProyecto(ref Listas_Serializadas_i Lista_i, bool Diferente = true)
         {
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             Listas_Programa.Lista_Muros = new List<Muro>();
             Listas_Programa.Lista_shells = new List<Shells_Prop>();
-            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i);
+
+            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i, Diferente);
             if (Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo != "")
             {
-                DeterminarRutaCarpeta(Listas_Programa.Ruta_archivo);
-                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, false);
+                DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
+                Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, Listas_Programa.Name_Proyecto, false);
             }
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
+
+            foreach (Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
+            {
+                Procesar_info.Errores_muro(muroi);
+            }
+            Listas_Programa.Muros_errores = Procesar_info.Muros_errores;
 
             B_Flexural.Enabled = false;
             B_Report.Enabled = false;
@@ -520,28 +576,34 @@ namespace Diseno_muros_concreto_fc
                 Radio_Des.Checked = true;
             }
             Generar.Enabled = true;
-
         }
 
-
-        private void DeterminarRutaCarpeta(string Ruta)
+        private void DeterminarRutaCarpeta_NombreProyecto(string Ruta)
         {
             try
             {
                 int FinPunto = 0;
                 int FinSla = 0;
+                int FinSla2 = 0;
                 string Ruta_Carpeta = "";
+                string Nombre_Proyecto = "";
 
                 for (int n = 0; n < (Ruta.Length); n++) { if (Ruta.Substring(n, 1) == ".") { FinPunto = n; } }
                 for (int n = FinPunto; n >= 0; n--) { if (Ruta.Substring(n, 1) == @"\") { FinSla = n; break; } }
+
                 for (int n = 0; n < FinSla; n++) { Ruta_Carpeta = Ruta_Carpeta + (Ruta.Substring(n, 1)); }
 
+                for (int n = 0; n < (Ruta.Length); n++) { if (Ruta.Substring(n, 1) == @"\") { FinSla2 = n + 1; } }
+                for (int n = FinSla2; n < FinPunto; n++) { Nombre_Proyecto = Nombre_Proyecto + (Ruta.Substring(n, 1)); }
+
                 Listas_Programa.Ruta_Carpeta = Ruta_Carpeta;
+                Listas_Programa.Name_Proyecto = Nombre_Proyecto;
             }
             catch
             {
             }
         }
+
         private void Button8_Click(object sender, EventArgs e)
         {
             SaveFile();
@@ -661,7 +723,6 @@ namespace Diseno_muros_concreto_fc
 
         private void ExportarMemoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             ExportMemorias();
         }
 
@@ -676,6 +737,13 @@ namespace Diseno_muros_concreto_fc
 
         private void button4_Click(object sender, EventArgs e)
         {
+        }
+
+        private void definirArañaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<Diseño_de_muros_concreto_V2.Muros_Consolidados> L_Muro_aux = new List<Diseño_de_muros_concreto_V2.Muros_Consolidados>();
+            Diseño_de_muros_concreto_V2.Crear_arania Arañas = new Diseño_de_muros_concreto_V2.Crear_arania();
+            Arañas.ShowDialog();
         }
     }
 }

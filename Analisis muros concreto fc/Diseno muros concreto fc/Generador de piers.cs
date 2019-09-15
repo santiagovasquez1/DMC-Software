@@ -130,8 +130,8 @@ namespace Diseno_muros_concreto_fc
             Datos_Diseno diseno_i;
 
             Lista_Diseno = new List<Datos_Diseno>();
-            Myfile.Filter = "Datos de diseño a flexocompresion de etabs |*.CSV";
-            Myfile.Title = "Abrir archivo con el diseño a flexocopresion de los muros";
+            Myfile.Filter = "Datos de diseño a flexo-compresión de etabs |*.CSV";
+            Myfile.Title = "Abrir archivo con el diseño a flexo-compresión de los muros";
             Myfile.ShowDialog();
 
             try

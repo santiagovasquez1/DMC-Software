@@ -172,6 +172,7 @@ Module DibujoAutocad
             End Try
 
             AcadDoc = AcadApp.ActiveDocument
+            AcadDoc.SetVariable("CANNOSCALE", "1:50")
 
             'Graficar alzado
 

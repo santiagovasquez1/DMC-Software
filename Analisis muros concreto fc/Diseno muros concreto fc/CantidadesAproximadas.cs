@@ -148,6 +148,11 @@ namespace Diseno_muros_concreto_fc
             Estilo.Font = new Font("Verdana", 8);
             Estilo.BackColor = Color.White;
 
+            double Peso_total_toal;
+
+            Peso_total_toal = Listas_Programa.Muros_Consolidados_Listos.Select(x => x.Peso_Long.Sum()).Sum()+ Listas_Programa.Muros_Consolidados_Listos.Select(x => x.Peso_malla.Sum()).Sum()
+                + Listas_Programa.Muros_Consolidados_Listos.Select(x => x.Peso_Transv.Sum()).Sum();
+
             int count = 0;
             foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
             {
@@ -161,6 +166,7 @@ namespace Diseno_muros_concreto_fc
                 DataGrid.Rows[count].Cells[3].Value = Math.Round(muro_i.Peso_Transv.Sum(), 2);
                 double PesoTotal = Math.Round(muro_i.Peso_Long.Sum() + muro_i.Peso_malla.Sum() + muro_i.Peso_Transv.Sum(), 2);
                 DataGrid.Rows[count].Cells[4].Value = PesoTotal;
+                DataGrid.Rows[count].Cells[5].Value = Math.Round (PesoTotal*100/Peso_total_toal,2);
                 count = count + 1;
             }
 
@@ -239,7 +245,7 @@ namespace Diseno_muros_concreto_fc
                 {
                     for (int k = 0; k < Muros_lista[j].fc.Count; k++)
                     {
-                        if (Muros_lista[i].fc[k] == Fc_dif[i])
+                        if (Muros_lista[j].fc[k] == Fc_dif[i])
                         {
                             suma += Muros_lista[j].Volumen[k];
                         }

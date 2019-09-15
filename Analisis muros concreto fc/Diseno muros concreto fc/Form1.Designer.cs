@@ -45,6 +45,7 @@
             this.infoGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alzadoRefuerzoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dibujoSeccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.definirArañaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variablesDeDibujoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.murosSimilaresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.direcciónDeCambioDeEspesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,7 +156,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -237,6 +238,7 @@
             this.infoGeneralToolStripMenuItem,
             this.alzadoRefuerzoToolStripMenuItem,
             this.dibujoSeccionToolStripMenuItem,
+            this.definirArañaToolStripMenuItem,
             this.variablesDeDibujoToolStripMenuItem,
             this.murosSimilaresToolStripMenuItem,
             this.direcciónDeCambioDeEspesorToolStripMenuItem,
@@ -277,6 +279,14 @@
             this.dibujoSeccionToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.dibujoSeccionToolStripMenuItem.Text = "Dibujo Seccion";
             this.dibujoSeccionToolStripMenuItem.Click += new System.EventHandler(this.DibujoSeccionToolStripMenuItem_Click);
+            // 
+            // definirArañaToolStripMenuItem
+            // 
+            this.definirArañaToolStripMenuItem.Name = "definirArañaToolStripMenuItem";
+            this.definirArañaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.definirArañaToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.definirArañaToolStripMenuItem.Text = "Definir araña";
+            this.definirArañaToolStripMenuItem.Click += new System.EventHandler(this.definirArañaToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
             // 
@@ -332,6 +342,9 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel1.BackColor = System.Drawing.Color.Gray;
             this.panel1.Controls.Add(this.Panel6);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -805,8 +818,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
             this.ClientSize = new System.Drawing.Size(995, 675);
@@ -896,7 +910,7 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.ToolStripMenuItem listasDeMurosAGraficarToolStripMenuItem;
         private System.Windows.Forms.Label Label_Inicial;
-
+        private System.Windows.Forms.ToolStripMenuItem definirArañaToolStripMenuItem;
     }
 }
 

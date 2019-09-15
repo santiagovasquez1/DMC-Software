@@ -913,7 +913,7 @@ Public Class Estribos_Totales
         editar_property1 = dynamic_property1(6)
         editar_property1.Value = Find_Long_Ganchos(Diametro)
 
-        Hlibre = (H_piso / 100) - 0.1
+        Hlibre = (H_piso / 100) - 0.1 - Hviga
 
         If Separacion_Estribo > 0 Then
             Estribo_i = New Seccion_Estribos With
@@ -1130,7 +1130,7 @@ Public Class Estribos_Totales
         Dim Hlibre As Double
         Nombre_Bloque = "FC_B_Gancho Tipo 5"
 
-        Hlibre = (Hw / 100) - 0.1
+        Hlibre = (Hw / 100) - 0.1 - Hviga
 
         For i = 0 To Lista_Ganchos.Count - 1
 

@@ -37,10 +37,10 @@
     Public Lista_Auxiliar As Object
     Public data_info_f3 As DataGridView
     Public Lista_graficar As New List(Of Muros_alzados_C)
-
+    Public Lista_aranias As List(Of Arania) = New List(Of Arania)
     Public Ruta_Carpeta As String
 
-    Public Function cuantia_volumetrica(ByVal sep As Single, ByVal fc As Single, ByVal fy As Single, lebe As Single, bw As Single, ByVal Capacidad As String) As Single()
+    Public Function Cuantia_volumetrica(ByVal sep As Single, ByVal fc As Single, ByVal fy As Single, lebe As Single, bw As Single, ByVal Capacidad As String) As Single()
 
         Dim r As Single = 2 'cm²
         Dim ashX As Single
