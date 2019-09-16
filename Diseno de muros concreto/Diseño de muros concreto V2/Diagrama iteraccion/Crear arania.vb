@@ -32,6 +32,27 @@ Public Class Crear_arania
         Me.ResumeLayout(False)
 
     End Sub
+    'Mover Pestaña
+    <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
+    Private Shared Sub ReleaseCapture()
+    End Sub
+
+    <DllImport("user32.DLL", EntryPoint:="SendMessage")>
+    Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
+    End Sub
+
+    Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
+        ReleaseCapture()
+        SendMessage(Me.Handle, &H112&, &HF012&, 0)
+    End Sub
+
+    Private Sub Label9_MouseMove(sender As Object, e As MouseEventArgs) Handles Label9.MouseMove
+        ReleaseCapture()
+        SendMessage(Me.Handle, &H112&, &HF012&, 0)
+    End Sub
+
+
+
 
     Private Sub Crear_arania_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -59,17 +80,20 @@ Public Class Crear_arania
 
     End Sub
 
+    Public Shared MuroAranaSelecc As Arania
+    Public Shared ItemMuroArana As Integer
     Private Sub Data_arania_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Data_arania.CellContentClick
 
         Dim senderGrid = DirectCast(sender, DataGridView)
         Dim label As String
 
         If TypeOf senderGrid.Columns(e.ColumnIndex) Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
-
             label = Data_arania.Rows(e.RowIndex).Cells(0).Value
+            MuroAranaSelecc = Lista_aranias.Find(Function(x) x.Label = label)
+            ItemMuroArana = e.RowIndex
             Muros_Seccion.ShowDialog()
-
         End If
+
 
     End Sub
 
@@ -77,24 +101,7 @@ Public Class Crear_arania
         Close()
     End Sub
 
-    'Mover Pestaña
-    <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
-    Private Shared Sub ReleaseCapture()
-    End Sub
 
-    <DllImport("user32.DLL", EntryPoint:="SendMessage")>
-    Private Shared Sub SendMessage(ByVal hWnd As System.IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer)
-    End Sub
-
-    Private Sub Panel1_MouseMove(sender As Object, e As MouseEventArgs) Handles Panel1.MouseMove
-        ReleaseCapture()
-        SendMessage(Me.Handle, &H112&, &HF012&, 0)
-    End Sub
-
-    Private Sub Label9_MouseMove(sender As Object, e As MouseEventArgs) Handles Label9.MouseMove
-        ReleaseCapture()
-        SendMessage(Me.Handle, &H112&, &HF012&, 0)
-    End Sub
 
     Private Sub B_addrows_Click(sender As Object, e As EventArgs) Handles B_addrows.Click
 
@@ -103,32 +110,16 @@ Public Class Crear_arania
         If Label <> "" Then
             Data_arania.Rows.Add()
             Data_arania.Rows(Data_arania.Rows.Count - 1).Cells(0).Value = Label
-
+            Data_arania.Rows(Data_arania.Rows.Count - 1).Cells(2).Value = "Agregar Muros"
             Dim Arania As Arania = New Arania
             Arania.Label = Data_arania.Rows(Data_arania.Rows.Count - 1).Cells(0).Value
             Arania.Muros_arania = New List(Of Muros)
             Lista_aranias.Add(Arania)
         End If
 
-        If Data_arania.Rows.Count > 0 Then
-            B_Delete_Row.Enabled = True
-        Else
-            B_Delete_Row.Enabled = False
-        End If
 
     End Sub
 
-    Private Sub B_Delete_Row_Click(sender As Object, e As EventArgs) Handles B_Delete_Row.Click
-
-        Dim Muros = Lista_aranias.Select(Function(x) x.Label).ToArray
-        F_Lista_aranias.Load_CB(Muros, Data_arania)
-        F_Lista_aranias.ShowDialog()
-
-        If Lista_aranias.Count > 0 Then
-            B_Delete_Row.Enabled = True
-        End If
-
-    End Sub
 
     Public Sub Cargar_Tabla()
 
@@ -137,7 +128,7 @@ Public Class Crear_arania
             Data_arania.Rows.Add()
             Data_arania.Rows(i).Cells(0).Value = Lista_aranias(i).Label
             Texto = $"{Lista_aranias(i).Muros_arania.Select(Function(x) x.NombreMuro).ToArray}"
-            Data_arania.Rows(i).Cells(2).Value = "Agregar muros"
+            Data_arania.Rows(i).Cells(2).Value = "Agregar Muros"
         Next
 
     End Sub
@@ -159,4 +150,51 @@ Public Class Crear_arania
 
     End Sub
 
+    Private Sub EliminarArañaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EliminarArañaToolStripMenuItem.Click
+        Eliminar_fila(Data_arania)
+    End Sub
+
+    Private Sub Data_arania_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Data_arania.CellMouseDown
+        If e.Button = MouseButtons.Right Then
+            Data_arania.ContextMenuStrip = ContextMenuStrip1
+            Muros_Borrar = Data_arania.Rows(e.RowIndex).Cells(0).Value
+        End If
+    End Sub
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Close()
+    End Sub
+
+    Private NombreAnterior As String
+    Private Sub Data_arania_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Data_arania.CellValueChanged
+
+        If e.ColumnIndex = 0 Then
+
+            If NombreAnterior <> Nothing Then
+                Try
+                    If Lista_aranias.Exists(Function(x) x.Label = Data_arania.Rows(e.RowIndex).Cells(0).Value) Then
+                        MsgBox("La araña a definir ya existe.", MsgBoxStyle.Exclamation, "efe Prima Ce")
+                        Data_arania.Rows(e.RowIndex).Cells(0).Value = NombreAnterior
+
+                    Else Lista_aranias.Find(Function(x) x.Label = NombreAnterior).Label = Data_arania.Rows(e.RowIndex).Cells(0).Value
+
+                    End If
+                Catch
+                End Try
+            End If
+
+        End If
+    End Sub
+
+
+    Private Sub Crear_arania_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        If Data_arania.Rows.Count > 0 Then
+            Data_arania.Rows(ItemMuroArana).Cells(1).Value = Muros_Seccion.MurosPertencientes
+        End If
+    End Sub
+
+    Private Sub Data_arania_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles Data_arania.CellBeginEdit
+        NombreAnterior = Data_arania.Rows(e.RowIndex).Cells(0).Value
+    End Sub
 End Class

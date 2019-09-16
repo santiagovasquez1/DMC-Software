@@ -40,8 +40,8 @@
 
             .Est_ebe(i) = Data_ganeral.Rows(i).Cells(13).Value
             .Sep_ebe(i) = Data_ganeral.Rows(i).Cells(14).Value
-            .ramas_izq(i) = Data_ganeral.Rows(i).Cells(15).Value
-            .ramas_der(i) = Data_ganeral.Rows(i).Cells(16).Value
+            .ramas_izq(i) = Val(Data_ganeral.Rows(i).Cells(15).Value)
+            .ramas_der(i) = Val(Data_ganeral.Rows(i).Cells(16).Value)
             .ramas_centro(i) = Data_ganeral.Rows(i).Cells(17).Value
 
             .Zc_Izq(i) = Data_ganeral.Rows(i).Cells(18).Value

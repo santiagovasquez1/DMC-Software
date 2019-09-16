@@ -92,11 +92,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.AutoCAD.Interop">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2020\Autodesk.AutoCAD.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Autodesk.AutoCAD.Interop.Common">
-      <HintPath>C:\Program Files\Autodesk\AutoCAD 2018\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\AutoCAD 2020\Autodesk.AutoCAD.Interop.Common.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -142,12 +142,6 @@
       <DependentUpon>Crear arania.vb</DependentUpon>
     </Compile>
     <Compile Include="Diagrama iteraccion\Crear arania.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Diagrama iteraccion\F_Lista_aranias.Designer.vb">
-      <DependentUpon>F_Lista_aranias.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Diagrama iteraccion\F_Lista_aranias.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Diagrama iteraccion\Muros Diagrama.vb" />
@@ -252,9 +246,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Diagrama iteraccion\Crear arania.resx">
       <DependentUpon>Crear arania.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Diagrama iteraccion\F_Lista_aranias.resx">
-      <DependentUpon>F_Lista_aranias.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Diagrama iteraccion\Muros_Seccion.resx">
       <DependentUpon>Muros_Seccion.vb</DependentUpon>

@@ -27,10 +27,10 @@ Partial Class Muros_Seccion
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.DataGrid_Muros = New System.Windows.Forms.DataGridView()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Muros = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Similars = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGrid_Muros, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,6 +84,21 @@ Partial Class Muros_Seccion
         Me.DataGrid_Muros.Size = New System.Drawing.Size(263, 343)
         Me.DataGrid_Muros.TabIndex = 15
         '
+        'Muros
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Muros.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Muros.HeaderText = "Muro"
+        Me.Muros.Name = "Muros"
+        Me.Muros.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Muros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'Similars
+        '
+        Me.Similars.HeaderText = "¿Pertenece?"
+        Me.Similars.Name = "Similars"
+        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        '
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -104,21 +119,6 @@ Partial Class Muros_Seccion
         Me.Button1.Text = "Ok"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Muros
-        '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Muros.DefaultCellStyle = DataGridViewCellStyle4
-        Me.Muros.HeaderText = "Muro"
-        Me.Muros.Name = "Muros"
-        Me.Muros.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Muros.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'Similars
-        '
-        Me.Similars.HeaderText = "¿Pertenece?"
-        Me.Similars.Name = "Similars"
-        Me.Similars.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        '
         'Muros_Seccion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -130,6 +130,7 @@ Partial Class Muros_Seccion
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Muros_Seccion"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Muros_Seccion"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()

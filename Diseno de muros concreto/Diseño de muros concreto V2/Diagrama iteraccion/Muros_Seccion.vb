@@ -49,9 +49,13 @@ Public Class Muros_Seccion
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
+    Private Sub Muros_Seccion_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
+        ReleaseCapture()
+        SendMessage(Me.Handle, &H112&, &HF012&, 0)
+    End Sub
 
     Private Sub Muros_Seccion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        DataGrid_Muros.Rows.Clear()
         CrearDataGrid(DataGrid_Muros, ListaOrdenada)
 
     End Sub
@@ -73,6 +77,8 @@ Public Class Muros_Seccion
         DataGrid.Columns(1).HeaderCell.Style = Estilo
 
         Muros = ListaMuros.Select(Function(x) x.NombreMuro).ToList()
+        Dim MuroArana = Crear_arania.MuroAranaSelecc
+
 
         For i = 0 To Muros.Count - 1
 
@@ -81,16 +87,50 @@ Public Class Muros_Seccion
             With DataGrid.Rows(i)
                 .Cells(0).Value = Muros(i)
                 .Cells(0).ReadOnly = True
-                .Cells(1).Value = False
+                For j = 0 To MuroArana.Muros_arania.Count - 1
+                    If Muros(i) = MuroArana.Muros_arania(j).NombreMuro Then
+                        .Cells(1).Value = True
+                    End If
+                Next
             End With
-
         Next
 
     End Sub
 
-    Private Sub Muros_Seccion_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-        ReleaseCapture()
-        SendMessage(Me.Handle, &H112&, &HF012&, 0)
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Close()
     End Sub
+
+    Public Shared MurosPertencientes As String
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click  'Boton Ok
+
+        MurosPertencientes = ""
+        Crear_arania.MuroAranaSelecc.Muros_arania.Clear()
+
+        For i = 0 To DataGrid_Muros.Rows.Count - 1
+            If DataGrid_Muros.Rows(i).Cells(1).Value = True Then
+                Dim MuroPerteneciente As Muros
+                MuroPerteneciente = ListaOrdenada.Find(Function(x) x.NombreMuro = DataGrid_Muros.Rows(i).Cells(0).Value)
+                Crear_arania.MuroAranaSelecc.Muros_arania.Add(MuroPerteneciente)
+
+            End If
+        Next
+
+
+        For i = 0 To Crear_arania.MuroAranaSelecc.Muros_arania.Count - 1
+            If i < Crear_arania.MuroAranaSelecc.Muros_arania.Count - 1 Then
+                MurosPertencientes = MurosPertencientes & Crear_arania.MuroAranaSelecc.Muros_arania(i).NombreMuro & ","
+            Else
+                MurosPertencientes = MurosPertencientes & Crear_arania.MuroAranaSelecc.Muros_arania(i).NombreMuro
+            End If
+        Next
+        Close()
+
+
+
+
+    End Sub
+
 
 End Class

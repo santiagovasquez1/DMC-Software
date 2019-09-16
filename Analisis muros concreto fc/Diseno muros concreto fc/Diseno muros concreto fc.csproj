@@ -158,12 +158,6 @@
     <None Include="Resources\logo vertical bmp.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj">
-      <Project>{6939a936-5c65-4160-b74f-2681ec5d14a8}</Project>
-      <Name>Diseño de muros concreto V2</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\vcsadded_93506.png" />
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +303,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj">
+      <Project>{6939a936-5c65-4160-b74f-2681ec5d14a8}</Project>
+      <Name>Diseño de muros concreto V2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

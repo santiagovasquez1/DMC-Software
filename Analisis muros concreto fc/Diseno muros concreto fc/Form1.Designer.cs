@@ -156,7 +156,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -285,7 +285,7 @@
             this.definirArañaToolStripMenuItem.Name = "definirArañaToolStripMenuItem";
             this.definirArañaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.definirArañaToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.definirArañaToolStripMenuItem.Text = "Definir araña";
+            this.definirArañaToolStripMenuItem.Text = "Definir Araña";
             this.definirArañaToolStripMenuItem.Click += new System.EventHandler(this.definirArañaToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
