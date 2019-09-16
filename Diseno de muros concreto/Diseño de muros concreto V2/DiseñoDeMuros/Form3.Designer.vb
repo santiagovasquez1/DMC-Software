@@ -981,7 +981,7 @@ Partial Class f_alzado
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(114, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(113, Byte), Integer))
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(1554, 760)
+        Me.ClientSize = New System.Drawing.Size(1571, 777)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel4)

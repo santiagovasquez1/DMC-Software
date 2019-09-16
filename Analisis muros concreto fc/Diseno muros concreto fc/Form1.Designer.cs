@@ -285,7 +285,7 @@
             this.definirArañaToolStripMenuItem.Name = "definirArañaToolStripMenuItem";
             this.definirArañaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.definirArañaToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.definirArañaToolStripMenuItem.Text = "Definir araña";
+            this.definirArañaToolStripMenuItem.Text = "Definir Araña";
             this.definirArañaToolStripMenuItem.Click += new System.EventHandler(this.definirArañaToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
