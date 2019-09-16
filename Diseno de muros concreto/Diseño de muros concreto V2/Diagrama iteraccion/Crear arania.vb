@@ -42,6 +42,10 @@ Public Class Crear_arania
         Data_arania.DefaultCellStyle = Estilo
         Cargar_Tabla()
 
+        If Lista_aranias.Count > 0 Then
+            B_Delete_Row.Enabled = True
+        End If
+
     End Sub
 
     Private Sub Data_arania_RowLeave(sender As Object, e As DataGridViewCellEventArgs) Handles Data_arania.RowLeave

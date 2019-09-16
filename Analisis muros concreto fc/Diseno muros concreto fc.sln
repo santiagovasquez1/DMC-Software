@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DMC-Software", "..\Instalador\DMC-Software\DMC-Software.vdproj", "{62A3BE45-346B-4857-955F-77B58CDCC924}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Diagrama de iteraccion py", "Diagrama de iteraccion py\Diagrama de iteraccion py.pyproj", "{5056CBB7-4E2F-49D8-BE83-368421207B5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|Any CPU.Build.0 = Release
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|x86.ActiveCfg = Release
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|x86.Build.0 = Release
+		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
