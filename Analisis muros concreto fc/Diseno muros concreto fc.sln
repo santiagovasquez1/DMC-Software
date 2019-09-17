@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diseno muros concreto fc", "Diseno muros concreto fc\Diseno muros concreto fc.csproj", "{8410EE88-4D11-4EAA-9C8B-CDE1F16470B2}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V2", "..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj", "{6939A936-5C65-4160-B74F-2681EC5D14A8}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DMC-Software", "..\Instalador\DMC-Software\DMC-Software.vdproj", "{62A3BE45-346B-4857-955F-77B58CDCC924}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Diagrama de iteraccion py", "Diagrama de iteraccion py\Diagrama de iteraccion py.pyproj", "{5056CBB7-4E2F-49D8-BE83-368421207B5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|Any CPU.Build.0 = Release
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|x86.ActiveCfg = Release
 		{62A3BE45-346B-4857-955F-77B58CDCC924}.Release|x86.Build.0 = Release
-		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5056CBB7-4E2F-49D8-BE83-368421207B5D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
