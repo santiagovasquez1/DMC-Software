@@ -437,10 +437,25 @@ Module Module1
         Formulario.BarraPersonalizada2.Visible = False
         Formulario.Label_BarraProgreso.Visible = False
 
+
+
+
+
+        For i = 0 To ListaOrdenada.Count - 1
+
+            For j = 0 To Lista_CirculoRefuerzos.Count - 1
+                If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
+                    ListaOrdenada(i).Lista_Refuerzos_Original2.Add(Lista_CirculoRefuerzos(j).CoordenadasXyY.ToArray)
+                End If
+
+            Next
+        Next
+
+
+
         For i = 0 To ListaOrdenada.Count - 1
 
             For j = 0 To Lista_CirculoRefuerzos.Count - 1 Step 2
-
                 If Lista_CirculoRefuerzos(j).CoordenadasXyY(0) >= ListaOrdenada(i).XminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(0) <= ListaOrdenada(i).XmaxE AndAlso Lista_CirculoRefuerzos(j).CoordenadasXyY(1) >= ListaOrdenada(i).YminE And Lista_CirculoRefuerzos(j).CoordenadasXyY(1) <= ListaOrdenada(i).YmaxE Then
                     ListaOrdenada(i).Lista_Refuerzos_Original.Add(Lista_CirculoRefuerzos(j).CoordenadasXyY.ToArray)
                 End If
@@ -448,6 +463,7 @@ Module Module1
             Next
 
             If ListaOrdenada(i).DireccionMuro = "Horizontal" Then
+
                 ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x(0)).ToList
             Else
                 ListaOrdenada(i).Lista_Refuerzos_Original = ListaOrdenada(i).Lista_Refuerzos_Original.OrderBy(Function(x) x(1)).ToList

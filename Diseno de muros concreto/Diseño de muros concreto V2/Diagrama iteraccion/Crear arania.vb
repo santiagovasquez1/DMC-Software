@@ -193,4 +193,11 @@ Public Class Crear_arania
     Private Sub Data_arania_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles Data_arania.CellBeginEdit
         NombreAnterior = Data_arania.Rows(e.RowIndex).Cells(0).Value
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        Dim GenerarArchivo As New AutoCADEtabs(Lista_aranias.ToList)
+
+
+    End Sub
 End Class

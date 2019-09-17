@@ -21,6 +21,8 @@
         End Set
     End Property
 
+    Public ListNumerosShaesPorPiso As New List(Of Integer)
 
+    Public Lista_XC_YC_Min(1) As Single
 
 End Class
