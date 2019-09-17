@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Diagrama iteraccion\Arania.vb" />
+    <Compile Include="Diagrama iteraccion\AutoCADEtabs.vb" />
     <Compile Include="Diagrama iteraccion\Crear arania.Designer.vb">
       <DependentUpon>Crear arania.vb</DependentUpon>
     </Compile>

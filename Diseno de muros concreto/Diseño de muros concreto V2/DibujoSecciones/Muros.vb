@@ -34,6 +34,8 @@ Public Class Muros
     Public MurosVecinos As New List(Of String)
 
     Public Lista_Refuerzos As New List(Of RefuerzoCirculo)
+    Public Lista_Refuerzos_Original2 As New List(Of Double())
+
     Public Lista_Refuerzos_Original As New List(Of Double())
 
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
@@ -104,7 +106,50 @@ Public Class Muros
     Public Sep_RefuerzoHorizontal_PorPiso As New List(Of Single)
     Public Hw As New List(Of Single)
     Public Capas_RefuerzoHorizontalPorPiso As List(Of Integer)
-    Public RefuerzoHorizontalLabelPorPiso As List(Of String)
+    Public RefuerzoHorizontalLabelPorPiso As New List(Of String)
+
+
+    Public ListaRefuerzosPorPiso As New List(Of List(Of RefuerzoCirculo))
+
+    Public Fc As List(Of Single)
+    Public XC As Single
+    Public YC As Single
+
+    Sub CalculoCentroide2()
+        XC = XminE + (XmaxE - XminE) / 2
+        YC = YminE + (YmaxE - YminE) / 2
+    End Sub
+
+
+
+
+    Sub AsignarBarras()
+        ListaRefuerzosPorPiso.Clear()
+
+        For No_Piso = Muros_lista_2(0).Hw.Count - 1 To 0 Step -1
+
+            If alzado_lista.Exists(Function(x) x.pier = NombreMuro And x.story = "Story" & (No_Piso + 1)) Then
+                Dim ListasRefuerzos_Aux As New List(Of RefuerzoCirculo)
+                Dim MuroConAlzado = alzado_lista.Find(Function(x) x.pier = NombreMuro And x.story = "Story" & (No_Piso + 1))
+                For NomencBarra = 0 To MuroConAlzado.alzado.Count - 1
+                    For i = 0 To Lista_Refuerzos.Count - 1
+                        Dim Nomen As String = Str(NomencBarra + 1).Trim()
+                        If Nomen = Lista_Refuerzos(i).Label And MuroConAlzado.alzado(NomencBarra) <> "" Then
+                            Lista_Refuerzos(i).CoordenadasXyY = Lista_Refuerzos_Original2(i).ToArray
+                            ListasRefuerzos_Aux.Add(Lista_Refuerzos(i))
+
+                        End If
+                    Next
+                Next
+                ListaRefuerzosPorPiso.Add(ListasRefuerzos_Aux.ToList)
+            End If
+        Next
+
+
+
+    End Sub
+
+
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -231,6 +276,9 @@ Public Class RefuerzoCirculo
     Dim mCoordenadasXyY(2) As Double
     Public IndiceMuroPerteneciente As Integer
     Public Gancho As Boolean = False
+    Public NoBarra As String
+
+
 
     Public Property CoordenadasXyY() As Double()
         Get

@@ -28,13 +28,13 @@ Partial Class Crear_arania
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Data_arania = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.B_addrows = New System.Windows.Forms.Button()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EliminarArañaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,38 +88,6 @@ Partial Class Crear_arania
         Me.Data_arania.Size = New System.Drawing.Size(355, 344)
         Me.Data_arania.TabIndex = 16
         '
-        'Button1
-        '
-        Me.Button1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(155, 384)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(59, 23)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Ok"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'B_addrows
-        '
-        Me.B_addrows.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.B_addrows.Location = New System.Drawing.Point(52, 383)
-        Me.B_addrows.Name = "B_addrows"
-        Me.B_addrows.Size = New System.Drawing.Size(97, 23)
-        Me.B_addrows.TabIndex = 20
-        Me.B_addrows.Text = "Agregar Araña"
-        Me.B_addrows.UseVisualStyleBackColor = True
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EliminarArañaToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(150, 26)
-        '
-        'EliminarArañaToolStripMenuItem
-        '
-        Me.EliminarArañaToolStripMenuItem.Name = "EliminarArañaToolStripMenuItem"
-        Me.EliminarArañaToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
-        Me.EliminarArañaToolStripMenuItem.Text = "Eliminar araña"
-        '
         'Column1
         '
         Me.Column1.Frozen = True
@@ -143,14 +111,46 @@ Partial Class Crear_arania
         Me.Column3.Text = "+"
         Me.Column3.ToolTipText = "Agregar muros pertenecientes a la araña"
         '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Location = New System.Drawing.Point(142, 384)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(59, 23)
+        Me.Button1.TabIndex = 18
+        Me.Button1.Text = "Ok"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'B_addrows
+        '
+        Me.B_addrows.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.B_addrows.Location = New System.Drawing.Point(39, 383)
+        Me.B_addrows.Name = "B_addrows"
+        Me.B_addrows.Size = New System.Drawing.Size(97, 23)
+        Me.B_addrows.TabIndex = 20
+        Me.B_addrows.Text = "Agregar Araña"
+        Me.B_addrows.UseVisualStyleBackColor = True
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EliminarArañaToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(150, 26)
+        '
+        'EliminarArañaToolStripMenuItem
+        '
+        Me.EliminarArañaToolStripMenuItem.Name = "EliminarArañaToolStripMenuItem"
+        Me.EliminarArañaToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.EliminarArañaToolStripMenuItem.Text = "Eliminar araña"
+        '
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(220, 384)
+        Me.Button2.Location = New System.Drawing.Point(207, 384)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(97, 23)
+        Me.Button2.Size = New System.Drawing.Size(125, 23)
         Me.Button2.TabIndex = 21
-        Me.Button2.Text = "Agregar Araña"
+        Me.Button2.Text = "Generar Archivo $et"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Crear_arania
