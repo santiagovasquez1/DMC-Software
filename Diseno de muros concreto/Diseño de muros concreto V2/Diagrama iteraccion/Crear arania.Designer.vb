@@ -114,7 +114,7 @@ Partial Class Crear_arania
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(142, 384)
+        Me.Button1.Location = New System.Drawing.Point(156, 384)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(59, 23)
         Me.Button1.TabIndex = 18
@@ -124,7 +124,7 @@ Partial Class Crear_arania
         'B_addrows
         '
         Me.B_addrows.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.B_addrows.Location = New System.Drawing.Point(39, 383)
+        Me.B_addrows.Location = New System.Drawing.Point(52, 383)
         Me.B_addrows.Name = "B_addrows"
         Me.B_addrows.Size = New System.Drawing.Size(97, 23)
         Me.B_addrows.TabIndex = 20
@@ -146,11 +146,11 @@ Partial Class Crear_arania
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(207, 384)
+        Me.Button2.Location = New System.Drawing.Point(221, 384)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(125, 23)
+        Me.Button2.Size = New System.Drawing.Size(135, 23)
         Me.Button2.TabIndex = 21
-        Me.Button2.Text = "Generar Archivo $et"
+        Me.Button2.Text = "Modificar Archivo $et"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Crear_arania

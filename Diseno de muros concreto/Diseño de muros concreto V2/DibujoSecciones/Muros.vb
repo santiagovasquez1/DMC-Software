@@ -25,7 +25,7 @@ Public Enum TipoRefuerzo
 
 End Enum
 
-
+<Serializable>
 Public Class Muros
 
     Public NombreMuro As String
@@ -105,7 +105,7 @@ Public Class Muros
     Public FormaRefuerzoHorizontal_PorPiso As New List(Of TipoRefuerzo)
     Public Sep_RefuerzoHorizontal_PorPiso As New List(Of Single)
     Public Hw As New List(Of Single)
-    Public Capas_RefuerzoHorizontalPorPiso As List(Of Integer)
+    Public Capas_RefuerzoHorizontalPorPiso As New List(Of Integer)
     Public RefuerzoHorizontalLabelPorPiso As New List(Of String)
 
 
@@ -115,13 +115,28 @@ Public Class Muros
     Public XC As Single
     Public YC As Single
 
+
+    Public CoordPoligono As New List(Of Single())
+
     Sub CalculoCentroide2()
         XC = XminE + (XmaxE - XminE) / 2
         YC = YminE + (YmaxE - YminE) / 2
     End Sub
 
 
+    Sub AsignarCoordPol()
 
+        CoordPoligono.Clear()
+
+        Dim ParCoord(1) As Single
+
+        CoordPoligono.Add(New Single() {XminE, YminE})
+        CoordPoligono.Add(New Single() {XmaxE, YminE})
+        CoordPoligono.Add(New Single() {XmaxE, YmaxE})
+        CoordPoligono.Add(New Single() {XminE, YmaxE})
+
+
+    End Sub
 
     Sub AsignarBarras()
         ListaRefuerzosPorPiso.Clear()
@@ -136,6 +151,15 @@ Public Class Muros
                         Dim Nomen As String = Str(NomencBarra + 1).Trim()
                         If Nomen = Lista_Refuerzos(i).Label And MuroConAlzado.alzado(NomencBarra) <> "" Then
                             Lista_Refuerzos(i).CoordenadasXyY = Lista_Refuerzos_Original2(i).ToArray
+                            Dim IndiceNumeral = MuroConAlzado.alzado(NomencBarra).IndexOf("#")
+                            Dim IndiceT = MuroConAlzado.alzado(NomencBarra).IndexOf("T")
+                            Dim NoBarra As String
+                            If IndiceT = 0 Or IndiceT = Nothing Or IndiceT = -1 Then
+                                NoBarra = MuroConAlzado.alzado(NomencBarra).Substring(IndiceNumeral)
+                            Else
+                                NoBarra = MuroConAlzado.alzado(NomencBarra).Substring(IndiceNumeral, IndiceT - IndiceNumeral)
+                            End If
+                            Lista_Refuerzos(i).NoBarra = NoBarra
                             ListasRefuerzos_Aux.Add(Lista_Refuerzos(i))
 
                         End If
@@ -268,7 +292,7 @@ Public Class Muros
     End Sub
 
 End Class
-
+<Serializable>
 Public Class RefuerzoCirculo
 
     Public Label As String

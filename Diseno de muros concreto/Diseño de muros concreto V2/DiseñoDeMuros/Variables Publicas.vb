@@ -39,6 +39,7 @@
     Public Lista_graficar As New List(Of Muros_alzados_C)
     Public Lista_aranias As List(Of Arania) = New List(Of Arania)
     Public Ruta_Carpeta As String
+    Public ListaOrdenada2 As New List(Of Muros)
 
     Public Function Cuantia_volumetrica(ByVal sep As Single, ByVal fc As Single, ByVal fy As Single, lebe As Single, bw As Single, ByVal Capacidad As String) As Single()
 
