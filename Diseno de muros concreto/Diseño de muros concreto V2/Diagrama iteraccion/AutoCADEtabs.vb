@@ -26,12 +26,12 @@ Public Class AutoCADEtabs
             Else
                 MsgBox("Agregue por lo menos una Araña.", MsgBoxStyle.Information, "efe Prima Ce")
             End If
-
         Else
 
         End If
 
     End Sub
+
     Public Sub Inicio(ByVal ArchivoET As List(Of String), ByVal ListaMurosAranas As List(Of Arania))
 
         'OrganizarBarrasPorPiso
@@ -45,8 +45,6 @@ Public Class AutoCADEtabs
 
             Next
         Next
-
-
 
         For i = 0 To ListaMurosAranas.Count - 1
             Dim XminC As Single = 999999
@@ -66,9 +64,6 @@ Public Class AutoCADEtabs
         Next
 
         Dim ListaTextoSectionDesig As New List(Of String)
-
-
-
 
         For i = 0 To ListaMurosAranas.Count - 1
 
@@ -121,7 +116,6 @@ Public Class AutoCADEtabs
             End With
         Next
 
-
         Dim Save As SaveFileDialog
         Save = New SaveFileDialog
         Save.Title = "Prueba"
@@ -130,24 +124,11 @@ Public Class AutoCADEtabs
 
         Dim Escritor As StreamWriter = New StreamWriter(Save.FileName)
 
-
         For i = 0 To ListaTextoSectionDesig.Count - 1
             Escritor.WriteLine(ListaTextoSectionDesig(i))
         Next
         Escritor.Close()
 
-
-
-
-
     End Sub
-
-
-
-
-
-
-
-
 
 End Class

@@ -9,6 +9,7 @@ Public Enum Reduccion
     NoAplica
 
 End Enum
+
 <Serializable>
 Public Enum TipoRefuerzo
 
@@ -22,9 +23,7 @@ Public Enum TipoRefuerzo
     C ' En C
     S  ' En S(C)
 
-
 End Enum
-
 
 Public Class Muros
 
@@ -108,7 +107,6 @@ Public Class Muros
     Public Capas_RefuerzoHorizontalPorPiso As List(Of Integer)
     Public RefuerzoHorizontalLabelPorPiso As New List(Of String)
 
-
     Public ListaRefuerzosPorPiso As New List(Of List(Of RefuerzoCirculo))
 
     Public Fc As List(Of Single)
@@ -119,9 +117,6 @@ Public Class Muros
         XC = XminE + (XmaxE - XminE) / 2
         YC = YminE + (YmaxE - YminE) / 2
     End Sub
-
-
-
 
     Sub AsignarBarras()
         ListaRefuerzosPorPiso.Clear()
@@ -145,11 +140,7 @@ Public Class Muros
             End If
         Next
 
-
-
     End Sub
-
-
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -277,8 +268,6 @@ Public Class RefuerzoCirculo
     Public IndiceMuroPerteneciente As Integer
     Public Gancho As Boolean = False
     Public NoBarra As String
-
-
 
     Public Property CoordenadasXyY() As Double()
         Get

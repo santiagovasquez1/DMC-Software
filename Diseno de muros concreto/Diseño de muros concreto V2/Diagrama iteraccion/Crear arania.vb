@@ -159,6 +159,14 @@ Public Class Crear_arania
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        For i = 0 To Lista_aranias.Count - 1
+
+            Dim Seccion_i As New Diagrama(Lista_aranias(i).Muros_arania, Lista_aranias(i).Label)
+
+
+        Next
+
         Close()
     End Sub
 
@@ -197,7 +205,6 @@ Public Class Crear_arania
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         Dim GenerarArchivo As New AutoCADEtabs(Lista_aranias.ToList)
-
 
     End Sub
 End Class

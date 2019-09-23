@@ -1,13 +1,24 @@
 ﻿Imports Diseño_de_muros_concreto_V2
+Imports System.Math
 
 Public Class Diagrama
 
+    Private _nombre As String
     Private _muros_i As List(Of Muros) = New List(Of Muros)
     Private _coordX As List(Of List(Of Double)) = New List(Of List(Of Double))
     Private _coordY As List(Of List(Of Double)) = New List(Of List(Of Double))
     Private _centroide As Double()
     Private _pn_max As List(Of Double) = New List(Of Double)
     Private _phi_pn_max As List(Of Double) = New List(Of Double)
+
+    Public Property Nombre As String
+        Get
+            Return _nombre
+        End Get
+        Set(value As String)
+            _nombre = value
+        End Set
+    End Property
 
     Public Property Centroide As Double()
         Get
@@ -63,10 +74,35 @@ Public Class Diagrama
         End Set
     End Property
 
-    Sub New(ByVal Lista_i As List(Of Muros))
+
+
+    Sub New(ByVal Lista_i As List(Of Muros), ByVal nomb As String)
+
+        Dim Delta As Integer = 15
+        Dim alpha As Integer
+
+        Nombre = nomb
         Muros_i = Lista_i
+
+
+        For i = 0 To Muros_i.Count - 1
+            Muros_i(i).AsignarBarras()
+        Next
+
+        While alpha < 360
+
+            If alpha = 90 Then
+                Stop
+            End If
+            Rotar_ref(alpha * PI / 180)
+            alpha += Delta
+        End While
+
+
         Calc_Pn_max()
         Calculo_Centroide()
+
+
     End Sub
 
     Sub Calculo_Centroide()
@@ -184,4 +220,24 @@ Public Class Diagrama
 
     End Sub
 
+    Sub Rotar_ref(ByVal alpha As Double)
+
+        Dim Xalpha, Yalpha As Double
+        Dim dalpha, prueba As Double
+
+        For i = 0 To Muros_i.Count - 1
+            For j = 0 To Muros_i(i).ListaRefuerzosPorPiso.Count - 1
+                For k = 0 To Muros_i(i).ListaRefuerzosPorPiso(j).Count - 1
+
+                    Xalpha = (Muros_i(i).ListaRefuerzosPorPiso(j)(k).CoordenadasXyY(0) * Pow(Cos(alpha), 2)) + (Sin(alpha) * Cos(alpha) * Muros_i(i).ListaRefuerzosPorPiso(j)(k).CoordenadasXyY(1))
+                    Yalpha = Tan(alpha) * Xalpha
+                    prueba = Tan(-PI / 2)
+                    dalpha = Sqrt(Pow(Xalpha, 2) + Pow(Yalpha, 2))
+
+                Next
+            Next
+        Next
+
+
+    End Sub
 End Class
