@@ -57,7 +57,7 @@ Public Class Muros_Seccion
 
     Private Sub Muros_Seccion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataGrid_Muros.Rows.Clear()
-        CrearDataGrid(DataGrid_Muros, ListaOrdenada)
+        CrearDataGrid(DataGrid_Muros, ListaOrdenada2)
 
     End Sub
 
@@ -111,7 +111,7 @@ Public Class Muros_Seccion
         For i = 0 To DataGrid_Muros.Rows.Count - 1
             If DataGrid_Muros.Rows(i).Cells(1).Value = True Then
                 Dim MuroPerteneciente As Muros
-                MuroPerteneciente = ListaOrdenada.Find(Function(x) x.NombreMuro = DataGrid_Muros.Rows(i).Cells(0).Value)
+                MuroPerteneciente = ListaOrdenada2.Find(Function(x) x.NombreMuro = DataGrid_Muros.Rows(i).Cells(0).Value)
                 Crear_arania.MuroAranaSelecc.Muros_arania.Add(MuroPerteneciente)
 
             End If

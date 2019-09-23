@@ -87,6 +87,9 @@ Module Module1
 
             Dim Clasificar As String = ClasificarObjectos(Objeto, num)
             If Clasificar <> "Sin Definir" And Clasificar = "M" & num And Objeto.ObjectName = "AcDbPolyline" Then
+                If ListaOrdenada2.Exists(Function(x) x.NombreMuro = Clasificar) Then
+                    ListaOrdenada2.RemoveAll(Function(x) x.NombreMuro = Clasificar)
+                End If
                 Muro.NombreMuro = Clasificar
                 Muro.CoordenadasX = Coordenadas(Objeto)(0)
                 Muro.CoordenadasY = Coordenadas(Objeto)(1)
@@ -231,6 +234,7 @@ Module Module1
 
         ListaOrdenada = Muros_V.OrderBy((Function(x) x.Xmin)).ToList()
 
+
         For i = 0 To ListaOrdenada.Count - 1
             ListaOrdenada(i).MurosVecinosP.Clear()
         Next
@@ -339,7 +343,11 @@ Module Module1
 
                     If ListaOrdenada(i).NombreMuro = Muros_lista_2(j).Pier_name Then
 
-                        Dim Indice = Muros_lista_2(j).Stories.FindIndex(Function(x) x = ("Story" & No_Piso))
+
+
+
+                        Dim Indice = Muros_lista_2(j).Stories.Count - No_Piso
+
 
                         ListaOrdenada(i).LEB_Iz = Muros_lista_2(j).Lebe_Izq(Indice) / 100
                         ListaOrdenada(i).LEB_Dr = Muros_lista_2(j).Lebe_Der(Indice) / 100
@@ -401,7 +409,8 @@ Module Module1
                         Try
 
                             Dim Sstring_Longtiud As List(Of String)
-                            Sstring_Longtiud = alzado_lista.Find(Function(x) x.pier = ListaOrdenada(i).NombreMuro And x.story = "Story" & No_Piso).Alzado_Longitud.ToList
+                            Dim PisoaBuscar As String = Muros_lista_2(j).Stories(Indice)
+                            Sstring_Longtiud = alzado_lista.Find(Function(x) x.pier = ListaOrdenada(i).NombreMuro And x.story = PisoaBuscar).Alzado_Longitud.ToList
                             For m = 0 To Sstring_Longtiud.Count - 1
                                 Dim String1 As String = Sstring_Longtiud(m)
                                 Dim No_Letras, No_Letras2 As Integer
@@ -1437,6 +1446,7 @@ Module Module1
             MuroRefuerzo.CalcularNomenclaturaGanchosyEstribos()
         Next
 
+        ListaOrdenada2.AddRange(ListaOrdenada.ToList)
         Selecccionar.Clear()
 
 
