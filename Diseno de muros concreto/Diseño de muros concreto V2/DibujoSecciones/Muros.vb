@@ -149,7 +149,6 @@ Public Class Muros
                     For i = 0 To Lista_Refuerzos.Count - 1
                         Dim Nomen As String = Str(NomencBarra + 1).Trim()
                         If Nomen = Lista_Refuerzos(i).Label And MuroConAlzado.alzado(NomencBarra) <> "" Then
-                            Lista_Refuerzos(i).CoordenadasXyY = Lista_Refuerzos_Original2(i).ToArray
                             Dim IndiceNumeral = MuroConAlzado.alzado(NomencBarra).IndexOf("#")
                             Dim IndiceT = MuroConAlzado.alzado(NomencBarra).IndexOf("T")
                             Dim NoBarra As String
@@ -158,8 +157,11 @@ Public Class Muros
                             Else
                                 NoBarra = MuroConAlzado.alzado(NomencBarra).Substring(IndiceNumeral, IndiceT - IndiceNumeral)
                             End If
-                            Lista_Refuerzos(i).NoBarra = NoBarra
-                            ListasRefuerzos_Aux.Add(Lista_Refuerzos(i))
+                            Dim RefuerzoNew As New RefuerzoCirculo
+                            RefuerzoNew.NoBarra = NoBarra
+                            RefuerzoNew.CoordenadasXyY = Lista_Refuerzos_Original2(i).ToArray
+                            RefuerzoNew.Label = Nomen
+                            ListasRefuerzos_Aux.Add(RefuerzoNew)
 
                         End If
                     Next

@@ -160,13 +160,14 @@ Public Class AutoCADEtabs
                         If .Muros_arania(j).DireccionMuro = "Horizontal" Then
                             'Cambio de Espesor
                             Try
-                                DeltaElMismo = .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                DeltaElMismo = Math.Abs(.Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1))
                             Catch
                                 DeltaElMismo = 0
                             End Try
 
                             If .Muros_arania(j).CambioDireccion = Reduccion.Abajo Then
-                                Ymax = Ymax - DeltaElMismo
+                                Ymax =
+                                    Ymax - DeltaElMismo
                             ElseIf .Muros_arania(j).CambioDireccion = Reduccion.Arriba Then
                                 Ymin = Ymin + DeltaElMismo
                             ElseIf .Muros_arania(j).CambioDireccion = Reduccion.Centro Then
@@ -179,14 +180,14 @@ Public Class AutoCADEtabs
 
                                 If .Muros_arania(j).MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Izquierda Then
                                     Try
-                                        Delta1_Vecino = .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                        Delta1_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                     Catch
                                         Delta1_Vecino = 0
                                     End Try
                                 End If
                                 If .Muros_arania(j).MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta1_Vecino = (.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                        Delta1_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                     Catch
                                         Delta1_Vecino = 0
                                     End Try
@@ -199,14 +200,14 @@ Public Class AutoCADEtabs
 
                                 If .Muros_arania(j).MurosVecinosDerecha(0).CambioDireccion = Reduccion.Derecha Then
                                     Try
-                                        Delta2_Vecino = .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                        Delta2_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                     Catch
                                         Delta2_Vecino = 0
                                     End Try
                                 End If
                                 If .Muros_arania(j).MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta2_Vecino = (.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                        Delta2_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                     Catch
                                         Delta2_Vecino = 0
                                     End Try
@@ -223,7 +224,7 @@ Public Class AutoCADEtabs
 
                             'Cambio de Espesor
                             Try
-                                DeltaElMismo = .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                DeltaElMismo = Math.Abs(.Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1))
                             Catch
                                 DeltaElMismo = 0
                             End Try
@@ -242,14 +243,14 @@ Public Class AutoCADEtabs
 
                                 If .Muros_arania(j).MurosVecinosAbajo(0).CambioDireccion = Reduccion.Abajo Then
                                     Try
-                                        Delta1_Vecino = .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                        Delta1_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                     Catch
                                         Delta1_Vecino = 0
                                     End Try
                                 End If
                                 If .Muros_arania(j).MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta1_Vecino = (.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                        Delta1_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                     Catch
                                         Delta1_Vecino = 0
                                     End Try
@@ -262,14 +263,14 @@ Public Class AutoCADEtabs
 
                                 If .Muros_arania(j).MurosVecinosArriba(0).CambioDireccion = Reduccion.Arriba Then
                                     Try
-                                        Delta2_Vecino = .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                        Delta2_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                     Catch
                                         Delta2_Vecino = 0
                                     End Try
                                 End If
                                 If .Muros_arania(j).MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
                                     Try
-                                        Delta2_Vecino = (.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                        Delta2_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                     Catch
                                         Delta2_Vecino = 0
                                     End Try
@@ -337,7 +338,7 @@ Public Class AutoCADEtabs
                             If .Muros_arania(j).DireccionMuro = "Horizontal" Then
                                 'Cambio de Espesor
                                 Try
-                                    DeltaElMismo = .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                    DeltaElMismo = Math.Abs(.Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1))
                                 Catch
                                     DeltaElMismo = 0
                                 End Try
@@ -357,14 +358,14 @@ Public Class AutoCADEtabs
 
                                     If .Muros_arania(j).MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Izquierda Then
                                         Try
-                                            Delta1_Vecino = .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                            Delta1_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                         Catch
                                             Delta1_Vecino = 0
                                         End Try
                                     End If
                                     If .Muros_arania(j).MurosVecinosIzquierda(0).CambioDireccion = Reduccion.Centro Then
                                         Try
-                                            Delta1_Vecino = (.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                            Delta1_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosIzquierda(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                         Catch
                                             Delta1_Vecino = 0
                                         End Try
@@ -377,14 +378,14 @@ Public Class AutoCADEtabs
 
                                     If .Muros_arania(j).MurosVecinosDerecha(0).CambioDireccion = Reduccion.Derecha Then
                                         Try
-                                            Delta2_Vecino = .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                            Delta2_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                         Catch
                                             Delta2_Vecino = 0
                                         End Try
                                     End If
                                     If .Muros_arania(j).MurosVecinosDerecha(0).CambioDireccion = Reduccion.Centro Then
                                         Try
-                                            Delta2_Vecino = (.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                            Delta2_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosDerecha(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                         Catch
                                             Delta2_Vecino = 0
                                         End Try
@@ -400,7 +401,7 @@ Public Class AutoCADEtabs
 
                                 'Cambio de Espesor
                                 Try
-                                    DeltaElMismo = .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                    DeltaElMismo = Math.Abs(.Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1))
                                 Catch
                                     DeltaElMismo = 0
                                 End Try
@@ -419,14 +420,14 @@ Public Class AutoCADEtabs
 
                                     If .Muros_arania(j).MurosVecinosAbajo(0).CambioDireccion = Reduccion.Abajo Then
                                         Try
-                                            Delta1_Vecino = .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                            Delta1_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                         Catch
                                             Delta1_Vecino = 0
                                         End Try
                                     End If
                                     If .Muros_arania(j).MurosVecinosAbajo(0).CambioDireccion = Reduccion.Centro Then
                                         Try
-                                            Delta1_Vecino = (.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                            Delta1_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosAbajo(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                         Catch
                                             Delta1_Vecino = 0
                                         End Try
@@ -439,14 +440,14 @@ Public Class AutoCADEtabs
 
                                     If .Muros_arania(j).MurosVecinosArriba(0).CambioDireccion = Reduccion.Arriba Then
                                         Try
-                                            Delta2_Vecino = .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)
+                                            Delta2_Vecino = Math.Abs(.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1))
                                         Catch
                                             Delta2_Vecino = 0
                                         End Try
                                     End If
                                     If .Muros_arania(j).MurosVecinosArriba(0).CambioDireccion = Reduccion.Centro Then
                                         Try
-                                            Delta2_Vecino = (.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2
+                                            Delta2_Vecino = Math.Abs((.Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m) - .Muros_arania(j).MurosVecinosArriba(0).EspesorePorPiso(.ListNumerosShaesPorPiso.Count - 1 - m + 1)) / 2)
                                         Catch
                                             Delta2_Vecino = 0
                                         End Try
