@@ -9,6 +9,7 @@ Public Enum Reduccion
     NoAplica
 
 End Enum
+
 <Serializable>
 Public Enum TipoRefuerzo
 
@@ -21,7 +22,6 @@ Public Enum TipoRefuerzo
     L1G ' En L con un gancho
     C ' En C
     S  ' En S(C)
-
 
 End Enum
 
@@ -108,7 +108,6 @@ Public Class Muros
     Public Capas_RefuerzoHorizontalPorPiso As New List(Of Integer)
     Public RefuerzoHorizontalLabelPorPiso As New List(Of String)
 
-
     Public ListaRefuerzosPorPiso As New List(Of List(Of RefuerzoCirculo))
 
     Public Fc As List(Of Single)
@@ -171,11 +170,7 @@ Public Class Muros
             End If
         Next
 
-
-
     End Sub
-
-
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -303,8 +298,6 @@ Public Class RefuerzoCirculo
     Public IndiceMuroPerteneciente As Integer
     Public Gancho As Boolean = False
     Public NoBarra As String
-
-
 
     Public Property CoordenadasXyY() As Double()
         Get

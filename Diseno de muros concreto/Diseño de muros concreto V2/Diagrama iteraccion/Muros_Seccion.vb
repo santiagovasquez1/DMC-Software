@@ -49,6 +49,7 @@ Public Class Muros_Seccion
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
     End Sub
+
     Private Sub Muros_Seccion_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
         ReleaseCapture()
         SendMessage(Me.Handle, &H112&, &HF012&, 0)
@@ -79,7 +80,6 @@ Public Class Muros_Seccion
         Muros = ListaMuros.Select(Function(x) x.NombreMuro).ToList()
         Dim MuroArana = Crear_arania.MuroAranaSelecc
 
-
         For i = 0 To Muros.Count - 1
 
             DataGrid.Rows.Add()
@@ -97,12 +97,12 @@ Public Class Muros_Seccion
 
     End Sub
 
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Close()
     End Sub
 
     Public Shared MurosPertencientes As String
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click  'Boton Ok
 
         MurosPertencientes = ""
@@ -117,7 +117,6 @@ Public Class Muros_Seccion
             End If
         Next
 
-
         For i = 0 To Crear_arania.MuroAranaSelecc.Muros_arania.Count - 1
             If i < Crear_arania.MuroAranaSelecc.Muros_arania.Count - 1 Then
                 MurosPertencientes = MurosPertencientes & Crear_arania.MuroAranaSelecc.Muros_arania(i).NombreMuro & ","
@@ -127,10 +126,6 @@ Public Class Muros_Seccion
         Next
         Close()
 
-
-
-
     End Sub
-
 
 End Class

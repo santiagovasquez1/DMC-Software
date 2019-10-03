@@ -45,9 +45,9 @@ Public Class Seccion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If ListaOrdenada.Count > 0 Then
-            Dim Diagrama_i As New Diagrama(ListaOrdenada)
-        End If
+        'If ListaOrdenada.Count > 0 Then
+        '    Dim Diagrama_i As New Diagrama(ListaOrdenada)
+        'End If
 
     End Sub
 

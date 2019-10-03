@@ -183,10 +183,14 @@ namespace Diseno_muros_concreto_fc
             foreach (DataGridViewColumn column in DataGrid.Columns) { column.HeaderCell.Style = Estilo; }
 
             double PesoLongitudinal = 0; double PesoTransversal = 0; double PesoMalla = 0;
+            double peso_zc = 0; double peso_ebe = 0;
             foreach (Muros_Consolidados_1 muro_i in Listas_Programa.Muros_Consolidados_Listos)
+
             {
                 PesoLongitudinal += muro_i.Peso_Long.Sum();
                 PesoTransversal += muro_i.Peso_Transv.Sum();
+                peso_zc += muro_i.Pesos_zc.Sum();
+                peso_ebe += muro_i.Pesos_ebe.Sum();
                 PesoMalla += muro_i.Peso_malla.Sum();
             }
 

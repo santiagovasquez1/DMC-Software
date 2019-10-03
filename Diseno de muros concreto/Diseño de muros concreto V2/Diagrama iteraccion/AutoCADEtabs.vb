@@ -66,12 +66,12 @@ Public Class AutoCADEtabs
             Else
                 MsgBox("Agregue por lo menos una Araña.", MsgBoxStyle.Information, "efe Prima Ce")
             End If
-
         Else
 
         End If
 
     End Sub
+
     Public Sub Inicio(ByVal ArchivoET As List(Of String), ByVal ListaMurosAranas As List(Of Arania))
 
 
@@ -318,7 +318,7 @@ Public Class AutoCADEtabs
                     Next
 
 
-                    'Mallas 
+                    'Mallas
 
                     For j = 0 To .Muros_arania.Count - 1
 
@@ -652,13 +652,5 @@ Public Class AutoCADEtabs
 
 
     End Sub
-
-
-
-
-
-
-
-
 
 End Class

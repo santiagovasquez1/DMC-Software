@@ -19,6 +19,8 @@ namespace Diseno_muros_concreto_fc
     {
         public List<List<Shells_Prop>> Shells_piso_Izq = new List<List<Shells_Prop>>();
         public List<List<Shells_Prop>> Shells_piso_der = new List<List<Shells_Prop>>();
+        [NonSerialized] public List<double> Pesos_zc = new List<double>();
+        [NonSerialized] public List<double> Pesos_ebe = new List<double>();
 
         public void Calculo_Peso_Aprox()
         {
@@ -27,7 +29,11 @@ namespace Diseno_muros_concreto_fc
             double P_ZD, P_ZI;
             double P_Transversal;
             double suma_transv;
+            double suma_zc, suma_ebe;
             double num_mallas;
+
+            Pesos_zc = new List<double>();
+            Pesos_ebe = new List<double>();
 
             for (int i = 0; i < Stories.Count; i++)
             {
@@ -46,7 +52,13 @@ namespace Diseno_muros_concreto_fc
                 P_ZD = Zc_Der[i] > 0 ? Peso_zc(Bw[i], Listas_Programa.Capacidad) * (Zc_Der[i] / 100) : 0;
 
                 P_Transversal = As_htal[i] > 0 ? As_htal[i] * (Hw[i] / 100) * lw[i] * 7850 / Math.Pow(100, 3) : 0;
+
+                suma_ebe = P_LI + P_LD;
+                suma_zc = P_ZI + P_ZD;
+
                 suma_transv = P_LI + P_LD + P_ZI + P_ZD + P_Transversal;
+                Pesos_ebe.Add(suma_ebe);
+                Pesos_zc.Add(suma_zc);
                 Peso_Transv.Add(suma_transv);
             }
             Calculo_volumen();
