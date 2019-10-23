@@ -240,7 +240,7 @@ namespace Diseno_muros_concreto_fc
         private void Form1_Load(object sender, EventArgs e)
         {
             RegistrarDMC();
-            
+
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
             List<string> Lista_ToolTip = new List<string>();
@@ -553,6 +553,11 @@ namespace Diseno_muros_concreto_fc
             }
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
 
+            foreach (Muro muroi in Listas_Programa.Lista_Muros)
+            {
+                muroi.Calc_pc();
+            }
+
             foreach (Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
             {
                 Procesar_info.Errores_muro(muroi);
@@ -717,10 +722,6 @@ namespace Diseno_muros_concreto_fc
             Label_Inicial.Visible = false;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
         private void ExportarMemoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportMemorias();
@@ -729,14 +730,6 @@ namespace Diseno_muros_concreto_fc
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void Generar_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
         }
 
         private void definirArañaToolStripMenuItem_Click(object sender, EventArgs e)

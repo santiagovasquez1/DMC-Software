@@ -110,12 +110,12 @@ namespace Diseno_muros_concreto_fc
         {
             List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "Ht(m)","Load", "P (Tonf)", "V2 (Tonf)", "M3 (Tonf-m)", "Phi Vc (Tonf)" + Environment.NewLine + "C.11.9.5", "Phi Vn (Tonf)" + Environment.NewLine + "C.11.9.3", "Phi Vn (Tonf)" + Environment.NewLine + "C.21.9.4.1","Phi Vs (Tonf)"+Environment.NewLine+"Requerido","Phi Vs max (Tonf)"+Environment.NewLine+"C.11.4.7.9",
             "Rho T max"+Environment.NewLine+"cm²/m","Rho T col"+Environment.NewLine+"cm²/m","Rho L col" + Environment.NewLine+"cm²/m","# Cortinas"+Environment.NewLine+"C.21.9.2.3","Mensaje"};
-            List<Muro> Lista_ordenada=new List<Muro>();
+            List<Muro> Lista_ordenada = new List<Muro>();
 
             if (Listas_Programa.Texto_combo == "¡CORTANTE!")
             {
-                var prueba = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Cortante.Exists(x1=>x1!= "Ok") ==true);
-                Lista_ordenada =prueba.OrderBy(x=>x.Pier).ToList();
+                var prueba = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Cortante.Exists(x1 => x1 != "Ok") == true);
+                Lista_ordenada = prueba.OrderBy(x => x.Pier).ToList();
             }
             else
             {
@@ -150,7 +150,6 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < Lista_ordenada.Count; i++)
             {
-
                 for (int j = 0; j < Lista_ordenada[i].P.Count; j++)
                 {
                     if (Listas_Programa.Texto_combo == "¡CORTANTE!")
@@ -164,7 +163,6 @@ namespace Diseno_muros_concreto_fc
                     {
                         Imprimir_Cortante(Lista_ordenada, T_Shear, i, j);
                     }
-
                 }
             }
         }
@@ -221,7 +219,7 @@ namespace Diseno_muros_concreto_fc
             if (Listas_Programa.Texto_combo == "¡FLEXION!")
             {
                 var prueba = Listas_Programa.Muros_insuficientes.FindAll(x => x.Error_Flexion.Exists(x1 => x1 != "Ok") == true);
-                Lista_ordenada = prueba.OrderBy(x=>x.Pier).ToList();
+                Lista_ordenada = prueba.OrderBy(x => x.Pier).ToList();
             }
             else
             {
@@ -259,7 +257,6 @@ namespace Diseno_muros_concreto_fc
             {
                 for (int j = 0; j < Lista_ordenada[i].P.Count; j++)
                 {
-
                     if (Listas_Programa.Texto_combo == "¡FLEXION!")
                     {
                         if (Lista_ordenada[i].Error_Flexion[j] != "Ok")
@@ -271,7 +268,6 @@ namespace Diseno_muros_concreto_fc
                     {
                         Imprimir_Flexion(Lista_ordenada, T_Flexion, i, j);
                     }
-                    
                 }
             }
         }
@@ -317,7 +313,7 @@ namespace Diseno_muros_concreto_fc
         public static void Datos_resumen()
         {
             List<string> Encabezados = new List<string> { "Story", "Pier", "Lw(m)", "Bw(m)", "Fc (kgf/cm²)", "rho t", "rho l","Malla", "C" + Environment.NewLine+"(cm)","Lebe_Izq"+Environment.NewLine+"(cm)",
-                "Lebe_Der"+Environment.NewLine+"(cm)","Zc_Izq"+Environment.NewLine+"(cm)" ,"Zc_der"+Environment.NewLine+"(cm)","Mensaje"};
+                "Lebe_Der"+Environment.NewLine+"(cm)","Zc_Izq"+Environment.NewLine+"(cm)" ,"Zc_der"+Environment.NewLine+"(cm)","Pmax"+Environment.NewLine+"(tonf)","Pc"+Environment.NewLine+"(tonf)","Mensaje"};
             List<Muros_Consolidados_1> Lista_ordenada = new List<Muros_Consolidados_1>();
 
             if (Listas_Programa.Texto_combo != "¡REPORT!")
@@ -328,7 +324,7 @@ namespace Diseno_muros_concreto_fc
             {
                 foreach (Procesar_info.Muros_Error muro_i in Listas_Programa.Muros_errores)
                 {
-                    Lista_ordenada.AddRange(Listas_Programa.Muros_Consolidados_Listos.FindAll(x => x.Pier_name == muro_i.Piername));                    
+                    Lista_ordenada.AddRange(Listas_Programa.Muros_Consolidados_Listos.FindAll(x => x.Pier_name == muro_i.Piername));
                 }
                 Lista_ordenada = Lista_ordenada.Distinct().ToList();
             }
@@ -362,7 +358,7 @@ namespace Diseno_muros_concreto_fc
 
             if (Listas_Programa.Texto_combo != "¡REPORT!")
             {
-                Agregar_Filas_Resumen(Lista_ordenada, T_Resumen,true);
+                Agregar_Filas_Resumen(Lista_ordenada, T_Resumen, true);
             }
             else
             {
@@ -370,14 +366,14 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Agregar_Filas_Resumen(List<Muros_Consolidados_1> Lista_ordenada, DataTable T_Resumen,Boolean Condicion)
+        private static void Agregar_Filas_Resumen(List<Muros_Consolidados_1> Lista_ordenada, DataTable T_Resumen, Boolean Condicion)
         {
-            List<string> Prueba=new List<string>();
+            List<string> Prueba = new List<string>();
             int indice;
 
             for (int i = 0; i < Lista_ordenada.Count; i++)
             {
-                if (Condicion==true)
+                if (Condicion == true)
                 {
                     Prueba = Lista_ordenada[i].Stories;
                 }
@@ -391,6 +387,7 @@ namespace Diseno_muros_concreto_fc
                 {
                     DataRow dr = T_Resumen.NewRow();
                     indice = Lista_ordenada[i].Stories.FindIndex(x => x == Prueba[j]);
+                    var temp = Listas_Programa.Lista_Muros.Find(x => x.Pier == Lista_ordenada[i].Pier_name & x.Story == Lista_ordenada[i].Stories[indice]);
 
                     dr[0] = Lista_ordenada[i].Stories[indice];
                     dr[1] = Lista_ordenada[i].Pier_name;
@@ -405,14 +402,16 @@ namespace Diseno_muros_concreto_fc
                     dr[10] = Math.Round(Lista_ordenada[i].Lebe_Der[indice], 0);
                     dr[11] = Math.Round(Lista_ordenada[i].Zc_Izq[indice], 0);
                     dr[12] = Math.Round(Lista_ordenada[i].Zc_Der[indice], 0);
+                    dr[13] = Math.Round(Math.Abs(temp.P.Min()), 2);
+                    dr[14] = Math.Round(temp.Pc, 2);
 
                     if (Listas_Programa.Muros_errores.Exists(x => x.Piername == Lista_ordenada[i].Pier_name & x.Story == Lista_ordenada[i].Stories[indice]) == true)
                     {
-                        dr[13] = Listas_Programa.Muros_errores.Find(x => x.Piername == Lista_ordenada[i].Pier_name & x.Story == Lista_ordenada[i].Stories[indice]).Mensaje[0];
+                        dr[15] = Listas_Programa.Muros_errores.Find(x => x.Piername == Lista_ordenada[i].Pier_name & x.Story == Lista_ordenada[i].Stories[indice]).Mensaje[0];
                     }
                     else
                     {
-                        dr[13] = "Ok";
+                        dr[15] = "Ok";
                     }
 
                     T_Resumen.Rows.Add(dr);

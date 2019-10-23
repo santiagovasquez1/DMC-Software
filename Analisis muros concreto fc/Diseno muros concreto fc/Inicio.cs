@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
@@ -60,6 +61,10 @@ namespace Diseno_muros_concreto_fc
                     IP_Servidor = address.ToString();
                 }
 
+                PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
+                if (ctx.ConnectedServer.ToLower() == "servidor.fcsas.com".ToLower())
+                    ComprobarEntrada = "CORRECT";
+
                 List<IPAddressCollection> ListaIPS = new List<IPAddressCollection>();
 
                 foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
@@ -110,13 +115,9 @@ namespace Diseno_muros_concreto_fc
                     MacAdress.Add(adapter.GetPhysicalAddress().ToString());
                 }
 
-
-
-
-
                 for (int i = 0; i < MacAdress.Count; i++)
                 {
-                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455" | MacAdress[i]=="64006AFC2C84")
+                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455" | MacAdress[i] == "64006AFC2C84")
                     {
                         ComprobarEntrada = "CORRECT";
                         break;
