@@ -64,6 +64,9 @@ namespace Diseno_muros_concreto_fc
             Formulario.ColumnHeadersHeight = 40;
             Formulario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             Formulario.ReadOnly = true;
+            //Formulario.AllowUserToAddRows = false;
+            //Formulario.AllowUserToDeleteRows = false;
+
         }
 
         public Fase1()

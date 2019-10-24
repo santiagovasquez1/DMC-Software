@@ -180,6 +180,7 @@ namespace Diseno_muros_concreto_fc
                     h_acumulado = Lista_Geometria[i].h_acumulado * 100,
                     Fc = Lista_Geometria[i].Fc / 10
                 };
+                Muro_i.Calc_pc();
 
                 List<Fuerza_Piers> Aux_fuerzas = Datos_Fuerza.FindAll(x => x.Pier == Muro_i.Pier & x.Story == Muro_i.Story);
                 for (int j = 0; j < Aux_fuerzas.Count; j++)

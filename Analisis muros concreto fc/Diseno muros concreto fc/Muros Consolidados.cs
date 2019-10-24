@@ -30,7 +30,6 @@ namespace Diseno_muros_concreto_fc
             double P_Transversal;
             double suma_transv;
             double suma_zc, suma_ebe;
-            double num_mallas;
 
             Pesos_zc = new List<double>();
             Pesos_ebe = new List<double>();
@@ -41,7 +40,7 @@ namespace Diseno_muros_concreto_fc
                 Peso_long_i = Traslapo * As_Long[i] * Hw[i] * 7850 / Math.Pow(100, 3);
 
                 Area_piso = Area_malla(lw[i], Hw[i]);
-                Peso_malla_i = Peso_unit_Malla(Malla[i]) * (Area_piso / Math.Pow(100, 2))*1.25;
+                Peso_malla_i = Peso_unit_Malla(Malla[i]) * (Area_piso / Math.Pow(100, 2)) * 1.25;
 
                 Peso_Long.Add(Peso_long_i);
                 Peso_malla.Add(Peso_malla_i);
@@ -315,15 +314,15 @@ namespace Diseno_muros_concreto_fc
             return Ramas;
         }
 
-        public double Area_malla(double Lw,double Hw)
+        public double Area_malla(double Lw, double Hw)
         {
             int Num_traslapos;
             float Long_Malla = 245f;
             float traslapo = 30f;
-            double Area_i=0;
+            double Area_i = 0;
 
-            Num_traslapos = Lw > 245 ? Convert.ToInt32(Math.Ceiling((Lw - Long_Malla) / (Long_Malla-traslapo))) : 0;
-            Area_i = (Lw - 10 + (Num_traslapos * traslapo)) * (Hw+30);
+            Num_traslapos = Lw > 245 ? Convert.ToInt32(Math.Ceiling((Lw - Long_Malla) / (Long_Malla - traslapo))) : 0;
+            Area_i = (Lw - 10 + (Num_traslapos * traslapo)) * (Hw + 30);
 
             return Area_i;
         }
@@ -363,15 +362,15 @@ namespace Diseno_muros_concreto_fc
             double Factor1, Factor2;
             double Xmax, Xmin, Ymax, Ymin;
 
-            double Long_mayor, H_prom,Mu_Vu_max;
+            double Long_mayor, H_prom, Mu_Vu_max;
             int Relacion1;
 
             Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
             H_prom = Listas_Programa.Lista_Muros.Select(x => x.hw).Sum() / Listas_Programa.Lista_Muros.Count;
-            Mu_Vu_max = Relacion_Mu_Vu()*100;
+            Mu_Vu_max = Relacion_Mu_Vu() * 100;
 
             Relacion1 = Long_mayor / H_prom >= Mu_Vu_max / H_prom ? Convert.ToInt32(Long_mayor / H_prom) : Convert.ToInt32(Mu_Vu_max / H_prom);
-                       
+
             Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
@@ -502,7 +501,7 @@ namespace Diseno_muros_concreto_fc
             var Hmin = Listas_Programa.Lista_Muros.Select(x => x.h_acumulado).Min();
             var Prueba = Listas_Programa.Lista_Muros.FindAll(x => x.h_acumulado == Hmin);
             double Relacion_i;
-            double max=0;
+            double max = 0;
             int pos = 0;
             int Caso = 0;
 
@@ -510,7 +509,7 @@ namespace Diseno_muros_concreto_fc
 
             foreach (var muro_i in Prueba)
             {
-                for (int i = 0; i < muro_i.Load.Count; i++) 
+                for (int i = 0; i < muro_i.Load.Count; i++)
                 {
                     if (muro_i.Load[i].Contains("-") == true)
                     {
@@ -518,13 +517,12 @@ namespace Diseno_muros_concreto_fc
                         Caso = Convert.ToInt32(muro_i.Load[i].Substring(pos));
                     }
 
-                    if (muro_i.Load[i].Contains("Max")==true| muro_i.Load[i].Contains("Min") == true | Caso>1 )
+                    if (muro_i.Load[i].Contains("Max") == true | muro_i.Load[i].Contains("Min") == true | Caso > 1)
                     {
                         Relacion_i = Math.Abs(muro_i.M3[i] / (4 * muro_i.V2[i]));
                         Relacion.Add(Relacion_i);
                     }
                 }
-
             }
             max = Relacion.Max();
             return max;
@@ -814,10 +812,13 @@ namespace Diseno_muros_concreto_fc
         public static void Errores_muro(Muros_Consolidados_1 Muro_i)
         {
             string Mensaje;
+            int indice = 0;
             Muros_Error Muro_1;
 
             for (int i = 0; i < Muro_i.Stories.Count; i++)
             {
+                var temp = Listas_Programa.Lista_Muros.Find(x => x.Pier == Muro_i.Pier_name & x.Story == Muro_i.Stories[i]);
+
                 if (Muro_i.Rho_l[i] >= 0.0066 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Izq[i] > 0 & Muro_i.Bw[i] < 15 || Muro_i.Lebe_Der[i] > 0 & Muro_i.Bw[i] < 15)
                 {
                     Muro_1 = new Muros_Error
@@ -837,6 +838,25 @@ namespace Diseno_muros_concreto_fc
                         Muro_1.Mensaje.Add(Mensaje);
                     }
                     Muros_errores.Add(Muro_1);
+                }
+
+                if (temp.Error_pc != "Ok")
+                {
+                    if (Muros_errores.Exists(x => x.Piername == temp.Pier & x.Story == temp.Story) == false)
+                    {
+                        Muro_1 = new Muros_Error
+                        {
+                            Piername = Muro_i.Pier_name,
+                            Story = Muro_i.Stories[i],
+                        };
+                        Muro_1.Mensaje.Add(temp.Error_pc);
+                        Muros_errores.Add(Muro_1);
+                    }
+                    else
+                    {
+                        indice = Muros_errores.FindIndex(x => x.Piername == temp.Pier & x.Story == temp.Story);
+                        Muros_errores[indice].Mensaje.Add(temp.Error_pc);
+                    }
                 }
             }
         }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diseno muros concreto fc", 
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Diseño de muros concreto V2", "..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj", "{6939A936-5C65-4160-B74F-2681EC5D14A8}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DMC-Software", "..\Instalador\DMC-Software\DMC-Software.vdproj", "{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{6939A936-5C65-4160-B74F-2681EC5D14A8}.Release|x86.Build.0 = Release|Any CPU
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Debug|Any CPU.ActiveCfg = Debug
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Debug|Any CPU.Build.0 = Debug
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Debug|x86.ActiveCfg = Debug
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Debug|x86.Build.0 = Debug
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Release|Any CPU.ActiveCfg = Release
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Release|Any CPU.Build.0 = Release
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Release|x86.ActiveCfg = Release
+		{0BF6D443-42EF-4A3A-8823-EA57F0B09D82}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

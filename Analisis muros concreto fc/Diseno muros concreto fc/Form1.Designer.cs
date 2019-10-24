@@ -474,7 +474,6 @@
             this.Generar.TabIndex = 7;
             this.Generar.Text = "     Generar";
             this.Generar.UseVisualStyleBackColor = true;
-            this.Generar.Click += new System.EventHandler(this.Generar_Click);
             // 
             // label11
             // 
@@ -523,7 +522,6 @@
             this.button4.Text = "      AutoCAD";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -836,7 +834,6 @@
             this.Text = "Diseno muros de concreto";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);

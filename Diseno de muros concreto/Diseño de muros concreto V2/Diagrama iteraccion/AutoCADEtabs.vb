@@ -496,7 +496,7 @@ Public Class AutoCADEtabs
                                             Else
                                                 XC = Xmin + 0.04 + h * Separaciones_Malla(Malla)
                                             End If
-                                            YC = Ymax - 0.04
+                                            YC = Ymax - 0.038
                                             If XC <= Xmax Then
                                                 NomenclaturaMuro = $"  SDSECTION {Chr(34)}{ .Label }-Story{m + 1}{Chr(34)}  SHAPE {NoShape}  MATERIAL {Chr(34)}A615Gr60{Chr(34)}  SHAPETYPE {Chr(34)}REBAR{Chr(34)}  BARSIZE {Chr(34)}{"#2"}{Chr(34)}  XC {XC}  YC {YC}"
                                                 ListaTextoSectionDesig.Add(NomenclaturaMuro)
@@ -522,7 +522,7 @@ Public Class AutoCADEtabs
                                                 ListaTextoSectionDesig.Add(NomenclaturaMuro)
                                                 NoShape = NoShape + 1
                                             End If
-                                            XC = Xmax - 0.04
+                                            XC = Xmax - 0.038
                                             If h = 0 Then
                                                 YC = Ymin + 0.04
                                             Else

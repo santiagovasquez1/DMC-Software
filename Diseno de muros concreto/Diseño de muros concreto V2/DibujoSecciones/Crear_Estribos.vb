@@ -215,7 +215,7 @@ Public Class Crear_Estribos
                             Distancia_Limite = (Confinamiento_Der / Num_Estribos) + 0.2
                         Else
                             Num_Estribos = 1
-                            Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 - 0.04
+                            Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 -0.038
                         End If
 
                         Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
