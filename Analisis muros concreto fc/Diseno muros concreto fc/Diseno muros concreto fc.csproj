@@ -293,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-vertical-bmp-ConvertImage.ico" />
+    <None Include="Resources\espera.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

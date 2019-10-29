@@ -173,6 +173,16 @@ namespace Diseno_muros_concreto_fc.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap espera {
+            get {
+                object obj = ResourceManager.GetObject("espera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EtDCS3CG_400x400 {
             get {
                 object obj = ResourceManager.GetObject("EtDCS3CG_400x400", resourceCulture);

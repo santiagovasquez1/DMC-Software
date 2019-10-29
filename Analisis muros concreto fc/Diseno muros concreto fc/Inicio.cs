@@ -62,6 +62,7 @@ namespace Diseno_muros_concreto_fc
                 }
 
                 PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
+                
                 if (ctx.ConnectedServer.ToLower() == "servidor.fcsas.com".ToLower())
                     ComprobarEntrada = "CORRECT";
 
