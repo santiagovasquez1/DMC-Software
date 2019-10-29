@@ -240,7 +240,7 @@ namespace Diseno_muros_concreto_fc
         private void Form1_Load(object sender, EventArgs e)
         {
             RegistrarDMC();
-
+            CheckForIllegalCrossThreadCalls = false;
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
             List<string> Lista_ToolTip = new List<string>();
@@ -544,8 +544,8 @@ namespace Diseno_muros_concreto_fc
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             Listas_Programa.Lista_Muros = new List<Muro>();
             Listas_Programa.Lista_shells = new List<Shells_Prop>();
-
-            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i, Diferente);
+            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i, Diferente,this);
+            
             if (Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo != "")
             {
                 DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
@@ -581,6 +581,9 @@ namespace Diseno_muros_concreto_fc
                 Radio_Des.Checked = true;
             }
             Generar.Enabled = true;
+            Label_Inicial.Visible = false;
+       
+
         }
 
         private void DeterminarRutaCarpeta_NombreProyecto(string Ruta)
@@ -738,5 +741,7 @@ namespace Diseno_muros_concreto_fc
             Diseño_de_muros_concreto_V2.Crear_arania Arañas = new Diseño_de_muros_concreto_V2.Crear_arania();
             Arañas.ShowDialog();
         }
+
+    
     }
 }

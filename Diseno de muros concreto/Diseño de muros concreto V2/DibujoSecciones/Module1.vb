@@ -707,14 +707,26 @@ Module Module1
                 If .DireccionMuro = "Horizontal" Then
 
                     For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                        .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) = .Ymin + 0.038
+
+                        If .Lista_Refuerzos_Fila_Max.Count = 0 Then
+                            .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) = .Ymin + (.Ymax - .Ymin) / 2 - 0.038 / 2
+                        Else
+                            .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) = .Ymin + 0.038
+                        End If
+
                     Next
                     For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
                         .Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(1) = .Ymax - 0.038
                     Next
                 Else
                     For j = 0 To .Lista_Refuerzos_Fila_Min.Count - 1
-                        .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) = .Xmin + 0.038
+
+                        If .Lista_Refuerzos_Fila_Max.Count = 0 Then
+                            .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) = .Xmin + (.Xmax - .Xmin) / 2 - 0.038 / 2
+                        Else
+                            .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) = .Xmin + 0.038
+                        End If
+
                     Next
                     For j = 0 To .Lista_Refuerzos_Fila_Max.Count - 1
                         .Lista_Refuerzos_Fila_Max(j).CoordenadasXyY(0) = .Xmax - 0.038
