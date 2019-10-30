@@ -988,12 +988,15 @@ Module Module1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
                                 If RangoEspesorAux.Count > 1 Then
                                     If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-                                        If RangoEspesorListaY(m)(0) > .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
-                                            DesplazamientoCota = -0.09
-                                            DesplazamientoX = -0.05
-                                            FactorDesplazado1 = -0.12
-                                            FactorDesplazado2 = -0.12
-                                        End If
+                                        Try
+                                            If RangoEspesorListaY(m)(0) > .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                                DesplazamientoCota = -0.09
+                                                DesplazamientoX = -0.05
+                                                FactorDesplazado1 = -0.12
+                                                FactorDesplazado2 = -0.12
+                                            End If
+                                        Catch : End Try
+
                                     End If
                                 End If
                             Next
@@ -1001,13 +1004,15 @@ Module Module1
                             For m = 0 To RangoEspesorLista.Count - 1
                                 Dim RangoEspesorAux = RangoEspesorLista(m)
                                 If RangoEspesorAux.Count > 1 Then
-                                    If RangoEspesorListaY(m)(0) < .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
-                                        If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
-                                            DesplazamientoX = -0.05
-                                            FactorDesplazado1 = -0.12
-                                            FactorDesplazado2 = -0.12
+                                    Try
+                                        If RangoEspesorListaY(m)(0) < .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(1) Then
+                                            If RangoEspesorAux(0) >= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) And RangoEspesorAux(1) <= .Lista_Refuerzos_Fila_Min(j).CoordenadasXyY(0) Then
+                                                DesplazamientoX = -0.05
+                                                FactorDesplazado1 = -0.12
+                                                FactorDesplazado2 = -0.12
+                                            End If
                                         End If
-                                    End If
+                                    Catch : End Try
                                 End If
                             Next
 
