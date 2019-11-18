@@ -1,4 +1,6 @@
-﻿Module Modulo1
+﻿Imports B_Deep_Clone
+
+Module Modulo1
 
     Private Lista_texto As List(Of String)
 
@@ -18,12 +20,15 @@
 
     Sub Validar_info1(ByVal Nombre_Muro As String, ByVal i As Integer, ByVal Data_ganeral As DataGridView)
 
-        Dim Indice As Integer
+        Dim Indice, indice2 As Integer
         Dim j As Integer = 0
+        Dim Temp As Muros_Consolidados
+        Dim Temp_hijo As Muros_Consolidados
 
         Indice = Muros_lista_2.FindIndex(Function(x) x.Pier_name = Nombre_Muro)
+        Temp = Muros_lista_2(Indice)
 
-        With Muros_lista_2(Indice)
+        With Temp
 
             .Bw(i) = Data_ganeral.Rows(i).Cells(2).Value
             .lw(i) = Data_ganeral.Rows(i).Cells(3).Value
@@ -61,6 +66,24 @@
                 .sep_htal(i) = 0
                 .As_Htal_Total(i) = 0
             End Try
+
+            ''Buscar muros hijos
+
+            If .isMuroMaestro = True Then
+                Dim Lista_Temp = Muros_lista_2.FindAll(Function(x) Temp = x)
+                For Each aux As Muros_Consolidados In Lista_Temp
+
+                    Temp_hijo = CDeep_Clone.DeepClone(Temp)
+                    Temp_hijo.Pier_name = aux.Pier_name
+                    Temp_hijo.As_Long = aux.As_Long
+                    Temp_hijo.As_htal = aux.As_htal
+                    ''Temp_hijo.Reload_As_Long()
+
+                    Indice = Muros_lista_2.FindIndex(Function(x) x.Pier_name = Temp_hijo.Pier_name)
+                    Muros_lista_2(indice2) = Temp_hijo
+
+                Next
+            End If
 
         End With
 

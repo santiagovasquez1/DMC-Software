@@ -102,6 +102,9 @@
     <Reference Include="BErroresMuros">
       <HintPath>Y:\Bibliotecas\BErroresMuros\BErroresMuros\bin\Debug\BErroresMuros.dll</HintPath>
     </Reference>
+    <Reference Include="B_Deep_Clone">
+      <HintPath>Y:\Bibliotecas\B_Deep_Clone\B_Deep_Clone\bin\Release\B_Deep_Clone.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\Analisis muros concreto fc\packages\MathNet.Numerics.4.8.1\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>

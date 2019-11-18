@@ -1,6 +1,8 @@
 ﻿<Serializable>
 Public Class Muros_Consolidados
 
+#Region "Variables"
+
     Public Pier_name As String
     Public Stories As List(Of String) = New List(Of String)
     Public Bw As List(Of Single) = New List(Of Single)
@@ -64,6 +66,8 @@ Public Class Muros_Consolidados
     Public NombreBarras As New List(Of List(Of String))
     Public LongitudBarras As New List(Of List(Of Double))
     Public NoBarras As New List(Of Double)
+
+#End Region
 
     Sub CantidadMallas_()
 
@@ -226,5 +230,53 @@ Public Class Muros_Consolidados
         Next
 
     End Sub
+
+    Public Sub Reload_As_Long()
+
+        Dim lw_def As Double
+
+        For i = 0 To As_Long.Count - 1
+
+            lw_def = lw(i) - Lebe_Izq(i) - Lebe_Der(i) - Lebe_Centro(i) - Zc_Der(i) - Zc_Izq(i)
+            As_Long(i) -= lw_def * As_malla(Malla(i))
+
+        Next
+
+    End Sub
+
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+
+        If obj IsNot Nothing Then
+
+            Dim temp As Muros_Consolidados = CType(obj, Muros_Consolidados)
+
+            If temp.MuroSimilar.Pier_name = Pier_name Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+
+    Public Shared Operator =(S1 As Muros_Consolidados, S2 As Muros_Consolidados)
+
+        Try
+            Return S1.Equals(S2)
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Operator
+
+    Public Shared Operator <>(S1 As Muros_Consolidados, S2 As Muros_Consolidados)
+
+        Try
+            Return Not S1.Equals(S2)
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Operator
 
 End Class

@@ -442,6 +442,7 @@ Public Class Form22
         Else
             l_c = 0
         End If
+
         lw_eff = (lw - l_z - l_d - l_c) / 100
         As_long = lw * bw * rho_l
         As_def = As_long - lw_eff * As_malla(malla)
