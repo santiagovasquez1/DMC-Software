@@ -367,11 +367,18 @@ namespace Diseno_muros_concreto_fc
 
             Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
             H_prom = Listas_Programa.Lista_Muros.Select(x => x.hw).Sum() / Listas_Programa.Lista_Muros.Count;
-            Mu_Vu_max = Relacion_Mu_Vu() * 100;
+            Mu_Vu_max = Relacion_Mu_Vu() * 100;            
 
-            Relacion1 = Long_mayor / H_prom >= Mu_Vu_max / H_prom ? Convert.ToInt32(Long_mayor / H_prom) : Convert.ToInt32(Mu_Vu_max / H_prom);
+           if (Mu_Vu_max  < Long_mayor / 2)
+            {
+                Relacion1 = Long_mayor / H_prom >= Mu_Vu_max / H_prom ? Convert.ToInt32(Long_mayor / H_prom) : Convert.ToInt32(Mu_Vu_max / H_prom);
+            }
+            else
+            {
+                Relacion1 = Convert.ToInt32(Long_mayor / H_prom);
+            }
 
-            Muros_Consolidados_1 Muro_i;
+                Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
