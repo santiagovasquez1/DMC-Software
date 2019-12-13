@@ -34,12 +34,8 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < V2.Count; i++)
             {
-                if (Pier == "2" & Story == "P1S" & Load[i] == "SU09-2")
-                {
-                }
-
                 Phi_Vc.Add(Phi * Calc_Vc(Math.Abs(V2[i]), Math.Abs(M3[i]), -P[i]));
-                if (V2[i] - Phi_Vc[i] < 0)
+                if (V2[i] - Phi_Vc[i] <= 0)
                 {
                     Phi_Vs.Add(0);
                     pt_requerido1.Add(0);  //Según C.11.9.91
@@ -114,7 +110,8 @@ namespace Diseno_muros_concreto_fc
             Relacion = new List<double>();
             Error_Flexion = new List<string>();
 
-            //Calculation of number of rebar layers within the wall
+            //Calculo de numero capas de refuerzo en la seccion
+
             ramas = Convert.ToInt32(((lw - 2 * (recubrimiento + 0.3175)) / Spacing) + 1);
             if (Rho_l_Def > 0) Acero_Long = Rho_l_Def * bw * lw; else Acero_Long = Rho_l_Inicial * bw * lw;  //[cm²]
             if (Fc <= 280) Beta = 0.85; else Beta = 0.75;
@@ -304,7 +301,7 @@ namespace Diseno_muros_concreto_fc
                 double Vtraccion;
 
                 Vtraccion = 0.53 * (1 + (Pu * 1000 / (35 * Ag))) * Math.Sqrt(Fc) * bw * dw;
-                Vc_def = Math.Max(Vc1, Math.Min(Vc2, Vc3));
+                Vc_def = Math.Min(Vc2, Vc3);
                 Vtraccion = Vtraccion / 1000;
 
                 if (Vc_def > Vtraccion) Vc_def = Vtraccion;

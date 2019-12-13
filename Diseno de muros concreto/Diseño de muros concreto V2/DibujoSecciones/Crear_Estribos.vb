@@ -31,7 +31,9 @@ Public Class Crear_Estribos
 
                 Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = ListaOrdenada(i).NombreMuro)
                 If Muro_i IsNot Nothing Then
-                    indice = Muro_i.Stories.FindIndex(Function(x) x = "Story" & Formulario.Piso_Box.Text)
+
+                    Dim Story As String = Muro_i.Stories(Convert.ToInt32(Muro_i.Stories.Count - Formulario.Piso_Box.Text))
+                    indice = Muro_i.Stories.FindIndex(Function(x) x = Story)
 
                     If ListaOrdenada(i).MurosVecinosIzquierda.Count > 0 Then
                         Punto_inicial = {ListaOrdenada(i).MurosVecinosIzquierda(0).Xmin + 0.038, ListaOrdenada(i).Ymin + (ListaOrdenada(i).Ymax - ListaOrdenada(i).Ymin) / 2, 0}
@@ -215,7 +217,7 @@ Public Class Crear_Estribos
                             Distancia_Limite = (Confinamiento_Der / Num_Estribos) + 0.2
                         Else
                             Num_Estribos = 1
-                            Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 -0.038
+                            Distancia_Limite = Confinamiento_Der + Delta_Escalado / 2 - 0.038
                         End If
 
                         Pos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1
@@ -249,7 +251,9 @@ Public Class Crear_Estribos
 
                 Muro_i = Muros_lista_2.Find(Function(x) x.Pier_name = ListaOrdenada(i).NombreMuro)
                 If Muro_i IsNot Nothing Then
-                    indice = Muro_i.Stories.FindIndex(Function(x) x = "Story" & Formulario.Piso_Box.Text)
+
+                    Dim Story As String = Muro_i.Stories(Convert.ToInt32(Muro_i.Stories.Count - Formulario.Piso_Box.Text))
+                    indice = Muro_i.Stories.FindIndex(Function(x) x = Story)
 
                     If ListaOrdenada(i).MurosVecinosAbajo.Count > 0 Then
                         Punto_inicial = {ListaOrdenada(i).Xmin + (ListaOrdenada(i).Xmax - ListaOrdenada(i).Xmin) / 2, ListaOrdenada(i).MurosVecinosAbajo(0).Ymin + 0.038, 0}

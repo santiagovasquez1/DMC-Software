@@ -182,11 +182,6 @@
         End If
     End Sub
 
-
-
-
-
-
     Public Class objeto_alzado
         Public diametro As Integer
         Public traslapo As String
@@ -505,10 +500,6 @@
         pb_Alzado.Invalidate()
     End Sub
 
-
-
-
-
     Public Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
 
     End Sub
@@ -717,10 +708,6 @@
         Form_DireccionCambiodeEspesor.Show()
     End Sub
 
-
-
-
-
     Private Sub F_alzado_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyData = Keys.Control + Keys.Q Then
             Agregar()
@@ -750,6 +737,5 @@
             f_variables.Show()
         End If
     End Sub
-
 
 End Class

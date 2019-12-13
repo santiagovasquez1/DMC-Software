@@ -965,7 +965,14 @@ Module Module1
 
                         End If
 
-                        For j = 0 To ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1
+
+                        Dim ListaDeRefuerzos As List(Of RefuerzoCirculo) = ListaOrdenada(i).Lista_Refuerzos_Fila_Max
+
+                        If ListaDeRefuerzos.Count = 0 Then
+                            ListaDeRefuerzos = ListaOrdenada(i).Lista_Refuerzos_Fila_Min
+                        End If
+
+                        For j = 0 To ListaDeRefuerzos.Count - 1
                             Dim Alto = 0.0375
 
                             Dim FactorDesplazado1 = 0.12 : Dim FactorDesplazado2 = 0.12 : Dim DesplazamientoX As Double = 0.02
@@ -1016,9 +1023,17 @@ Module Module1
                                 End If
                             Next
 
-                            If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
-                                AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
+                            If ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count <> 0 Then
+                                If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Max.Count - 1 Then
+                                    AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Max(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
+                                End If
+                            Else
+                                If j < ListaOrdenada(i).Lista_Refuerzos_Fila_Min.Count - 1 Then
+                                    AddCota(ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).CoordenadasXyY, ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j + 1).CoordenadasXyY, 0, "", False, 0.2, DesplazamientoCota)
+                                End If
+
                             End If
+
 
                             Try
                                 Dim TextoString = ListaOrdenada(i).Lista_Refuerzos_Fila_Min(j).Label
@@ -1042,7 +1057,7 @@ Module Module1
                         Next
 
                     End If
-                End If
+                    End If
             End With
         Next
 

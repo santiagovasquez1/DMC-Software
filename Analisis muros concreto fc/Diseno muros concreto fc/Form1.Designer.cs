@@ -55,34 +55,34 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.cb_cuantiavol = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.LMuros = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.Generar = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.Label_Inicial = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Radio_Des = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.Radio_Dmo = new System.Windows.Forms.RadioButton();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.cb_cuantiavol = new System.Windows.Forms.Button();
-            this.Generar = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Label_Inicial = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -90,9 +90,9 @@
             this.Panel6.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // B_Report
@@ -384,6 +384,24 @@
             this.label3.TabIndex = 15;
             this.label3.Text = "|";
             // 
+            // cb_cuantiavol
+            // 
+            this.cb_cuantiavol.Enabled = false;
+            this.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
+            this.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
+            this.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
+            this.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cb_cuantiavol.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cb_cuantiavol.Image = global::Diseno_muros_concreto_fc.Properties.Resources.image;
+            this.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cb_cuantiavol.Location = new System.Drawing.Point(630, 1);
+            this.cb_cuantiavol.Name = "cb_cuantiavol";
+            this.cb_cuantiavol.Size = new System.Drawing.Size(152, 26);
+            this.cb_cuantiavol.TabIndex = 14;
+            this.cb_cuantiavol.Text = "       Cuantia Volumetrica";
+            this.cb_cuantiavol.UseVisualStyleBackColor = true;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -440,152 +458,6 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "|";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label11.Location = new System.Drawing.Point(328, 5);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(16, 19);
-            this.label11.TabIndex = 6;
-            this.label11.Text = "|";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.panel4);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 26);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(193, 649);
-            this.panel2.TabIndex = 5;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.Label_Inicial);
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Controls.Add(this.Radio_Des);
-            this.panel3.Controls.Add(this.B_Report);
-            this.panel3.Controls.Add(this.B_Flexural);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.B_Shear);
-            this.panel3.Controls.Add(this.Radio_Dmo);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel3.Location = new System.Drawing.Point(0, 28);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(193, 621);
-            this.panel3.TabIndex = 69;
-            // 
-            // Radio_Des
-            // 
-            this.Radio_Des.AutoSize = true;
-            this.Radio_Des.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Radio_Des.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Radio_Des.Location = new System.Drawing.Point(20, 266);
-            this.Radio_Des.Name = "Radio_Des";
-            this.Radio_Des.Size = new System.Drawing.Size(45, 19);
-            this.Radio_Des.TabIndex = 1;
-            this.Radio_Des.TabStop = true;
-            this.Radio_Des.Text = "DES";
-            this.Radio_Des.UseVisualStyleBackColor = true;
-            this.Radio_Des.CheckedChanged += new System.EventHandler(this.Radio_Des_CheckedChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(17, 212);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 15);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Grado de disipación:";
-            // 
-            // Radio_Dmo
-            // 
-            this.Radio_Dmo.AutoSize = true;
-            this.Radio_Dmo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Radio_Dmo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Radio_Dmo.Location = new System.Drawing.Point(20, 237);
-            this.Radio_Dmo.Name = "Radio_Dmo";
-            this.Radio_Dmo.Size = new System.Drawing.Size(53, 19);
-            this.Radio_Dmo.TabIndex = 0;
-            this.Radio_Dmo.TabStop = true;
-            this.Radio_Dmo.Text = "DMO";
-            this.Radio_Dmo.UseVisualStyleBackColor = true;
-            this.Radio_Dmo.CheckedChanged += new System.EventHandler(this.Radio_Dmo_CheckedChanged);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.button2);
-            this.panel4.Controls.Add(this.button12);
-            this.panel4.Controls.Add(this.label9);
-            this.panel4.Controls.Add(this.button3);
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Controls.Add(this.button9);
-            this.panel4.Controls.Add(this.button7);
-            this.panel4.Controls.Add(this.button8);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(193, 28);
-            this.panel4.TabIndex = 6;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label9.Location = new System.Drawing.Point(185, 2);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(16, 19);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "|";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(77, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 19);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "|";
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
-            this.panel5.Controls.Add(this.button11);
-            this.panel5.Controls.Add(this.button10);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(995, 26);
-            this.panel5.TabIndex = 23;
-            this.panel5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel5_MouseDown);
-            // 
-            // cb_cuantiavol
-            // 
-            this.cb_cuantiavol.Enabled = false;
-            this.cb_cuantiavol.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
-            this.cb_cuantiavol.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(224)))), ((int)(((byte)(247)))));
-            this.cb_cuantiavol.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(222)))), ((int)(((byte)(245)))));
-            this.cb_cuantiavol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cb_cuantiavol.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_cuantiavol.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.cb_cuantiavol.Image = global::Diseno_muros_concreto_fc.Properties.Resources.image;
-            this.cb_cuantiavol.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cb_cuantiavol.Location = new System.Drawing.Point(630, 1);
-            this.cb_cuantiavol.Name = "cb_cuantiavol";
-            this.cb_cuantiavol.Size = new System.Drawing.Size(152, 26);
-            this.cb_cuantiavol.TabIndex = 14;
-            this.cb_cuantiavol.Text = "       Cuantia Volumetrica";
-            this.cb_cuantiavol.UseVisualStyleBackColor = true;
-            // 
             // Generar
             // 
             this.Generar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
@@ -602,6 +474,17 @@
             this.Generar.TabIndex = 7;
             this.Generar.Text = "     Generar";
             this.Generar.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label11.Location = new System.Drawing.Point(328, 5);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(16, 19);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "|";
             // 
             // button5
             // 
@@ -658,6 +541,34 @@
             this.button1.Text = "      Agregar";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 26);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(193, 649);
+            this.panel2.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.Label_Inicial);
+            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Controls.Add(this.Radio_Des);
+            this.panel3.Controls.Add(this.B_Report);
+            this.panel3.Controls.Add(this.B_Flexural);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.B_Shear);
+            this.panel3.Controls.Add(this.Radio_Dmo);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel3.Location = new System.Drawing.Point(0, 28);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(193, 621);
+            this.panel3.TabIndex = 69;
+            // 
             // Label_Inicial
             // 
             this.Label_Inicial.AutoSize = true;
@@ -681,6 +592,61 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 69;
             this.pictureBox1.TabStop = false;
+            // 
+            // Radio_Des
+            // 
+            this.Radio_Des.AutoSize = true;
+            this.Radio_Des.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            this.Radio_Des.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Radio_Des.Location = new System.Drawing.Point(20, 266);
+            this.Radio_Des.Name = "Radio_Des";
+            this.Radio_Des.Size = new System.Drawing.Size(45, 19);
+            this.Radio_Des.TabIndex = 1;
+            this.Radio_Des.TabStop = true;
+            this.Radio_Des.Text = "DES";
+            this.Radio_Des.UseVisualStyleBackColor = true;
+            this.Radio_Des.CheckedChanged += new System.EventHandler(this.Radio_Des_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(17, 212);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 15);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Grado de disipación:";
+            // 
+            // Radio_Dmo
+            // 
+            this.Radio_Dmo.AutoSize = true;
+            this.Radio_Dmo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold);
+            this.Radio_Dmo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Radio_Dmo.Location = new System.Drawing.Point(20, 237);
+            this.Radio_Dmo.Name = "Radio_Dmo";
+            this.Radio_Dmo.Size = new System.Drawing.Size(53, 19);
+            this.Radio_Dmo.TabIndex = 0;
+            this.Radio_Dmo.TabStop = true;
+            this.Radio_Dmo.Text = "DMO";
+            this.Radio_Dmo.UseVisualStyleBackColor = true;
+            this.Radio_Dmo.CheckedChanged += new System.EventHandler(this.Radio_Dmo_CheckedChanged);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button2);
+            this.panel4.Controls.Add(this.button12);
+            this.panel4.Controls.Add(this.label9);
+            this.panel4.Controls.Add(this.button3);
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.button9);
+            this.panel4.Controls.Add(this.button7);
+            this.panel4.Controls.Add(this.button8);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(193, 28);
+            this.panel4.TabIndex = 6;
             // 
             // button2
             // 
@@ -713,6 +679,17 @@
             this.button12.TabIndex = 16;
             this.button12.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label9.Location = new System.Drawing.Point(185, 2);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(16, 19);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "|";
+            // 
             // button3
             // 
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
@@ -728,6 +705,17 @@
             this.button3.TabIndex = 2;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.Button3_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(77, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 19);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "|";
             // 
             // button9
             // 
@@ -776,6 +764,18 @@
             this.button8.TabIndex = 11;
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.Button8_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(112)))), ((int)(((byte)(113)))));
+            this.panel5.Controls.Add(this.button11);
+            this.panel5.Controls.Add(this.button10);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(995, 26);
+            this.panel5.TabIndex = 23;
+            this.panel5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel5_MouseDown);
             // 
             // button11
             // 
@@ -843,10 +843,10 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
