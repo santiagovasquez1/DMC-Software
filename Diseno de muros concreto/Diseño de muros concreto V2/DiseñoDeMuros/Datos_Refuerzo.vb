@@ -47,7 +47,13 @@
         Lista_Pc2 = New List(Of List(Of Double()))
 
         Lista_Barras = New List(Of List(Of String))
-        Lista_i = alzado_lista.FindAll(Function(x) x.pier = Muro_i).ToList.OrderBy(Function(x) Convert.ToInt16(x.story.Substring(5))).ToList
+
+        ''Funcion que recorra el string
+        Dim texto As String = "L20"
+        Dim Num_piso As String = ""
+        Dim piso As String = ""
+
+        Lista_i = alzado_lista.FindAll(Function(x) x.pier = Muro_i).ToList.OrderBy(Function(x) Convert.ToInt32(piso = Get_numeros(x.story, Num_piso))).ToList
 
         Stories.AddRange(Lista_i.Select(Function(x) x.story).ToList)
         Alzado_i.AddRange(Lista_i.Select(Function(x) x.alzado).ToList)
@@ -229,6 +235,20 @@
 
         pos_x += 5.1
     End Sub
+
+    Private Shared Function Get_numeros(texto As String, Num_piso As String) As String
+        Num_piso = ""
+
+        For Each ch As Char In texto
+
+            If IsNumeric(ch) = True Then
+                Num_piso = Num_piso & ch
+            End If
+
+        Next
+
+        Return Num_piso
+    End Function
 
     Private Sub Add_Text_Point(ByVal Pos_x As Single, ByVal Pos_y As Single)
 
