@@ -285,7 +285,7 @@ Public Class RefuerzoHorizontal
 
     Sub CalcularCantidadPorPiso(ByVal e_Losa As Single, Optional R As Single = 0.05)
         Cantidad.Clear() : NomenclaturaRefuerzo.Clear()
-        For i = 0 To Hw.Count - 1
+        For i = 0 To No_Capas.Count - 1
             If No_Capas(i) <> 0 Then
                 Cantidad.Add(((Hw(i) - 2 * R - e_Losa) / (Separacion(i))) * (No_Capas(i)))
             Else

@@ -367,9 +367,9 @@ namespace Diseno_muros_concreto_fc
 
             Long_mayor = Listas_Programa.Lista_Muros.Select(x => x.lw).Max();
             H_prom = Listas_Programa.Lista_Muros.Select(x => x.hw).Sum() / Listas_Programa.Lista_Muros.Count;
-            Mu_Vu_max = Relacion_Mu_Vu() * 100;            
+            Mu_Vu_max = Relacion_Mu_Vu() * 100;
 
-           if (Mu_Vu_max  < Long_mayor / 2)
+            if (Mu_Vu_max < Long_mayor / 2)
             {
                 Relacion1 = Long_mayor / H_prom >= Mu_Vu_max / H_prom ? Convert.ToInt32(Long_mayor / H_prom) : Convert.ToInt32(Mu_Vu_max / H_prom);
             }
@@ -378,7 +378,7 @@ namespace Diseno_muros_concreto_fc
                 Relacion1 = Convert.ToInt32(Long_mayor / H_prom);
             }
 
-                Muros_Consolidados_1 Muro_i;
+            Muros_Consolidados_1 Muro_i;
 
             List<string> Muros_distintos = Listas_Programa.Lista_Muros.Select(x => x.Pier).Distinct().ToList();
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
@@ -470,6 +470,7 @@ namespace Diseno_muros_concreto_fc
                         Muro_i.Shells_piso_Izq.Add(Seleccion_Muros(Auxiliar[j].Shells_Muro, Xmin, 0));
                         Muro_i.Shells_piso_der.Add(Seleccion_Muros(Auxiliar[j].Shells_Muro, Xmax, 0));
                     }
+
                     //
                     Muro_i.Confinamiento.Add("No");
                     Muro_i.C_Def.Add(0);
@@ -503,7 +504,7 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        public static double Relacion_Mu_Vu()
+        public static double Relacion_Mu_Vu() //C.21.9
         {
             var Hmin = Listas_Programa.Lista_Muros.Select(x => x.h_acumulado).Min();
             var Prueba = Listas_Programa.Lista_Muros.FindAll(x => x.h_acumulado == Hmin);
@@ -672,7 +673,7 @@ namespace Diseno_muros_concreto_fc
             }
         }
 
-        private static void Det_At(Muros_Consolidados_1 Muro_i, int Pisos_Sin_malla)
+        private static void Det_At(Muros_Consolidados_1 Muro_i, int Pisos_Sin_malla) //Determina el acero horizontal adicional en el muro de concreto
         {
             double Aux_As_t, Aux_As_tm;
             for (int i = 0; i < Muro_i.Stories.Count; i++)
