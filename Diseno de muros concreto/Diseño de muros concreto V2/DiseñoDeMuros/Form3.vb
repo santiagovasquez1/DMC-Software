@@ -102,6 +102,7 @@
     End Sub
 
     Public Sub descontar_ref(ByVal indice)
+
         Dim vector_texto() As String
         Dim menc As Integer = 0
         Dim menc1 As Integer = 0
@@ -673,7 +674,7 @@
         End If
 
         Tabla_Data_Ayuda(datos_refuerzo.piername, Data_ayuda, indice, False)
-
+        descontar_ref(indice)
     End Sub
 
     Private Sub Panel11_Paint(sender As Object, e As PaintEventArgs) Handles Panel11.Paint
@@ -707,12 +708,6 @@
         Form_DireccionCambiodeEspesor.Show()
     End Sub
 
-    Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
-
-    End Sub
-
-
-
     Private Sub F_alzado_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyData = Keys.Control + Keys.Q Then
             Agregar()
@@ -742,4 +737,5 @@
             f_variables.Show()
         End If
     End Sub
+
 End Class

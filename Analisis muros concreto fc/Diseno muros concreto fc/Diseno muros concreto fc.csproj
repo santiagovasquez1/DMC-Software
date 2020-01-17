@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Diseno_muros_concreto_fc</RootNamespace>
     <AssemblyName>Diseno muros concreto fc</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,6 +55,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
@@ -156,12 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo vertical bmp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj">
-      <Project>{6939a936-5c65-4160-b74f-2681ec5d14a8}</Project>
-      <Name>Diseño de muros concreto V2</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\vcsadded_93506.png" />
@@ -297,6 +294,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo-vertical-bmp-ConvertImage.ico" />
+    <None Include="Resources\espera.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -309,6 +307,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Diseno de muros concreto\Diseño de muros concreto V2\Diseño de muros concreto V2.vbproj">
+      <Project>{6939a936-5c65-4160-b74f-2681ec5d14a8}</Project>
+      <Name>Diseño de muros concreto V2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

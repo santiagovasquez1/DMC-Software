@@ -7,44 +7,7 @@ namespace Diseno_muros_concreto_fc
     [Serializable]
     public class Muro : Diseño_de_muros_concreto_V2.Muro
     {
-        //public string Pier, Story;
-        //public float bw, lw, hw, Fc, dw, h_acumulado;
-        //public double Rho_l_Inicial, Spacing, Rho_l_Def;
-        //public List<string> Loc = new List<string>();
-        //public List<string> Load = new List<string>();
-        //public List<double> P = new List<double>();
-        //public List<double> V2 = new List<double>();
-        //public List<double> V3 = new List<double>();
-        //public List<double> M2 = new List<double>();
-        //public List<double> M3 = new List<double>();
         public List<Shells_Prop> Shells_Muro = new List<Shells_Prop>();
-
-        ////Datos para el diseño a cortante de los muros en concreto
-        //public List<double> Phi_Vc;
-
-        //public List<double> Phi_Vs;
-        //public List<double> Pt_min;
-        //public List<double> pl_min;
-        //public List<double> pt_requerido1;                      //Según C.11.9.91
-        //public List<double> ptt;                                //Cuantia transversal requerida por C.21.9.4.1
-        //public List<double> pt_definitivo;
-        //public double Phi_Vn_Max1;                              //Capacidad maxima de la sección segun C11.9.3
-        //public List<double> Phi_Vn_Max2 = new List<double>();   //Capacidad maxima de la sección segun C21.9.4.1
-        //public double Phi_Vs_Max;                               //Capacidad maxima del acero según C.11.4.7.9
-        //public double Pt_max;                                   //Cuantia maxima de acero según C.11.4.7.9
-        //public List<int> Cortinas;
-        //public List<string> Error_Cortante;
-
-        ////Datos para el analisis a flexo compresion
-        //public List<double> C_def;
-        //public List<double> L_Conf;
-        //public List<double> Fa;
-        //public List<double> Fv;
-        //public List<double> Sigma_Max;
-        //public List<double> Sigma_Min;
-        //public List<double> Relacion;
-        //public List<string> Error_Flexion;
-        //public double C_balanceado, P_balanceado;
 
         public void Diseno_Cortante()
         {
@@ -58,7 +21,7 @@ namespace Diseno_muros_concreto_fc
             ptt = new List<double>(); //Cuantia transversal requerida por C.21.9.4.1
             pt_definitivo = new List<double>();
             Cortinas = new List<int>();
-            Error_Cortante = new List<string>();       
+            Error_Cortante = new List<string>();
 
             double Fy = 4220; //[kgf/cm2]
             float Phi = 0.75F; //Definir si sera variable de entrada o un valor fijo
@@ -71,13 +34,8 @@ namespace Diseno_muros_concreto_fc
 
             for (int i = 0; i < V2.Count; i++)
             {
-                if (Pier=="2" & Story== "P1S" & Load[i]== "SU09-2")
-                {
-                    var pausa = true;
-                }
-
                 Phi_Vc.Add(Phi * Calc_Vc(Math.Abs(V2[i]), Math.Abs(M3[i]), -P[i]));
-                if (V2[i] - Phi_Vc[i] < 0)
+                if (V2[i] - Phi_Vc[i] <= 0)
                 {
                     Phi_Vs.Add(0);
                     pt_requerido1.Add(0);  //Según C.11.9.91
@@ -152,7 +110,8 @@ namespace Diseno_muros_concreto_fc
             Relacion = new List<double>();
             Error_Flexion = new List<string>();
 
-            //Calculation of number of rebar layers within the wall
+            //Calculo de numero capas de refuerzo en la seccion
+
             ramas = Convert.ToInt32(((lw - 2 * (recubrimiento + 0.3175)) / Spacing) + 1);
             if (Rho_l_Def > 0) Acero_Long = Rho_l_Def * bw * lw; else Acero_Long = Rho_l_Inicial * bw * lw;  //[cm²]
             if (Fc <= 280) Beta = 0.85; else Beta = 0.75;
@@ -335,19 +294,18 @@ namespace Diseno_muros_concreto_fc
 
             if (Pu > 0)
             {
-                Vc_def= Math.Max(Vc1, Math.Min(Vc2, Vc3));
+                Vc_def = Math.Max(Vc1, Math.Min(Vc2, Vc3));
             }
             else
             {
                 double Vtraccion;
 
-                Vtraccion = 0.53 * (1 + (Pu*1000 / (35 * Ag))) * Math.Sqrt(Fc) * bw * dw;
-                Vc_def = Math.Max(Vc1, Math.Min(Vc2, Vc3));
-                Vtraccion = Vtraccion/ 1000;
+                Vtraccion = 0.53 * (1 + (Pu * 1000 / (35 * Ag))) * Math.Sqrt(Fc) * bw * dw;
+                Vc_def = Math.Min(Vc2, Vc3);
+                Vtraccion = Vtraccion / 1000;
 
                 if (Vc_def > Vtraccion) Vc_def = Vtraccion;
                 if (Vc_def < 0) Vtraccion = 0;
-
             }
 
             return Vc_def;

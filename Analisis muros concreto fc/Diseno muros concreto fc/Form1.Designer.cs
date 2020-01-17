@@ -156,7 +156,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(290, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(170, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -285,7 +285,7 @@
             this.definirArañaToolStripMenuItem.Name = "definirArañaToolStripMenuItem";
             this.definirArañaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.definirArañaToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.definirArañaToolStripMenuItem.Text = "Definir araña";
+            this.definirArañaToolStripMenuItem.Text = "Definir Araña";
             this.definirArañaToolStripMenuItem.Click += new System.EventHandler(this.definirArañaToolStripMenuItem_Click);
             // 
             // variablesDeDibujoToolStripMenuItem
@@ -474,7 +474,6 @@
             this.Generar.TabIndex = 7;
             this.Generar.Text = "     Generar";
             this.Generar.UseVisualStyleBackColor = true;
-            this.Generar.Click += new System.EventHandler(this.Generar_Click);
             // 
             // label11
             // 
@@ -523,7 +522,6 @@
             this.button4.Text = "      AutoCAD";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -577,6 +575,7 @@
             this.Label_Inicial.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Label_Inicial.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label_Inicial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Label_Inicial.Image = global::Diseno_muros_concreto_fc.Properties.Resources.espera;
             this.Label_Inicial.Location = new System.Drawing.Point(0, 606);
             this.Label_Inicial.Name = "Label_Inicial";
             this.Label_Inicial.Size = new System.Drawing.Size(16, 13);
@@ -836,7 +835,6 @@
             this.Text = "Diseno muros de concreto";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -909,8 +907,8 @@
         private System.Windows.Forms.ToolStripMenuItem acercaDeDiseñoToolStripMenuItem;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.ToolStripMenuItem listasDeMurosAGraficarToolStripMenuItem;
-        private System.Windows.Forms.Label Label_Inicial;
         private System.Windows.Forms.ToolStripMenuItem definirArañaToolStripMenuItem;
+        internal System.Windows.Forms.Label Label_Inicial;
     }
 }
 

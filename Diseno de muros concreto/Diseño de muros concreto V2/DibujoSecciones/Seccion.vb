@@ -33,21 +33,6 @@ Public Class Seccion
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Piso_Box_TextChanged(sender As Object, e As EventArgs) Handles Piso_Box.TextChanged
-
-    End Sub
-
-    Private Sub CargarDatos_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
-    End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
         If Hviga <> 0 Then
@@ -56,6 +41,18 @@ Public Class Seccion
             f_variables.Show()
         End If
     End Sub
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        'If ListaOrdenada.Count > 0 Then
+        '    Dim Diagrama_i As New Diagrama(ListaOrdenada)
+        'End If
+
+    End Sub
+
+
+
 
     'Mover Pestaña
     <DllImport("user32.DLL", EntryPoint:="ReleaseCapture")>
@@ -117,11 +114,5 @@ Public Class Seccion
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If ListaOrdenada.Count > 0 Then
-            Dim Diagrama_i As New Diagrama(ListaOrdenada)
-        End If
-
-    End Sub
 End Class

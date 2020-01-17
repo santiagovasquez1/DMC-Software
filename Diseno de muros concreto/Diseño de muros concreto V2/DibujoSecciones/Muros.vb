@@ -9,6 +9,7 @@ Public Enum Reduccion
     NoAplica
 
 End Enum
+
 <Serializable>
 Public Enum TipoRefuerzo
 
@@ -22,10 +23,9 @@ Public Enum TipoRefuerzo
     C ' En C
     S  ' En S(C)
 
-
 End Enum
 
-
+<Serializable>
 Public Class Muros
 
     Public NombreMuro As String
@@ -34,6 +34,8 @@ Public Class Muros
     Public MurosVecinos As New List(Of String)
 
     Public Lista_Refuerzos As New List(Of RefuerzoCirculo)
+    Public Lista_Refuerzos_Original2 As New List(Of Double())
+
     Public Lista_Refuerzos_Original As New List(Of Double())
 
     Public Lista_Refuerzos_Fila_Min As New List(Of RefuerzoCirculo)
@@ -103,8 +105,72 @@ Public Class Muros
     Public FormaRefuerzoHorizontal_PorPiso As New List(Of TipoRefuerzo)
     Public Sep_RefuerzoHorizontal_PorPiso As New List(Of Single)
     Public Hw As New List(Of Single)
-    Public Capas_RefuerzoHorizontalPorPiso As List(Of Integer)
-    Public RefuerzoHorizontalLabelPorPiso As List(Of String)
+    Public Capas_RefuerzoHorizontalPorPiso As New List(Of Integer)
+    Public RefuerzoHorizontalLabelPorPiso As New List(Of String)
+
+    Public ListaRefuerzosPorPiso As New List(Of List(Of RefuerzoCirculo))
+
+    Public Fc As List(Of Single)
+    Public XC As Single
+    Public YC As Single
+
+
+    Public CoordPoligono As New List(Of Single())
+
+    Sub CalculoCentroide2()
+        XC = XminE + (XmaxE - XminE) / 2
+        YC = YminE + (YmaxE - YminE) / 2
+    End Sub
+
+
+    Sub AsignarCoordPol()
+
+        CoordPoligono.Clear()
+
+        Dim ParCoord(1) As Single
+
+        CoordPoligono.Add(New Single() {XminE, YminE})
+        CoordPoligono.Add(New Single() {XmaxE, YminE})
+        CoordPoligono.Add(New Single() {XmaxE, YmaxE})
+        CoordPoligono.Add(New Single() {XminE, YmaxE})
+
+
+    End Sub
+
+    Sub AsignarBarras()
+        ListaRefuerzosPorPiso.Clear()
+
+        For No_Piso = Muros_lista_2(0).Hw.Count - 1 To 0 Step -1
+
+            If alzado_lista.Exists(Function(x) x.pier = NombreMuro And x.story = "Story" & (No_Piso + 1)) Then
+                Dim ListasRefuerzos_Aux As New List(Of RefuerzoCirculo)
+                Dim MuroConAlzado = alzado_lista.Find(Function(x) x.pier = NombreMuro And x.story = "Story" & (No_Piso + 1))
+                For NomencBarra = 0 To MuroConAlzado.alzado.Count - 1
+                    For i = 0 To Lista_Refuerzos.Count - 1
+                        Dim Nomen As String = Str(NomencBarra + 1).Trim()
+                        If Nomen = Lista_Refuerzos(i).Label And MuroConAlzado.alzado(NomencBarra) <> "" Then
+                            Dim IndiceNumeral = MuroConAlzado.alzado(NomencBarra).IndexOf("#")
+                            Dim IndiceT = MuroConAlzado.alzado(NomencBarra).IndexOf("T")
+                            Dim NoBarra As String
+                            If IndiceT = 0 Or IndiceT = Nothing Or IndiceT = -1 Then
+                                NoBarra = MuroConAlzado.alzado(NomencBarra).Substring(IndiceNumeral)
+                            Else
+                                NoBarra = MuroConAlzado.alzado(NomencBarra).Substring(IndiceNumeral, IndiceT - IndiceNumeral)
+                            End If
+                            Dim RefuerzoNew As New RefuerzoCirculo
+                            RefuerzoNew.NoBarra = NoBarra
+                            RefuerzoNew.CoordenadasXyY = Lista_Refuerzos_Original2(i).ToArray
+                            RefuerzoNew.Label = Nomen
+                            ListasRefuerzos_Aux.Add(RefuerzoNew)
+
+                        End If
+                    Next
+                Next
+                ListaRefuerzosPorPiso.Add(ListasRefuerzos_Aux.ToList)
+            End If
+        Next
+
+    End Sub
 
     Sub ClasificacionMuros()
         For i = 0 To MurosVecinosClase.Count - 1
@@ -223,7 +289,7 @@ Public Class Muros
     End Sub
 
 End Class
-
+<Serializable>
 Public Class RefuerzoCirculo
 
     Public Label As String
@@ -231,6 +297,7 @@ Public Class RefuerzoCirculo
     Dim mCoordenadasXyY(2) As Double
     Public IndiceMuroPerteneciente As Integer
     Public Gancho As Boolean = False
+    Public NoBarra As String
 
     Public Property CoordenadasXyY() As Double()
         Get

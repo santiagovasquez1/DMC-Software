@@ -6,5 +6,6 @@ Public Class Listas_serializadas
     Public Lista_Alzados = New List(Of alzado_muro)
     Public Muros_generales = New List(Of Muro)
     Public Capacidad_proyecto As String
+    Public ListaOrdenada2 = New List(Of Muros)
 
 End Class

@@ -181,6 +181,7 @@ namespace Diseno_muros_concreto_fc
                     Fc = Lista_Geometria[i].Fc / 10
                 };
 
+
                 List<Fuerza_Piers> Aux_fuerzas = Datos_Fuerza.FindAll(x => x.Pier == Muro_i.Pier & x.Story == Muro_i.Story);
                 for (int j = 0; j < Aux_fuerzas.Count; j++)
                 {
@@ -192,6 +193,7 @@ namespace Diseno_muros_concreto_fc
                     Muro_i.M2.Add(Aux_fuerzas[j].M2);
                     Muro_i.M3.Add(Aux_fuerzas[j].M3);
                 }
+                Muro_i.Calc_pc();
 
                 Muro_i.Shells_Muro = Listas_Programa.Lista_shells.FindAll(x => x.Pier == Muro_i.Pier & x.Story == Muro_i.Story);
                 List<Datos_Diseno> Aux_2 = Lista_Diseno.FindAll(x => x.Pier == Muro_i.Pier & x.Story == Muro_i.Story);

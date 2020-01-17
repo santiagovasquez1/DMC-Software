@@ -107,6 +107,11 @@
                         .Cells(7).Value = Format(MuroAxuiliar.total, "##,0.00")
                         .Cells(8).Value = Format(MuroAxuiliar.porcentaje * 100, "##,0.0") & "%"
 
+                        If MuroAxuiliar.porcentaje > 1.05 Or MuroAxuiliar.porcentaje < 0.95 Then
+                            .Cells(8).Style.ForeColor = Color.Red
+                        Else
+                            .Cells(8).Style.ForeColor = Color.Black
+                        End If
                         Dim contador As Integer
                         contador = 9
 

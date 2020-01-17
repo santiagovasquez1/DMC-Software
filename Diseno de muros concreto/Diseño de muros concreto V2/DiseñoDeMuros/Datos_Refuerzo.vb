@@ -47,8 +47,18 @@
         Lista_Pc2 = New List(Of List(Of Double()))
 
         Lista_Barras = New List(Of List(Of String))
-        Lista_i = alzado_lista.FindAll(Function(x) x.pier = Muro_i).ToList.OrderBy(Function(x) Convert.ToInt16(x.story.Substring(5))).ToList
+        Lista_i = B_Deep_Clone.CDeep_Clone.DeepClone(alzado_lista.FindAll(Function(x) x.pier = Muro_i).ToList)
+        Dim AEliminar As alzado_muro = Lista_i.Find(Function(x) x.story = "CUB")
+        Lista_i.Remove(AEliminar)
+        Try
+            Lista_i = Lista_i.OrderBy(Function(x) Convert.ToInt16(x.story.Substring(5))).ToList
+        Catch
+            Lista_i = Lista_i.OrderBy(Function(x) Convert.ToInt16(x.story.Substring(1))).ToList
 
+        End Try
+        If (AEliminar IsNot Nothing) Then
+            Lista_i.Add(AEliminar)
+        End If
         Stories.AddRange(Lista_i.Select(Function(x) x.story).ToList)
         Alzado_i.AddRange(Lista_i.Select(Function(x) x.alzado).ToList)
 
@@ -230,6 +240,20 @@
         pos_x += 5.1
     End Sub
 
+    Private Shared Function Get_numeros(texto As String, Num_piso As String) As String
+        Num_piso = ""
+
+        For Each ch As Char In texto
+
+            If IsNumeric(ch) = True Then
+                Num_piso = Num_piso & ch
+            End If
+
+        Next
+
+        Return Num_piso
+    End Function
+
     Private Sub Add_Text_Point(ByVal Pos_x As Single, ByVal Pos_y As Single)
 
         P_Texto.Add({Pos_x - 0.2, Pos_y, 0})
@@ -329,7 +353,7 @@
             Else
                 Pos1 = Pos2 - suma + 0.5 - prof
             End If
-            
+
             Coor_Aux = {Posx + ganchos_90(Diametro1), Pos1, Posx, Pos1, Posx, Pos2, Posx + ganchos_90(Diametro1), Pos2}
             Add_Text_Point(Posx, Pos1 + 0.9)
         End If
@@ -352,7 +376,7 @@
         Dim Pc2_aux As Double()
         Dim Traslapo1, Traslapo2, Traslapo1_1, Traslapo2_2 As Double
         Dim Fc1, Fc2 As Double
-
+        indice1 = 1
         Valor_inicial = Alzado_i(fila)(col)
         Pos_T1 = Alzado_i(fila)(col).IndexOf("T")
         Pos_T2 = Alzado_i(fila)(col).IndexOf("#")
@@ -558,6 +582,7 @@
         Dim Pc2_aux As Double()
         Dim prueba As String
 
+        indice1 = 1
         Valor_inicial = Alzado_i(fila)(col)
         Pos_T1 = Alzado_i(fila)(col).IndexOf("T")
         Pos_T2 = Alzado_i(fila)(col).IndexOf("#")

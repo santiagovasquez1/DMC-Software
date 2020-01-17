@@ -240,7 +240,7 @@ namespace Diseno_muros_concreto_fc
         private void Form1_Load(object sender, EventArgs e)
         {
             RegistrarDMC();
-
+            CheckForIllegalCrossThreadCalls = false;
             this.MaximizeBox = false;
             Bases_de_datos.Ds_Shear = new DataSet();
             List<string> Lista_ToolTip = new List<string>();
@@ -544,14 +544,19 @@ namespace Diseno_muros_concreto_fc
             Listas_Programa.Muros_Consolidados_Listos = new List<Muros_Consolidados_1>();
             Listas_Programa.Lista_Muros = new List<Muro>();
             Listas_Programa.Lista_shells = new List<Shells_Prop>();
-
-            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i, Diferente);
+            Serializador.Deserializar(ref Listas_Programa.Ruta_archivo, ref Lista_i, Diferente,this);
+            
             if (Listas_Programa.Ruta_archivo != null | Listas_Programa.Ruta_archivo != "")
             {
                 DeterminarRutaCarpeta_NombreProyecto(Listas_Programa.Ruta_archivo);
                 Diseño_de_muros_concreto_V2.Serializador2 serializador2 = new Diseño_de_muros_concreto_V2.Serializador2(Listas_Programa.Ruta_Carpeta, Listas_Programa.Name_Proyecto, false);
             }
             Listas_Programa.Capacidad = Lista_i.Capacidad_proyecto;
+
+            foreach (Muro muroi in Listas_Programa.Lista_Muros)
+            {
+                muroi.Calc_pc();
+            }
 
             foreach (Muros_Consolidados_1 muroi in Listas_Programa.Muros_Consolidados_Listos)
             {
@@ -576,6 +581,9 @@ namespace Diseno_muros_concreto_fc
                 Radio_Des.Checked = true;
             }
             Generar.Enabled = true;
+            Label_Inicial.Visible = false;
+       
+
         }
 
         private void DeterminarRutaCarpeta_NombreProyecto(string Ruta)
@@ -717,10 +725,6 @@ namespace Diseno_muros_concreto_fc
             Label_Inicial.Visible = false;
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
         private void ExportarMemoriasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportMemorias();
@@ -731,19 +735,13 @@ namespace Diseno_muros_concreto_fc
             Application.Exit();
         }
 
-        private void Generar_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-        }
-
         private void definirArañaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<Diseño_de_muros_concreto_V2.Muros_Consolidados> L_Muro_aux = new List<Diseño_de_muros_concreto_V2.Muros_Consolidados>();
             Diseño_de_muros_concreto_V2.Crear_arania Arañas = new Diseño_de_muros_concreto_V2.Crear_arania();
             Arañas.ShowDialog();
         }
+
+    
     }
 }

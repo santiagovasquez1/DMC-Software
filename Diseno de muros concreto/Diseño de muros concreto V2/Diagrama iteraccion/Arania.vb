@@ -20,4 +20,15 @@
             _muros_arania = value
         End Set
     End Property
+
+    Public ListNumerosShaesPorPiso As New List(Of Integer)
+
+    Public Lista_XY_Min(1) As Single
+
+    Public Lista_CooordPoligono As List(Of Single())
+
+    Public Lista_Arañas_Muro As New List(Of String)
+
+
+
 End Class
