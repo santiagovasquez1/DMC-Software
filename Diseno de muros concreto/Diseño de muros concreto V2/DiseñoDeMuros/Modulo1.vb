@@ -73,7 +73,7 @@ Module Modulo1
                 Dim Lista_Temp = Muros_lista_2.FindAll(Function(x) Temp = x)
                 For Each aux As Muros_Consolidados In Lista_Temp
 
-                    Temp_hijo = CDeep_Clone.DeepClone(Temp)
+                    'Temp_hijo = CDeep_Clone.DeepClone(Temp)
                     Temp_hijo.Pier_name = aux.Pier_name
                     Temp_hijo.As_Long = aux.As_Long
                     Temp_hijo.As_htal = aux.As_htal

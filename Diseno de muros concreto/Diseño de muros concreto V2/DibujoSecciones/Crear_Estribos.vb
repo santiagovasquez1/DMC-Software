@@ -2,8 +2,8 @@
 
 Public Class Crear_Estribos
 
-    Public Bloque_Estribo As AcadBlockReference
-    Public Bloque_Gancho As AcadBlockReference
+    'Public Bloque_Estribo As AcadBlockReference
+    'Public Bloque_Gancho As AcadBlockReference
 
     Sub Determinar_Estribos(ByVal Formulario As Seccion)
 
@@ -655,30 +655,30 @@ Public Class Crear_Estribos
 
     Private Sub Add_Estribos(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Espesor_Doble As Double, ByVal Mover As Boolean)
 
-        Dim Nombre_Bloque As String
-        Dim dynamic_property1 As Object
-        Dim editar_property1 As AcadDynamicBlockReferenceProperty
-        Dim Point_aux As Double()
+        'Dim Nombre_Bloque As String
+        'Dim dynamic_property1 As Object
+        'Dim editar_property1 As AcadDynamicBlockReferenceProperty
+        'Dim Point_aux As Double()
 
-        Nombre_Bloque = "FC_B_Estribo tipo 7"
+        'Nombre_Bloque = "FC_B_Estribo tipo 7"
 
-        If Mover = False Then
-            Bloque_Estribo = AcadDoc.ModelSpace.InsertBlock(Ip, Nombre_Bloque, 1, 1, 1, Angulo)
-        Else
-            Point_aux = {Ip(0) - Distancia, Ip(1), 0}
-            Bloque_Estribo = AcadDoc.ModelSpace.InsertBlock(Point_aux, Nombre_Bloque, 1, 1, 1, Angulo)
-        End If
+        'If Mover = False Then
+        '    Bloque_Estribo = AcadDoc.ModelSpace.InsertBlock(Ip, Nombre_Bloque, 1, 1, 1, Angulo)
+        'Else
+        '    Point_aux = {Ip(0) - Distancia, Ip(1), 0}
+        '    Bloque_Estribo = AcadDoc.ModelSpace.InsertBlock(Point_aux, Nombre_Bloque, 1, 1, 1, Angulo)
+        'End If
 
-        dynamic_property1 = Bloque_Estribo.GetDynamicBlockProperties
+        'dynamic_property1 = Bloque_Estribo.GetDynamicBlockProperties
 
-        editar_property1 = dynamic_property1(0)
-        editar_property1.Value = Espesor_Doble
+        'editar_property1 = dynamic_property1(0)
+        'editar_property1.Value = Espesor_Doble
 
-        editar_property1 = dynamic_property1(2)
-        editar_property1.Value = Distancia
+        'editar_property1 = dynamic_property1(2)
+        'editar_property1.Value = Distancia
 
-        Bloque_Estribo.Layer = Layer
-        Bloque_Estribo.Update()
+        'Bloque_Estribo.Layer = Layer
+        'Bloque_Estribo.Update()
 
         ''Estribo_Back(Bloque_Estribo)
 
@@ -686,41 +686,41 @@ Public Class Crear_Estribos
 
     Private Sub Add_Gancho(ByVal Layer As String, ByVal Angulo As Double, ByVal Ip As Double(), ByVal Distancia As Double, ByVal Flip_State As Short)
 
-        Dim Nombre_Bloque As String
-        Dim dynamic_property1 As Object
-        Dim editar_property1 As AcadDynamicBlockReferenceProperty
+        'Dim Nombre_Bloque As String
+        'Dim dynamic_property1 As Object
+        'Dim editar_property1 As AcadDynamicBlockReferenceProperty
 
-        Nombre_Bloque = "FC_B_Gancho Tipo 5"
+        'Nombre_Bloque = "FC_B_Gancho Tipo 5"
 
-        Bloque_Gancho = AcadDoc.ModelSpace.InsertBlock(Ip, Nombre_Bloque, 1, 1, 1, Angulo)
-        dynamic_property1 = Bloque_Gancho.GetDynamicBlockProperties
+        'Bloque_Gancho = AcadDoc.ModelSpace.InsertBlock(Ip, Nombre_Bloque, 1, 1, 1, Angulo)
+        'dynamic_property1 = Bloque_Gancho.GetDynamicBlockProperties
 
-        editar_property1 = dynamic_property1(0)
-        editar_property1.Value = Distancia
+        'editar_property1 = dynamic_property1(0)
+        'editar_property1.Value = Distancia
 
-        editar_property1 = dynamic_property1(2)
-        editar_property1.Value = Flip_State
+        'editar_property1 = dynamic_property1(2)
+        'editar_property1.Value = Flip_State
 
-        Bloque_Gancho.Layer = Layer
-        Bloque_Gancho.Update()
-
-    End Sub
-
-    Private Shared Sub Estribo_Back(ByVal Acad_object As AcadObject)
-
-        Dim Diccionario As AcadDictionary
-        Dim sentityObj As AcadObject
-        Dim arr(0) As AcadObject
-
-        'Mover el hacth hacia atras
-        Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
-
-        sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
-        sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
-
-        arr(0) = Acad_object
-        sentityObj.MoveToBottom(arr.ToArray)
+        'Bloque_Gancho.Layer = Layer
+        'Bloque_Gancho.Update()
 
     End Sub
+
+    'Private Shared Sub Estribo_Back(ByVal Acad_object As AcadObject)
+
+    '    'Dim Diccionario As AcadDictionary
+    '    'Dim sentityObj As AcadObject
+    '    'Dim arr(0) As AcadObject
+
+    '    ''Mover el hacth hacia atras
+    '    'Diccionario = AcadDoc.ModelSpace.GetExtensionDictionary
+
+    '    'sentityObj = Diccionario.GetObject("ACAD_SORTENTS")
+    '    'sentityObj = Diccionario.AddObject("ACAD_SORTENTS", "AcDbSortentsTable")
+
+    '    'arr(0) = Acad_object
+    '    'sentityObj.MoveToBottom(arr.ToArray)
+
+    'End Sub
 
 End Class

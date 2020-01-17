@@ -6,25 +6,25 @@ Public Class ExportExcel
     Private m_Excel As Excel.Application
     Private objLibroExcel As Excel.Workbook
     Private objHojaExcel As Excel.Worksheet
-    Private Errores As CProcesar
+    'Private Errores As CProcesar
 
     Sub Set_errores()
 
-        Errores = New CProcesar
+        'Errores = New CProcesar
 
-        For i = 0 To Muros_lista_2.Count - 1
-            For j = 0 To Muros_lista_2(i).Stories.Count - 1
+        'For i = 0 To Muros_lista_2.Count - 1
+        '    For j = 0 To Muros_lista_2(i).Stories.Count - 1
 
-                Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(i).Pier_name And x1.Story = Muros_lista_2(i).Stories(j))
-                temp.Calc_pc()
-                With Muros_lista_2(i)
+        '        Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(i).Pier_name And x1.Story = Muros_lista_2(i).Stories(j))
+        '        temp.Calc_pc()
+        '        With Muros_lista_2(i)
 
-                    Errores.Set_errores_muros(.Pier_name, .Stories(j), .Rho_l(j), .Bw(j), .Lebe_Izq(j), .Lebe_Der(j), Math.Abs(temp.P.Min), temp.Pc)
+        '            Errores.Set_errores_muros(.Pier_name, .Stories(j), .Rho_l(j), .Bw(j), .Lebe_Izq(j), .Lebe_Der(j), Math.Abs(temp.P.Min), temp.Pc)
 
-                End With
+        '        End With
 
-            Next
-        Next
+        '    Next
+        'Next
 
     End Sub
 
@@ -42,180 +42,180 @@ Public Class ExportExcel
     End Sub
 
     Sub Exportar(ByVal Route_File As String)
-        Ruta_archivo_1 = Route_File
-        If Ruta_archivo_1 <> "" Then
+        'Ruta_archivo_1 = Route_File
+        'If Ruta_archivo_1 <> "" Then
 
-            Deserializar()
-            m_Excel = New Excel.Application
-            objLibroExcel = m_Excel.Workbooks.Add()
-            objHojaExcel = objLibroExcel.Worksheets(1)
+        '    Deserializar()
+        '    m_Excel = New Excel.Application
+        '    objLibroExcel = m_Excel.Workbooks.Add()
+        '    objHojaExcel = objLibroExcel.Worksheets(1)
 
-            Set_errores()
-            If Errores.Muros_errores.Count > 0 Then
-                objHojaExcel = objLibroExcel.Worksheets.Add()
-                ExportarExcel_Reporte(True)
-            End If
+        '    Set_errores()
+        '    If Errores.Muros_errores.Count > 0 Then
+        '        objHojaExcel = objLibroExcel.Worksheets.Add()
+        '        ExportarExcel_Reporte(True)
+        '    End If
 
-            objHojaExcel = objLibroExcel.Worksheets.Add()
-            ExportarExcel_Reporte(False)
+        '    objHojaExcel = objLibroExcel.Worksheets.Add()
+        '    ExportarExcel_Reporte(False)
 
-            objHojaExcel = objLibroExcel.Worksheets.Add()
-            ExportarExcel_FlexuralStress()
+        '    objHojaExcel = objLibroExcel.Worksheets.Add()
+        '    ExportarExcel_FlexuralStress()
 
-            objHojaExcel = objLibroExcel.Worksheets.Add()
-            ExportarExcel_ShearDesing()
+        '    objHojaExcel = objLibroExcel.Worksheets.Add()
+        '    ExportarExcel_ShearDesing()
 
-            m_Excel.Windows(1).DisplayGridlines = False
-            m_Excel.Visible = True
-        Else
-            MsgBox("Proyecto sin Salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
+        '    m_Excel.Windows(1).DisplayGridlines = False
+        '    m_Excel.Visible = True
+        'Else
+        '    MsgBox("Proyecto sin Salvar", MsgBoxStyle.Exclamation, "efe Prima Ce")
 
-        End If
+        'End If
     End Sub
 
     Private Sub ExportarExcel_Reporte(ByVal Condicion As Boolean)
-        objHojaExcel.Activate()
+        'objHojaExcel.Activate()
 
-        If Condicion = False Then
-            objHojaExcel.Name = "3.Report"
-        Else
-            objHojaExcel.Name = "4.Errors"
-        End If
+        'If Condicion = False Then
+        '    objHojaExcel.Name = "3.Report"
+        'Else
+        '    objHojaExcel.Name = "4.Errors"
+        'End If
 
-        Dim Index1 As Integer = 0 : Dim Index2 As Integer = 0
-        Dim TLT = "Arial"
-        Dim mensaje As String = ""
+        'Dim Index1 As Integer = 0 : Dim Index2 As Integer = 0
+        'Dim TLT = "Arial"
+        'Dim mensaje As String = ""
 
-        objHojaExcel.Columns(1).ColumnWidth = 5.71
-        objHojaExcel.Columns(2).ColumnWidth = 2.86
-        objHojaExcel.Columns(3).ColumnWidth = 4.86
-        objHojaExcel.Columns(4).ColumnWidth = 5
-        objHojaExcel.Columns(5).ColumnWidth = 6.57
-        objHojaExcel.Columns(6).ColumnWidth = 7
-        objHojaExcel.Columns(7).ColumnWidth = 7
-        objHojaExcel.Columns(8).ColumnWidth = 7.86
-        objHojaExcel.Columns(9).ColumnWidth = 5.29
-        objHojaExcel.Columns(10).ColumnWidth = 7
-        objHojaExcel.Columns(11).ColumnWidth = 7.57
-        objHojaExcel.Columns(12).ColumnWidth = 6.43
-        objHojaExcel.Columns(13).ColumnWidth = 6.29
-        objHojaExcel.Columns(14).ColumnWidth = 6.29
-        objHojaExcel.Columns(15).ColumnWidth = 6.29
-        objHojaExcel.Columns(16).ColumnWidth = 6.29
+        'objHojaExcel.Columns(1).ColumnWidth = 5.71
+        'objHojaExcel.Columns(2).ColumnWidth = 2.86
+        'objHojaExcel.Columns(3).ColumnWidth = 4.86
+        'objHojaExcel.Columns(4).ColumnWidth = 5
+        'objHojaExcel.Columns(5).ColumnWidth = 6.57
+        'objHojaExcel.Columns(6).ColumnWidth = 7
+        'objHojaExcel.Columns(7).ColumnWidth = 7
+        'objHojaExcel.Columns(8).ColumnWidth = 7.86
+        'objHojaExcel.Columns(9).ColumnWidth = 5.29
+        'objHojaExcel.Columns(10).ColumnWidth = 7
+        'objHojaExcel.Columns(11).ColumnWidth = 7.57
+        'objHojaExcel.Columns(12).ColumnWidth = 6.43
+        'objHojaExcel.Columns(13).ColumnWidth = 6.29
+        'objHojaExcel.Columns(14).ColumnWidth = 6.29
+        'objHojaExcel.Columns(15).ColumnWidth = 6.29
+        'objHojaExcel.Columns(16).ColumnWidth = 6.29
 
-        If Condicion = True Then
-            objHojaExcel.Columns(17).ColumnWidth = 24
-        End If
+        'If Condicion = True Then
+        '    objHojaExcel.Columns(17).ColumnWidth = 24
+        'End If
 
-        EstiloTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
-        EstiloTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
-        EstiloTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
-        EstiloTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
-        EstiloTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
-        EstiloTexto(objHojaExcel.Range("F1:F2"), "rt", TLT, True, 1)
-        EstiloTexto(objHojaExcel.Range("G1:G2"), "rl", TLT, True, 1)
-        EstiloTexto(objHojaExcel.Range("H1:H2"), "Malla", TLT)
-        EstiloTexto(objHojaExcel.Range("I1:I2"), "C (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
-        EstiloTexto(objHojaExcel.Range("O1:O2"), "Pmax (tonf)", TLT)
-        EstiloTexto(objHojaExcel.Range("P1:P2"), "Pc (tonf)", TLT)
+        'EstiloTexto(objHojaExcel.Range("A1:A2"), "Story", TLT)
+        'EstiloTexto(objHojaExcel.Range("B1:B2"), "Pier", TLT)
+        'EstiloTexto(objHojaExcel.Range("C1:C2"), "Lw(m)", TLT)
+        'EstiloTexto(objHojaExcel.Range("D1:D2"), "Bw(m)", TLT)
+        'EstiloTexto(objHojaExcel.Range("E1:E2"), "Fc (kgf/cm²)", TLT)
+        'EstiloTexto(objHojaExcel.Range("F1:F2"), "rt", TLT, True, 1)
+        'EstiloTexto(objHojaExcel.Range("G1:G2"), "rl", TLT, True, 1)
+        'EstiloTexto(objHojaExcel.Range("H1:H2"), "Malla", TLT)
+        'EstiloTexto(objHojaExcel.Range("I1:I2"), "C (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("J1:J2"), "Lebe_Izq (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("K1:K2"), "Lebe_Der (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("L1:L2"), "Lebe_Centro (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("M1:M2"), "Zc_Izq (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("N1:N2"), "Zc_Der (cm)", TLT)
+        'EstiloTexto(objHojaExcel.Range("O1:O2"), "Pmax (tonf)", TLT)
+        'EstiloTexto(objHojaExcel.Range("P1:P2"), "Pc (tonf)", TLT)
 
-        If Condicion = True Then
-            EstiloTexto(objHojaExcel.Range("Q1:Q2"), "Mensaje", TLT)
-        End If
+        'If Condicion = True Then
+        '    EstiloTexto(objHojaExcel.Range("Q1:Q2"), "Mensaje", TLT)
+        'End If
 
-        Dim x As Integer = 0
+        'Dim x As Integer = 0
 
-        If Condicion = False Then
-            For i = 0 To Muros_lista_2.Count - 1
-                For j = 0 To Muros_lista_2(i).Stories.Count - 1
-                    x += 1
-                Next
-            Next
-        Else
-            x = Errores.Muros_errores.Count
-        End If
+        'If Condicion = False Then
+        '    For i = 0 To Muros_lista_2.Count - 1
+        '        For j = 0 To Muros_lista_2(i).Stories.Count - 1
+        '            x += 1
+        '        Next
+        '    Next
+        'Else
+        '    'x = Errores.Muros_errores.Count
+        'End If
 
-        Dim ArregloDatos3(x - 1, 16) As Object
+        'Dim ArregloDatos3(x - 1, 16) As Object
 
-        x = 0
+        'x = 0
 
-        If Condicion = False Then
-            For j = 0 To Muros_lista_2.Count - 1
-                For k = 0 To Muros_lista_2(j).Stories.Count - 1
+        'If Condicion = False Then
+        '    For j = 0 To Muros_lista_2.Count - 1
+        '        For k = 0 To Muros_lista_2(j).Stories.Count - 1
 
-                    Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(j).Pier_name And x1.Story = Muros_lista_2(j).Stories(k))
-                    temp.Calc_pc()
+        '            Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(j).Pier_name And x1.Story = Muros_lista_2(j).Stories(k))
+        '            temp.Calc_pc()
 
-                    With Muros_lista_2(j)
+        '            With Muros_lista_2(j)
 
-                        ArregloDatos3(x, 0) = .Stories(k)
-                        ArregloDatos3(x, 1) = .Pier_name
-                        ArregloDatos3(x, 2) = Format(Math.Round(.lw(k) / 100, 2), "#0.00")
-                        ArregloDatos3(x, 3) = Format(Math.Round(.Bw(k) / 100, 2), "#0.00")
-                        ArregloDatos3(x, 4) = Format(Math.Round(.fc(k), 2), "#0.00")
-                        ArregloDatos3(x, 5) = Format(Math.Round(.Rho_T(k), 4), "#0.0000")
-                        ArregloDatos3(x, 6) = Format(Math.Round(.Rho_l(k), 4), "#0.0000")
-                        ArregloDatos3(x, 7) = .Malla(k)
-                        ArregloDatos3(x, 8) = Format(Math.Round(.C_Def(k), 2), "#0.00")
-                        ArregloDatos3(x, 9) = Format(Math.Round(.Lebe_Izq(k), 2), "#0.00")
-                        ArregloDatos3(x, 10) = Format(Math.Round(.Lebe_Der(k), 2), "#0.00")
-                        ArregloDatos3(x, 11) = Format(Math.Round(.Lebe_Centro(k), 2), "#0.00")
-                        ArregloDatos3(x, 12) = Format(Math.Round(.Zc_Izq(k), 2), "#0.00")
-                        ArregloDatos3(x, 13) = Format(Math.Round(.Zc_Der(k), 2), "#0.00")
-                        ArregloDatos3(x, 14) = Format(Math.Round(Math.Abs(temp.P.Min()), 2), "#0.00")
-                        ArregloDatos3(x, 15) = Format(Math.Round(temp.Pc, 2), "#0.00")
+        '                ArregloDatos3(x, 0) = .Stories(k)
+        '                ArregloDatos3(x, 1) = .Pier_name
+        '                ArregloDatos3(x, 2) = Format(Math.Round(.lw(k) / 100, 2), "#0.00")
+        '                ArregloDatos3(x, 3) = Format(Math.Round(.Bw(k) / 100, 2), "#0.00")
+        '                ArregloDatos3(x, 4) = Format(Math.Round(.fc(k), 2), "#0.00")
+        '                ArregloDatos3(x, 5) = Format(Math.Round(.Rho_T(k), 4), "#0.0000")
+        '                ArregloDatos3(x, 6) = Format(Math.Round(.Rho_l(k), 4), "#0.0000")
+        '                ArregloDatos3(x, 7) = .Malla(k)
+        '                ArregloDatos3(x, 8) = Format(Math.Round(.C_Def(k), 2), "#0.00")
+        '                ArregloDatos3(x, 9) = Format(Math.Round(.Lebe_Izq(k), 2), "#0.00")
+        '                ArregloDatos3(x, 10) = Format(Math.Round(.Lebe_Der(k), 2), "#0.00")
+        '                ArregloDatos3(x, 11) = Format(Math.Round(.Lebe_Centro(k), 2), "#0.00")
+        '                ArregloDatos3(x, 12) = Format(Math.Round(.Zc_Izq(k), 2), "#0.00")
+        '                ArregloDatos3(x, 13) = Format(Math.Round(.Zc_Der(k), 2), "#0.00")
+        '                ArregloDatos3(x, 14) = Format(Math.Round(Math.Abs(temp.P.Min()), 2), "#0.00")
+        '                ArregloDatos3(x, 15) = Format(Math.Round(temp.Pc, 2), "#0.00")
 
-                    End With
+        '            End With
 
-                    x += 1
-                Next
-            Next
-        Else
+        '            x += 1
+        '        Next
+        '    Next
+        'Else
 
-            For i = 0 To Errores.Muros_errores.Count - 1
+        '    For i = 0 To Errores.Muros_errores.Count - 1
 
-                Index1 = Muros_lista_2.FindIndex(Function(x1) x1.Pier_name = Errores.Muros_errores(i).Piername)
-                Index2 = Muros_lista_2(Index1).Stories.FindIndex(Function(x1) x1 = Errores.Muros_errores(i).Story)
+        '        Index1 = Muros_lista_2.FindIndex(Function(x1) x1.Pier_name = Errores.Muros_errores(i).Piername)
+        '        Index2 = Muros_lista_2(Index1).Stories.FindIndex(Function(x1) x1 = Errores.Muros_errores(i).Story)
 
-                Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(Index1).Pier_name And x1.Story = Muros_lista_2(Index1).Stories(Index2))
-                temp.Calc_pc()
+        '        Dim temp = Muros_generales.Find(Function(x1) x1.Pier = Muros_lista_2(Index1).Pier_name And x1.Story = Muros_lista_2(Index1).Stories(Index2))
+        '        temp.Calc_pc()
 
-                With Muros_lista_2(Index1)
+        '        With Muros_lista_2(Index1)
 
-                    ArregloDatos3(x, 0) = .Stories(Index2)
-                    ArregloDatos3(x, 1) = .Pier_name
-                    ArregloDatos3(x, 2) = Format(Math.Round(.lw(Index2) / 100, 2), "#0.00")
-                    ArregloDatos3(x, 3) = Format(Math.Round(.Bw(Index2) / 100, 2), "#0.00")
-                    ArregloDatos3(x, 4) = Format(Math.Round(.fc(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 5) = Format(Math.Round(.Rho_T(Index2), 4), "#0.0000")
-                    ArregloDatos3(x, 6) = Format(Math.Round(.Rho_l(Index2), 4), "#0.0000")
-                    ArregloDatos3(x, 7) = .Malla(Index2)
-                    ArregloDatos3(x, 8) = Format(Math.Round(.C_Def(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 9) = Format(Math.Round(.Lebe_Izq(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 10) = Format(Math.Round(.Lebe_Der(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 11) = Format(Math.Round(.Lebe_Centro(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 12) = Format(Math.Round(.Zc_Izq(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 13) = Format(Math.Round(.Zc_Der(Index2), 2), "#0.00")
-                    ArregloDatos3(x, 14) = Format(Math.Round(Math.Abs(temp.P.Min()), 2), "#0.00")
-                    ArregloDatos3(x, 15) = Format(Math.Round(temp.Pc, 2), "#0.00")
-                    mensaje = Errores.Muros_errores(i).ToString()
-                    ArregloDatos3(x, 16) = mensaje
-                End With
-                x += 1
-            Next
+        '            ArregloDatos3(x, 0) = .Stories(Index2)
+        '            ArregloDatos3(x, 1) = .Pier_name
+        '            ArregloDatos3(x, 2) = Format(Math.Round(.lw(Index2) / 100, 2), "#0.00")
+        '            ArregloDatos3(x, 3) = Format(Math.Round(.Bw(Index2) / 100, 2), "#0.00")
+        '            ArregloDatos3(x, 4) = Format(Math.Round(.fc(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 5) = Format(Math.Round(.Rho_T(Index2), 4), "#0.0000")
+        '            ArregloDatos3(x, 6) = Format(Math.Round(.Rho_l(Index2), 4), "#0.0000")
+        '            ArregloDatos3(x, 7) = .Malla(Index2)
+        '            ArregloDatos3(x, 8) = Format(Math.Round(.C_Def(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 9) = Format(Math.Round(.Lebe_Izq(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 10) = Format(Math.Round(.Lebe_Der(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 11) = Format(Math.Round(.Lebe_Centro(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 12) = Format(Math.Round(.Zc_Izq(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 13) = Format(Math.Round(.Zc_Der(Index2), 2), "#0.00")
+        '            ArregloDatos3(x, 14) = Format(Math.Round(Math.Abs(temp.P.Min()), 2), "#0.00")
+        '            ArregloDatos3(x, 15) = Format(Math.Round(temp.Pc, 2), "#0.00")
+        '            mensaje = Errores.Muros_errores(i).ToString()
+        '            ArregloDatos3(x, 16) = mensaje
+        '        End With
+        '        x += 1
+        '    Next
 
-        End If
+        'End If
 
-        objHojaExcel.Range("A3").Resize(x, 17).Value = ArregloDatos3
+        'objHojaExcel.Range("A3").Resize(x, 17).Value = ArregloDatos3
 
-        EstiloTextoSimple(objHojaExcel.Range("A3").Resize(x, 17))
+        'EstiloTextoSimple(objHojaExcel.Range("A3").Resize(x, 17))
 
-        objHojaExcel.Visible = True
+        'objHojaExcel.Visible = True
 
     End Sub
 

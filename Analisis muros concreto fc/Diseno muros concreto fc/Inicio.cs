@@ -48,97 +48,111 @@ namespace Diseno_muros_concreto_fc
 
         public static void Comprobar(Inicio Formulario)
         {
-            string ComprobarEntrada = "FAIL";
+            string ComprobarEntrada = "CORRECT";
 
-            String IP_Servidor = "";
-            if (NetworkInterface.GetIsNetworkAvailable())
+            if (ComprobarEntrada == "CORRECT")
             {
-                string hostname = "FCSAS.COM";
+                //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                IPAddress[] addresses = Dns.GetHostAddresses(hostname);
-                foreach (IPAddress address in addresses)
-                {
-                    IP_Servidor = address.ToString();
-                }
-
-                PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
-                
-                if (ctx.ConnectedServer.ToLower() == "servidor.fcsas.com".ToLower())
-                    ComprobarEntrada = "CORRECT";
-
-                List<IPAddressCollection> ListaIPS = new List<IPAddressCollection>();
-
-                foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                    {
-                        IPInterfaceProperties properties = adapter.GetIPProperties();
-                        IPAddressCollection IP = properties.DnsAddresses;
-                        ListaIPS.Add(IP);
-                    }
-                }
-
-                for (int i = 0; i < ListaIPS.Count; i++)
-                {
-                    foreach (IPAddress iPAddress in ListaIPS[i])
-                    {
-                        string IP_CLIENTE = iPAddress.ToString();
-                        if (IP_CLIENTE == IP_Servidor)
-                        {
-                            ComprobarEntrada = "CORRECT";
-                            break;
-                        }
-                    }
-                }
-
-                if (ComprobarEntrada == "CORRECT")
-                {
-                    //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    Formulario.Visible = false;
-                    Form1 Fromulario = new Form1();
-                    Fromulario.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Application.Exit();
-                }
+                Formulario.Visible = false;
+                Form1 Fromulario = new Form1();
+                Fromulario.ShowDialog();
             }
             else
             {
-                NetworkInterface[] Interfaces = NetworkInterface.GetAllNetworkInterfaces();
-
-                List<string> MacAdress = new List<string>();
-                foreach (NetworkInterface adapter in Interfaces)
-                {
-                    IPInterfaceProperties properties = adapter.GetIPProperties();
-                    MacAdress.Add(adapter.GetPhysicalAddress().ToString());
-                }
-
-                for (int i = 0; i < MacAdress.Count; i++)
-                {
-                    if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455" | MacAdress[i] == "64006AFC2C84")
-                    {
-                        ComprobarEntrada = "CORRECT";
-                        break;
-                    }
-                }
-
-                if (ComprobarEntrada == "CORRECT")
-                {
-                    //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    Formulario.Visible = false;
-                    Form1 Fromulario = new Form1();
-                    Fromulario.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Application.Exit();
-                }
+                MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Application.Exit();
             }
+
+            String IP_Servidor = "";
+            //if (NetworkInterface.GetIsNetworkAvailable())
+            //{
+            //    string hostname = "FCSAS.COM";
+
+            //    IPAddress[] addresses = Dns.GetHostAddresses(hostname);
+            //    foreach (IPAddress address in addresses)
+            //    {
+            //        IP_Servidor = address.ToString();
+            //    }
+
+            //    PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
+
+            //    if (ctx.ConnectedServer.ToLower() == "servidor.fcsas.com".ToLower())
+            //        ComprobarEntrada = "CORRECT";
+
+            //    List<IPAddressCollection> ListaIPS = new List<IPAddressCollection>();
+
+            //    foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
+            //    {
+            //        if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+            //        {
+            //            IPInterfaceProperties properties = adapter.GetIPProperties();
+            //            IPAddressCollection IP = properties.DnsAddresses;
+            //            ListaIPS.Add(IP);
+            //        }
+            //    }
+
+            //    for (int i = 0; i < ListaIPS.Count; i++)
+            //    {
+            //        foreach (IPAddress iPAddress in ListaIPS[i])
+            //        {
+            //            string IP_CLIENTE = iPAddress.ToString();
+            //            if (IP_CLIENTE == IP_Servidor)
+            //            {
+            //                ComprobarEntrada = "CORRECT";
+            //                break;
+            //            }
+            //        }
+            //    }
+
+            //    if (ComprobarEntrada == "CORRECT")
+            //    {
+            //        //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //        Formulario.Visible = false;
+            //        Form1 Fromulario = new Form1();
+            //        Fromulario.ShowDialog();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        Application.Exit();
+            //    }
+            //}
+            //else
+            //{
+            //    NetworkInterface[] Interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            //    List<string> MacAdress = new List<string>();
+            //    foreach (NetworkInterface adapter in Interfaces)
+            //    {
+            //        IPInterfaceProperties properties = adapter.GetIPProperties();
+            //        MacAdress.Add(adapter.GetPhysicalAddress().ToString());
+            //    }
+
+            //    for (int i = 0; i < MacAdress.Count; i++)
+            //    {
+            //        if (MacAdress[i] == "00D8610657A5" | MacAdress[i] == "448A5BF11455" | MacAdress[i] == "64006AFC2C84")
+            //        {
+            //            ComprobarEntrada = "CORRECT";
+            //            break;
+            //        }
+            //    }
+
+            //    if (ComprobarEntrada == "CORRECT")
+            //    {
+            //        //MessageBox.Show("BIENVENIDO", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //        Formulario.Visible = false;
+            //        Form1 Fromulario = new Form1();
+            //        Fromulario.ShowDialog();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Acceso Denegado ", "efe Prima Ce", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        Application.Exit();
+            //    }
+            //}
         }
     }
 }

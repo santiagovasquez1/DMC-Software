@@ -1,4 +1,6 @@
-﻿Public Class Datos_Refuerzo
+﻿Imports B_Deep_Clone
+
+Public Class Datos_Refuerzo
 
     Public Nombre_muro As String
     Public Stories As List(Of String)
